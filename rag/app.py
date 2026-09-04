@@ -9,6 +9,20 @@ from langchain_groq import ChatGroq
 load_dotenv()
 
 # ==========================================
+# Resolve paths relative to this file
+# ==========================================
+# main.py imports this module via sys.path.append("../rag"), which
+# only affects module lookup — it does NOT change the working
+# directory. A plain relative path like "vectorstore" therefore
+# resolves against whatever folder main.py was launched FROM, not
+# against this file's own location, and load_local() fails to find
+# it. Resolving against __file__ makes this work regardless of where
+# the importing script is run from.
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+VECTORSTORE_PATH = os.path.join(BASE_DIR, "vectorstore")
+
+# ==========================================
 # Load embeddings
 # ==========================================
 
@@ -21,7 +35,7 @@ embeddings = HuggingFaceEmbeddings(
 # ==========================================
 
 vectorstore = FAISS.load_local(
-    "vectorstore",
+    VECTORSTORE_PATH,
     embeddings,
     allow_dangerous_deserialization=True
 )
@@ -39,7 +53,7 @@ retriever = vectorstore.as_retriever(
 # ==========================================
 
 llm = ChatGroq(
-    model="llama-3.1-8b-instant",
+    model="openai/gpt-oss-20b",
     temperature=0
 )
 
@@ -86,19 +100,23 @@ Answer:
 # ==========================================
 # Chat loop
 # ==========================================
+# Guarded behind __main__ so importing ask_question from another
+# module (e.g. main.py) doesn't trigger this standalone loop and
+# block on input().
 
-print("\nCollege RAG Assistant")
-print("Type 'exit' to stop.\n")
+if __name__ == "__main__":
+    print("\nCollege RAG Assistant")
+    print("Type 'exit' to stop.\n")
 
-while True:
+    while True:
 
-    question = input("You: ")
+        question = input("You: ")
 
-    if question.lower() == "exit":
-        print("Goodbye!")
-        break
+        if question.lower() == "exit":
+            print("Goodbye!")
+            break
 
-    answer = ask_question(question)
+        answer = ask_question(question)
 
-    print("\nAssistant:", answer)
-    print()
+        print("\nAssistant:", answer)
+        print()
