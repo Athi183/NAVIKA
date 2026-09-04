@@ -75,28 +75,43 @@ def process_query(raw_text, context):
 
 
 # ==========================================
-# Demo loop (typed input, for quick local testing)
+# Live loop (mic input, for the actual kiosk)
 # ==========================================
-# Swap input() for listen_from_mic() once mic/audio is wired up
-# on the actual kiosk hardware.
+# Listens continuously via the microphone instead of typed input.
+# listen_from_mic() returns None if nothing usable was captured
+# (silence/timeout, or STT couldn't understand the audio) — that's
+# handled as a normal, recoverable case, not an error.
+
+EXIT_PHRASES = {"exit", "quit", "goodbye", "bye", "stop listening"}
 
 if __name__ == "__main__":
     context = ConversationContext()
 
     print("\nNAVIKA - Member 1: Multimodal Interaction & Query Understanding")
-    print("Type 'exit' to stop.\n")
+    print("Listening... (say 'exit' or press Ctrl+C to stop)\n")
 
-    while True:
-        raw_text = input("You: ")
+    try:
+        while True:
+            raw_text = listen_from_mic()
 
-        if raw_text.lower() == "exit":
-            print("Goodbye!")
-            break
+            if raw_text is None:
+                print("[No speech detected or unrecognized — listening again]")
+                continue
 
-        structured_query = process_query(raw_text, context)
-        print("Structured query:", structured_query)
+            print("You said:", raw_text)
 
-        response_text = get_answer_from_rag(structured_query)
-        print("Assistant:", response_text)
+            if raw_text.strip().lower() in EXIT_PHRASES:
+                print("Goodbye!")
+                speak("Goodbye!")
+                break
 
-        speak(response_text)
+            structured_query = process_query(raw_text, context)
+            print("Structured query:", structured_query)
+
+            response_text = get_answer_from_rag(structured_query)
+            print("Assistant:", response_text)
+
+            speak(response_text)
+
+    except KeyboardInterrupt:
+        print("\nGoodbye!")
