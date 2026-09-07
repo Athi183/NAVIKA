@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import * as THREE from 'three'
 
 function FloorGrid() {
   const cells = []
@@ -49,16 +50,17 @@ function RouteMarkers({ route, source, destination }) {
 }
 
 function RouteLine({ route }) {
-  const points = route?.path || []
+  const points = (route?.path || []).filter((point) => Number.isFinite(point?.x) && Number.isFinite(point?.y))
 
-  if (!points.length) return null
+  if (points.length < 2) return null
 
   const linePoints = points.map((point) => [((point.x || 0) / 90) - 4.5, 0.2, ((point.y || 0) / 90) - 2.8])
+  const curve = new THREE.CatmullRomCurve3(linePoints.map(([x, y, z]) => new THREE.Vector3(x, y, z)))
 
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.15, 0]}>
-        <tubeGeometry args={[null, 40, 0.04, 8, false]} />
+        <tubeGeometry args={[curve, 40, 0.04, 8, false]} />
         <meshStandardMaterial color="#34d399" emissive="#34d399" emissiveIntensity={0.6} />
       </mesh>
       {linePoints.map(([x, y, z], index) => (
@@ -71,9 +73,29 @@ function RouteLine({ route }) {
   )
 }
 
+function supportsWebGL() {
+  if (typeof document === 'undefined') return false
+
+  try {
+    const canvas = document.createElement('canvas')
+    return Boolean(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+  } catch {
+    return false
+  }
+}
+
 export default function Map3D({ route, source, destination }) {
   return (
     <div className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-950/80 shadow-2xl">
+      {!supportsWebGL() && (
+        <div className="relative h-[360px] w-full">
+          <img src="/demo_floorplan.png" alt="NAVIKA demo floor plan" className="h-full w-full object-cover" />
+          <div className="absolute inset-x-0 bottom-0 bg-slate-950/85 px-4 py-3 text-xs text-slate-300">
+            3D view is unavailable because WebGL is disabled. The demo floor plan remains available in 2D.
+          </div>
+        </div>
+      )}
+      {supportsWebGL() && (
       <div className="h-[360px] w-full">
         <Canvas>
           <color attach="background" args={['#020817']} />
@@ -94,6 +116,7 @@ export default function Map3D({ route, source, destination }) {
           <OrbitControls enablePan enableZoom enableRotate />
         </Canvas>
       </div>
+      )}
     </div>
   )
 }

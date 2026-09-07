@@ -1,9 +1,15 @@
 import { MapPinned, Navigation, Route } from 'lucide-react'
-import { demoRoute } from '../data/demoMap'
+import Map2D from '../components/navigation/Map2D'
+import { demoMap, demoRoute } from '../data/demoMap'
 import Button from '../components/common/Button'
 
 export default function MobileRoute() {
-  const route = demoRoute
+  const params = new URLSearchParams(window.location.search)
+  const route = {
+    ...demoRoute,
+    source: params.get('source') || demoRoute.source,
+    destination: params.get('destination') || demoRoute.destination,
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 px-4 py-6 text-slate-100">
@@ -22,6 +28,7 @@ export default function MobileRoute() {
 
         <div className="mt-5 rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
           <div className="mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-emerald-300"><Route className="h-4 w-4" /> Route</div>
+          <Map2D route={route} nodes={demoMap.nodes} source={route.source} destination={route.destination} />
           <ol className="space-y-3 text-sm text-slate-200">
             {route.steps.map((step, index) => (
               <li key={step} className="flex gap-3">
