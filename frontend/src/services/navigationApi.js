@@ -62,10 +62,11 @@ export async function generateRouteSession(route) {
   const source = route.source || 'Main Entrance'
   const destination = route.destination || 'CSE Department'
   const sessionId = `navika-${Date.now()}`
+  const routePath = `/mobile-route?source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}`
 
   return {
     sessionId,
-    url: `/mobile-route?source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}`,
+    url: `${window.location.origin}${routePath}`,
     source,
     destination,
     validFor: '59:42',
