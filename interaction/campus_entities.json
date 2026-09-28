@@ -1,0 +1,57 @@
+{
+  "_note": "Verified with Esha directly (MITS Varikoli campus). location_map is extra floor-level detail for Member 3's spatial resolution handoff — nlu.py only uses buildings/facilities/departments for entity matching.",
+
+  "buildings": [
+    "George Block",
+    "Ramanujan Block"
+  ],
+
+  "departments": [
+    "Civil Engineering",
+    "Electronics and Communication Engineering",
+    "Mechanical Engineering",
+    "MCA",
+    "Electrical and Electronics Engineering",
+    "Computer Science Engineering",
+    "Artificial Intelligence and Data Science",
+    "Cyber Security"
+  ],
+
+  "facilities": [
+    "Reception",
+    "Main Library",
+    "Principal Office",
+    "Vice Principal Office",
+    "Admission Office",
+    "CIDRIE",
+    "Physics Lab",
+    "Chemistry Lab",
+    "Visweswaraya Hall",
+    "APJ Abdul Kalam Hall",
+    "Excel Hall",
+    "Printing Area",
+    "Stationery Shop",
+    "Canteen"
+  ],
+
+  "location_map": {
+    "George Block": {
+      "floors": 4,
+      "basement": ["CIDRIE (closed end of basement)", "Eating area with food counter (other end of basement)", "Civil Engineering lab", "Gym area"],
+      "ground": ["Reception", "Main Library", "MCA department", "MCA labs"],
+      "1": ["Principal Office", "Vice Principal Office", "Admission Office", "Civil Engineering department", "Civil Engineering labs", "Physics Lab", "Chemistry Lab", "Visweswaraya Hall"],
+      "2": ["Mechanical Engineering department", "Mechanical Engineering labs", "Electronics and Communication Engineering department", "Electronics and Communication Engineering labs"],
+      "3": ["First-year classrooms (all departments)", "First-year department labs", "APJ Abdul Kalam Hall"]
+    },
+    "Ramanujan Block": {
+      "floors": 7,
+      "ground": ["Printing area", "Stationery shop", "Canteen seating and food counter", "2 labs", "2 lifts"],
+      "1": ["Electrical and Electronics Engineering department", "Electrical and Electronics Engineering labs"],
+      "2": ["Computer Science Engineering department (faculty)", "Computer Science Engineering labs"],
+      "3": ["Computer Science Engineering department (main floor, HOD office)", "Computer Science Engineering labs"],
+      "4": ["Artificial Intelligence and Data Science department", "Artificial Intelligence and Data Science labs", "AI&DS staff rooms"],
+      "5": ["Artificial Intelligence and Data Science department (continued)", "AI&DS labs and staff rooms"],
+      "6": ["Cyber Security department", "Cyber Security labs", "Cyber Security staff rooms", "Excel Hall"]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+@import 'tailwindcss';
+
+/* MITS brand palette, sampled from the official site's own stylesheet
+   (mgmits.ac.in/frontend/css/app.min.css) rather than guessed: #d8151c
+   is the site's dominant accent (buttons, icon fills, text-selection
+   highlight — 89 occurrences), #FFA1A5 is its gradient partner on
+   title/badge backgrounds, and #f9e8e8 is the light section-background
+   tint the official site itself uses — this app's light theme uses
+   that same tint (brand-100) for section backgrounds rather than
+   guessing a different one. */
+@theme {
+  --color-brand-100: #fde4e4;
+  --color-brand-200: #f9c6c8;
+  --color-brand-300: #f28e92;
+  --color-brand-400: #e34a4f;
+  --color-brand-500: #d8151c;
+}
+
+:root {
+  font-family: Inter, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #1e1b1b;
+  background: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
