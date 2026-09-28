@@ -5,7 +5,7 @@ export default function SuggestedQuestions({ suggestions = [], onSelect }) {
         <button
           key={text}
           type="button"
-          className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-left text-sm text-emerald-100 transition hover:border-emerald-400/40 hover:bg-emerald-400/20"
+          className="rounded-full border border-brand-200 bg-brand-100 px-3 py-2 text-left text-sm text-brand-500 transition hover:border-brand-300 hover:bg-brand-200"
           onClick={() => onSelect(text)}
         >
           {text}
