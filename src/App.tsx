@@ -1,0 +1,178 @@
+import { useEffect, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+
+type Wall = {
+  id: string;
+  type: string;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+};
+
+type WallData = {
+  floor: string;
+  walls: Wall[];
+};
+
+function WallSegment({
+  wall,
+  minX,
+  minY,
+}: {
+  wall: Wall;
+  minX: number;
+  minY: number;
+}) {
+  // Convert CAD coordinates into local coordinates.
+  const x1 = wall.x1 - minX;
+  const z1 = -(wall.y1 - minY);
+
+  const x2 = wall.x2 - minX;
+  const z2 = -(wall.y2 - minY);
+
+  // Wall length
+  const length = Math.sqrt(
+    (x2 - x1) ** 2 +
+    (z2 - z1) ** 2
+  );
+
+  // Position at the midpoint of the wall
+  const centerX = (x1 + x2) / 2;
+  const centerZ = (z1 + z2) / 2;
+
+  // Rotation of the wall in the X-Z plane
+  const angle = Math.atan2(z2 - z1, x2 - x1);
+
+  // Temporary wall dimensions.
+  const thickness = 0.24;
+  const height = 2.8;
+
+  return (
+    <mesh
+      position={[centerX, height / 2, centerZ]}
+      rotation={[0, -angle, 0]}
+    >
+      <boxGeometry args={[length, height, thickness]} />
+
+      <meshStandardMaterial color="#d9d9d9" />
+    </mesh>
+  );
+}
+
+function FloorWalls({ data }: { data: WallData }) {
+  const minX = Math.min(
+    ...data.walls.flatMap((wall) => [wall.x1, wall.x2])
+  );
+
+  const minY = Math.min(
+    ...data.walls.flatMap((wall) => [wall.y1, wall.y2])
+  );
+
+  return (
+    <>
+      {data.walls.map((wall) => (
+        <WallSegment
+          key={wall.id}
+          wall={wall}
+          minX={minX}
+          minY={minY}
+        />
+      ))}
+    </>
+  );
+}
+function FloorSlab({ data }: { data: WallData }) {
+  const minX = Math.min(
+    ...data.walls.flatMap((wall) => [wall.x1, wall.x2])
+  );
+
+  const maxX = Math.max(
+    ...data.walls.flatMap((wall) => [wall.x1, wall.x2])
+  );
+
+  const minY = Math.min(
+    ...data.walls.flatMap((wall) => [wall.y1, wall.y2])
+  );
+
+  const maxY = Math.max(
+    ...data.walls.flatMap((wall) => [wall.y1, wall.y2])
+  );
+
+  const width = maxX - minX;
+  const depth = maxY - minY;
+
+  const centerX = width / 2;
+  const centerZ = -depth / 2;
+
+  return (
+    <mesh
+      position={[centerX, -0.08, centerZ]}
+    >
+      <boxGeometry args={[width, 0.16, depth]} />
+
+      <meshStandardMaterial color="#b8b8b8" />
+    </mesh>
+  );
+}
+function App() {
+  const [data, setData] = useState<WallData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/data/walls.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Could not load walls.json");
+        }
+
+        return response.json();
+      })
+      .then((json: WallData) => {
+        setData(json);
+      })
+      .catch((err: Error) => {
+        setError(err.message);
+      });
+  }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!data) {
+    return <div>Loading CAD floor...</div>;
+  }
+
+  return (
+    <Canvas
+      camera={{
+        position: [45, 35, 45],
+        fov: 50,
+      }}
+    >
+      <color attach="background" args={["#202025"]} />
+
+      <ambientLight intensity={1.5} />
+
+      <directionalLight
+        position={[20, 40, 20]}
+        intensity={2}
+      />
+
+      <FloorSlab data={data} />
+
+<FloorWalls data={data} />
+
+<gridHelper
+  args={[100, 100]}
+  position={[42, 0, -16]}
+/>
+
+      <OrbitControls />
+    </Canvas>
+  );
+}
+
+export default App;
