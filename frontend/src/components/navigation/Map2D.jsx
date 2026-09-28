@@ -10,8 +10,8 @@ export default function Map2D({ route, nodes = [], source, destination }) {
     .join(' ')
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-950/80 shadow-2xl">
-      <svg viewBox={viewBox} className="h-[360px] w-full bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.12),_transparent_30%),linear-gradient(180deg,#0f172a_0%,#111827_100%)]">
+    <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-950/80 shadow-2xl">
+      <svg viewBox={viewBox} className="h-[360px] w-full bg-[radial-gradient(circle_at_top,_rgba(216,21,28,0.12),_transparent_30%),linear-gradient(180deg,#0f172a_0%,#111827_100%)]">
         <image href="/demo_floorplan.png" x="0" y="0" width="560" height="400" preserveAspectRatio="none" opacity="0.9" />
         <rect x="0" y="0" width="560" height="400" fill="rgba(2,6,23,0.2)" />
 
