@@ -26,7 +26,7 @@ function AppShell() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-white text-slate-900">
       <Header activeTab={activeTab} onSelect={handleSelect} />
       <main className="mx-auto max-w-7xl px-4 py-8 md:px-8">
         <Routes>
@@ -37,9 +37,9 @@ function AppShell() {
           <Route
             path="/about"
             element={
-              <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 text-slate-200">
-                <h2 className="text-3xl font-bold text-white">About NAVIKA</h2>
-                <p className="mt-4 max-w-2xl text-slate-300">
+              <div className="rounded-3xl border border-slate-200 bg-white p-8 text-slate-700">
+                <h2 className="text-3xl font-bold text-slate-900">About NAVIKA</h2>
+                <p className="mt-4 max-w-2xl text-slate-600">
                   NAVIKA is a smart campus assistance and indoor navigation prototype built for a demo-ready college project. The current version uses a Phase-I demo map while keeping the data architecture ready for future campus-wide spatial datasets.
                 </p>
               </div>

@@ -86,7 +86,7 @@ function supportsWebGL() {
 
 export default function Map3D({ route, source, destination }) {
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-950/80 shadow-2xl">
+    <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-950/80 shadow-2xl">
       {!supportsWebGL() && (
         <div className="relative h-[360px] w-full">
           <img src="/demo_floorplan.png" alt="NAVIKA demo floor plan" className="h-full w-full object-cover" />

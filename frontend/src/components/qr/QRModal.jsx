@@ -11,10 +11,10 @@ export default function QRModal({ isOpen, onClose, route }) {
 
         <div>
           <p className="text-xs uppercase tracking-[0.25em] text-slate-400">Scan this QR code</p>
-          <p className="mt-2 text-sm text-slate-300">to continue your route on your phone.</p>
+          <p className="mt-2 text-sm text-slate-600">to continue your route on your phone.</p>
         </div>
 
-        <div className="rounded-2xl border border-slate-700 bg-slate-950/60 p-4 text-left text-sm text-slate-300">
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left text-sm text-slate-700">
           <div className="flex justify-between gap-4">
             <span className="text-slate-400">From</span>
             <span>{route?.source || 'Main Entrance'}</span>

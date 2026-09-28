@@ -84,14 +84,14 @@ export default function NavigationPage() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-5">
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 md:p-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.28em] text-emerald-300">NAVIKA INDOOR NAVIGATION</div>
-            <h2 className="mt-2 text-3xl font-semibold text-white">Phase-I Demo Map</h2>
+            <div className="text-[10px] uppercase tracking-[0.28em] text-brand-500">NAVIKA INDOOR NAVIGATION</div>
+            <h2 className="mt-2 text-3xl font-semibold text-slate-900">Phase-I Demo Map</h2>
           </div>
 
-          <div className="flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/60 px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-amber-300">
+          <div className="flex items-center gap-2 rounded-full border border-brand-200 bg-brand-100 px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-brand-500">
             <Sparkles className="h-3.5 w-3.5" />
             {isDemoMode ? 'PHASE-I DEMO MODE' : 'LIVE MODE'}
           </div>
@@ -118,7 +118,7 @@ export default function NavigationPage() {
 
           {route && route.error ? (
             <Card className="p-4">
-              <div className="text-sm text-rose-200">{route.error}</div>
+              <div className="text-sm text-red-600">{route.error}</div>
             </Card>
           ) : routeSummary ? (
             <>
@@ -129,14 +129,14 @@ export default function NavigationPage() {
         </div>
 
         <div className="space-y-4">
-          <div className="flex items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
+          <div className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-3">
             <div className="flex gap-2">
               {tabs.map((tab) => (
                 <button
                   key={tab}
                   type="button"
                   className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
-                    view === tab ? 'bg-emerald-400 text-slate-950' : 'bg-slate-950 text-slate-300 hover:bg-slate-800'
+                    view === tab ? 'bg-brand-500 text-white' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
                   }`}
                   onClick={() => setView(tab)}
                 >
