@@ -155,6 +155,27 @@ def build_graph(data: dict) -> tuple[dict, list[dict]]:
 
         doors = doorway_candidates(floor)
         nodes.extend(doors)
+        explicit_doors = []
+        for index, source in enumerate(floor.get("door_entity_candidates", []), start=1):
+            node = {
+                "node_id": f"{floor['floor_id']}_DOOR_ENTITY_{index:03d}",
+                "building_id": data["building"]["building_id"],
+                "floor_id": floor["floor_id"],
+                "floor_number": floor["floor_number"],
+                "node_type": "door_entity_candidate",
+                "label": f"DXF door block {index}",
+                "x": source["xy"][0],
+                "y": source["xy"][1],
+                "width_candidate_m": source["width_candidate_m"],
+                "source_block": source["source_block"],
+                "source_layer": source["source_layer"],
+                "source_xy_dxf": source["source_xy_dxf"],
+                "evidence": source["evidence"],
+                "review_status": source["review_status"],
+                "route_eligible": False,
+            }
+            nodes.append(node)
+            explicit_doors.append(node)
 
         # Keep nearest geometric gap suggestions as a review worklist only.
         # They are not edges and are never used by a route solver.
@@ -171,9 +192,35 @@ def build_graph(data: dict) -> tuple[dict, list[dict]]:
                     "room_node_id": room["node_id"],
                     "room_label": room["label"],
                     "candidate_door_node_id": door["node_id"],
+                    "candidate_node_type": door["node_type"],
                     "candidate_x": door["x"],
                     "candidate_y": door["y"],
                     "candidate_gap_width_m": door["width_candidate_m"],
+                    "candidate_evidence": "collinear_wall_endpoint_gap",
+                    "candidate_source_block": "",
+                    "distance_to_label_m": round(d, 3),
+                    "rank": rank,
+                    "review_status": "unreviewed_suggestion_only",
+                    "reviewer_confirmed_room_access": "",
+                })
+            explicit_nearest = sorted(
+                explicit_doors,
+                key=lambda door: distance((room["x"], room["y"]), (door["x"], door["y"])),
+            )[:3]
+            for rank, door in enumerate(explicit_nearest, start=1):
+                d = distance((room["x"], room["y"]), (door["x"], door["y"]))
+                review_rows.append({
+                    "building_id": room["building_id"],
+                    "floor_id": room["floor_id"],
+                    "room_node_id": room["node_id"],
+                    "room_label": room["label"],
+                    "candidate_door_node_id": door["node_id"],
+                    "candidate_node_type": door["node_type"],
+                    "candidate_x": door["x"],
+                    "candidate_y": door["y"],
+                    "candidate_gap_width_m": door["width_candidate_m"],
+                    "candidate_evidence": door["evidence"],
+                    "candidate_source_block": door["source_block"],
                     "distance_to_label_m": round(d, 3),
                     "rank": rank,
                     "review_status": "unreviewed_suggestion_only",
@@ -208,6 +255,7 @@ def build_graph(data: dict) -> tuple[dict, list[dict]]:
         "review_summary": {
             "room_label_nodes": sum(node["node_type"] == "room_label_candidate" for node in nodes),
             "doorway_gap_candidates": sum(node["node_type"] == "doorway_candidate" for node in nodes),
+            "explicit_door_block_candidates": sum(node["node_type"] == "door_entity_candidate" for node in nodes),
             "vertical_edges": len(edges),
             "verified_horizontal_edges": 0,
             "verified_edges": 0,
@@ -229,7 +277,7 @@ def main():
     args.review_csv.parent.mkdir(parents=True, exist_ok=True)
     columns = list(review_rows[0]) if review_rows else []
     with args.review_csv.open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=columns)
+        writer = csv.DictWriter(stream, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows(review_rows)
     print(json.dumps({"graph": str(args.graph), "review_csv": str(args.review_csv), **graph["review_summary"]}, indent=2))

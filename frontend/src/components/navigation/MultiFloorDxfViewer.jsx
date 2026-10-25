@@ -96,6 +96,12 @@ export default function MultiFloorDxfViewer() {
                     const [x, y] = projected([node.x, node.y], index)
                     return <circle key={node.node_id} cx={isStacked ? x : node.x * SCALE} cy={isStacked ? y : -node.y * SCALE} r={isStacked ? 1.5 : 2.8} fill="#c026d3" fillOpacity=".86" stroke="white" strokeWidth=".8" vectorEffect="non-scaling-stroke"><title>{node.node_id} · possible opening · {node.width_candidate_m} m · unreviewed</title></circle>
                   })}
+                  {showDoorCandidates && navigationGraph.nodes.filter((node) => node.node_type === 'door_entity_candidate' && node.floor_number === floor.floor_number).map((node) => {
+                    const [x, y] = projected([node.x, node.y], index)
+                    const px = isStacked ? x : node.x * SCALE
+                    const py = isStacked ? y : -node.y * SCALE
+                    return <rect key={node.node_id} x={px - (isStacked ? 1.8 : 3)} y={py - (isStacked ? 1.8 : 3)} width={isStacked ? 3.6 : 6} height={isStacked ? 3.6 : 6} fill="#0891b2" stroke="white" strokeWidth=".8" vectorEffect="non-scaling-stroke"><title>{node.node_id} · explicit DXF DOOR block · {node.width_candidate_m} m · unreviewed</title></rect>
+                  })}
                   {showLabels && floor.labels.map((label, labelIndex) => {
                     const [x, y] = projected(label.xy, index)
                     return <text key={`${floor.floor_number}-label-${labelIndex}`} x={isStacked ? x : label.xy[0] * SCALE} y={isStacked ? y : -label.xy[1] * SCALE} textAnchor="middle" className="dxf-room-label" opacity={isStacked ? 0.58 : 0.9}>{label.text}</text>
@@ -116,13 +122,14 @@ export default function MultiFloorDxfViewer() {
           <span><i className="mr-2 inline-block h-0 w-0 border-x-[6px] border-b-[10px] border-x-transparent border-b-orange-600" />UP stair marker</span>
           {isStacked && <span><i className="mr-2 inline-block w-7 border-t-2 border-dashed border-slate-500" />Candidate floor-to-floor continuation</span>}
           {showDoorCandidates && <span><i className="mr-2 inline-block h-2.5 w-2.5 rounded-full bg-fuchsia-600" />Possible opening · unreviewed</span>}
+          {showDoorCandidates && <span><i className="mr-2 inline-block h-2.5 w-2.5 bg-cyan-600" />Explicit DXF door block · unreviewed</span>}
           <span className="ml-auto">DXF units: {building.building.units}</span>
         </div>
         <div className="flex flex-wrap items-center gap-3 px-5 pb-5 md:px-7">
           <button type="button" onClick={() => setShowDoorCandidates((value) => !value)} className={`rounded-lg border px-3 py-2 text-xs font-semibold ${showDoorCandidates ? 'border-fuchsia-600 bg-fuchsia-50 text-fuchsia-800' : 'border-slate-200 bg-white text-slate-700'}`}>
-            {showDoorCandidates ? 'Hide possible door gaps' : 'Show possible door gaps'}
+            {showDoorCandidates ? 'Hide doorway evidence' : 'Show doorway evidence'}
           </button>
-          <p className="text-xs text-slate-500">{showDoorCandidates ? 'Magenta points are geometric gap suggestions only; many may not be doors.' : 'Turn on gap suggestions to inspect the review candidates on the plan.'}</p>
+          <p className="text-xs text-slate-500">{showDoorCandidates ? 'Cyan squares are explicit DXF door blocks; magenta dots are geometric gap guesses. Neither is routed until reviewed.' : 'Show explicit door blocks and geometric gap guesses for review.'}</p>
         </div>
       </section>
 

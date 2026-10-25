@@ -17072,6 +17072,533 @@
           "marker": "UP"
         }
       ],
+      "door_entity_candidates": [
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            33.5099,
+            49.7414
+          ],
+          "source_xy_dxf": [
+            33.5099,
+            269.6186
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            34.8637,
+            49.7414
+          ],
+          "source_xy_dxf": [
+            34.8637,
+            269.6186
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            59.1641,
+            49.7414
+          ],
+          "source_xy_dxf": [
+            59.1641,
+            269.6186
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            60.5179,
+            49.7414
+          ],
+          "source_xy_dxf": [
+            60.5179,
+            269.6186
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            112.5976,
+            46.7076
+          ],
+          "source_xy_dxf": [
+            112.5976,
+            266.5848
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            113.9514,
+            46.7076
+          ],
+          "source_xy_dxf": [
+            113.9514,
+            266.5848
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            36.3486,
+            49.7414
+          ],
+          "source_xy_dxf": [
+            36.3486,
+            269.6186
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            37.7024,
+            49.7414
+          ],
+          "source_xy_dxf": [
+            37.7024,
+            269.6186
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            82.5158,
+            46.9055
+          ],
+          "source_xy_dxf": [
+            82.5158,
+            266.7826
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            83.8696,
+            46.8923
+          ],
+          "source_xy_dxf": [
+            83.8696,
+            266.7695
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            95.9399,
+            46.8117
+          ],
+          "source_xy_dxf": [
+            95.9399,
+            266.6888
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            97.2937,
+            46.7986
+          ],
+          "source_xy_dxf": [
+            97.2937,
+            266.6757
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            110.2846,
+            46.7016
+          ],
+          "source_xy_dxf": [
+            110.2846,
+            266.5788
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            111.6384,
+            46.7016
+          ],
+          "source_xy_dxf": [
+            111.6384,
+            266.5788
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            72.6479,
+            39.353
+          ],
+          "source_xy_dxf": [
+            72.6479,
+            259.2301
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            71.2941,
+            39.353
+          ],
+          "source_xy_dxf": [
+            71.2941,
+            259.2301
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            111.8781,
+            37.7714
+          ],
+          "source_xy_dxf": [
+            111.8781,
+            257.6485
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            111.8781,
+            39.1252
+          ],
+          "source_xy_dxf": [
+            111.8781,
+            259.0023
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "WC1",
+          "source_layer": "DOOR",
+          "xy": [
+            33.7354,
+            45.3608
+          ],
+          "source_xy_dxf": [
+            33.7354,
+            265.2379
+          ],
+          "width_candidate_m": 0.564,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            35.1437,
+            45.8169
+          ],
+          "source_xy_dxf": [
+            35.1437,
+            265.6941
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            100.6879,
+            39.353
+          ],
+          "source_xy_dxf": [
+            100.6879,
+            259.2301
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            99.3341,
+            39.353
+          ],
+          "source_xy_dxf": [
+            99.3341,
+            259.2301
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            82.4891,
+            39.353
+          ],
+          "source_xy_dxf": [
+            82.4891,
+            259.2301
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            83.8429,
+            39.353
+          ],
+          "source_xy_dxf": [
+            83.8429,
+            259.2301
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            93.5484,
+            46.8284
+          ],
+          "source_xy_dxf": [
+            93.5484,
+            266.7055
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            94.9022,
+            46.8153
+          ],
+          "source_xy_dxf": [
+            94.9022,
+            266.6924
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "WC1",
+          "source_layer": "DOOR",
+          "xy": [
+            74.9612,
+            26.1042
+          ],
+          "source_xy_dxf": [
+            74.9612,
+            245.9813
+          ],
+          "width_candidate_m": 0.564,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            76.8198,
+            26.9296
+          ],
+          "source_xy_dxf": [
+            76.8198,
+            246.8067
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            77.2916,
+            27.0322
+          ],
+          "source_xy_dxf": [
+            77.2916,
+            246.9093
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            75.4985,
+            27.0368
+          ],
+          "source_xy_dxf": [
+            75.4985,
+            246.9139
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "WC1",
+          "source_layer": "DOOR",
+          "xy": [
+            77.7611,
+            26.1094
+          ],
+          "source_xy_dxf": [
+            77.7611,
+            245.9865
+          ],
+          "width_candidate_m": 0.564,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            54.8674,
+            49.7414
+          ],
+          "source_xy_dxf": [
+            54.8674,
+            269.6186
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            56.2212,
+            49.7414
+          ],
+          "source_xy_dxf": [
+            56.2212,
+            269.6186
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            79.3782,
+            46.9055
+          ],
+          "source_xy_dxf": [
+            79.3782,
+            266.7826
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            80.732,
+            46.8923
+          ],
+          "source_xy_dxf": [
+            80.732,
+            266.7695
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        }
+      ],
       "source_entity_counts": {
         "LINE": 577,
         "LWPOLYLINE": 86,
@@ -32892,6 +33419,563 @@
           "marker": "UP"
         }
       ],
+      "door_entity_candidates": [
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            34.5173,
+            51.6637
+          ],
+          "source_xy_dxf": [
+            34.5173,
+            195.1494
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            35.8711,
+            51.6637
+          ],
+          "source_xy_dxf": [
+            35.8711,
+            195.1494
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            69.6436,
+            51.6637
+          ],
+          "source_xy_dxf": [
+            69.6436,
+            195.1494
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            70.9974,
+            51.6637
+          ],
+          "source_xy_dxf": [
+            70.9974,
+            195.1494
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            37.3971,
+            51.6637
+          ],
+          "source_xy_dxf": [
+            37.3971,
+            195.1494
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            38.7509,
+            51.6637
+          ],
+          "source_xy_dxf": [
+            38.7509,
+            195.1494
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            113.605,
+            48.6299
+          ],
+          "source_xy_dxf": [
+            113.605,
+            192.1156
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            114.9588,
+            48.6299
+          ],
+          "source_xy_dxf": [
+            114.9588,
+            192.1156
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            50.0334,
+            51.6636
+          ],
+          "source_xy_dxf": [
+            50.0334,
+            195.1493
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            51.3872,
+            51.6636
+          ],
+          "source_xy_dxf": [
+            51.3872,
+            195.1493
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            60.4512,
+            51.6636
+          ],
+          "source_xy_dxf": [
+            60.4512,
+            195.1493
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            61.805,
+            51.6636
+          ],
+          "source_xy_dxf": [
+            61.805,
+            195.1493
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            98.5562,
+            48.735
+          ],
+          "source_xy_dxf": [
+            98.5562,
+            192.2207
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            99.91,
+            48.735
+          ],
+          "source_xy_dxf": [
+            99.91,
+            192.2207
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            112.8842,
+            39.5509
+          ],
+          "source_xy_dxf": [
+            112.8842,
+            183.0366
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            112.8842,
+            40.9047
+          ],
+          "source_xy_dxf": [
+            112.8842,
+            184.3904
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            73.6553,
+            41.2752
+          ],
+          "source_xy_dxf": [
+            73.6553,
+            184.7609
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            72.3015,
+            41.2752
+          ],
+          "source_xy_dxf": [
+            72.3015,
+            184.7609
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            40.0163,
+            51.6637
+          ],
+          "source_xy_dxf": [
+            40.0163,
+            195.1494
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            79.1999,
+            48.848
+          ],
+          "source_xy_dxf": [
+            79.1999,
+            192.3337
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            80.5537,
+            48.848
+          ],
+          "source_xy_dxf": [
+            80.5537,
+            192.3337
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            86.3568,
+            48.798
+          ],
+          "source_xy_dxf": [
+            86.3568,
+            192.2837
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            87.7106,
+            48.798
+          ],
+          "source_xy_dxf": [
+            87.7106,
+            192.2837
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            86.3568,
+            48.798
+          ],
+          "source_xy_dxf": [
+            86.3568,
+            192.2837
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            87.7106,
+            48.798
+          ],
+          "source_xy_dxf": [
+            87.7106,
+            192.2837
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "WC1",
+          "source_layer": "DOOR",
+          "xy": [
+            34.7429,
+            47.283
+          ],
+          "source_xy_dxf": [
+            34.7429,
+            190.7687
+          ],
+          "width_candidate_m": 0.564,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            36.1504,
+            47.7439
+          ],
+          "source_xy_dxf": [
+            36.1504,
+            191.2296
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            87.4417,
+            41.2752
+          ],
+          "source_xy_dxf": [
+            87.4417,
+            184.7609
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            86.0879,
+            41.2752
+          ],
+          "source_xy_dxf": [
+            86.0879,
+            184.7609
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            101.8047,
+            41.2752
+          ],
+          "source_xy_dxf": [
+            101.8047,
+            184.7609
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            100.4508,
+            41.2752
+          ],
+          "source_xy_dxf": [
+            100.4508,
+            184.7609
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            103.7042,
+            41.2752
+          ],
+          "source_xy_dxf": [
+            103.7042,
+            184.7609
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            102.3504,
+            41.2752
+          ],
+          "source_xy_dxf": [
+            102.3504,
+            184.7609
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            111.0357,
+            48.634
+          ],
+          "source_xy_dxf": [
+            111.0357,
+            192.1197
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            112.3895,
+            48.634
+          ],
+          "source_xy_dxf": [
+            112.3895,
+            192.1197
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            111.0357,
+            48.634
+          ],
+          "source_xy_dxf": [
+            111.0357,
+            192.1197
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            112.3895,
+            48.634
+          ],
+          "source_xy_dxf": [
+            112.3895,
+            192.1197
+          ],
+          "width_candidate_m": 0.656,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        }
+      ],
       "source_entity_counts": {
         "LINE": 555,
         "LWPOLYLINE": 86,
@@ -48676,6 +49760,563 @@
           "marker": "UP"
         }
       ],
+      "door_entity_candidates": [
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            34.7734,
+            49.2202
+          ],
+          "source_xy_dxf": [
+            34.7734,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            36.0754,
+            49.2202
+          ],
+          "source_xy_dxf": [
+            36.0754,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            68.5559,
+            49.2202
+          ],
+          "source_xy_dxf": [
+            68.5559,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            69.858,
+            49.2202
+          ],
+          "source_xy_dxf": [
+            69.858,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            54.1747,
+            49.2202
+          ],
+          "source_xy_dxf": [
+            54.1747,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            55.4767,
+            49.2202
+          ],
+          "source_xy_dxf": [
+            55.4767,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            51.7642,
+            49.2201
+          ],
+          "source_xy_dxf": [
+            51.7642,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            53.0663,
+            49.2201
+          ],
+          "source_xy_dxf": [
+            53.0663,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            37.543,
+            49.2202
+          ],
+          "source_xy_dxf": [
+            37.543,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            38.845,
+            49.2202
+          ],
+          "source_xy_dxf": [
+            38.845,
+            124.3174
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            110.8358,
+            46.3024
+          ],
+          "source_xy_dxf": [
+            110.8358,
+            121.3997
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            112.1378,
+            46.3024
+          ],
+          "source_xy_dxf": [
+            112.1378,
+            121.3997
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            110.1426,
+            37.5707
+          ],
+          "source_xy_dxf": [
+            110.1426,
+            112.668
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            110.1426,
+            38.8728
+          ],
+          "source_xy_dxf": [
+            110.1426,
+            113.97
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "WC1",
+          "source_layer": "DOOR",
+          "xy": [
+            34.9903,
+            45.0071
+          ],
+          "source_xy_dxf": [
+            34.9903,
+            120.1043
+          ],
+          "width_candidate_m": 0.543,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            36.3453,
+            45.4458
+          ],
+          "source_xy_dxf": [
+            36.3453,
+            120.543
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            99.1141,
+            39.2291
+          ],
+          "source_xy_dxf": [
+            99.1141,
+            114.3263
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            97.8121,
+            39.2291
+          ],
+          "source_xy_dxf": [
+            97.8121,
+            114.3263
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            82.9982,
+            39.2291
+          ],
+          "source_xy_dxf": [
+            82.9982,
+            114.3263
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            81.6962,
+            39.2291
+          ],
+          "source_xy_dxf": [
+            81.6962,
+            114.3263
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            72.2553,
+            39.2291
+          ],
+          "source_xy_dxf": [
+            72.2553,
+            114.3263
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            70.9533,
+            39.2291
+          ],
+          "source_xy_dxf": [
+            70.9533,
+            114.3263
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            76.7412,
+            46.5538
+          ],
+          "source_xy_dxf": [
+            76.7412,
+            121.651
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            78.0432,
+            46.5538
+          ],
+          "source_xy_dxf": [
+            78.0432,
+            121.651
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            82.1928,
+            46.5831
+          ],
+          "source_xy_dxf": [
+            82.1928,
+            121.6804
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            83.4948,
+            46.5831
+          ],
+          "source_xy_dxf": [
+            83.4948,
+            121.6804
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            108.577,
+            46.2969
+          ],
+          "source_xy_dxf": [
+            108.577,
+            121.3941
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            109.879,
+            46.2969
+          ],
+          "source_xy_dxf": [
+            109.879,
+            121.3941
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            76.2678,
+            27.2854
+          ],
+          "source_xy_dxf": [
+            76.2678,
+            102.3827
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            76.7215,
+            27.384
+          ],
+          "source_xy_dxf": [
+            76.7215,
+            102.4813
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            74.9971,
+            27.3885
+          ],
+          "source_xy_dxf": [
+            74.9971,
+            102.4857
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            85.6804,
+            46.5082
+          ],
+          "source_xy_dxf": [
+            85.6804,
+            121.6055
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            86.9824,
+            46.5082
+          ],
+          "source_xy_dxf": [
+            86.9824,
+            121.6055
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            93.3945,
+            46.5082
+          ],
+          "source_xy_dxf": [
+            93.3945,
+            121.6055
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            94.6966,
+            46.5082
+          ],
+          "source_xy_dxf": [
+            94.6966,
+            121.6055
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            97.0349,
+            46.5082
+          ],
+          "source_xy_dxf": [
+            97.0349,
+            121.6055
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        },
+        {
+          "source_block": "A$C764D24B9",
+          "source_layer": "DOOR",
+          "xy": [
+            98.337,
+            46.5082
+          ],
+          "source_xy_dxf": [
+            98.337,
+            121.6055
+          ],
+          "width_candidate_m": 0.631,
+          "evidence": "explicit_dxf_door_leaf_block",
+          "review_status": "unreviewed_door_entity_candidate"
+        }
+      ],
       "source_entity_counts": {
         "LINE": 526,
         "LWPOLYLINE": 87,
@@ -56309,6 +57950,7 @@
           "marker": "UP"
         }
       ],
+      "door_entity_candidates": [],
       "source_entity_counts": {
         "LINE": 466,
         "LWPOLYLINE": 87,
@@ -63429,6 +65071,7 @@
           "marker": "UP"
         }
       ],
+      "door_entity_candidates": [],
       "source_entity_counts": {
         "LINE": 458,
         "LWPOLYLINE": 81,

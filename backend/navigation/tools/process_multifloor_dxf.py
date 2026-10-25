@@ -157,6 +157,7 @@ def extract(source: Path, building_id: str = "RAMANUJAN_BLOCK") -> dict:
             "segments_source_dxf": [],
             "labels": [],
             "connectors": [],
+            "door_entity_candidates": [],
             "source_entity_counts": Counter(),
         }
         for number in FLOOR_NAMES
@@ -199,6 +200,36 @@ def extract(source: Path, building_id: str = "RAMANUJAN_BLOCK") -> dict:
             virtual_entities = list(recursive_decompose([entity]))
             floors[floor]["source_entity_counts"]["INSERT"] += 1
             floors[floor]["source_entity_counts"][f"BLOCK:{entity.dxf.name}"] += 1
+            # Some plans encode doors as blocks whose exploded entities retain
+            # the internal DOOR layer. Preserve that source evidence separately
+            # from the rendered linework so the graph can distinguish explicit
+            # door symbols from guessed wall gaps.
+            door_leaf = None
+            for virtual in virtual_entities:
+                if virtual.dxf.layer.upper() != "DOOR" or virtual.dxftype() != "LWPOLYLINE":
+                    continue
+                points = entity_xy_points(virtual)
+                if len(points) < 4:
+                    continue
+                edges = [(points[i], points[i + 1]) for i in range(len(points) - 1)]
+                lengths = [math.dist(a, b) for a, b in edges]
+                long_edges = [(a, b, length) for (a, b), length in zip(edges, lengths) if length >= 0.4]
+                short_edges = [length for length in lengths if 0.01 <= length <= 0.15]
+                if len(long_edges) >= 2 and short_edges and abs(long_edges[0][2] - max(lengths)) < 1e-5:
+                    door_leaf = max(long_edges, key=lambda edge: edge[2])
+                    break
+            if door_leaf:
+                a, b, width = door_leaf
+                delta = _FIFTH_TITLE_Y - anchors[floor]["anchor_xy"][1]
+                floors[floor]["door_entity_candidates"].append({
+                    "source_block": entity.dxf.name,
+                    "source_layer": "DOOR",
+                    "xy": [round((a[0] + b[0]) / 2, 4), round((a[1] + b[1]) / 2 + delta, 4)],
+                    "source_xy_dxf": [round((a[0] + b[0]) / 2, 4), round((a[1] + b[1]) / 2, 4)],
+                    "width_candidate_m": round(width, 3),
+                    "evidence": "explicit_dxf_door_leaf_block",
+                    "review_status": "unreviewed_door_entity_candidate",
+                })
             for virtual in virtual_entities:
                 points = entity_xy_points(virtual)
                 if len(points) < 2:

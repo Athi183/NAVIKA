@@ -329,7 +329,7 @@ export default function MultiFloorNavigation3D() {
             </div>
             <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-xs leading-5 text-amber-950">
               <h2 className="flex items-center gap-2 font-bold"><AlertTriangle size={15} />Route review required</h2>
-              <p className="mt-2">The graph draft has {navigationGraph.review_summary.verified_horizontal_edges} verified room-to-corridor connections. DXF linework has not established door openings or walkable corridors, so the red line is only a visual candidate through the selected stair/lift. Review the room, doorway, corridor and landing links before using routes as real-world directions.</p>
+              <p className="mt-2">The graph draft has {navigationGraph.review_summary.verified_horizontal_edges} verified room-to-corridor connections. It contains {navigationGraph.review_summary.explicit_door_block_candidates} explicit DXF door-block candidates and {navigationGraph.review_summary.doorway_gap_candidates} geometric gap guesses, but neither set is connected to confirmed walkable corridors yet. The red line is an illustrative candidate through the selected stair/lift; review room, doorway, corridor and landing links before using routes as real-world directions.</p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <label className="flex cursor-pointer items-center gap-2 px-1 text-xs text-slate-600"><input type="checkbox" checked={showLabels} onChange={(event) => setShowLabels(event.target.checked)} />Show room labels</label>

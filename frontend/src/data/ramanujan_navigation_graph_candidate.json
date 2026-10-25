@@ -1448,6 +1448,706 @@
       "route_eligible": false
     },
     {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_001",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 1",
+      "x": 33.5099,
+      "y": 49.7414,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        33.5099,
+        269.6186
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_002",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 2",
+      "x": 34.8637,
+      "y": 49.7414,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        34.8637,
+        269.6186
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_003",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 3",
+      "x": 59.1641,
+      "y": 49.7414,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        59.1641,
+        269.6186
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_004",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 4",
+      "x": 60.5179,
+      "y": 49.7414,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        60.5179,
+        269.6186
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_005",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 5",
+      "x": 112.5976,
+      "y": 46.7076,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        112.5976,
+        266.5848
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_006",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 6",
+      "x": 113.9514,
+      "y": 46.7076,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        113.9514,
+        266.5848
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_007",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 7",
+      "x": 36.3486,
+      "y": 49.7414,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        36.3486,
+        269.6186
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_008",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 8",
+      "x": 37.7024,
+      "y": 49.7414,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        37.7024,
+        269.6186
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_009",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 9",
+      "x": 82.5158,
+      "y": 46.9055,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        82.5158,
+        266.7826
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_010",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 10",
+      "x": 83.8696,
+      "y": 46.8923,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        83.8696,
+        266.7695
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_011",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 11",
+      "x": 95.9399,
+      "y": 46.8117,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        95.9399,
+        266.6888
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_012",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 12",
+      "x": 97.2937,
+      "y": 46.7986,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        97.2937,
+        266.6757
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_013",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 13",
+      "x": 110.2846,
+      "y": 46.7016,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        110.2846,
+        266.5788
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_014",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 14",
+      "x": 111.6384,
+      "y": 46.7016,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        111.6384,
+        266.5788
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_015",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 15",
+      "x": 72.6479,
+      "y": 39.353,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        72.6479,
+        259.2301
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_016",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 16",
+      "x": 71.2941,
+      "y": 39.353,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        71.2941,
+        259.2301
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_017",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 17",
+      "x": 111.8781,
+      "y": 37.7714,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        111.8781,
+        257.6485
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_018",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 18",
+      "x": 111.8781,
+      "y": 39.1252,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        111.8781,
+        259.0023
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_019",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 19",
+      "x": 33.7354,
+      "y": 45.3608,
+      "width_candidate_m": 0.564,
+      "source_block": "WC1",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        33.7354,
+        265.2379
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_020",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 20",
+      "x": 35.1437,
+      "y": 45.8169,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        35.1437,
+        265.6941
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_021",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 21",
+      "x": 100.6879,
+      "y": 39.353,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        100.6879,
+        259.2301
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_022",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 22",
+      "x": 99.3341,
+      "y": 39.353,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        99.3341,
+        259.2301
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_023",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 23",
+      "x": 82.4891,
+      "y": 39.353,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        82.4891,
+        259.2301
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_024",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 24",
+      "x": 83.8429,
+      "y": 39.353,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        83.8429,
+        259.2301
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_025",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 25",
+      "x": 93.5484,
+      "y": 46.8284,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        93.5484,
+        266.7055
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_026",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 26",
+      "x": 94.9022,
+      "y": 46.8153,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        94.9022,
+        266.6924
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_027",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 27",
+      "x": 74.9612,
+      "y": 26.1042,
+      "width_candidate_m": 0.564,
+      "source_block": "WC1",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        74.9612,
+        245.9813
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_028",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 28",
+      "x": 76.8198,
+      "y": 26.9296,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        76.8198,
+        246.8067
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_029",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 29",
+      "x": 77.2916,
+      "y": 27.0322,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        77.2916,
+        246.9093
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_030",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 30",
+      "x": 75.4985,
+      "y": 27.0368,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        75.4985,
+        246.9139
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_031",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 31",
+      "x": 77.7611,
+      "y": 26.1094,
+      "width_candidate_m": 0.564,
+      "source_block": "WC1",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        77.7611,
+        245.9865
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_032",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 32",
+      "x": 54.8674,
+      "y": 49.7414,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        54.8674,
+        269.6186
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_033",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 33",
+      "x": 56.2212,
+      "y": 49.7414,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        56.2212,
+        269.6186
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_034",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 34",
+      "x": 79.3782,
+      "y": 46.9055,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        79.3782,
+        266.7826
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_02_DOOR_ENTITY_035",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_02",
+      "floor_number": 2,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 35",
+      "x": 80.732,
+      "y": 46.8923,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        80.732,
+        266.7695
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
       "node_id": "RAMANUJAN_BLOCK_03_ROOM_001",
       "building_id": "RAMANUJAN_BLOCK",
       "floor_id": "RAMANUJAN_BLOCK_03",
@@ -2834,6 +3534,746 @@
         549
       ],
       "review_status": "unreviewed_geometric_gap_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_001",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 1",
+      "x": 34.5173,
+      "y": 51.6637,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        34.5173,
+        195.1494
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_002",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 2",
+      "x": 35.8711,
+      "y": 51.6637,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        35.8711,
+        195.1494
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_003",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 3",
+      "x": 69.6436,
+      "y": 51.6637,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        69.6436,
+        195.1494
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_004",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 4",
+      "x": 70.9974,
+      "y": 51.6637,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        70.9974,
+        195.1494
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_005",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 5",
+      "x": 37.3971,
+      "y": 51.6637,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        37.3971,
+        195.1494
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_006",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 6",
+      "x": 38.7509,
+      "y": 51.6637,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        38.7509,
+        195.1494
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_007",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 7",
+      "x": 113.605,
+      "y": 48.6299,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        113.605,
+        192.1156
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_008",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 8",
+      "x": 114.9588,
+      "y": 48.6299,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        114.9588,
+        192.1156
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_009",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 9",
+      "x": 50.0334,
+      "y": 51.6636,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        50.0334,
+        195.1493
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_010",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 10",
+      "x": 51.3872,
+      "y": 51.6636,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        51.3872,
+        195.1493
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_011",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 11",
+      "x": 60.4512,
+      "y": 51.6636,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        60.4512,
+        195.1493
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_012",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 12",
+      "x": 61.805,
+      "y": 51.6636,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        61.805,
+        195.1493
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_013",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 13",
+      "x": 98.5562,
+      "y": 48.735,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        98.5562,
+        192.2207
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_014",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 14",
+      "x": 99.91,
+      "y": 48.735,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        99.91,
+        192.2207
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_015",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 15",
+      "x": 112.8842,
+      "y": 39.5509,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        112.8842,
+        183.0366
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_016",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 16",
+      "x": 112.8842,
+      "y": 40.9047,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        112.8842,
+        184.3904
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_017",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 17",
+      "x": 73.6553,
+      "y": 41.2752,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        73.6553,
+        184.7609
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_018",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 18",
+      "x": 72.3015,
+      "y": 41.2752,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        72.3015,
+        184.7609
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_019",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 19",
+      "x": 40.0163,
+      "y": 51.6637,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        40.0163,
+        195.1494
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_020",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 20",
+      "x": 79.1999,
+      "y": 48.848,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        79.1999,
+        192.3337
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_021",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 21",
+      "x": 80.5537,
+      "y": 48.848,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        80.5537,
+        192.3337
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_022",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 22",
+      "x": 86.3568,
+      "y": 48.798,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        86.3568,
+        192.2837
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_023",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 23",
+      "x": 87.7106,
+      "y": 48.798,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        87.7106,
+        192.2837
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_024",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 24",
+      "x": 86.3568,
+      "y": 48.798,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        86.3568,
+        192.2837
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_025",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 25",
+      "x": 87.7106,
+      "y": 48.798,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        87.7106,
+        192.2837
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_026",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 26",
+      "x": 34.7429,
+      "y": 47.283,
+      "width_candidate_m": 0.564,
+      "source_block": "WC1",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        34.7429,
+        190.7687
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_027",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 27",
+      "x": 36.1504,
+      "y": 47.7439,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        36.1504,
+        191.2296
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_028",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 28",
+      "x": 87.4417,
+      "y": 41.2752,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        87.4417,
+        184.7609
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_029",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 29",
+      "x": 86.0879,
+      "y": 41.2752,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        86.0879,
+        184.7609
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_030",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 30",
+      "x": 101.8047,
+      "y": 41.2752,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        101.8047,
+        184.7609
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_031",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 31",
+      "x": 100.4508,
+      "y": 41.2752,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        100.4508,
+        184.7609
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_032",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 32",
+      "x": 103.7042,
+      "y": 41.2752,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        103.7042,
+        184.7609
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_033",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 33",
+      "x": 102.3504,
+      "y": 41.2752,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        102.3504,
+        184.7609
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_034",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 34",
+      "x": 111.0357,
+      "y": 48.634,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        111.0357,
+        192.1197
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_035",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 35",
+      "x": 112.3895,
+      "y": 48.634,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        112.3895,
+        192.1197
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_036",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 36",
+      "x": 111.0357,
+      "y": 48.634,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        111.0357,
+        192.1197
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_03_DOOR_ENTITY_037",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_03",
+      "floor_number": 3,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 37",
+      "x": 112.3895,
+      "y": 48.634,
+      "width_candidate_m": 0.656,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        112.3895,
+        192.1197
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
       "route_eligible": false
     },
     {
@@ -4415,6 +5855,746 @@
         509
       ],
       "review_status": "unreviewed_geometric_gap_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_001",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 1",
+      "x": 34.7734,
+      "y": 49.2202,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        34.7734,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_002",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 2",
+      "x": 36.0754,
+      "y": 49.2202,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        36.0754,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_003",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 3",
+      "x": 68.5559,
+      "y": 49.2202,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        68.5559,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_004",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 4",
+      "x": 69.858,
+      "y": 49.2202,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        69.858,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_005",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 5",
+      "x": 54.1747,
+      "y": 49.2202,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        54.1747,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_006",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 6",
+      "x": 55.4767,
+      "y": 49.2202,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        55.4767,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_007",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 7",
+      "x": 51.7642,
+      "y": 49.2201,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        51.7642,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_008",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 8",
+      "x": 53.0663,
+      "y": 49.2201,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        53.0663,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_009",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 9",
+      "x": 37.543,
+      "y": 49.2202,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        37.543,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_010",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 10",
+      "x": 38.845,
+      "y": 49.2202,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        38.845,
+        124.3174
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_011",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 11",
+      "x": 110.8358,
+      "y": 46.3024,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        110.8358,
+        121.3997
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_012",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 12",
+      "x": 112.1378,
+      "y": 46.3024,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        112.1378,
+        121.3997
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_013",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 13",
+      "x": 110.1426,
+      "y": 37.5707,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        110.1426,
+        112.668
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_014",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 14",
+      "x": 110.1426,
+      "y": 38.8728,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        110.1426,
+        113.97
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_015",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 15",
+      "x": 34.9903,
+      "y": 45.0071,
+      "width_candidate_m": 0.543,
+      "source_block": "WC1",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        34.9903,
+        120.1043
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_016",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 16",
+      "x": 36.3453,
+      "y": 45.4458,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        36.3453,
+        120.543
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_017",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 17",
+      "x": 99.1141,
+      "y": 39.2291,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        99.1141,
+        114.3263
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_018",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 18",
+      "x": 97.8121,
+      "y": 39.2291,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        97.8121,
+        114.3263
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_019",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 19",
+      "x": 82.9982,
+      "y": 39.2291,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        82.9982,
+        114.3263
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_020",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 20",
+      "x": 81.6962,
+      "y": 39.2291,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        81.6962,
+        114.3263
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_021",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 21",
+      "x": 72.2553,
+      "y": 39.2291,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        72.2553,
+        114.3263
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_022",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 22",
+      "x": 70.9533,
+      "y": 39.2291,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        70.9533,
+        114.3263
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_023",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 23",
+      "x": 76.7412,
+      "y": 46.5538,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        76.7412,
+        121.651
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_024",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 24",
+      "x": 78.0432,
+      "y": 46.5538,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        78.0432,
+        121.651
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_025",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 25",
+      "x": 82.1928,
+      "y": 46.5831,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        82.1928,
+        121.6804
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_026",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 26",
+      "x": 83.4948,
+      "y": 46.5831,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        83.4948,
+        121.6804
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_027",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 27",
+      "x": 108.577,
+      "y": 46.2969,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        108.577,
+        121.3941
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_028",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 28",
+      "x": 109.879,
+      "y": 46.2969,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        109.879,
+        121.3941
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_029",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 29",
+      "x": 76.2678,
+      "y": 27.2854,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        76.2678,
+        102.3827
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_030",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 30",
+      "x": 76.7215,
+      "y": 27.384,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        76.7215,
+        102.4813
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_031",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 31",
+      "x": 74.9971,
+      "y": 27.3885,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        74.9971,
+        102.4857
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_032",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 32",
+      "x": 85.6804,
+      "y": 46.5082,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        85.6804,
+        121.6055
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_033",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 33",
+      "x": 86.9824,
+      "y": 46.5082,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        86.9824,
+        121.6055
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_034",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 34",
+      "x": 93.3945,
+      "y": 46.5082,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        93.3945,
+        121.6055
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_035",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 35",
+      "x": 94.6966,
+      "y": 46.5082,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        94.6966,
+        121.6055
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_036",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 36",
+      "x": 97.0349,
+      "y": 46.5082,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        97.0349,
+        121.6055
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
+      "route_eligible": false
+    },
+    {
+      "node_id": "RAMANUJAN_BLOCK_04_DOOR_ENTITY_037",
+      "building_id": "RAMANUJAN_BLOCK",
+      "floor_id": "RAMANUJAN_BLOCK_04",
+      "floor_number": 4,
+      "node_type": "door_entity_candidate",
+      "label": "DXF door block 37",
+      "x": 98.337,
+      "y": 46.5082,
+      "width_candidate_m": 0.631,
+      "source_block": "A$C764D24B9",
+      "source_layer": "DOOR",
+      "source_xy_dxf": [
+        98.337,
+        121.6055
+      ],
+      "evidence": "explicit_dxf_door_leaf_block",
+      "review_status": "unreviewed_door_entity_candidate",
       "route_eligible": false
     },
     {
@@ -7551,6 +9731,7 @@
   "review_summary": {
     "room_label_nodes": 110,
     "doorway_gap_candidates": 284,
+    "explicit_door_block_candidates": 109,
     "vertical_edges": 18,
     "verified_horizontal_edges": 0,
     "verified_edges": 0
