@@ -1,0 +1,358 @@
+import { useEffect, useMemo, useRef, useState } from 'react'
+import * as THREE from 'three'
+import { Canvas, useThree } from '@react-three/fiber'
+import { Html, Line, OrbitControls, Text } from '@react-three/drei'
+import { QRCodeSVG } from 'qrcode.react'
+import { AlertTriangle, Layers3, Map as MapIcon, MapPin, QrCode, Route, RotateCcw } from 'lucide-react'
+import building from '../../data/ramanujan_floors_2_6.json'
+import MultiFloorDxfViewer from './MultiFloorDxfViewer'
+
+const FLOOR_GAP = 6
+const WALL_HEIGHT = 3
+const WALL_THICKNESS = 0.09
+const FLOOR_COLORS = ['#dbeafe', '#d1fae5', '#ede9fe', '#ffedd5', '#fce7f3']
+const DESTINATIONS = building.floors.flatMap((floor) => floor.labels.map((label, index) => ({
+  id: `${floor.floor_number}:${index}`,
+  floor: floor.floor_number,
+  floorLabel: floor.label,
+  label: label.text,
+  xy: label.display_xy || label.xy,
+})))
+const DESTINATION_BY_ID = new Map(DESTINATIONS.map((destination) => [destination.id, destination]))
+
+function point3(xy, floorNumber, lift = 0.16) {
+  return [xy[0], (floorNumber - 2) * FLOOR_GAP + lift, -xy[1]]
+}
+
+function planSegments(floor) {
+  return floor.segments.filter(([x1, y1, x2, y2]) => {
+    const length = Math.hypot(x2 - x1, y2 - y1)
+    const midX = (x1 + x2) / 2
+    const midY = (y1 + y2) / 2
+    // The sheet frame/title border is outside the actual plan extents.
+    return length >= 0.45 && length <= 50 && midX >= 25 && midX <= 123 && midY >= 24 && midY <= 64
+  })
+}
+
+function planBounds(floor) {
+  const points = planSegments(floor).flatMap(([x1, y1, x2, y2]) => [[x1, y1], [x2, y2]])
+  return points.reduce((bounds, [x, y]) => ({
+    minX: Math.min(bounds.minX, x), maxX: Math.max(bounds.maxX, x),
+    minY: Math.min(bounds.minY, y), maxY: Math.max(bounds.maxY, y),
+  }), { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity })
+}
+
+function readEndpoint(param, fallback) {
+  const id = new URLSearchParams(window.location.search).get(param)
+  return DESTINATION_BY_ID.has(id) ? id : fallback.id
+}
+
+function getConnectorPath(sourceFloor, destinationFloor, connector) {
+  const direction = sourceFloor <= destinationFloor ? 1 : -1
+  const stops = []
+  for (let floor = sourceFloor; direction > 0 ? floor <= destinationFloor : floor >= destinationFloor; floor += direction) {
+    const stop = connector.stops[String(floor)]
+    if (!stop) return null
+    stops.push({ floor, xy: stop })
+  }
+  return stops
+}
+
+function makeCandidatePath(source, destination, connector) {
+  if (!source || !destination) return null
+  if (source.floor === destination.floor) return [point3(source.xy, source.floor), point3(destination.xy, destination.floor)]
+  if (!connector) return null
+  const stops = getConnectorPath(source.floor, destination.floor, connector)
+  if (!stops) return null
+  return [
+    point3(source.xy, source.floor),
+    ...stops.map((stop) => point3(stop.xy, stop.floor)),
+    point3(destination.xy, destination.floor),
+  ]
+}
+
+function WallInstances({ floor }) {
+  const meshRef = useRef()
+  const floorNumber = floor.floor_number
+  const segments = floor.segments
+  const geometry = useMemo(() => {
+    return planSegments({ floor_number: floorNumber, segments })
+  }, [floorNumber, segments])
+  const matrices = useMemo(() => {
+    const result = []
+    for (const [x1, y1, x2, y2] of geometry) {
+      const dx = x2 - x1
+      const dy = y2 - y1
+      const length = Math.hypot(dx, dy)
+      const position = new THREE.Vector3((x1 + x2) / 2, WALL_HEIGHT / 2 + (floorNumber - 2) * FLOOR_GAP, -(y1 + y2) / 2)
+      const quaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.atan2(dy, dx), 0))
+      const scale = new THREE.Vector3(length, WALL_HEIGHT, WALL_THICKNESS)
+      result.push(new THREE.Matrix4().compose(position, quaternion, scale))
+    }
+    return result
+  }, [floorNumber, geometry])
+
+  useEffect(() => {
+    if (!meshRef.current) return
+    matrices.forEach((matrix, index) => {
+      meshRef.current.setMatrixAt(index, matrix)
+    })
+    meshRef.current.instanceMatrix.needsUpdate = true
+    meshRef.current.computeBoundingSphere()
+  }, [floorNumber, matrices])
+
+  return (
+    <instancedMesh ref={meshRef} args={[undefined, undefined, geometry.length]} castShadow receiveShadow>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="#82919a" roughness={0.82} />
+    </instancedMesh>
+  )
+}
+
+function FloorPlate({ floor, index }) {
+  const points = planSegments(floor).flatMap(([x1, y1, x2, y2]) => [[x1, y1], [x2, y2]])
+  const bounds = points.reduce((result, [x, y]) => ({
+    minX: Math.min(result.minX, x), maxX: Math.max(result.maxX, x),
+    minY: Math.min(result.minY, y), maxY: Math.max(result.maxY, y),
+  }), { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity })
+  const width = bounds.maxX - bounds.minX + 2
+  const depth = bounds.maxY - bounds.minY + 2
+  const floorY = index * FLOOR_GAP
+  return (
+    <group>
+      <mesh position={[(bounds.minX + bounds.maxX) / 2, floorY - 0.09, -(bounds.minY + bounds.maxY) / 2]} receiveShadow>
+        <boxGeometry args={[width, 0.18, depth]} />
+        <meshStandardMaterial color={FLOOR_COLORS[index]} transparent opacity={0.42} roughness={0.95} />
+      </mesh>
+      <WallInstances floor={floor} />
+      <Text position={[bounds.minX + 2, floorY + 0.08, -bounds.minY + 1]} rotation={[-Math.PI / 2, 0, 0]} fontSize={1.15} color="#334155" anchorX="left" anchorY="middle">
+        {floor.label.toUpperCase()}
+      </Text>
+    </group>
+  )
+}
+
+function FloorDestinations({ floor, selectedSource, selectedDestination, onPick, showLabels, labelFloor }) {
+  return (
+    <group>
+      {floor.labels.map((label, index) => {
+        const id = `${floor.floor_number}:${index}`
+        const isSource = id === selectedSource
+        const isDestination = id === selectedDestination
+        const color = isSource ? '#16a34a' : isDestination ? '#dc2626' : '#0f766e'
+        const pos = point3(label.xy, floor.floor_number, 0.18)
+        return (
+          <group key={id} position={pos} onClick={(event) => { event.stopPropagation(); onPick(id) }}>
+            {((showLabels && labelFloor === floor.floor_number) || isSource || isDestination) && <Html position={[0, 0.32, 0]} transform sprite distanceFactor={10} zIndexRange={[20, 0]}>
+              <button type="button" onClick={(event) => { event.stopPropagation(); onPick(id) }} title={`${label.text}${label.display_xy_status === 'candidate_left_alignment_to_plan_extent' ? ' · display anchor adjusted from out-of-footprint DXF insertion' : ''}`} style={{ display: '-webkit-box', width: 160, maxHeight: 32, padding: '3px 5px', borderRadius: 3, border: `1px solid ${isSource ? '#16a34a' : isDestination ? '#dc2626' : 'rgba(100,116,139,.5)'}`, background: isSource || isDestination ? 'rgba(255,255,255,.98)' : 'rgba(255,255,255,.9)', color: '#17212b', font: `${isSource || isDestination ? 700 : 500} 14px/1.1 system-ui, sans-serif`, textAlign: 'left', whiteSpace: 'normal', overflow: 'hidden', overflowWrap: 'anywhere', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, cursor: 'pointer', boxShadow: '0 1px 2px rgba(15,23,42,.1)' }}>{label.text}</button>
+            </Html>}
+            {(isSource || isDestination) && <mesh position={[0, 0.25, 0]}><sphereGeometry args={[0.34, 12, 10]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.24} /></mesh>}
+            {isSource && <Text position={[0, WALL_HEIGHT + 1.3, 0]} fontSize={0.68} color="#15803d" outlineColor="white" outlineWidth={0.08} anchorX="center">SOURCE</Text>}
+            {isDestination && <Text position={[0, WALL_HEIGHT + 1.3, 0]} fontSize={0.68} color="#b91c1c" outlineColor="white" outlineWidth={0.08} anchorX="center">DESTINATION</Text>}
+          </group>
+        )
+      })}
+    </group>
+  )
+}
+
+function VerticalConnections({ connectorId, sourceFloor, destinationFloor }) {
+  const connector = building.vertical_connectors.find((item) => item.id === connectorId)
+  if (!connector) return null
+  const lowFloor = Math.min(sourceFloor, destinationFloor)
+  const highFloor = Math.max(sourceFloor, destinationFloor)
+  const direction = sourceFloor <= destinationFloor ? 1 : -1
+  const stops = []
+  for (let floor = sourceFloor; direction > 0 ? floor <= destinationFloor : floor >= destinationFloor; floor += direction) {
+    const xy = connector.stops[String(floor)]
+    if (!xy) return null
+    stops.push({ floor, xy })
+  }
+  const points = stops.map((stop) => new THREE.Vector3(...point3(stop.xy, stop.floor, 0.42)))
+  const color = connector.type === 'lift' ? '#0284c7' : '#ea580c'
+  const labelPosition = point3(stops[Math.floor(stops.length / 2)].xy, (lowFloor + highFloor) / 2, 0.72)
+  return <group>
+    <Line points={points} color={color} lineWidth={4} dashed dashSize={0.7} gapSize={0.25} />
+    {stops.map((stop) => <mesh key={stop.floor} position={point3(stop.xy, stop.floor, 0.42)}><sphereGeometry args={[0.5, 16, 12]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.3} /></mesh>)}
+    <Html position={labelPosition} center distanceFactor={110} sprite zIndexRange={[30, 0]}><span style={{ padding: '3px 6px', borderRadius: 4, background: 'white', border: `2px solid ${color}`, color, font: '700 11px/1.2 system-ui, sans-serif', whiteSpace: 'nowrap' }}>{connector.label} · candidate</span></Html>
+  </group>
+}
+
+function CandidateRoute({ sourceId, destinationId, connectorId }) {
+  const source = DESTINATION_BY_ID.get(sourceId)
+  const destination = DESTINATION_BY_ID.get(destinationId)
+  const connector = building.vertical_connectors.find((item) => item.id === connectorId)
+  const points = makeCandidatePath(source, destination, connector)
+  if (!points) return null
+  if (source.floor === destination.floor) return <Line points={points.map((point) => new THREE.Vector3(...point))} color="#dc2626" lineWidth={4} dashed dashSize={0.75} gapSize={0.28} />
+  return <group>
+    <Line points={points.slice(0, 2).map((point) => new THREE.Vector3(...point))} color="#dc2626" lineWidth={4} dashed dashSize={0.75} gapSize={0.28} />
+    <Line points={points.slice(-2).map((point) => new THREE.Vector3(...point))} color="#dc2626" lineWidth={4} dashed dashSize={0.75} gapSize={0.28} />
+  </group>
+}
+
+function Scene({ sourceId, destinationId, setEndpoint, connectorId, showLabels, labelFloor }) {
+  const controlsRef = useRef()
+  const { camera } = useThree()
+  const source = DESTINATION_BY_ID.get(sourceId)
+  const destination = DESTINATION_BY_ID.get(destinationId)
+  const lowFloor = Math.min(source?.floor || 2, destination?.floor || 2)
+  const highFloor = Math.max(source?.floor || 2, destination?.floor || 2)
+  const visibleFloors = building.floors.filter((floor) => floor.floor_number === source?.floor || floor.floor_number === destination?.floor)
+  const bounds = planBounds(visibleFloors[0] || building.floors[0])
+  const targetX = (bounds.minX + bounds.maxX) / 2
+  const targetZ = -(bounds.minY + bounds.maxY) / 2
+  const targetY = (((source?.floor || 2) + (destination?.floor || 2)) / 2 - 2) * FLOOR_GAP + WALL_HEIGHT / 2
+  const target = [targetX, targetY, targetZ]
+  useEffect(() => {
+    if (!controlsRef.current) return
+    controlsRef.current.target.set(targetX, targetY, targetZ)
+    const distance = 175
+    camera.position.set(targetX + distance * 0.72, targetY + distance * 0.58, targetZ + distance * 0.72)
+    camera.lookAt(targetX, targetY, targetZ)
+    camera.updateProjectionMatrix()
+    controlsRef.current.update()
+  }, [camera, targetX, targetY, targetZ, sourceId, destinationId])
+  return (
+    <>
+      <color attach="background" args={['#edf2f5']} />
+      <ambientLight intensity={1.3} />
+      <directionalLight position={[80, 100, 40]} intensity={2.2} castShadow />
+      {visibleFloors.map((floor) => <group key={floor.floor_number}><FloorPlate floor={floor} index={building.floors.findIndex((item) => item.floor_number === floor.floor_number)} /><FloorDestinations floor={floor} selectedSource={sourceId} selectedDestination={destinationId} onPick={setEndpoint} showLabels={showLabels} labelFloor={labelFloor} /></group>)}
+      {lowFloor < highFloor && <VerticalConnections connectorId={connectorId} sourceFloor={source.floor} destinationFloor={destination.floor} />}
+      <CandidateRoute sourceId={sourceId} destinationId={destinationId} connectorId={connectorId} />
+      <OrbitControls ref={controlsRef} makeDefault target={target} enableDamping dampingFactor={0.08} minDistance={18} maxDistance={320} />
+    </>
+  )
+}
+
+export default function MultiFloorNavigation3D() {
+  const initialSource = DESTINATIONS.find((item) => item.floor === 2 && /301/.test(item.label)) || DESTINATIONS[0]
+  const initialDestination = DESTINATIONS.find((item) => item.floor === 6 && /708/.test(item.label)) || DESTINATIONS.at(-1)
+  const [sourceId, setSourceId] = useState(() => readEndpoint('from', initialSource.id))
+  const [destinationId, setDestinationId] = useState(() => readEndpoint('to', initialDestination.id))
+  const [connectorId, setConnectorId] = useState(() => new URLSearchParams(window.location.search).get('connector') || 'lift_east')
+  const [activeEndpoint, setActiveEndpoint] = useState('source')
+  const [showLabels, setShowLabels] = useState(true)
+  const [labelFloor, setLabelFloor] = useState(initialSource.floor)
+  const [showRouteQr, setShowRouteQr] = useState(false)
+  const [view, setView] = useState('3d')
+  // Hot reloads or old bookmarked links can leave IDs that no longer exist
+  // after DXF labels are regenerated. Recover to valid endpoints so route,
+  // vertical connector and QR controls remain usable.
+  useEffect(() => {
+    if (!DESTINATION_BY_ID.has(sourceId)) setSourceId(initialSource.id)
+    if (!DESTINATION_BY_ID.has(destinationId)) setDestinationId(initialDestination.id)
+  }, [destinationId, initialDestination.id, initialSource.id, sourceId])
+  const source = DESTINATION_BY_ID.get(sourceId) || initialSource
+  const destination = DESTINATION_BY_ID.get(destinationId) || initialDestination
+  const routeConnectorChoices = useMemo(() => {
+    if (!source || !destination || source.floor === destination.floor) return []
+    const low = Math.min(source.floor, destination.floor)
+    const high = Math.max(source.floor, destination.floor)
+    return building.vertical_connectors.filter((connector) => Array.from({ length: high - low + 1 }, (_, index) => String(low + index)).every((floor) => connector.stops[floor]))
+  }, [destination, source])
+  const selectedConnector = routeConnectorChoices.find((connector) => connector.id === connectorId) || routeConnectorChoices[0]
+  const path = makeCandidatePath(source, destination, selectedConnector)
+  const pickEndpoint = (id) => {
+    setLabelFloor(DESTINATION_BY_ID.get(id)?.floor || source.floor)
+    if (activeEndpoint === 'source') setSourceId(id)
+    else setDestinationId(id)
+  }
+  const routeQrUrl = useMemo(() => {
+    if (!source || !destination) return ''
+    const configuredBaseUrl = import.meta.env.VITE_NAVIKA_BASE_URL?.trim()
+    const url = new URL('/navigation', configuredBaseUrl || window.location.origin)
+    const params = new URLSearchParams({ from: source.id, to: destination.id })
+    if (selectedConnector?.id) params.set('connector', selectedConnector.id)
+    url.search = params.toString()
+    return url.toString()
+  }, [destination, selectedConnector, source])
+  const focusedFloors = source?.floor === destination?.floor
+    ? source?.floorLabel
+    : `${source?.floorLabel} + ${destination?.floorLabel}`
+  const routeDescription = source && destination
+    ? source.floor === destination.floor
+      ? `Same-floor candidate path · ${source.floorLabel}`
+      : selectedConnector
+        ? `Candidate route via ${selectedConnector.label} · floors ${source.floor} to ${destination.floor}`
+        : 'No labelled vertical connector covers these selected floors.'
+    : 'Choose source and destination locations.'
+
+  return (
+    <div className="space-y-4">
+      <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 px-5 py-5 md:px-7">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">{building.building.building_label} · DXF only</p>
+            <h1 className="mt-1 text-2xl font-bold text-slate-900 md:text-3xl">3D floors &amp; navigation preview</h1>
+            <p className="mt-1 text-sm text-slate-500">DXF floor plans extruded into a stacked 3D model · select labelled places to preview a route</p>
+          </div>
+          <div className="flex gap-2" role="group" aria-label="View mode">
+            <button onClick={() => setView('3d')} className={`rounded-xl px-4 py-2 text-sm font-semibold ${view === '3d' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}><Layers3 className="mr-2 inline h-4 w-4" />3D building</button>
+            <button onClick={() => setView('plans')} className={`rounded-xl px-4 py-2 text-sm font-semibold ${view === 'plans' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}><MapIcon className="mr-2 inline h-4 w-4" />2D plans</button>
+          </div>
+        </header>
+
+        <div className="grid gap-4 p-4 lg:grid-cols-[320px_minmax(0,1fr)] md:p-6">
+          <aside className="space-y-4">
+            <div className="rounded-2xl border border-slate-200 p-4">
+              <h2 className="flex items-center gap-2 text-sm font-bold text-slate-900"><Route size={16} />Source &amp; destination</h2>
+              <label className="mt-4 block text-xs font-semibold text-slate-600">Source location</label>
+              <select className="mt-1 h-10 w-full rounded-lg border border-slate-300 bg-white px-2 text-sm" value={sourceId} onChange={(event) => { setSourceId(event.target.value); setLabelFloor(DESTINATION_BY_ID.get(event.target.value)?.floor || labelFloor) }}>
+                {DESTINATIONS.map((item) => <option key={item.id} value={item.id}>{item.floorLabel} · {item.label}</option>)}
+              </select>
+              <label className="mt-3 block text-xs font-semibold text-slate-600">Destination</label>
+              <select className="mt-1 h-10 w-full rounded-lg border border-slate-300 bg-white px-2 text-sm" value={destinationId} onChange={(event) => { setDestinationId(event.target.value); setLabelFloor(DESTINATION_BY_ID.get(event.target.value)?.floor || labelFloor) }}>
+                {DESTINATIONS.map((item) => <option key={item.id} value={item.id}>{item.floorLabel} · {item.label}</option>)}
+              </select>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <button onClick={() => setActiveEndpoint('source')} className={`rounded-lg border px-2 py-2 text-xs font-semibold ${activeEndpoint === 'source' ? 'border-green-600 bg-green-50 text-green-800' : 'border-slate-200 text-slate-600'}`}><MapPin size={13} className="mr-1 inline" />Pick source on model</button>
+                <button onClick={() => setActiveEndpoint('destination')} className={`rounded-lg border px-2 py-2 text-xs font-semibold ${activeEndpoint === 'destination' ? 'border-red-600 bg-red-50 text-red-800' : 'border-slate-200 text-slate-600'}`}><MapPin size={13} className="mr-1 inline" />Pick destination</button>
+              </div>
+              {source?.floor !== destination?.floor && <>
+                <label className="mt-3 block text-xs font-semibold text-slate-600">Vertical connection</label>
+                <select className="mt-1 h-10 w-full rounded-lg border border-slate-300 bg-white px-2 text-sm" value={selectedConnector?.id || ''} onChange={(event) => setConnectorId(event.target.value)}>
+                  {routeConnectorChoices.map((connector) => <option key={connector.id} value={connector.id}>{connector.label} · candidate</option>)}
+                </select>
+                {!routeConnectorChoices.length && <p className="mt-2 text-xs text-red-700">The DXF has no labelled connector covering this floor pair.</p>}
+              </>}
+              <div className="mt-4 rounded-xl bg-slate-50 p-3 text-xs text-slate-700"><b>{routeDescription}</b>{path && <span className="mt-1 block text-slate-500">Focused floors: {focusedFloors} · {path.length - 1} illustrative preview segments</span>}<span className="mt-1 block text-slate-500">Travel time unavailable until walking distances and lift wait assumptions are verified.</span></div>
+              <button type="button" onClick={() => setShowRouteQr((shown) => !shown)} className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-700"><QrCode size={16} />{showRouteQr ? 'Hide phone route QR' : 'Start navigation on phone'}</button>
+              {showRouteQr && routeQrUrl && <div className="mt-3 rounded-xl border border-slate-200 bg-white p-3 text-center">
+                <p className="text-xs font-semibold text-slate-700">Scan to open this selected route on your phone</p>
+                <div className="my-3 flex justify-center"><QRCodeSVG value={routeQrUrl} size={176} level="M" includeMargin /></div>
+                <p className="break-all text-[10px] text-slate-500">{routeQrUrl}</p>
+                <p className="mt-2 text-[10px] text-slate-500">For local testing, set VITE_NAVIKA_BASE_URL to an address reachable from the phone.</p>
+              </div>}
+            </div>
+            <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-xs leading-5 text-amber-950">
+              <h2 className="flex items-center gap-2 font-bold"><AlertTriangle size={15} />Route review required</h2>
+              <p className="mt-2">The DXF provides room labels, plan linework and repeated stair/lift markers, but it does not establish door openings or a verified walkable corridor graph. The red line is a visual candidate connecting the selected points and connector; do not use it as real-world directions until those paths are checked and authored as reviewed network edges.</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="flex cursor-pointer items-center gap-2 px-1 text-xs text-slate-600"><input type="checkbox" checked={showLabels} onChange={(event) => setShowLabels(event.target.checked)} />Show room labels</label>
+              <label className="flex items-center gap-2 text-xs text-slate-600">Label floor<select className="rounded-md border border-slate-300 bg-white px-2 py-1" value={labelFloor} onChange={(event) => setLabelFloor(Number(event.target.value))}>{[...new Set([source?.floor, destination?.floor].filter(Boolean))].map((number) => <option key={number} value={number}>{building.floors.find((floor) => floor.floor_number === number)?.label}</option>)}</select></label>
+            </div>
+            <button onClick={() => { setSourceId(initialSource.id); setDestinationId(initialDestination.id); setConnectorId('lift_east') }} className="rounded-lg px-2 py-1 text-xs text-slate-500 hover:bg-slate-100"><RotateCcw size={12} className="mr-1 inline" />Reset sample selection</button>
+          </aside>
+
+          <div className="min-h-[680px] overflow-hidden rounded-2xl border border-slate-200 bg-[#edf2f5]">
+            {view === '3d'
+              ? <Canvas shadows camera={{ position: [180, 120, 100], fov: 42 }} gl={{ antialias: true }}>
+                  <Scene sourceId={sourceId} destinationId={destinationId} setEndpoint={pickEndpoint} connectorId={selectedConnector?.id || ''} showLabels={showLabels} labelFloor={labelFloor} />
+                </Canvas>
+              : <div className="h-full min-h-[680px] overflow-y-auto p-3"><MultiFloorDxfViewer /></div>}
+          </div>
+        </div>
+        <footer className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-100 px-5 py-3 text-xs text-slate-500 md:px-7">
+          <span><i className="mr-1.5 inline-block h-2.5 w-2.5 rounded-full bg-green-600" />Source</span>
+          <span><i className="mr-1.5 inline-block h-2.5 w-2.5 rounded-full bg-red-600" />Destination / candidate path</span>
+          <span><i className="mr-1.5 inline-block w-6 border-t-2 border-dashed border-orange-600" />Candidate stair</span>
+          <span><i className="mr-1.5 inline-block w-6 border-t-2 border-dashed border-sky-600" />Candidate lift</span>
+          <span className="ml-auto">Illustrative wall height {WALL_HEIGHT} m · diagrammatic floor spacing {FLOOR_GAP} m</span>
+        </footer>
+      </section>
+    </div>
+  )
+}

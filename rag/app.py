@@ -12,6 +12,11 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_groq import ChatGroq
 
+try:
+    from .spatial_lookup import spatial_context_for_question
+except ImportError:
+    from spatial_lookup import spatial_context_for_question
+
 
 load_dotenv()
 
@@ -200,6 +205,10 @@ def ask_question(question, history=None):
         if augment_text not in chunks:
             chunks.append(augment_text)
 
+    spatial_context = spatial_context_for_question(retrieval_query)
+    if spatial_context:
+        chunks.append(f"Structured DXF spatial lookup (candidate/unreviewed data):\n{spatial_context}")
+
     context = "\n\n".join(chunks)
     history_text = format_history(history)
     history_block = (
@@ -207,7 +216,7 @@ def ask_question(question, history=None):
     )
 
     prompt = f"""
-You are a helpful college information assistant.
+You are a helpful campus information assistant.
 
 {history_block}Answer the user's CURRENT question ONLY using the information
 provided in the context below. If the current question refers back to the
@@ -216,10 +225,9 @@ second one"), use the conversation to work out what is actually being
 asked — but still answer strictly from the context, never from the
 conversation history itself.
 
-If the answer cannot be found in the context,
-say:
+Answer spatial questions only from the retrieved or structured spatial context. Preserve any candidate or unreviewed status and never convert a label anchor or candidate connector into a verified room entrance or route. If the answer cannot be found in the provided context, say:
 
-"I couldn't find that information on the college website."
+"I couldn't find that information in the available campus data."
 
 Do not make up information.
 
