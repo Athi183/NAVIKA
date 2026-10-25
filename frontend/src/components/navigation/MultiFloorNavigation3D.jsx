@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { Canvas, useThree } from '@react-three/fiber'
 import { Html, Line, OrbitControls, Text } from '@react-three/drei'
 import { QRCodeSVG } from 'qrcode.react'
-import { AlertTriangle, Layers3, Map as MapIcon, MapPin, QrCode, Route, RotateCcw } from 'lucide-react'
+import { AlertTriangle, Layers3, Map as MapIcon, MapPin, Minus, Plus, QrCode, Route, RotateCcw, Scan } from 'lucide-react'
 import building from '../../data/ramanujan_floors_2_6.json'
 import navigationGraph from '../../data/ramanujan_navigation_graph_candidate.json'
 import MultiFloorDxfViewer from './MultiFloorDxfViewer'
@@ -23,6 +23,17 @@ const DESTINATION_BY_ID = new Map(DESTINATIONS.map((destination) => [destination
 
 function point3(xy, floorNumber, lift = 0.16) {
   return [xy[0], (floorNumber - 2) * FLOOR_GAP + lift, -xy[1]]
+}
+
+function roomStyle(label) {
+  const name = label.toLowerCase()
+  if (/toilet|wash/.test(name)) return { color: '#db2777', background: '#fce7f3', category: 'Washroom' }
+  if (/lab|laboratory/.test(name)) return { color: '#7c3aed', background: '#ede9fe', category: 'Laboratory' }
+  if (/class room|classroom|hall|lecture/.test(name)) return { color: '#2563eb', background: '#dbeafe', category: 'Teaching space' }
+  if (/department|staff|office|association|library/.test(name)) return { color: '#0f766e', background: '#ccfbf1', category: 'Department / shared space' }
+  if (/lift|stair|bridge|corridor/.test(name)) return { color: '#d97706', background: '#fef3c7', category: 'Circulation' }
+  if (/electrical|engine|store|warehouse|room/.test(name)) return { color: '#64748b', background: '#e2e8f0', category: 'Service space' }
+  return { color: '#0891b2', background: '#cffafe', category: 'Other space' }
 }
 
 function planSegments(floor) {
@@ -140,13 +151,29 @@ function FloorDestinations({ floor, selectedSource, selectedDestination, onPick,
         const id = `${floor.floor_number}:${index}`
         const isSource = id === selectedSource
         const isDestination = id === selectedDestination
-        const color = isSource ? '#16a34a' : isDestination ? '#dc2626' : '#0f766e'
-        const pos = point3(label.xy, floor.floor_number, 0.18)
+        const style = roomStyle(label.text)
+        const color = isSource ? '#16a34a' : isDestination ? '#dc2626' : style.color
+        const pos = point3(label.display_xy || label.xy, floor.floor_number, 0.2)
+        const labelVisible = (showLabels && labelFloor === floor.floor_number) || isSource || isDestination
         return (
           <group key={id} position={pos} onClick={(event) => { event.stopPropagation(); onPick(id) }}>
-            {((showLabels && labelFloor === floor.floor_number) || isSource || isDestination) && <Html position={[0, 0.32, 0]} transform sprite distanceFactor={10} zIndexRange={[20, 0]}>
-              <button type="button" onClick={(event) => { event.stopPropagation(); onPick(id) }} title={`${label.text}${label.display_xy_status === 'candidate_left_alignment_to_plan_extent' ? ' · display anchor adjusted from out-of-footprint DXF insertion' : ''}`} style={{ display: '-webkit-box', width: 160, maxHeight: 32, padding: '3px 5px', borderRadius: 3, border: `1px solid ${isSource ? '#16a34a' : isDestination ? '#dc2626' : 'rgba(100,116,139,.5)'}`, background: isSource || isDestination ? 'rgba(255,255,255,.98)' : 'rgba(255,255,255,.9)', color: '#17212b', font: `${isSource || isDestination ? 700 : 500} 14px/1.1 system-ui, sans-serif`, textAlign: 'left', whiteSpace: 'normal', overflow: 'hidden', overflowWrap: 'anywhere', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, cursor: 'pointer', boxShadow: '0 1px 2px rgba(15,23,42,.1)' }}>{label.text}</button>
-            </Html>}
+            {labelVisible && <group position={[0, 0.03, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+              <mesh position={[0, 0, -0.012]}>
+                <planeGeometry args={[Math.min(6.2, Math.max(3.3, label.text.length * 0.22)), 0.92]} />
+                <meshBasicMaterial color={isSource ? '#dcfce7' : isDestination ? '#fee2e2' : style.background} transparent opacity={0.94} depthWrite={false} side={THREE.DoubleSide} />
+              </mesh>
+              <Text fontSize={0.37} maxWidth={5.8} color="#17212b" anchorX="center" anchorY="middle" textAlign="center" outlineColor="white" outlineWidth={0.012}>
+                {label.text}
+              </Text>
+              <mesh position={[0, 0, 0.02]}>
+                <planeGeometry args={[Math.min(6.2, Math.max(3.3, label.text.length * 0.22)), 0.92]} />
+                <meshBasicMaterial transparent opacity={0} side={THREE.DoubleSide} />
+              </mesh>
+            </group>}
+            <mesh position={[0, 0.04, 0]}>
+              <circleGeometry args={[isSource || isDestination ? 0.3 : 0.2, 20]} />
+              <meshBasicMaterial color={color} side={THREE.DoubleSide} />
+            </mesh>
             {(isSource || isDestination) && <mesh position={[0, 0.25, 0]}><sphereGeometry args={[0.34, 12, 10]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.24} /></mesh>}
             {isSource && <Text position={[0, WALL_HEIGHT + 1.3, 0]} fontSize={0.68} color="#15803d" outlineColor="white" outlineWidth={0.08} anchorX="center">SOURCE</Text>}
             {isDestination && <Text position={[0, WALL_HEIGHT + 1.3, 0]} fontSize={0.68} color="#b91c1c" outlineColor="white" outlineWidth={0.08} anchorX="center">DESTINATION</Text>}
@@ -192,8 +219,7 @@ function CandidateRoute({ sourceId, destinationId, connectorId }) {
   </group>
 }
 
-function Scene({ sourceId, destinationId, setEndpoint, connectorId, showLabels, labelFloor }) {
-  const controlsRef = useRef()
+function Scene({ sourceId, destinationId, setEndpoint, connectorId, showLabels, labelFloor, controlsRef }) {
   const { camera } = useThree()
   const source = DESTINATION_BY_ID.get(sourceId)
   const destination = DESTINATION_BY_ID.get(destinationId)
@@ -208,12 +234,13 @@ function Scene({ sourceId, destinationId, setEndpoint, connectorId, showLabels, 
   useEffect(() => {
     if (!controlsRef.current) return
     controlsRef.current.target.set(targetX, targetY, targetZ)
-    const distance = 175
+    const distance = Math.max(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY) * 1.28
     camera.position.set(targetX + distance * 0.72, targetY + distance * 0.58, targetZ + distance * 0.72)
     camera.lookAt(targetX, targetY, targetZ)
     camera.updateProjectionMatrix()
     controlsRef.current.update()
-  }, [camera, targetX, targetY, targetZ, sourceId, destinationId])
+    controlsRef.current.saveState()
+  }, [camera, targetX, targetY, targetZ, source?.floor, destination?.floor, bounds.maxX, bounds.minX, bounds.maxY, bounds.minY])
   return (
     <>
       <color attach="background" args={['#edf2f5']} />
@@ -222,7 +249,7 @@ function Scene({ sourceId, destinationId, setEndpoint, connectorId, showLabels, 
       {visibleFloors.map((floor) => <group key={floor.floor_number}><FloorPlate floor={floor} index={building.floors.findIndex((item) => item.floor_number === floor.floor_number)} /><FloorDestinations floor={floor} selectedSource={sourceId} selectedDestination={destinationId} onPick={setEndpoint} showLabels={showLabels} labelFloor={labelFloor} /></group>)}
       {lowFloor < highFloor && <VerticalConnections connectorId={connectorId} sourceFloor={source.floor} destinationFloor={destination.floor} />}
       <CandidateRoute sourceId={sourceId} destinationId={destinationId} connectorId={connectorId} />
-      <OrbitControls ref={controlsRef} makeDefault target={target} enableDamping dampingFactor={0.08} minDistance={18} maxDistance={320} />
+      <OrbitControls ref={controlsRef} makeDefault target={target} enableDamping dampingFactor={0.08} minDistance={12} maxDistance={260} zoomSpeed={1.15} />
     </>
   )
 }
@@ -238,6 +265,7 @@ export default function MultiFloorNavigation3D() {
   const [labelFloor, setLabelFloor] = useState(initialSource.floor)
   const [showRouteQr, setShowRouteQr] = useState(false)
   const [view, setView] = useState('3d')
+  const controlsRef = useRef(null)
   // Hot reloads or old bookmarked links can leave IDs that no longer exist
   // after DXF labels are regenerated. Recover to valid endpoints so route,
   // vertical connector and QR controls remain usable.
@@ -335,13 +363,25 @@ export default function MultiFloorNavigation3D() {
               <label className="flex cursor-pointer items-center gap-2 px-1 text-xs text-slate-600"><input type="checkbox" checked={showLabels} onChange={(event) => setShowLabels(event.target.checked)} />Show room labels</label>
               <label className="flex items-center gap-2 text-xs text-slate-600">Label floor<select className="rounded-md border border-slate-300 bg-white px-2 py-1" value={labelFloor} onChange={(event) => setLabelFloor(Number(event.target.value))}>{[...new Set([source?.floor, destination?.floor].filter(Boolean))].map((number) => <option key={number} value={number}>{building.floors.find((floor) => floor.floor_number === number)?.label}</option>)}</select></label>
             </div>
+            <div className="rounded-xl border border-slate-200 bg-white p-3">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-500">Room color key</p>
+              <div className="flex flex-wrap gap-x-3 gap-y-2 text-[11px] text-slate-600">
+                {[['#2563eb', 'Teaching'], ['#7c3aed', 'Labs'], ['#0f766e', 'Departments'], ['#db2777', 'Washrooms'], ['#64748b', 'Services']].map(([color, label]) => <span key={label} className="inline-flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-sm" style={{ background: color }} />{label}</span>)}
+              </div>
+              <p className="mt-2 text-[10px] leading-4 text-slate-500">Color marks the labelled room anchor; the DXF does not provide closed room polygons for safe area fills.</p>
+            </div>
             <button onClick={() => { setSourceId(initialSource.id); setDestinationId(initialDestination.id); setConnectorId('lift_east') }} className="rounded-lg px-2 py-1 text-xs text-slate-500 hover:bg-slate-100"><RotateCcw size={12} className="mr-1 inline" />Reset sample selection</button>
           </aside>
 
-          <div className="min-h-[680px] overflow-hidden rounded-2xl border border-slate-200 bg-[#edf2f5]">
+          <div className="relative min-h-[680px] overflow-hidden rounded-2xl border border-slate-200 bg-[#edf2f5]">
+            {view === '3d' && <div className="absolute right-3 top-3 z-10 flex flex-col overflow-hidden rounded-xl border border-slate-300 bg-white/95 shadow-sm" aria-label="3D camera controls">
+              <button type="button" onClick={() => { controlsRef.current?.dollyIn(1.22); controlsRef.current?.update() }} className="border-b border-slate-200 p-2 text-slate-700 hover:bg-slate-100" title="Zoom in"><Plus size={18} /></button>
+              <button type="button" onClick={() => { controlsRef.current?.dollyOut(1.22); controlsRef.current?.update() }} className="border-b border-slate-200 p-2 text-slate-700 hover:bg-slate-100" title="Zoom out"><Minus size={18} /></button>
+              <button type="button" onClick={() => controlsRef.current?.reset()} className="p-2 text-slate-700 hover:bg-slate-100" title="Reset camera"><Scan size={17} /></button>
+            </div>}
             {view === '3d'
               ? <Canvas shadows camera={{ position: [180, 120, 100], fov: 42 }} gl={{ antialias: true }}>
-                  <Scene sourceId={sourceId} destinationId={destinationId} setEndpoint={pickEndpoint} connectorId={selectedConnector?.id || ''} showLabels={showLabels} labelFloor={labelFloor} />
+                  <Scene sourceId={sourceId} destinationId={destinationId} setEndpoint={pickEndpoint} connectorId={selectedConnector?.id || ''} showLabels={showLabels} labelFloor={labelFloor} controlsRef={controlsRef} />
                 </Canvas>
               : <div className="h-full min-h-[680px] overflow-y-auto p-3"><MultiFloorDxfViewer /></div>}
           </div>
