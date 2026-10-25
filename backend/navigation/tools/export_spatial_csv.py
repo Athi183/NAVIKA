@@ -4,18 +4,28 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 import re
 from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_INPUT = REPOSITORY_ROOT / "frontend/src/data/ramanujan_floors_2_6.json"
 DEFAULT_OUTPUT = REPOSITORY_ROOT / "rag/data/spatial/ramanujan_block"
+ROUTING_ASSUMPTIONS = {
+    "floor_rise_m": 3.2,
+    "stair_angle_degrees": 35,
+    "stair_up_speed_mps": 0.55,
+    "stair_down_speed_mps": 0.65,
+    "lift_speed_mps": 1.5,
+    "lift_wait_seconds_per_trip": 25,
+    "lift_door_seconds_per_floor": 4,
+}
 
 
 def write_csv(path: Path, columns: list[str], rows: list[dict]):
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=columns, extrasaction="ignore")
+        writer = csv.DictWriter(stream, fieldnames=columns, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -200,6 +210,22 @@ def export(data: dict, destination: Path) -> dict[str, int]:
             return marker.get("source_xy_dxf", marker["xy"])
         from_source = raw_stop(transition["from_floor"])
         to_source = raw_stop(transition["to_floor"])
+        floor_count = abs(transition["to_floor"] - transition["from_floor"])
+        assumed_rise_m = ROUTING_ASSUMPTIONS["floor_rise_m"] * floor_count
+        if connector["type"] == "stair":
+            stair_angle = math.radians(ROUTING_ASSUMPTIONS["stair_angle_degrees"])
+            vertical_walk_m = assumed_rise_m / math.sin(stair_angle)
+            estimated_distance = vertical_walk_m + float(transition.get("plan_offset_m") or 0)
+            estimated_up_time = vertical_walk_m / ROUTING_ASSUMPTIONS["stair_up_speed_mps"]
+            estimated_down_time = vertical_walk_m / ROUTING_ASSUMPTIONS["stair_down_speed_mps"]
+            estimated_time = estimated_up_time if transition["to_floor"] > transition["from_floor"] else estimated_down_time
+            lift_wait = 0
+        else:
+            estimated_distance = assumed_rise_m
+            estimated_time = assumed_rise_m / ROUTING_ASSUMPTIONS["lift_speed_mps"] + ROUTING_ASSUMPTIONS["lift_door_seconds_per_floor"] * floor_count
+            estimated_up_time = estimated_time
+            estimated_down_time = estimated_time
+            lift_wait = ROUTING_ASSUMPTIONS["lift_wait_seconds_per_trip"]
         topology_edges.append({
             "edge_id": transition["id"],
             "building_id": building_id,
@@ -219,6 +245,15 @@ def export(data: dict, destination: Path) -> dict[str, int]:
             "source_to_x": f"{to_source[0]:.4f}",
             "source_to_y": f"{to_source[1]:.4f}",
             "plan_offset_m": f"{transition['plan_offset_m']:.3f}",
+            "estimated_distance_m": f"{estimated_distance:.2f}",
+            "estimated_time_s_without_trip_wait": f"{estimated_time:.1f}",
+            "estimated_time_s_up_without_wait": f"{estimated_up_time:.1f}",
+            "estimated_time_s_down_without_wait": f"{estimated_down_time:.1f}",
+            "lift_wait_s_once_per_trip_assumption": lift_wait,
+            "time_cost_status": "illustrative_assumption_not_surveyed",
+            "assumed_floor_rise_m": f"{ROUTING_ASSUMPTIONS['floor_rise_m']:.2f}",
+            "assumed_stair_angle_degrees": ROUTING_ASSUMPTIONS["stair_angle_degrees"] if connector["type"] == "stair" else "",
+            "assumed_lift_speed_mps": ROUTING_ASSUMPTIONS["lift_speed_mps"] if connector["type"] == "lift" else "",
             "units": units,
             "verification_status": "candidate_requires_landing_and_continuity_review",
             "accessibility_status": "unknown",
@@ -228,7 +263,10 @@ def export(data: dict, destination: Path) -> dict[str, int]:
                 f"Candidate {connector['type']} connection, {connector['label']}, from floor "
                 f"{transition['from_floor']} to floor {transition['to_floor']} in "
                 f"{building.get('building_label', building_id)}. The DXF has repeated {connector['marker']} labels. "
-                "Connection, landing geometry and accessibility are not verified; do not treat this as a confirmed route."
+                f"Illustrative one-transition estimate: {estimated_distance:.1f}m and {estimated_up_time:.0f}s ascending / {estimated_down_time:.0f}s descending before lift wait. "
+                f"Illustrative cost assumes {ROUTING_ASSUMPTIONS['floor_rise_m']:.1f}m floor rise; "
+                + (f"{ROUTING_ASSUMPTIONS['stair_angle_degrees']} degree stair angle and {ROUTING_ASSUMPTIONS['stair_up_speed_mps']:.2f}/{ROUTING_ASSUMPTIONS['stair_down_speed_mps']:.2f}m/s up/down stair speeds. " if connector["type"] == "stair" else f"{ROUTING_ASSUMPTIONS['lift_speed_mps']:.1f}m/s lift speed and {ROUTING_ASSUMPTIONS['lift_wait_seconds_per_trip']}s wait once per trip. ")
+                + "Connection, landing geometry, actual time, and accessibility are not verified; do not treat as a confirmed route."
             ),
         })
 
