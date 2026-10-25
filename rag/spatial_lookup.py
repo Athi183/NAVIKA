@@ -72,6 +72,13 @@ def candidate_vertical_paths(from_floor: int, to_floor: int) -> list[dict]:
                 "type": selected[0]["edge_type"].replace("candidate_", "").replace("_floor_transition", ""),
                 "status": "candidate_requires_landing_and_continuity_review",
                 "edges": selected,
+                "estimated_distance_m": sum(float(edge.get("estimated_distance_m") or 0) for edge in selected),
+                "estimated_time_s_without_wait": sum(
+                    float(edge.get("estimated_time_s_up_without_wait" if from_floor < to_floor else "estimated_time_s_down_without_wait") or 0)
+                    for edge in selected
+                ),
+                "lift_wait_s_once_per_trip": float(selected[0].get("lift_wait_s_once_per_trip_assumption") or 0),
+                "time_cost_status": selected[0].get("time_cost_status", "not_available"),
             })
     return results
 
@@ -126,9 +133,12 @@ def spatial_context_for_question(question: str) -> str:
         elif "stair" in lower:
             connector_candidates = [item for item in connector_candidates if item["type"] == "stair"]
         for candidate in connector_candidates:
+            vertical_seconds = candidate["estimated_time_s_without_wait"] + candidate["lift_wait_s_once_per_trip"]
             contexts.append(
                 f"Candidate vertical connector: {candidate['label']} ({candidate['type']}) between floors "
                 f"{floor_pair[0]} and {floor_pair[1]}; status={candidate['status']}. "
+                f"Illustrative vertical-only estimate: about {vertical_seconds / 60:.1f} minutes for {candidate['estimated_distance_m']:.1f}m; "
+                f"estimated_cost_status={candidate['time_cost_status']}. This excludes room-to-corridor walking and uses one lift wait per trip. "
                 "This is not a verified pedestrian route."
             )
 

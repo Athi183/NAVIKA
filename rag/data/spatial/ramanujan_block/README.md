@@ -8,7 +8,7 @@ These CSVs are derived from `ramanujan block -2nd floor to 6th floor (1).dxf` fo
 |---|---:|---|
 | `places.csv` | 110 | Extracted text labels with floor, source DXF anchor, registered plan anchor, and review status. Anchors are not room polygons, doors, or entrances. |
 | `topology_nodes.csv` | 133 | 110 label anchors plus candidate stair/lift landing markers. Label anchors are explicitly not routable access nodes. |
-| `topology_edges.csv` | 18 | Candidate consecutive-floor stair/lift transitions. No horizontal corridor edges are inferred. |
+| `topology_edges.csv` | 18 | Candidate consecutive-floor stair/lift transitions with explicitly assumed distance/time fields. No horizontal corridor edges are inferred. |
 | `geometry.csv` | 5,076 | Extracted line segments, including source and registered endpoints. They are unclassified drawing linework, not validated walls or walkable regions. |
 | `floor_summaries.csv` | 5 | Per-floor counts, bounds, units, and diagrammatic elevations. |
 
@@ -19,6 +19,7 @@ These CSVs are derived from `ramanujan block -2nd floor to 6th floor (1).dxf` fo
 - Units are taken from the processed drawing metadata. Elevations and 3D floor spacing are diagrammatic, not measured building heights.
 - Rows retain `review_status`, `verification_status`, or `accessibility_status` fields. An empty access node is intentional until an entrance is reviewed.
 - Do not use candidate links as pedestrian directions or claim accessibility from these files.
+- Candidate time costs use a 3.2 m storey rise, 35° stair angle, 0.55/0.65 m/s stair speeds, 1.5 m/s lift speed, and 25 s lift wait once per trip. These are planning defaults, not measured Ramanujan Block data. Horizontal routes and actual lift wait are unknown.
 
 ## Retrieval
 

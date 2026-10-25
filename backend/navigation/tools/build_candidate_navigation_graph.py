@@ -17,6 +17,18 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_INPUT = REPOSITORY_ROOT / "frontend/src/data/ramanujan_floors_2_6.json"
 DEFAULT_GRAPH = REPOSITORY_ROOT / "frontend/src/data/ramanujan_navigation_graph_candidate.json"
 DEFAULT_REVIEW = REPOSITORY_ROOT / "rag/data/spatial/ramanujan_block/doorway_review_candidates.csv"
+ROUTING_ASSUMPTIONS = {
+    "status": "illustrative_not_surveyed",
+    "floor_rise_m": 3.2,
+    "walk_speed_mps": 1.2,
+    "accessible_walk_speed_mps": 0.9,
+    "stair_angle_degrees": 35,
+    "stair_up_speed_mps": 0.55,
+    "stair_down_speed_mps": 0.65,
+    "lift_speed_mps": 1.5,
+    "lift_wait_seconds_per_trip": 25,
+    "lift_door_seconds_per_floor": 4,
+}
 
 
 def distance(a: tuple[float, float], b: tuple[float, float]) -> float:
@@ -229,6 +241,19 @@ def build_graph(data: dict) -> tuple[dict, list[dict]]:
 
     for transition in data["vertical_transitions"]:
         connector = next(item for item in data["vertical_connectors"] if item["id"] == transition["connector_id"])
+        floor_count = abs(transition["to_floor"] - transition["from_floor"])
+        rise_m = ROUTING_ASSUMPTIONS["floor_rise_m"] * floor_count
+        if connector["type"] == "stair":
+            incline_m = rise_m / math.sin(math.radians(ROUTING_ASSUMPTIONS["stair_angle_degrees"]))
+            estimated_distance_m = incline_m + float(transition.get("plan_offset_m") or 0)
+            estimated_up_time_s = incline_m / ROUTING_ASSUMPTIONS["stair_up_speed_mps"]
+            estimated_down_time_s = incline_m / ROUTING_ASSUMPTIONS["stair_down_speed_mps"]
+            estimated_time_s = estimated_up_time_s if transition["to_floor"] > transition["from_floor"] else estimated_down_time_s
+        else:
+            estimated_distance_m = rise_m
+            estimated_time_s = rise_m / ROUTING_ASSUMPTIONS["lift_speed_mps"] + ROUTING_ASSUMPTIONS["lift_door_seconds_per_floor"] * floor_count
+            estimated_up_time_s = estimated_time_s
+            estimated_down_time_s = estimated_time_s
         edges.append({
             "edge_id": transition["id"],
             "building_id": data["building"]["building_id"],
@@ -237,7 +262,12 @@ def build_graph(data: dict) -> tuple[dict, list[dict]]:
             "edge_type": f"{connector['type']}_floor_transition",
             "connector_id": connector["id"],
             "plan_offset_m": transition.get("plan_offset_m"),
-            "cost_status": "not_measured",
+            "estimated_distance_m": round(estimated_distance_m, 2),
+            "estimated_time_s_without_wait": round(estimated_time_s, 1),
+            "estimated_time_s_up_without_wait": round(estimated_up_time_s, 1),
+            "estimated_time_s_down_without_wait": round(estimated_down_time_s, 1),
+            "lift_wait_seconds_per_trip_assumption": ROUTING_ASSUMPTIONS["lift_wait_seconds_per_trip"] if connector["type"] == "lift" else 0,
+            "cost_status": "illustrative_assumption_not_surveyed",
             "from_floor": transition["from_floor"],
             "to_floor": transition["to_floor"],
             "review_status": "candidate_requires_landing_review",
@@ -249,6 +279,7 @@ def build_graph(data: dict) -> tuple[dict, list[dict]]:
         "building": data["building"],
         "status": "review_scaffold_no_verified_horizontal_edges",
         "coordinate_system": {"units": data["building"]["units"], "floor_elevation": "diagrammatic_only"},
+        "routing_assumptions": ROUTING_ASSUMPTIONS,
         "nodes": nodes,
         "edges": edges,
         "routing_policy": "Only edges explicitly marked review_status=verified and route_eligible=true may be used for wayfinding.",
