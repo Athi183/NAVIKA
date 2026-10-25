@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Layers3, Map, Maximize2 } from 'lucide-react'
 import building from '../../data/ramanujan_floors_2_6.json'
+import navigationGraph from '../../data/ramanujan_navigation_graph_candidate.json'
 
 const colors = ['#2563eb', '#059669', '#7c3aed', '#d97706', '#db2777']
 const SCALE = 6.2
@@ -28,6 +29,7 @@ export default function MultiFloorDxfViewer() {
   const [mode, setMode] = useState('stacked')
   const [selectedFloor, setSelectedFloor] = useState(5)
   const [showLabels, setShowLabels] = useState(false)
+  const [showDoorCandidates, setShowDoorCandidates] = useState(false)
   const floors = building.floors
   const activeFloors = mode === 'stacked' ? floors : floors.filter((floor) => floor.floor_number === selectedFloor)
   const isStacked = mode === 'stacked'
@@ -90,6 +92,10 @@ export default function MultiFloorDxfViewer() {
                 <g key={floor.floor_number}>
                   <rect x={25 * SCALE + shiftX} y={-54 * SCALE + shiftY} width={98 * SCALE} height={75 * SCALE} rx="5" fill={colors[index]} fillOpacity={isStacked ? 0.045 : 0.018} stroke={colors[index]} strokeOpacity={isStacked ? 0.3 : 0.18} strokeWidth="1.1" />
                   {floor.segments.map(([x1, y1, x2, y2], segmentIndex) => <line key={`${floor.floor_number}-${segmentIndex}`} x1={x1 * SCALE + shiftX} y1={-y1 * SCALE + shiftY} x2={x2 * SCALE + shiftX} y2={-y2 * SCALE + shiftY} stroke="#37474f" strokeWidth={isStacked ? 0.62 : 0.78} strokeOpacity={isStacked ? 0.28 : 0.52} vectorEffect="non-scaling-stroke" />)}
+                  {showDoorCandidates && navigationGraph.nodes.filter((node) => node.node_type === 'doorway_candidate' && node.floor_number === floor.floor_number).map((node) => {
+                    const [x, y] = projected([node.x, node.y], index)
+                    return <circle key={node.node_id} cx={isStacked ? x : node.x * SCALE} cy={isStacked ? y : -node.y * SCALE} r={isStacked ? 1.5 : 2.8} fill="#c026d3" fillOpacity=".86" stroke="white" strokeWidth=".8" vectorEffect="non-scaling-stroke"><title>{node.node_id} · possible opening · {node.width_candidate_m} m · unreviewed</title></circle>
+                  })}
                   {showLabels && floor.labels.map((label, labelIndex) => {
                     const [x, y] = projected(label.xy, index)
                     return <text key={`${floor.floor_number}-label-${labelIndex}`} x={isStacked ? x : label.xy[0] * SCALE} y={isStacked ? y : -label.xy[1] * SCALE} textAnchor="middle" className="dxf-room-label" opacity={isStacked ? 0.58 : 0.9}>{label.text}</text>
@@ -109,7 +115,14 @@ export default function MultiFloorDxfViewer() {
           <span><i className="mr-2 inline-block h-2.5 w-2.5 rotate-45 bg-cyan-600" />Lift label</span>
           <span><i className="mr-2 inline-block h-0 w-0 border-x-[6px] border-b-[10px] border-x-transparent border-b-orange-600" />UP stair marker</span>
           {isStacked && <span><i className="mr-2 inline-block w-7 border-t-2 border-dashed border-slate-500" />Candidate floor-to-floor continuation</span>}
+          {showDoorCandidates && <span><i className="mr-2 inline-block h-2.5 w-2.5 rounded-full bg-fuchsia-600" />Possible opening · unreviewed</span>}
           <span className="ml-auto">DXF units: {building.building.units}</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 px-5 pb-5 md:px-7">
+          <button type="button" onClick={() => setShowDoorCandidates((value) => !value)} className={`rounded-lg border px-3 py-2 text-xs font-semibold ${showDoorCandidates ? 'border-fuchsia-600 bg-fuchsia-50 text-fuchsia-800' : 'border-slate-200 bg-white text-slate-700'}`}>
+            {showDoorCandidates ? 'Hide possible door gaps' : 'Show possible door gaps'}
+          </button>
+          <p className="text-xs text-slate-500">{showDoorCandidates ? 'Magenta points are geometric gap suggestions only; many may not be doors.' : 'Turn on gap suggestions to inspect the review candidates on the plan.'}</p>
         </div>
       </section>
 
