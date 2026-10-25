@@ -36,3 +36,5 @@ Rebuild the RAG index from the `rag/` directory (with the project's RAG dependen
 ```bash
 cd rag && python ingest.py
 ```
+
+`doorway_review_candidates.csv` is generated separately by `backend/navigation/tools/build_candidate_navigation_graph.py`. It lists geometric gaps and the three nearest suggestions for each room label. These suggestions are not route edges and require manual confirmation. The graph scaffold is `frontend/src/data/ramanujan_navigation_graph_candidate.json`; it currently has zero verified horizontal edges.

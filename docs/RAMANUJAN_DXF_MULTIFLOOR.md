@@ -29,6 +29,21 @@ For another DXF with floor titles using the same ordinal naming convention and s
 - Processor: `backend/navigation/tools/process_multifloor_dxf.py`
 
 The visualization intentionally labels connectors as candidates and keeps floor stack spacing and plan registration assumptions visible in the UI.
+
+## Room graph extraction and review
+
+`backend/navigation/tools/build_candidate_navigation_graph.py` applies the next graph-preparation stage to the extracted DXF data. It creates stable room-label and connector-landing nodes, finds collinear endpoint gaps that may be door openings, and writes:
+
+- `frontend/src/data/ramanujan_navigation_graph_candidate.json` — graph nodes, candidate vertical edges, and review status;
+- `rag/data/spatial/ramanujan_block/doorway_review_candidates.csv` — the three nearest gap candidates for each room label, for review.
+
+The current output has 110 room-label nodes, 284 geometric gap candidates, 18 candidate vertical edges, and 330 room-to-gap review suggestions. **It has zero verified horizontal edges.** Gap detection uses unclassified linework, which includes furniture and other drawing details; nearest-gap suggestions do not establish room access. The generated graph therefore marks every node/edge as ineligible for real routing. Review each room boundary, doorway, corridor junction, and connector landing on the plan before authoring horizontal edges and enabling routing. Regenerating the candidate graph overwrites the generated review CSV; preserve reviewer decisions separately.
+
+Regenerate the graph scaffold after updating the DXF extraction:
+
+```bash
+python backend/navigation/tools/build_candidate_navigation_graph.py
+```
 # Spatial CSV and RAG lookup
 
 The extracted floor data is also exported as CSV files under [`rag/data/spatial/ramanujan_block`](../rag/data/spatial/ramanujan_block/README.md). The set contains semantic label candidates, candidate connector topology, unclassified DXF geometry, and per-floor summaries. `rag/spatial_lookup.py` reads these files directly for room/floor and coordinate queries, while `rag/app.py` adds matching structured facts to the RAG answer context. `rag/ingest.py` includes the compact semantic and connector rows in future vector-store rebuilds.

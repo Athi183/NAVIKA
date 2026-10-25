@@ -5,6 +5,7 @@ import { Html, Line, OrbitControls, Text } from '@react-three/drei'
 import { QRCodeSVG } from 'qrcode.react'
 import { AlertTriangle, Layers3, Map as MapIcon, MapPin, QrCode, Route, RotateCcw } from 'lucide-react'
 import building from '../../data/ramanujan_floors_2_6.json'
+import navigationGraph from '../../data/ramanujan_navigation_graph_candidate.json'
 import MultiFloorDxfViewer from './MultiFloorDxfViewer'
 
 const FLOOR_GAP = 6
@@ -328,7 +329,7 @@ export default function MultiFloorNavigation3D() {
             </div>
             <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-xs leading-5 text-amber-950">
               <h2 className="flex items-center gap-2 font-bold"><AlertTriangle size={15} />Route review required</h2>
-              <p className="mt-2">The DXF provides room labels, plan linework and repeated stair/lift markers, but it does not establish door openings or a verified walkable corridor graph. The red line is a visual candidate connecting the selected points and connector; do not use it as real-world directions until those paths are checked and authored as reviewed network edges.</p>
+              <p className="mt-2">The graph draft has {navigationGraph.review_summary.verified_horizontal_edges} verified room-to-corridor connections. DXF linework has not established door openings or walkable corridors, so the red line is only a visual candidate through the selected stair/lift. Review the room, doorway, corridor and landing links before using routes as real-world directions.</p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <label className="flex cursor-pointer items-center gap-2 px-1 text-xs text-slate-600"><input type="checkbox" checked={showLabels} onChange={(event) => setShowLabels(event.target.checked)} />Show room labels</label>
