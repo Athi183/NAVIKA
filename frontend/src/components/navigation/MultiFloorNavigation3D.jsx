@@ -353,7 +353,7 @@ export default function MultiFloorNavigation3D() {
   const [activeEndpoint, setActiveEndpoint] = useState('source')
   const [showLabels, setShowLabels] = useState(true)
   const [labelFloor, setLabelFloor] = useState(initialSource.floor)
-  const [showRouteQr, setShowRouteQr] = useState(false)
+  const [showRouteQr, setShowRouteQr] = useState(() => new URLSearchParams(window.location.search).get('qr') === '1')
   const [view, setView] = useState('3d')
   const controlsRef = useRef(null)
   // Hot reloads or old bookmarked links can leave IDs that no longer exist
