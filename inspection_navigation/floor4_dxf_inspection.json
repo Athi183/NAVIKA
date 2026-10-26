@@ -1,0 +1,382 @@
+{
+  "source_file": "/home/fathima-mehrin-v-s/RAMANUJAN_4TH/RAMANUJAN_4THDXF/Ramanujan_4thFloor.dxf",
+  "dxf_version": "AC1027",
+  "$INSUNITS": 4,
+  "units_name": "millimetres",
+  "modelspace_entity_count": 695,
+  "entity_counts": {
+    "INSERT": 37,
+    "LINE": 526,
+    "LWPOLYLINE": 85,
+    "MTEXT": 32,
+    "POLYLINE": 1,
+    "TEXT": 14
+  },
+  "layer_counts": {
+    "0": 695
+  },
+  "drawing_extents": {
+    "min": [
+      642.535633,
+      261.967074,
+      -50.977767
+    ],
+    "max": [
+      727.408052,
+      678.878901,
+      98.711048
+    ]
+  },
+  "type_extents": {
+    "INSERT": {
+      "count": 37,
+      "extents": {
+        "min": [
+          646.63819,
+          262.657005,
+          -46.534078
+        ],
+        "max": [
+          724.121018,
+          285.459781,
+          98.711048
+        ]
+      }
+    },
+    "LINE": {
+      "count": 526,
+      "extents": {
+        "min": [
+          642.535633,
+          261.967074,
+          -50.977767
+        ],
+        "max": [
+          727.171818,
+          296.014244,
+          98.711048
+        ]
+      }
+    },
+    "LWPOLYLINE": {
+      "count": 85,
+      "extents": {
+        "min": [
+          642.775415,
+          263.413587,
+          0.0
+        ],
+        "max": [
+          727.408052,
+          293.24898,
+          97.331351
+        ]
+      }
+    },
+    "MTEXT": {
+      "count": 32,
+      "extents": {
+        "min": [
+          645.98891,
+          268.114538,
+          0.0
+        ],
+        "max": [
+          727.314742,
+          678.878901,
+          24.671788
+        ]
+      }
+    },
+    "POLYLINE": {
+      "count": 1,
+      "extents": {
+        "min": [
+          675.594195,
+          281.991356,
+          47.968985
+        ],
+        "max": [
+          680.231392,
+          284.749591,
+          49.343537
+        ]
+      }
+    },
+    "TEXT": {
+      "count": 14,
+      "extents": {
+        "min": [
+          643.2514,
+          269.319399,
+          -0.0
+        ],
+        "max": [
+          726.222507,
+          292.700538,
+          72.640734
+        ]
+      }
+    }
+  },
+  "blocks": [
+    {
+      "name": "_ArchTick",
+      "entity_counts": {
+        "LWPOLYLINE": 1
+      }
+    },
+    {
+      "name": "_DetailCallout",
+      "entity_counts": {
+        "CIRCLE": 1,
+        "LINE": 1,
+        "ATTDEF": 2
+      }
+    },
+    {
+      "name": "A$C764D24B9",
+      "entity_counts": {
+        "ARC": 1,
+        "LWPOLYLINE": 3
+      }
+    },
+    {
+      "name": "WC1",
+      "entity_counts": {
+        "ELLIPSE": 1,
+        "LWPOLYLINE": 4,
+        "LINE": 2,
+        "ARC": 1,
+        "CIRCLE": 3
+      }
+    }
+  ],
+  "insert_references": {
+    "A$C764D24B9": 36,
+    "WC1": 1
+  },
+  "text_samples": [
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        643.2514,
+        283.0067,
+        -0.0
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        725.8715,
+        272.2329,
+        -0.0
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        670.941,
+        275.4774,
+        -0.0
+      ]
+    },
+    {
+      "type": "MTEXT",
+      "text": "\\pi0.47689;LIFT ",
+      "position": [
+        674.5411,
+        274.3596,
+        0.0
+      ]
+    },
+    {
+      "type": "MTEXT",
+      "text": "\\pi0.47689;LIFT ",
+      "position": [
+        725.7184,
+        277.878,
+        0.0
+      ]
+    },
+    {
+      "type": "MTEXT",
+      "text": "\\pi0.56745;Engine \\P\\pi0.652;Room ",
+      "position": [
+        674.2153,
+        274.0513,
+        0.0
+      ]
+    },
+    {
+      "type": "MTEXT",
+      "text": "Gents Toilet",
+      "position": [
+        723.6909,
+        285.1797,
+        0.0789
+      ]
+    },
+    {
+      "type": "MTEXT",
+      "text": "Ladies Toilet",
+      "position": [
+        646.4571,
+        288.2461,
+        0.0789
+      ]
+    },
+    {
+      "type": "MTEXT",
+      "text": "{\\L\\OFOURTH FLOOR}",
+      "position": [
+        647.3544,
+        268.5178,
+        0.0
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        668.0592,
+        280.2867,
+        0.0
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        653.9737,
+        290.51,
+        48.6563
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        666.6703,
+        290.6682,
+        48.6563
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        676.49,
+        290.6062,
+        38.925
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        683.9793,
+        287.977,
+        48.081
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        697.8777,
+        287.7792,
+        72.6407
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        695.2456,
+        288.058,
+        71.2834
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        705.8185,
+        288.0079,
+        72.6407
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        712.8154,
+        287.8551,
+        48.6562
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        702.8773,
+        269.453,
+        72.6407
+      ]
+    },
+    {
+      "type": "TEXT",
+      "text": "",
+      "position": [
+        715.3252,
+        269.587,
+        23.9845
+      ]
+    }
+  ],
+  "observations": [
+    "All modelspace entities are on layer 0, so layer filtering cannot distinguish walls.",
+    "The main architectural plan occupies approximately X 642\u2013728, Y 261\u2013297; text extents expand drawing Y to about 679 and cause misleading global bounds.",
+    "The visible plan uses paired parallel lines, open and closed polylines, partitions, stair/lift outlines, door and stair symbols.",
+    "36 A$C764D24B9 INSERTs resolve within the plan to door swing arcs and companion polylines; one WC1 insert resolves to plumbing fixture geometry. They were excluded as symbols, not ignored: their block definitions and transformed instances were inspected.",
+    "TEXT and MTEXT annotations are excluded. All geometry is on layer 0.",
+    "Wall thickness centre-lines cannot be inferred robustly from this mixed single-layer drawing; source boundary linework is retained.",
+    "Header units declare millimetres, but physical scale is uncertain; no coordinate scaling was applied."
+  ],
+  "block_insert_analysis": {
+    "A$C764D24B9": {
+      "references": 36,
+      "virtual_entity_counts": {
+        "ARC": 36,
+        "LWPOLYLINE": 108
+      },
+      "transformed_xy_extents": [
+        646.6381903291942,
+        262.6570046492918,
+        724.1210176060611,
+        285.4597808632862
+      ]
+    },
+    "WC1": {
+      "references": 1,
+      "virtual_entity_counts": {
+        "ELLIPSE": 1,
+        "LWPOLYLINE": 4,
+        "LINE": 2,
+        "ARC": 1,
+        "CIRCLE": 3
+      },
+      "transformed_xy_extents": [
+        646.7017894719074,
+        280.63306816781005,
+        647.4847011702411,
+        281.22903228967016
+      ]
+    }
+  },
+  "unit_interpretation": "Header $INSUNITS=4 declares millimetres. The visible plan extents are about 86 by 36 coordinate units and room annotations are not sufficient to confirm the intended physical scale, so actual coordinate scale remains uncertain; output preserves raw coordinates."
+}
