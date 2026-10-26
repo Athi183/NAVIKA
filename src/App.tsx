@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Text } from "@react-three/drei";
+import { Shape, ShapeGeometry } from "three";
 
 type Wall = {
   id: string;
@@ -29,6 +30,73 @@ type SemanticData = {
   coordinate_system: string;
   places: SemanticPlace[];
 };
+
+type FloorRegion = {
+  semantic_id: string;
+  polygon: [number, number][];
+};
+
+type FloorRegionData = {
+  floor: string;
+  coordinate_system: string;
+  surface_elevation: number;
+  regions: FloorRegion[];
+};
+
+const SEMANTIC_TYPE_COLORS: Record<string, string> = {
+  classroom: "#F6D878",
+  laboratory: "#F6D878",
+  department: "#8ED8D0",
+  office: "#8ED8D0",
+  administrative: "#8ED8D0",
+  faculty_office: "#8ED8D0",
+  administrative_office: "#8ED8D0",
+  vertical_transport: "#B9A1E8",
+  lift: "#B9A1E8",
+  elevator: "#B9A1E8",
+  staircase: "#B9A1E8",
+  stair: "#B9A1E8",
+  toilet: "#83D5E3",
+  facility: "#83D5E3",
+};
+
+const SEMANTIC_FALLBACK_COLOR = "#DEE2E6";
+const SEMANTIC_OUTLINE_COLOR = "#202025";
+
+const FLOOR_REGION_TYPE_COLORS: Record<string, string> = {
+  classroom: "#F6D878",
+  tutorial: "#F6D878",
+  tutorial_room: "#F6D878",
+  laboratory: "#F6D878",
+  department: "#8ED8D0",
+  office: "#8ED8D0",
+  administrative: "#8ED8D0",
+  faculty_office: "#8ED8D0",
+  administrative_office: "#8ED8D0",
+  vertical_transport: "#B9A1E8",
+  lift: "#B9A1E8",
+  elevator: "#B9A1E8",
+  staircase: "#B9A1E8",
+  stair: "#B9A1E8",
+  toilet: "#9CCFE8",
+  facility: "#9CCFE8",
+  hall: "#D9D9D9",
+  corridor: "#D9D9D9",
+  circulation: "#D9D9D9",
+};
+
+const FLOOR_REGION_FALLBACK_COLOR = "#E5E5E5";
+
+function getSemanticColor(type: string): string {
+  const normalizedType = type.trim().toLowerCase().replace(/[\s-]+/g, "_");
+  return SEMANTIC_TYPE_COLORS[normalizedType] ?? SEMANTIC_FALLBACK_COLOR;
+}
+
+function getFloorRegionColor(type: string | undefined): string {
+  if (!type) return FLOOR_REGION_FALLBACK_COLOR;
+  const normalizedType = type.trim().toLowerCase().replace(/[\s-]+/g, "_");
+  return FLOOR_REGION_TYPE_COLORS[normalizedType] ?? FLOOR_REGION_FALLBACK_COLOR;
+}
 
 const FLOOR4_LABEL_LAYOUTS: Record<
   string,
@@ -105,6 +173,29 @@ const FLOOR5_DISPLAY_NAMES: Record<string, string> = {
   room_613: "S3/S4 CSE-B\nCLASS ROOM",
 };
 
+const FLOOR6_LABEL_LAYOUTS: Record<
+  string,
+  { roomWidth: number; roomHeight: number; maxWidth: number }
+> = {
+  room_703: { roomWidth: 7.3, roomHeight: 10.8, maxWidth: 6.4 },
+  room_704: { roomWidth: 11, roomHeight: 10.8, maxWidth: 10 },
+  room_705: { roomWidth: 11.8, roomHeight: 10.8, maxWidth: 10.8 },
+  room_706: { roomWidth: 9.1, roomHeight: 10.8, maxWidth: 8.2 },
+  room_707: { roomWidth: 10, roomHeight: 11.8, maxWidth: 9.1 },
+  room_708: { roomWidth: 11.5, roomHeight: 11.8, maxWidth: 10.5 },
+  room_709: { roomWidth: 15.7, roomHeight: 11.8, maxWidth: 14.7 },
+};
+
+const FLOOR6_DISPLAY_NAMES: Record<string, string> = {
+  room_703: "DEPT. OF CY",
+  room_704: "S3/S4 CY\nCLASS ROOM",
+  room_705: "S5/S6 CS-AI\nCLASS ROOM",
+  room_706: "S7\nCLASS ROOM",
+  room_707: "CLASS ROOM",
+  room_708: "CLASS ROOM",
+  room_709: "DIFFIE HELLMAN\nLAB",
+};
+
 function SemanticLabels({
   data,
   minX,
@@ -116,7 +207,8 @@ function SemanticLabels({
 }) {
   const isFloor4 = data.floor === "4";
   const isFloor5 = data.floor === "5";
-  const showsRoomNumber = isFloor4 || isFloor5;
+  const isFloor6 = data.floor === "6";
+  const supportsRoomNumbers = isFloor4 || isFloor5 || isFloor6;
   return (
     <>
       {data.places.map((place) => {
@@ -130,31 +222,35 @@ function SemanticLabels({
               ? FLOOR4_DISPLAY_NAMES[place.id] ?? place.name
               : isFloor5
                 ? FLOOR5_DISPLAY_NAMES[place.id] ?? place.name
-                : place.name;
+                : isFloor6
+                  ? FLOOR6_DISPLAY_NAMES[place.id] ?? place.name
+                  : place.name;
         const numberAlreadyInName =
-          showsRoomNumber &&
+          supportsRoomNumbers &&
           place.roomNumber !== undefined &&
-          new RegExp(`(^|\\D)${place.roomNumber}(\\D|$)`).test(place.name);
+          new RegExp(`(^|\\D)${place.roomNumber}(\\D|$)`).test(displayName);
         const displayText =
-          showsRoomNumber && place.roomNumber && !numberAlreadyInName
+          supportsRoomNumbers && place.roomNumber && !numberAlreadyInName
             ? `${place.roomNumber}\n${displayName}`
             : displayName;
         const roomLayout = isFloor4
           ? FLOOR4_LABEL_LAYOUTS[place.id]
           : isFloor5
             ? FLOOR5_LABEL_LAYOUTS[place.id]
-            : undefined;
+            : isFloor6
+              ? FLOOR6_LABEL_LAYOUTS[place.id]
+              : undefined;
         const fontSize = roomLayout
           ? Math.max(
               0.34,
               Math.min(0.44, roomLayout.roomWidth / 12, roomLayout.roomHeight / 24),
             )
-          : showsRoomNumber
+          : (isFloor4 || isFloor5 || (isFloor6 && Boolean(place.roomNumber)))
             ? 0.36
             : 0.65;
         const displayLineCount = displayText.split("\n").length;
         const labelY =
-          showsRoomNumber && place.roomNumber
+          supportsRoomNumbers && place.roomNumber
             ? 3.1 + ((displayLineCount - 1) * fontSize * 1.2) / 2
             : 3.1;
 
@@ -167,12 +263,23 @@ function SemanticLabels({
               -(place.cadY - minY),
             ]}
             fontSize={fontSize}
-            color="#ffe082"
+            color={getSemanticColor(place.type)}
             anchorX="center"
             anchorY="middle"
-            outlineWidth={showsRoomNumber ? 0.02 : 0.035}
-            outlineColor="#202025"
-            maxWidth={roomLayout?.maxWidth ?? (showsRoomNumber ? 4 : 8)}
+            outlineWidth={
+              isFloor4 ||
+              isFloor5 ||
+              (isFloor6 && Boolean(place.roomNumber))
+                ? 0.02
+                : 0.035
+            }
+            outlineColor={SEMANTIC_OUTLINE_COLOR}
+            maxWidth={
+              roomLayout?.maxWidth ??
+              (isFloor4 || isFloor5 || (isFloor6 && Boolean(place.roomNumber))
+                ? 4
+                : 8)
+            }
             textAlign="center"
           >
             {displayText}
@@ -221,7 +328,7 @@ function WallSegment({
       rotation={[0, -angle, 0]}
     >
       <boxGeometry args={[length, height, thickness]} />
-      <meshStandardMaterial color="#d9d9d9" />
+      <meshStandardMaterial color="#B86F70" roughness={1} />
     </mesh>
   );
 }
@@ -275,7 +382,74 @@ function FloorSlab({ data }: { data: WallData }) {
   return (
     <mesh position={[centerX, -0.08, centerZ]}>
       <boxGeometry args={[width, 0.16, depth]} />
-      <meshStandardMaterial color="#b8b8b8" />
+      <meshStandardMaterial color="#D9D9D9" roughness={1} />
+    </mesh>
+  );
+}
+
+function SemanticFloorRegions({
+  data,
+  semantics,
+  minX,
+  minY,
+}: {
+  data: FloorRegionData;
+  semantics: SemanticData;
+  minX: number;
+  minY: number;
+}) {
+  const placesById = new Map(semantics.places.map((place) => [place.id, place]));
+
+  return (
+    <>
+      {data.regions.map((region) => {
+        const place = placesById.get(region.semantic_id);
+        return (
+          <SemanticFloorRegionMesh
+            key={region.semantic_id}
+            region={region}
+            color={getFloorRegionColor(place?.type)}
+            minX={minX}
+            minY={minY}
+            elevation={data.surface_elevation}
+          />
+        );
+      })}
+    </>
+  );
+}
+
+function SemanticFloorRegionMesh({
+  region,
+  color,
+  minX,
+  minY,
+  elevation,
+}: {
+  region: FloorRegion;
+  color: string;
+  minX: number;
+  minY: number;
+  elevation: number;
+}) {
+  const geometry = useMemo(() => {
+    const shape = new Shape();
+    const [firstX, firstY] = region.polygon[0];
+    shape.moveTo(firstX - minX, firstY - minY);
+    for (const [x, y] of region.polygon.slice(1)) {
+      shape.lineTo(x - minX, y - minY);
+    }
+    shape.closePath();
+    return new ShapeGeometry(shape);
+  }, [minX, minY, region]);
+
+  return (
+    <mesh
+      geometry={geometry}
+      position={[0, elevation, 0]}
+      rotation={[-Math.PI / 2, 0, 0]}
+    >
+      <meshStandardMaterial color={color} roughness={1} metalness={0} />
     </mesh>
   );
 }
@@ -284,22 +458,38 @@ function App() {
   const [data, setData] = useState<WallData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [semantics, setSemantics] = useState<SemanticData | null>(null);
+  const [floorRegions, setFloorRegions] = useState<FloorRegionData | null>(null);
   const requestedFloor = new URLSearchParams(window.location.search).get("floor");
-  const floorId = requestedFloor === "5" || requestedFloor === "6" ? requestedFloor : "4";
+  const floorId = ["3", "5", "6"].includes(requestedFloor ?? "")
+    ? requestedFloor!
+    : "4";
   useEffect(() => {
   Promise.all([
     fetch(`/data/Ramanujan_F${floorId}/walls.json`).then((response) => {
       if (!response.ok) throw new Error(`Could not load floor ${floorId} walls`);
       return response.json() as Promise<WallData>;
     }),
-    fetch(`/data/Ramanujan_F${floorId}/semantics.json`).then((response) => {
+    fetch(`/data/Ramanujan_F${floorId}/semantics.json`).then(async (response) => {
       if (!response.ok) throw new Error(`Could not load floor ${floorId} semantics`);
-      return response.json() as Promise<SemanticData>;
+      const contents = await response.text();
+      if (!contents.trim() && floorId === "3") {
+        return {
+          floor: "3",
+          coordinate_system: "CAD XY",
+          places: [],
+        } satisfies SemanticData;
+      }
+      return JSON.parse(contents) as SemanticData;
+    }),
+    fetch(`/data/Ramanujan_F${floorId}/floor_regions.json`).then((response) => {
+      if (!response.ok) throw new Error(`Could not load floor ${floorId} floor regions`);
+      return response.json() as Promise<FloorRegionData>;
     }),
   ])
-    .then(([wallData, semanticData]) => {
+    .then(([wallData, semanticData, regionData]) => {
       setData(wallData);
       setSemantics(semanticData);
+      setFloorRegions(regionData);
     })
     .catch((err: Error) => setError(err.message));
 }, [floorId]);
@@ -308,7 +498,7 @@ function App() {
     return <div>{error}</div>;
   }
 
-  if (!data || !semantics) {
+  if (!data || !semantics || !floorRegions) {
   return <div>Loading floor {floorId} model...</div>;
 }
 
@@ -346,14 +536,20 @@ function App() {
     >
       <color attach="background" args={["#202025"]} />
 
-      <ambientLight intensity={1.5} />
+      <ambientLight intensity={0.9} />
 
       <directionalLight
         position={[20, 40, 20]}
-        intensity={2}
+        intensity={1.25}
       />
 
       <FloorSlab data={data} />
+      <SemanticFloorRegions
+        data={floorRegions}
+        semantics={semantics}
+        minX={minX}
+        minY={minY}
+      />
 
       <FloorWalls data={data} />
       <SemanticLabels
