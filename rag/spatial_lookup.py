@@ -6,10 +6,19 @@ import re
 from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parent / "data/spatial/ramanujan_block"
+CAMPUS_DATA_DIR = Path(__file__).resolve().parent / "data/spatial/varnam_college"
 
 
 def read_rows(filename: str) -> list[dict[str, str]]:
     path = DATA_DIR / filename
+    if not path.is_file():
+        return []
+    with path.open("r", encoding="utf-8-sig", newline="") as stream:
+        return list(csv.DictReader(stream))
+
+
+def read_campus_rows(filename: str) -> list[dict[str, str]]:
+    path = CAMPUS_DATA_DIR / filename
     if not path.is_file():
         return []
     with path.open("r", encoding="utf-8-sig", newline="") as stream:
@@ -97,6 +106,25 @@ def spatial_context_for_question(question: str) -> str:
     lower = question.casefold()
     contexts = []
     places = read_rows("places.csv")
+    campus_places = read_campus_rows("places.csv")
+    campus_mentioned = []
+    for row in campus_places:
+        name = " ".join(row.get("display_name", "").casefold().split())
+        if len(name) >= 4 and name in lower:
+            campus_mentioned.append(row)
+    seen_campus_names = set()
+    for row in campus_mentioned:
+        name = row["display_name"]
+        folded = name.casefold()
+        if folded in seen_campus_names:
+            continue
+        seen_campus_names.add(folded)
+        contexts.append(
+            f"Varnam campus-site DXF label candidate: {name} ({row['category']}); "
+            f"CAD anchor x={row['source_x']}, y={row['source_y']} {row['source_units']}; "
+            f"source layer={row['source_layer']}; review status={row['review_status']}. "
+            "This is a text anchor, not a surveyed building footprint or entrance, and it is not connected to indoor route edges."
+        )
     mentioned = []
     for row in places:
         name = row["display_name"].casefold().strip()
