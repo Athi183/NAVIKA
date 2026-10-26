@@ -1,0 +1,434 @@
+{
+  "wall_support_tolerance": 0.35,
+  "floor_inset": 0.18,
+  "floors": {
+    "3": {
+      "matched_regions": [],
+      "excluded_regions": {},
+      "neutral_fallback_ids": []
+    },
+    "4": {
+      "matched_regions": [
+        {
+          "semantic_id": "room_501",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.988,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_502",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_503",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.983,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_504",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            0.99
+          ]
+        },
+        {
+          "semantic_id": "room_505",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            0.976
+          ]
+        },
+        {
+          "semantic_id": "room_506",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            0.99
+          ]
+        },
+        {
+          "semantic_id": "room_507",
+          "wall_edge_coverage": [
+            1.0,
+            0.94,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_508",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.936,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_509",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.892,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_510",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.922,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_511",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.767,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_512",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.933,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "staircase_west",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "excluded_regions": {},
+      "neutral_fallback_ids": [
+        "electrical_room",
+        "engine_room",
+        "gents_toilet",
+        "ladies_toilet",
+        "lift_east",
+        "lift_west",
+        "staircase_central",
+        "staircase_east"
+      ]
+    },
+    "5": {
+      "matched_regions": [
+        {
+          "semantic_id": "room_601",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.874,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_603",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.93,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_604",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.918,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_605",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.989,
+            0.916
+          ]
+        },
+        {
+          "semantic_id": "room_606",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            0.924
+          ]
+        },
+        {
+          "semantic_id": "room_607",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            0.931
+          ]
+        },
+        {
+          "semantic_id": "room_608",
+          "wall_edge_coverage": [
+            1.0,
+            0.941,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_609",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.873,
+            0.182
+          ]
+        },
+        {
+          "semantic_id": "room_610",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.927,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_611_612",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.961,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_613",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.939,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "toilet",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            0.974
+          ]
+        },
+        {
+          "semantic_id": "lift",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "electrical_room",
+          "wall_edge_coverage": [
+            0.367,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "staircase_west",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "staircase_east",
+          "wall_edge_coverage": [
+            0.927,
+            1.0,
+            1.0,
+            0.62
+          ]
+        }
+      ],
+      "excluded_regions": {
+        "ladies_toilet": "Insufficient wall support: [1.0, 0.88, 0.167, 0.367]"
+      },
+      "neutral_fallback_ids": [
+        "gents_toilet",
+        "ladies_toilet",
+        "staircase_central"
+      ]
+    },
+    "6": {
+      "matched_regions": [
+        {
+          "semantic_id": "excel_hall",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.904,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "electrical_room",
+          "wall_edge_coverage": [
+            0.589,
+            0.571,
+            1.0,
+            0.884
+          ]
+        },
+        {
+          "semantic_id": "room_703",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.901,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_704",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.954,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_705",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.932,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_706",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.922,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_707",
+          "wall_edge_coverage": [
+            1.0,
+            0.908,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "room_708",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            0.939
+          ]
+        },
+        {
+          "semantic_id": "room_709",
+          "wall_edge_coverage": [
+            0.092,
+            1.0,
+            1.0,
+            0.956
+          ]
+        },
+        {
+          "semantic_id": "ladies_toilet",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            0.692,
+            0.231
+          ]
+        },
+        {
+          "semantic_id": "lift",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "staircase_left",
+          "wall_edge_coverage": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "staircase_middle",
+          "wall_edge_coverage": [
+            0.686,
+            0.49,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "semantic_id": "staircase_right",
+          "wall_edge_coverage": [
+            0.885,
+            1.0,
+            1.0,
+            0.612
+          ]
+        }
+      ],
+      "excluded_regions": {},
+      "neutral_fallback_ids": [
+        "gents_toilet",
+        "wash_area"
+      ]
+    }
+  }
+}
