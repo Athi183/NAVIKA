@@ -6,7 +6,8 @@ from ezdxf.addons.drawing import layout
 from ezdxf.addons.drawing.svg import SVGBackend
 
 source = Path.home() / "RAMANUJAN_6TH/DXF/RAMANUJAN_6THFLOOR.dxf"
-output = Path.home() / "Projects/navika-3d/floor6_preview.svg"
+output = Path("inspection_navigation/floor6_preview.svg")
+output.parent.mkdir(parents=True, exist_ok=True)
 
 doc = ezdxf.readfile(source)
 msp = doc.modelspace()
