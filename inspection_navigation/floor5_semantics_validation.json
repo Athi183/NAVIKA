@@ -1,0 +1,1838 @@
+{
+  "source_file": "/home/fathima-mehrin-v-s/RAMANUJAN-5TH/RAMANUJAN_5THDXF/RAMANUJAN_5THFloor.dxf",
+  "dxf_version": "AC1027",
+  "insunits_code": 4,
+  "insunits_declared": "millimetres",
+  "coordinate_scale_note": "DXF header declares millimetres, while room text explicitly includes dimensions in metres and the floor footprint is about 85 by 34 coordinate units. Physical scale is uncertain; coordinates are kept in source XY without rescaling.",
+  "modelspace_entity_count": 594,
+  "entity_counts": {
+    "LINE": 466,
+    "LWPOLYLINE": 85,
+    "TEXT": 15,
+    "POLYLINE": 1,
+    "MTEXT": 27
+  },
+  "layer_counts": {
+    "0": 594
+  },
+  "drawing_extents_xyz": {
+    "min": [
+      949.125078,
+      200.047513,
+      -50.977849
+    ],
+    "max": [
+      1033.997498,
+      615.461861,
+      98.717504
+    ]
+  },
+  "type_extents": {
+    "LINE": {
+      "count": 466,
+      "extents_xyz": {
+        "min": [
+          949.125078,
+          200.047513,
+          -50.977849
+        ],
+        "max": [
+          1033.761264,
+          234.100982,
+          98.717504
+        ]
+      }
+    },
+    "LWPOLYLINE": {
+      "count": 85,
+      "extents_xyz": {
+        "min": [
+          949.364861,
+          201.500324,
+          0.0
+        ],
+        "max": [
+          1033.997498,
+          231.335718,
+          0.0
+        ]
+      }
+    },
+    "MTEXT": {
+      "count": 27,
+      "extents_xyz": {
+        "min": [
+          952.758065,
+          203.298476,
+          -49.26486
+        ],
+        "max": [
+          1030.357262,
+          615.461861,
+          0.0
+        ]
+      }
+    },
+    "POLYLINE": {
+      "count": 1,
+      "extents_xyz": {
+        "min": [
+          982.183641,
+          220.078093,
+          47.968985
+        ],
+        "max": [
+          986.820838,
+          222.836328,
+          49.343537
+        ]
+      }
+    },
+    "TEXT": {
+      "count": 15,
+      "extents_xyz": {
+        "min": [
+          949.840846,
+          200.762086,
+          -0.179751
+        ],
+        "max": [
+          1033.298545,
+          229.176711,
+          0.0
+        ]
+      }
+    }
+  },
+  "block_definitions": [
+    {
+      "name": "_ArchTick",
+      "entity_counts": {
+        "LWPOLYLINE": 1
+      }
+    },
+    {
+      "name": "_DetailCallout",
+      "entity_counts": {
+        "CIRCLE": 1,
+        "LINE": 1,
+        "ATTDEF": 2
+      }
+    }
+  ],
+  "insert_references": {},
+  "text_entities": [
+    {
+      "handle": "81D",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        949.840846,
+        221.093444,
+        -0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "841",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        1032.460901,
+        210.319623,
+        -0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "876",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        977.530442,
+        213.564124,
+        -0.0
+      ],
+      "rotation_degrees": 90.0
+    },
+    {
+      "handle": "991",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "Ladies Toilet",
+      "display_text": "Ladies Toilet",
+      "insertion_point": [
+        953.326217,
+        224.82902,
+        -49.26486
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "99A",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "FIFTH FLOOR",
+      "display_text": "FIFTH FLOOR",
+      "insertion_point": [
+        954.789107,
+        203.298476,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "99D",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "Toilet",
+      "display_text": "Toilet",
+      "insertion_point": [
+        993.506475,
+        200.863406,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "99E",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "FILE \nASSOCIATION \nROOM",
+      "display_text": "FILE ASSOCIATION ROOM",
+      "insertion_point": [
+        1024.154783,
+        226.373694,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A1",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "Lift",
+      "display_text": "Lift",
+      "insertion_point": [
+        1032.302585,
+        215.387447,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A2",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "GENTS TOILET",
+      "display_text": "GENTS TOILET",
+      "insertion_point": [
+        1030.357262,
+        222.407824,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A3",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "ELECTRICAL ROOM",
+      "display_text": "ELECTRICAL ROOM",
+      "insertion_point": [
+        973.336411,
+        218.580633,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A4",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S5/S6 CSE-A CLASS ROOM",
+      "display_text": "S5/S6 CSE-A CLASS ROOM",
+      "insertion_point": [
+        957.551927,
+        228.661487,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A5",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S5/S6 CSE-B CLASS ROOM",
+      "display_text": "S5/S6 CSE-B CLASS ROOM",
+      "insertion_point": [
+        969.361836,
+        228.708476,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A6",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S5/S6 CS AI CLASS ROOM",
+      "display_text": "S5/S6 CS AI CLASS ROOM",
+      "insertion_point": [
+        980.548172,
+        228.457122,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A7",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S3/S4 CSE-B CLASS ROOM",
+      "display_text": "S3/S4 CSE-B CLASS ROOM",
+      "insertion_point": [
+        991.201201,
+        225.982712,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A8",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S7/S8 CSE-B CLASS ROOM",
+      "display_text": "S7/S8 CSE-B CLASS ROOM",
+      "insertion_point": [
+        1003.802975,
+        225.907139,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A9",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S7/S8 CS-AI CLASS ROOM",
+      "display_text": "S7/S8 CS-AI CLASS ROOM",
+      "insertion_point": [
+        1015.01465,
+        225.990702,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AA",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S3/S4 CSE-A CLASS ROOM",
+      "display_text": "S3/S4 CSE-A CLASS ROOM",
+      "insertion_point": [
+        1009.786955,
+        207.355482,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.95 x 11.84\n141.488 m²\n1522.4 Sq.ft",
+      "display_text": "11.95 x 11.84 141.488 m² 1522.4 Sq.ft",
+      "insertion_point": [
+        1020.972117,
+        206.787041,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.94 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "11.94 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        1010.610644,
+        206.754559,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.9 x 11.84\n105.378 m²\n1133.85 Sq.ft",
+      "display_text": "8.9 x 11.84 105.378 m² 1133.85 Sq.ft",
+      "insertion_point": [
+        1000.565099,
+        206.754559,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B1",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.88 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "8.88 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        991.268914,
+        206.008253,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "5.9 x 11.9\n70.21 m²\n755.46 Sq.ft",
+      "display_text": "5.9 x 11.9 70.21 m² 755.46 Sq.ft",
+      "insertion_point": [
+        1023.133532,
+        224.061359,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.8x 11.9\n140.42 m²\n1510.92 Sq.ft",
+      "display_text": "11.8x 11.9 140.42 m² 1510.92 Sq.ft",
+      "insertion_point": [
+        1015.326458,
+        225.569986,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "12.0 x 11.9\n142.80 m²\n1536.53 Sq.ft",
+      "display_text": "12.0 x 11.9 142.80 m² 1536.53 Sq.ft",
+      "insertion_point": [
+        1004.049561,
+        225.521665,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.78 x 11.9\n140.182 m²\n1508.36 Sq.ft",
+      "display_text": "11.78 x 11.9 140.182 m² 1508.36 Sq.ft",
+      "insertion_point": [
+        991.92971,
+        225.482809,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.5 x 11.82\n135.93 m²\n1462.61 Sq.ft",
+      "display_text": "11.5 x 11.82 135.93 m² 1462.61 Sq.ft",
+      "insertion_point": [
+        981.284288,
+        228.040927,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.98 x 11.82 m\n141.60 m²\n1523.65 Sq.ft",
+      "display_text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "insertion_point": [
+        970.089324,
+        228.254162,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.98 x 11.82 m\n141.60 m²\n1523.65 Sq.ft",
+      "display_text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "insertion_point": [
+        957.943685,
+        228.096354,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C1",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "DIV OF CSE & \nAIDS \nDEPARTMENT",
+      "display_text": "DIV OF CSE & AIDS DEPARTMENT",
+      "insertion_point": [
+        991.295437,
+        207.760003,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "608",
+      "display_text": "608",
+      "insertion_point": [
+        1023.469565,
+        208.707655,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C4",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "607",
+      "display_text": "607",
+      "insertion_point": [
+        1013.338471,
+        208.707309,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "606",
+      "display_text": "606",
+      "insertion_point": [
+        1003.1687,
+        208.786364,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C6",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "605",
+      "display_text": "605",
+      "insertion_point": [
+        993.817224,
+        208.772785,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "601",
+      "display_text": "601",
+      "insertion_point": [
+        960.516052,
+        230.035867,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C8",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "603",
+      "display_text": "603",
+      "insertion_point": [
+        972.324202,
+        229.972093,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "604",
+      "display_text": "604",
+      "insertion_point": [
+        983.790474,
+        230.064714,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CA",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "613",
+      "display_text": "613",
+      "insertion_point": [
+        994.393532,
+        227.406779,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "611/612",
+      "display_text": "611/612",
+      "insertion_point": [
+        1005.785084,
+        227.352354,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CC",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "610",
+      "display_text": "610",
+      "insertion_point": [
+        1017.767449,
+        227.29066,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "609",
+      "display_text": "609",
+      "insertion_point": [
+        1025.527308,
+        227.380039,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CE",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "EXPERIENTIAL LEARNING HUB",
+      "display_text": "EXPERIENTIAL LEARNING HUB",
+      "insertion_point": [
+        1019.127001,
+        207.321723,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CF",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "ELECTIVE / TUTORIAL/ IDP ROOM",
+      "display_text": "ELECTIVE / TUTORIAL/ IDP ROOM",
+      "insertion_point": [
+        999.349668,
+        207.293016,
+        -0.179751
+      ],
+      "rotation_degrees": 0.0
+    }
+  ],
+  "text_entity_count": 42,
+  "room_number_texts": [
+    {
+      "handle": "9C3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "608",
+      "display_text": "608",
+      "insertion_point": [
+        1023.469565,
+        208.707655,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C4",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "607",
+      "display_text": "607",
+      "insertion_point": [
+        1013.338471,
+        208.707309,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "606",
+      "display_text": "606",
+      "insertion_point": [
+        1003.1687,
+        208.786364,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C6",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "605",
+      "display_text": "605",
+      "insertion_point": [
+        993.817224,
+        208.772785,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "601",
+      "display_text": "601",
+      "insertion_point": [
+        960.516052,
+        230.035867,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C8",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "603",
+      "display_text": "603",
+      "insertion_point": [
+        972.324202,
+        229.972093,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "604",
+      "display_text": "604",
+      "insertion_point": [
+        983.790474,
+        230.064714,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CA",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "613",
+      "display_text": "613",
+      "insertion_point": [
+        994.393532,
+        227.406779,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "611/612",
+      "display_text": "611/612",
+      "insertion_point": [
+        1005.785084,
+        227.352354,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CC",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "610",
+      "display_text": "610",
+      "insertion_point": [
+        1017.767449,
+        227.29066,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "609",
+      "display_text": "609",
+      "insertion_point": [
+        1025.527308,
+        227.380039,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    }
+  ],
+  "numeric_dimension_annotations": [
+    {
+      "handle": "9AB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.95 x 11.84\n141.488 m²\n1522.4 Sq.ft",
+      "display_text": "11.95 x 11.84 141.488 m² 1522.4 Sq.ft",
+      "insertion_point": [
+        1020.972117,
+        206.787041,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.94 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "11.94 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        1010.610644,
+        206.754559,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.9 x 11.84\n105.378 m²\n1133.85 Sq.ft",
+      "display_text": "8.9 x 11.84 105.378 m² 1133.85 Sq.ft",
+      "insertion_point": [
+        1000.565099,
+        206.754559,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B1",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.88 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "8.88 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        991.268914,
+        206.008253,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "5.9 x 11.9\n70.21 m²\n755.46 Sq.ft",
+      "display_text": "5.9 x 11.9 70.21 m² 755.46 Sq.ft",
+      "insertion_point": [
+        1023.133532,
+        224.061359,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.8x 11.9\n140.42 m²\n1510.92 Sq.ft",
+      "display_text": "11.8x 11.9 140.42 m² 1510.92 Sq.ft",
+      "insertion_point": [
+        1015.326458,
+        225.569986,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "12.0 x 11.9\n142.80 m²\n1536.53 Sq.ft",
+      "display_text": "12.0 x 11.9 142.80 m² 1536.53 Sq.ft",
+      "insertion_point": [
+        1004.049561,
+        225.521665,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.78 x 11.9\n140.182 m²\n1508.36 Sq.ft",
+      "display_text": "11.78 x 11.9 140.182 m² 1508.36 Sq.ft",
+      "insertion_point": [
+        991.92971,
+        225.482809,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.5 x 11.82\n135.93 m²\n1462.61 Sq.ft",
+      "display_text": "11.5 x 11.82 135.93 m² 1462.61 Sq.ft",
+      "insertion_point": [
+        981.284288,
+        228.040927,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.98 x 11.82 m\n141.60 m²\n1523.65 Sq.ft",
+      "display_text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "insertion_point": [
+        970.089324,
+        228.254162,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.98 x 11.82 m\n141.60 m²\n1523.65 Sq.ft",
+      "display_text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "insertion_point": [
+        957.943685,
+        228.096354,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    }
+  ],
+  "plan_bounds": {
+    "min_x": 948.5,
+    "min_y": 199.5,
+    "max_x": 1034.5,
+    "max_y": 234.5
+  },
+  "observations": [
+    "Modelspace has no INSERT, ARC, CIRCLE or SPLINE entities; geometry is mostly LINE/LWPOLYLINE.",
+    "Every modelspace entity is on layer 0, so layers cannot distinguish architecture from annotations.",
+    "The 11 room number text objects are 601, 603, 604, 605, 606, 607, 608, 609, 610, 611/612, 613. No 602 label was found.",
+    "Three UP markers align with visible stair symbols.",
+    "The drawing contains paired wall faces, room partitions, door/opening breaks, stair graphics, toilet/lift/electrical labels and area dimensions.",
+    "All 11 room number labels sit within apparent room footprints; 607 and 608 have no descriptive room label. 611/612 is a single combined source text label.",
+    "Existing f5_visualization.json uses a separate normalized 3D/navigation schema. Its walls are dimensionally consistent with the DXF after translation, and its 11 room nodes corroborate the room count; it was not copied into the endpoint schema."
+  ],
+  "semantic_entity_count": 19,
+  "semantic_category_counts": {
+    "classroom": 8,
+    "department": 1,
+    "facility": 3,
+    "toilet": 3,
+    "vertical_transport": 1,
+    "staircase": 3
+  },
+  "room_number_recovery": {
+    "source_numbers": [
+      "601",
+      "603",
+      "604",
+      "605",
+      "606",
+      "607",
+      "608",
+      "609",
+      "610",
+      "611/612",
+      "613"
+    ],
+    "displayed_numbers": [
+      "601",
+      "603",
+      "604",
+      "605",
+      "606",
+      "607",
+      "608",
+      "609",
+      "610",
+      "611/612",
+      "613"
+    ],
+    "number_to_name_associations": [
+      {
+        "place_id": "room_601",
+        "name_handle": "9A4",
+        "room_number_handle": "9C7",
+        "original_name_insertion_xy": [
+          957.5519266991022,
+          228.6614871407542
+        ],
+        "original_room_number_insertion_xy": [
+          960.5160515880387,
+          230.0358668850845
+        ],
+        "display_position_xy": [
+          961.11,
+          228.465
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          955.13,
+          967.09,
+          223.07,
+          233.86
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_603",
+        "name_handle": "9A5",
+        "room_number_handle": "9C8",
+        "original_name_insertion_xy": [
+          969.3618356577125,
+          228.7084760424892
+        ],
+        "original_room_number_insertion_xy": [
+          972.3242017794463,
+          229.9720933998356
+        ],
+        "display_position_xy": [
+          973.1,
+          228.465
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          967.33,
+          978.87,
+          223.07,
+          233.86
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_604",
+        "name_handle": "9A6",
+        "room_number_handle": "9C9",
+        "original_name_insertion_xy": [
+          980.5481715987893,
+          228.4571217459857
+        ],
+        "original_room_number_insertion_xy": [
+          983.790473836534,
+          230.0647137079036
+        ],
+        "display_position_xy": [
+          983.99,
+          228.465
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          979.1,
+          988.83,
+          223.07,
+          233.86
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_605",
+        "name_handle": "9C1",
+        "room_number_handle": "9C6",
+        "original_name_insertion_xy": [
+          991.2954368530762,
+          207.7600026591004
+        ],
+        "original_room_number_insertion_xy": [
+          993.8172236177205,
+          208.7727854105502
+        ],
+        "display_position_xy": [
+          995.66,
+          207.525
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          990.83,
+          1000.49,
+          201.67,
+          213.4
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_606",
+        "name_handle": "9CF",
+        "room_number_handle": "9C5",
+        "original_name_insertion_xy": [
+          999.3496682524864,
+          207.2930157777606
+        ],
+        "original_room_number_insertion_xy": [
+          1003.168699802381,
+          208.786364446904
+        ],
+        "display_position_xy": [
+          1004.35,
+          207.51
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          1000.49,
+          1008.34,
+          201.64,
+          213.4
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_607",
+        "name_handle": "9AA",
+        "room_number_handle": "9C4",
+        "original_name_insertion_xy": [
+          1009.786954798788,
+          207.3554824521448
+        ],
+        "original_room_number_insertion_xy": [
+          1013.338470993253,
+          208.7073092950673
+        ],
+        "display_position_xy": [
+          1013.3,
+          207.515
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          1008.09,
+          1018.5,
+          201.6,
+          213.4
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_608",
+        "name_handle": "9CE",
+        "room_number_handle": "9C3",
+        "original_name_insertion_xy": [
+          1019.127001323071,
+          207.3217233679548
+        ],
+        "original_room_number_insertion_xy": [
+          1023.469564658212,
+          208.7076552159529
+        ],
+        "display_position_xy": [
+          1023.6,
+          207.515
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          1018.5,
+          1028.83,
+          201.6,
+          213.4
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_609",
+        "name_handle": "99E",
+        "room_number_handle": "9CD",
+        "original_name_insertion_xy": [
+          1024.15478266642,
+          226.3736944544958
+        ],
+        "original_room_number_insertion_xy": [
+          1025.527307874166,
+          227.3800389252452
+        ],
+        "display_position_xy": [
+          1025.985,
+          224.745
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          1023.2,
+          1028.77,
+          220.16,
+          229.33
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_610",
+        "name_handle": "9A9",
+        "room_number_handle": "9CC",
+        "original_name_insertion_xy": [
+          1015.014649666968,
+          225.9907024121481
+        ],
+        "original_room_number_insertion_xy": [
+          1017.767448653668,
+          227.2906597035777
+        ],
+        "display_position_xy": [
+          1018.39,
+          225.705
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          1013.58,
+          1023.2,
+          220.16,
+          231.1
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      },
+      {
+        "place_id": "room_611_612",
+        "name_handle": "9A8",
+        "room_number_handle": "9CB",
+        "original_name_insertion_xy": [
+          1003.802975442542,
+          225.9071392614956
+        ],
+        "original_room_number_insertion_xy": [
+          1005.785084264693,
+          227.3523543748939
+        ],
+        "display_position_xy": [
+          1007.035,
+          225.705
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          1000.73,
+          1013.58,
+          220.16,
+          231.1
+        ],
+        "association": "one literal 611/612 room-number label and S7/S8 CSE-B name fall within same wall-bounded room"
+      },
+      {
+        "place_id": "room_613",
+        "name_handle": "9A7",
+        "room_number_handle": "9CA",
+        "original_name_insertion_xy": [
+          991.2012011639043,
+          225.9827123339433
+        ],
+        "original_room_number_insertion_xy": [
+          994.3935319083083,
+          227.4067791516478
+        ],
+        "display_position_xy": [
+          994.72,
+          225.705
+        ],
+        "position_basis": "midpoint of DXF room/enclosure wall bounds",
+        "room_bounds": [
+          988.95,
+          1000.49,
+          220.31,
+          231.1
+        ],
+        "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+      }
+    ],
+    "unassociated_numeric_room_labels": [],
+    "missing_number_note": "No standalone text label 602 is present in the DXF; it was not generated.",
+    "combined_number_note": "611/612 is one literal MTEXT label and one shared classroom region; retained as roomNumber \"611/612\" rather than fabricated into two room geometries."
+  },
+  "position_audit": [
+    {
+      "place_id": "room_601",
+      "name_handle": "9A4",
+      "room_number_handle": "9C7",
+      "original_name_insertion_xy": [
+        957.5519266991022,
+        228.6614871407542
+      ],
+      "original_room_number_insertion_xy": [
+        960.5160515880387,
+        230.0358668850845
+      ],
+      "display_position_xy": [
+        961.11,
+        228.465
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        955.13,
+        967.09,
+        223.07,
+        233.86
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_603",
+      "name_handle": "9A5",
+      "room_number_handle": "9C8",
+      "original_name_insertion_xy": [
+        969.3618356577125,
+        228.7084760424892
+      ],
+      "original_room_number_insertion_xy": [
+        972.3242017794463,
+        229.9720933998356
+      ],
+      "display_position_xy": [
+        973.1,
+        228.465
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        967.33,
+        978.87,
+        223.07,
+        233.86
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_604",
+      "name_handle": "9A6",
+      "room_number_handle": "9C9",
+      "original_name_insertion_xy": [
+        980.5481715987893,
+        228.4571217459857
+      ],
+      "original_room_number_insertion_xy": [
+        983.790473836534,
+        230.0647137079036
+      ],
+      "display_position_xy": [
+        983.99,
+        228.465
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        979.1,
+        988.83,
+        223.07,
+        233.86
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_605",
+      "name_handle": "9C1",
+      "room_number_handle": "9C6",
+      "original_name_insertion_xy": [
+        991.2954368530762,
+        207.7600026591004
+      ],
+      "original_room_number_insertion_xy": [
+        993.8172236177205,
+        208.7727854105502
+      ],
+      "display_position_xy": [
+        995.66,
+        207.525
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        990.83,
+        1000.49,
+        201.67,
+        213.4
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_606",
+      "name_handle": "9CF",
+      "room_number_handle": "9C5",
+      "original_name_insertion_xy": [
+        999.3496682524864,
+        207.2930157777606
+      ],
+      "original_room_number_insertion_xy": [
+        1003.168699802381,
+        208.786364446904
+      ],
+      "display_position_xy": [
+        1004.35,
+        207.51
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1000.49,
+        1008.34,
+        201.64,
+        213.4
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_607",
+      "name_handle": "9AA",
+      "room_number_handle": "9C4",
+      "original_name_insertion_xy": [
+        1009.786954798788,
+        207.3554824521448
+      ],
+      "original_room_number_insertion_xy": [
+        1013.338470993253,
+        208.7073092950673
+      ],
+      "display_position_xy": [
+        1013.3,
+        207.515
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1008.09,
+        1018.5,
+        201.6,
+        213.4
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_608",
+      "name_handle": "9CE",
+      "room_number_handle": "9C3",
+      "original_name_insertion_xy": [
+        1019.127001323071,
+        207.3217233679548
+      ],
+      "original_room_number_insertion_xy": [
+        1023.469564658212,
+        208.7076552159529
+      ],
+      "display_position_xy": [
+        1023.6,
+        207.515
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1018.5,
+        1028.83,
+        201.6,
+        213.4
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_609",
+      "name_handle": "99E",
+      "room_number_handle": "9CD",
+      "original_name_insertion_xy": [
+        1024.15478266642,
+        226.3736944544958
+      ],
+      "original_room_number_insertion_xy": [
+        1025.527307874166,
+        227.3800389252452
+      ],
+      "display_position_xy": [
+        1025.985,
+        224.745
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1023.2,
+        1028.77,
+        220.16,
+        229.33
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_610",
+      "name_handle": "9A9",
+      "room_number_handle": "9CC",
+      "original_name_insertion_xy": [
+        1015.014649666968,
+        225.9907024121481
+      ],
+      "original_room_number_insertion_xy": [
+        1017.767448653668,
+        227.2906597035777
+      ],
+      "display_position_xy": [
+        1018.39,
+        225.705
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1013.58,
+        1023.2,
+        220.16,
+        231.1
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "room_611_612",
+      "name_handle": "9A8",
+      "room_number_handle": "9CB",
+      "original_name_insertion_xy": [
+        1003.802975442542,
+        225.9071392614956
+      ],
+      "original_room_number_insertion_xy": [
+        1005.785084264693,
+        227.3523543748939
+      ],
+      "display_position_xy": [
+        1007.035,
+        225.705
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1000.73,
+        1013.58,
+        220.16,
+        231.1
+      ],
+      "association": "one literal 611/612 room-number label and S7/S8 CSE-B name fall within same wall-bounded room"
+    },
+    {
+      "place_id": "room_613",
+      "name_handle": "9A7",
+      "room_number_handle": "9CA",
+      "original_name_insertion_xy": [
+        991.2012011639043,
+        225.9827123339433
+      ],
+      "original_room_number_insertion_xy": [
+        994.3935319083083,
+        227.4067791516478
+      ],
+      "display_position_xy": [
+        994.72,
+        225.705
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        988.95,
+        1000.49,
+        220.31,
+        231.1
+      ],
+      "association": "explicitly labeled name and room number fall within the same wall-bounded room"
+    },
+    {
+      "place_id": "ladies_toilet",
+      "name_handle": "991",
+      "room_number_handle": null,
+      "original_name_insertion_xy": [
+        953.3262168316113,
+        224.8290199268864
+      ],
+      "original_room_number_insertion_xy": null,
+      "display_position_xy": [
+        953.8,
+        224.7
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        952.1,
+        955.1,
+        221.9,
+        227.0
+      ],
+      "association": "explicit label in room footprint"
+    },
+    {
+      "place_id": "toilet",
+      "name_handle": "99D",
+      "room_number_handle": null,
+      "original_name_insertion_xy": [
+        993.5064753946216,
+        200.8634055999642
+      ],
+      "original_room_number_insertion_xy": null,
+      "display_position_xy": [
+        994.3,
+        200.85
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        992.2,
+        996.1,
+        200.05,
+        201.65
+      ],
+      "association": "explicit label in room footprint"
+    },
+    {
+      "place_id": "gents_toilet",
+      "name_handle": "9A2",
+      "room_number_handle": null,
+      "original_name_insertion_xy": [
+        1030.357262379274,
+        222.4078236128212
+      ],
+      "original_room_number_insertion_xy": null,
+      "display_position_xy": [
+        1031.2,
+        224.5
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1029,
+        1033.8,
+        220,
+        229
+      ],
+      "association": "explicit label in room footprint"
+    },
+    {
+      "place_id": "lift",
+      "name_handle": "9A1",
+      "room_number_handle": null,
+      "original_name_insertion_xy": [
+        1032.302585043542,
+        215.3874470112847
+      ],
+      "original_room_number_insertion_xy": null,
+      "display_position_xy": [
+        1032.2,
+        215.45
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1031.0,
+        1033.8,
+        214,
+        217
+      ],
+      "association": "explicit label in room footprint"
+    },
+    {
+      "place_id": "electrical_room",
+      "name_handle": "9A3",
+      "room_number_handle": null,
+      "original_name_insertion_xy": [
+        973.3364112119083,
+        218.5806334124468
+      ],
+      "original_room_number_insertion_xy": null,
+      "display_position_xy": [
+        976.4,
+        218.5
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        972.5,
+        980.4,
+        217,
+        220
+      ],
+      "association": "explicit label in room footprint"
+    },
+    {
+      "place_id": "staircase_west",
+      "name_handle": "81D",
+      "room_number_handle": null,
+      "original_name_insertion_xy": [
+        949.8408459993992,
+        221.0934438011814
+      ],
+      "original_room_number_insertion_xy": null,
+      "display_position_xy": [
+        950.7,
+        222.8
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        949,
+        952.3,
+        218.7,
+        227
+      ],
+      "association": "UP text marker aligns with visible stair geometry"
+    },
+    {
+      "place_id": "staircase_central",
+      "name_handle": "876",
+      "room_number_handle": null,
+      "original_name_insertion_xy": [
+        977.5304416033686,
+        213.564123950649
+      ],
+      "original_room_number_insertion_xy": null,
+      "display_position_xy": [
+        975.3,
+        214.5
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        972.5,
+        978.5,
+        212,
+        217
+      ],
+      "association": "UP text marker aligns with visible stair geometry"
+    },
+    {
+      "place_id": "staircase_east",
+      "name_handle": "841",
+      "room_number_handle": null,
+      "original_name_insertion_xy": [
+        1032.460900689996,
+        210.3196226358419
+      ],
+      "original_room_number_insertion_xy": null,
+      "display_position_xy": [
+        1031.2,
+        208.9
+      ],
+      "position_basis": "midpoint of DXF room/enclosure wall bounds",
+      "room_bounds": [
+        1028.8,
+        1033.8,
+        204,
+        213.7
+      ],
+      "association": "UP text marker aligns with visible stair geometry"
+    }
+  ],
+  "numeric_annotations_excluded": [
+    {
+      "handle": "9AB",
+      "text": "11.95 x 11.84 141.488 m² 1522.4 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9AD",
+      "text": "11.94 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9AF",
+      "text": "8.9 x 11.84 105.378 m² 1133.85 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9B1",
+      "text": "8.88 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9B3",
+      "text": "5.9 x 11.9 70.21 m² 755.46 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9B5",
+      "text": "11.8x 11.9 140.42 m² 1510.92 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9B7",
+      "text": "12.0 x 11.9 142.80 m² 1536.53 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9B9",
+      "text": "11.78 x 11.9 140.182 m² 1508.36 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9BB",
+      "text": "11.5 x 11.82 135.93 m² 1462.61 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9BD",
+      "text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    },
+    {
+      "handle": "9BF",
+      "text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "reason": "dimension/area measurements, not room numbers"
+    }
+  ],
+  "floor_title_excluded": [
+    {
+      "handle": "99A",
+      "type": "MTEXT",
+      "raw_text": "FIFTH FLOOR",
+      "display_text": "FIFTH FLOOR",
+      "insertion_point": [
+        954.7891065770467,
+        203.2984761004168,
+        0.0
+      ]
+    }
+  ],
+  "unclassified_labels": [],
+  "unit_scale_note": "Raw source coordinates retained. $INSUNITS=4 declares millimetres, but plan dimensions explicitly state metres; scale is not normalized.",
+  "legacy_comparison": {
+    "source": "git HEAD copy of public/data/Ramanujan_F5/f5_visualization.json (legacy file is absent in the current working tree)",
+    "room_node_labels": [
+      "601",
+      "603",
+      "604",
+      "605",
+      "606",
+      "607",
+      "608",
+      "609",
+      "610",
+      "611/612",
+      "613"
+    ],
+    "comparison": "11 legacy room nodes corroborate the 11 room-number labels; data was used only for cross-checking, not to generate semantic names or positions."
+  },
+  "renderer_validation": "Schema is consumed by React via query selection (default floor 4, ?floor=5 selects this data, ?floor=6 remains supported). Build and JSON validation pass. Actual WebGL view was not captured in this environment; top-down geometry and label overlays were inspected."
+}
