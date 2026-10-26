@@ -25,6 +25,8 @@ function AppShell() {
     if (label === 'About') navigate('/about')
   }
 
+  if (location.pathname === '/mobile-route') return <MobileRoute />
+
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <Header activeTab={activeTab} onSelect={handleSelect} />

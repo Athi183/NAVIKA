@@ -388,7 +388,7 @@ export default function MultiFloorNavigation3D() {
   const routeQrUrl = useMemo(() => {
     if (!source || !destination) return ''
     const configuredBaseUrl = import.meta.env.VITE_NAVIKA_BASE_URL?.trim()
-    const url = new URL('/navigation', configuredBaseUrl || window.location.origin)
+    const url = new URL('/mobile-route', configuredBaseUrl || window.location.origin)
     const params = new URLSearchParams({ from: source.id, to: destination.id })
     if (selectedConnector?.id) params.set('connector', selectedConnector.id)
     params.set('profile', routeProfile)
@@ -473,7 +473,7 @@ export default function MultiFloorNavigation3D() {
                 <p className="text-xs font-semibold text-slate-700">Scan to open this selected route on your phone</p>
                 <div className="my-3 flex justify-center"><QRCodeSVG value={routeQrUrl} size={176} level="M" includeMargin /></div>
                 <p className="break-all text-[10px] text-slate-500">{routeQrUrl}</p>
-                <p className="mt-2 text-[10px] text-slate-500">For local testing, set VITE_NAVIKA_BASE_URL to an address reachable from the phone.</p>
+                <p className="mt-2 text-[10px] text-slate-500">Open on a phone connected to the same Wi-Fi or hotspot. This QR uses {new URL(routeQrUrl).host}; keep the NAVIKA server running.</p>
               </div>}
             </div>
             <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-xs leading-5 text-amber-950">
