@@ -21,32 +21,32 @@
       "name": "Department of CY",
       "roomNumber": "703",
       "type": "department",
-      "cadX": 10652.5933,
-      "cadY": 2035.2489
+      "cadX": 10654.5,
+      "cadY": 2036.1
     },
     {
       "id": "room_704",
       "name": "S3/S4 CY Classroom",
       "roomNumber": "704",
       "type": "classroom",
-      "cadX": 10661.0535,
-      "cadY": 2036.582
+      "cadX": 10663.9,
+      "cadY": 2036.1
     },
     {
       "id": "room_705",
       "name": "S5/S6 CS-AI Classroom",
       "roomNumber": "705",
       "type": "classroom",
-      "cadX": 10671.3882,
-      "cadY": 2036.4872
+      "cadX": 10675.5,
+      "cadY": 2036.1
     },
     {
       "id": "room_706",
       "name": "S7 Classroom",
       "roomNumber": "706",
       "type": "classroom",
-      "cadX": 10683.0453,
-      "cadY": 2036.8359
+      "cadX": 10686.3,
+      "cadY": 2036.1
     },
     {
       "id": "room_707",
@@ -69,8 +69,8 @@
       "name": "Diffie Hellman Lab",
       "roomNumber": "709",
       "type": "laboratory",
-      "cadX": 10657.3085,
-      "cadY": 2018.968
+      "cadX": 10660.8,
+      "cadY": 2017.9
     },
     {
       "id": "ladies_toilet",
