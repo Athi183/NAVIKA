@@ -2,7 +2,7 @@ import os
 import sys
 import uuid
 
-from flask import Flask, request, jsonify
+from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 
 # interaction/ and rag/ are sibling directories, not installed packages —
@@ -14,6 +14,7 @@ sys.path.append(INTERACTION_DIR)
 
 from context import ConversationContext  # noqa: E402
 import main as interaction_main  # noqa: E402
+import tts as interaction_tts  # noqa: E402
 
 
 app = Flask(__name__)
@@ -63,6 +64,31 @@ def chat():
         "entities": structured_query["entities"],
         "resolved_from_context": structured_query["resolved_from_context"],
     })
+
+
+@app.route("/api/tts/malayalam", methods=["POST"])
+def tts_malayalam():
+    """
+    Synthesizes Malayalam speech server-side and returns it as a WAV
+    file. Exists because the browser's own Web Speech API (used for
+    English in the frontend) has no usable Malayalam voice on this
+    system — same gap tts.py's pyttsx3 path has — so Malayalam voice
+    output has to be rendered here, with tts.py's VITS pipeline, rather
+    than left to window.speechSynthesis.
+    """
+
+    data = request.get_json(silent=True) or {}
+    text = (data.get("text") or "").strip()
+
+    if not text:
+        return jsonify({"error": "text is required"}), 400
+
+    try:
+        wav_bytes = interaction_tts.synthesize_malayalam_wav(text)
+    except Exception as error:
+        return jsonify({"error": f"Malayalam TTS unavailable: {error}"}), 500
+
+    return Response(wav_bytes, mimetype="audio/wav")
 
 
 @app.route("/api/reset", methods=["POST"])

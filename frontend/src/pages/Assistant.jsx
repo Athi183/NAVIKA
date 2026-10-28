@@ -21,6 +21,13 @@ export default function Assistant() {
   const [loading, setLoading] = useState(false)
   const [voiceStatus, setVoiceStatus] = useState('')
   const [isListening, setIsListening] = useState(false)
+  // Which language the mic listens for — has to be chosen up front,
+  // unlike typed text: a speech recognizer needs to know what language
+  // to expect *before* it starts listening, it can't detect that from
+  // the audio after the fact the way clean_text() can detect Malayalam
+  // script from typed text. Voice *output* has no such constraint — it's
+  // auto-detected per response in chatApi.js from the answer text itself.
+  const [inputLang, setInputLang] = useState('en')
   // Which message is currently being spoken, by id — not a plain
   // isSpeaking boolean, since a per-message speaker button (below) needs
   // to know specifically WHICH message that is, and only one utterance
@@ -82,9 +89,16 @@ export default function Assistant() {
     }
 
     const result = voiceControls.startVoiceInput({
+      lang: inputLang,
       onStart: () => {
         setIsListening(true)
-        setVoiceStatus('Listening... (press the mic again to stop)')
+        // Kept in English regardless of inputLang rather than hardcoding
+        // a Malayalam translation here — the toggle buttons already show
+        // which mode is active, and this is just a status line, not
+        // something whose correctness the bilingual feature itself
+        // depends on (unlike the actual chat responses, which the LLM
+        // generates natively rather than a hardcoded string here).
+        setVoiceStatus(`Listening for ${inputLang === 'ml' ? 'Malayalam' : 'English'}... (press the mic again to stop)`)
       },
       // Live captioning only — this fires repeatedly while the user is
       // still mid-sentence, so it must never itself trigger handleAsk.
@@ -125,7 +139,25 @@ export default function Assistant() {
           <div className="text-[10px] uppercase tracking-[0.28em] text-brand-500">NAVIKA AI ASSISTANT</div>
           <h2 className="mt-2 text-2xl font-semibold text-slate-900">How can I help you?</h2>
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
+          <div className="flex rounded-xl border border-slate-200 p-1 text-xs font-semibold" title="Voice input language">
+            {[
+              { code: 'en', label: 'EN' },
+              { code: 'ml', label: 'ML' },
+            ].map(({ code, label }) => (
+              <button
+                key={code}
+                type="button"
+                disabled={isListening}
+                onClick={() => setInputLang(code)}
+                className={`rounded-lg px-2.5 py-1.5 transition disabled:cursor-not-allowed disabled:opacity-50 ${
+                  inputLang === code ? 'bg-brand-500 text-white' : 'text-slate-500 hover:bg-slate-100'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
           <VoiceButton label={isListening ? "Stop listening" : "Voice input"} active={isListening} onClick={handleVoiceInput} />
           <VoiceButton
             label={isHeaderSpeaking ? "Stop speaking" : "Voice response"}

@@ -1,4 +1,41 @@
 import { MessageSquareText, Mic, Square, User, Volume2 } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
+// NAVIKA's answers come back as markdown from the LLM -- including, for
+// RAG answers built from tabular source data (e.g. placement/recruiter
+// statistics), actual GitHub-flavored-markdown tables. Rendering `text`
+// as a plain string left every "**bold**", bullet, and especially every
+// "| col | col |" table row showing up as literal, unreadable pipe-
+// delimited text instead of an actual table -- remark-gfm specifically
+// is required for table support, since table syntax isn't part of
+// standard markdown. Each element gets its own small Tailwind override
+// here rather than a global "prose" wrapper, since this project doesn't
+// have the @tailwindcss/typography plugin installed and adding it just
+// for this would be a much bigger dependency than this one component
+// needs.
+const MARKDOWN_COMPONENTS = {
+  p: ({ children }) => <p className="mb-2 last:mb-0 text-sm leading-6">{children}</p>,
+  strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+  ul: ({ children }) => <ul className="mb-2 list-disc space-y-1 pl-5 text-sm leading-6">{children}</ul>,
+  ol: ({ children }) => <ol className="mb-2 list-decimal space-y-1 pl-5 text-sm leading-6">{children}</ol>,
+  li: ({ children }) => <li>{children}</li>,
+  a: ({ children, href }) => (
+    <a href={href} target="_blank" rel="noreferrer" className="text-brand-600 underline">
+      {children}
+    </a>
+  ),
+  table: ({ children }) => (
+    <div className="mb-2 overflow-x-auto rounded-lg border border-slate-200">
+      <table className="w-full border-collapse text-left text-xs">{children}</table>
+    </div>
+  ),
+  thead: ({ children }) => <thead className="bg-slate-50">{children}</thead>,
+  th: ({ children }) => (
+    <th className="border-b border-slate-200 px-3 py-2 font-semibold text-slate-700">{children}</th>
+  ),
+  td: ({ children }) => <td className="border-b border-slate-100 px-3 py-2 align-top">{children}</td>,
+}
 
 export default function ChatMessage({ speaker, text, timestamp, isLoading = false, isSpeaking = false, onToggleSpeak }) {
   const isUser = speaker === 'USER'
@@ -26,8 +63,12 @@ export default function ChatMessage({ speaker, text, timestamp, isLoading = fals
             <span className="h-2 w-2 animate-bounce rounded-full bg-brand-500 [animation-delay:120ms]" />
             <span className="h-2 w-2 animate-bounce rounded-full bg-brand-500 [animation-delay:240ms]" />
           </div>
-        ) : (
+        ) : isUser ? (
           <p className="text-sm leading-6 text-inherit">{text}</p>
+        ) : (
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>
+            {text}
+          </ReactMarkdown>
         )}
       </div>
 

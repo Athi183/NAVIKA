@@ -1,3 +1,24 @@
 SpeechRecognition==3.10.4
 pyttsx3==2.90
 PyAudio==0.2.14
+langchain-groq==0.3.7
+python-dotenv==1.1.1
+
+# Automatic spoken-language ID in stt.py (Whisper's "tiny" model, encoder
+# only — actual transcription still goes through recognize_google above;
+# see stt.py's module docstring for why Whisper isn't used for the
+# transcription itself).
+openai-whisper==20250625
+
+# Malayalam neural TTS (tts.py's speak(text, lang="ml")): Meta's MMS-TTS
+# Malayalam checkpoint (facebook/mms-tts-mal, downloaded automatically from
+# Hugging Face on first use) run through transformers' VitsModel. pyttsx3
+# above has zero Malayalam voices on every system tested, so this is not
+# optional for lang="ml" the way pyttsx3 alone is for lang="en".
+#
+# transformers is pinned to match rag/requirements.txt's version exactly —
+# both modules run in the same environment, so one pin has to satisfy both
+# (rag/requirements.txt's comment explains the constraint that version
+# satisfies).
+transformers==4.57.6
+torch==2.10.0

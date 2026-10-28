@@ -92,6 +92,49 @@ def candidate_vertical_paths(from_floor: int, to_floor: int) -> list[dict]:
     return results
 
 
+# The DXF-extracted labels are raw CAD text -- misspelled ("DEPTARTMENT"),
+# abbreviated ("DEPT."), and padded with room numbers/prefixes ("301 CSE
+# DEPTARTMENT", "Div. of CSE & AIDS Department") -- so no real question is
+# ever going to contain one of these labels as a literal substring (the
+# match direction `spatial_context_for_question` used to require). A
+# person asks "how do I get to the CSE department"; the label says "301
+# CSE DEPTARTMENT". Matching on shared significant words instead of full-
+# string containment catches this, since both sides do share real tokens
+# ("cse", "department") even though neither contains the other whole.
+_SPATIAL_MATCH_STOPWORDS = {
+    "the", "of", "and", "in", "at", "on", "is", "a", "an", "to", "dept",
+    "department", "deptartment", "div", "block",
+}
+
+
+def _significant_tokens(text: str) -> set[str]:
+    return {
+        token for token in re.findall(r"[a-z0-9]+", text.casefold())
+        if len(token) >= 3 and token not in _SPATIAL_MATCH_STOPWORDS
+    }
+
+
+# Limited to abbreviations that actually appear in the DXF labels above
+# (confirmed against data/spatial/ramanujan_block/places.csv: CSE, EEE,
+# AIDS, CY) -- the DXF data never spells a department's full name out, so
+# a question phrased with the full name alone would otherwise share no
+# token with its label.
+_DEPARTMENT_SYNONYMS = {
+    "cse": ("computer science", "computer engineering"),
+    "eee": ("electrical", "electronics"),
+    "aids": ("artificial intelligence", "data science"),
+    "cy": ("cyber security", "cybersecurity", "cyber"),
+}
+
+
+def _expand_department_synonyms(question_lower: str) -> set[str]:
+    return {
+        abbreviation
+        for abbreviation, phrases in _DEPARTMENT_SYNONYMS.items()
+        if any(phrase in question_lower for phrase in phrases)
+    }
+
+
 _FLOOR_WORDS = {
     "second": 2, "2nd": 2, "third": 3, "3rd": 3,
     "fourth": 4, "4th": 4, "fifth": 5, "5th": 5,
@@ -107,10 +150,11 @@ def spatial_context_for_question(question: str) -> str:
     contexts = []
     places = read_rows("places.csv")
     campus_places = read_campus_rows("places.csv")
+    question_tokens = _significant_tokens(lower) | _expand_department_synonyms(lower)
     campus_mentioned = []
     for row in campus_places:
         name = " ".join(row.get("display_name", "").casefold().split())
-        if len(name) >= 4 and name in lower:
+        if (len(name) >= 4 and name in lower) or (_significant_tokens(name) & question_tokens):
             campus_mentioned.append(row)
     seen_campus_names = set()
     for row in campus_mentioned:
@@ -129,7 +173,12 @@ def spatial_context_for_question(question: str) -> str:
     for row in places:
         name = row["display_name"].casefold().strip()
         room_number = row.get("room_number", "")
-        if (len(name) >= 4 and name in lower) or (room_number and re.search(rf"(?<!\d){re.escape(room_number)}(?!\d)", lower)):
+        token_match = bool(_significant_tokens(name) & question_tokens)
+        if (
+            (len(name) >= 4 and name in lower)
+            or token_match
+            or (room_number and re.search(rf"(?<!\d){re.escape(room_number)}(?!\d)", lower))
+        ):
             mentioned.append(row)
     for row in mentioned[:5]:
         contexts.append(

@@ -1,79 +1,3 @@
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-=======
 # NAVIKA
 
 NAVIKA is a smart campus assistance and indoor navigation project. It combines a React/Vite frontend demo, Python navigation algorithms, a voice interaction pipeline, and a FAISS-based RAG assistant.
@@ -209,9 +133,9 @@ The `interaction/` directory contains the intended voice-to-answer pipeline:
 
 1. `stt.py` captures microphone speech with SpeechRecognition/PyAudio.
 2. `preprocess.py` cleans the text.
-3. `nlu.py` identifies intent, confidence, and entities.
+3. `nlu.py` identifies intent, confidence, and entities. Its primary classifier is an LLM call (Groq) for phrasing robustness, with the original keyword/gazetteer matcher kept as an automatic fallback if that call fails (offline, quota exhausted, malformed response).
 4. `context.py` resolves conversational follow-ups.
-5. `interaction/main.py` builds a structured query and hands it to RAG.
+5. `interaction/main.py` builds a structured query and hands it to RAG, threading recent question/answer turns through so the RAG itself can resolve references like "name all of them" from conversational continuity.
 6. `tts.py` speaks the answer with pyttsx3.
 
 Install dependencies with:
@@ -220,11 +144,11 @@ Install dependencies with:
 python -m pip install -r interaction/requirements.txt
 ```
 
-Python microphone support may require operating-system audio packages. This path is separate from browser microphone input.
+Python microphone support may require operating-system audio packages. This path is separate from browser microphone input. `nlu.py`'s LLM classifier reads `GROQ_API_KEY` from `rag/.env` (the same key the RAG module uses) rather than a separate `.env` in this directory — set that up per the RAG Assistant section below even if you're only running `interaction/main.py --text`.
 
 ## RAG Assistant
 
-`rag/ingest.py` loads source content, `build_vectorstore.py` builds the FAISS index, and `rag/app.py` retrieves relevant documents and calls the Groq model. The generated index is stored in `rag/vectorstore/`.
+`rag/ingest.py` is the whole pipeline: it crawls the college website (caching the raw pages to `rag/crawl_cache.pkl`), chunks and embeds the text, and builds/saves the FAISS index to `rag/vectorstore/`. `rag/app.py` then loads that index to retrieve relevant chunks and call the Groq model.
 
 Install dependencies:
 
@@ -238,7 +162,13 @@ Configure provider credentials in an untracked `.env` file, for example:
 GROQ_API_KEY=your_key_here
 ```
 
-Never commit secrets. Rebuild the vector store when college source content changes. RAG is separate from the frontend until an HTTP endpoint is added.
+Never commit secrets. Rebuild the vector store when college source content changes:
+
+```bash
+python rag/ingest.py --recrawl
+```
+
+(omit `--recrawl` to rebuild from the cached crawl instead of re-fetching the site). RAG is separate from the frontend until an HTTP endpoint is added.
 
 ## Frontend API Configuration
 

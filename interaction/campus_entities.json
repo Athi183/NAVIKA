@@ -1,5 +1,5 @@
 {
-  "_note": "Verified with Esha directly (MITS Varikoli campus). location_map is extra floor-level detail for Member 3's spatial resolution handoff — nlu.py only uses buildings/facilities/departments for entity matching.",
+  "_note": "buildings/location_map were verified with Esha directly by physical walkthrough (MITS Varikoli campus) and location_map is extra floor-level detail for Member 3's spatial resolution handoff. The facilities entries marked below were added later from the official college website (mgmits.ac.in) rather than a physical walkthrough — they are real, named campus offices/cells/amenities, but their floor placement is not verified and none of them appear in location_map. nlu.py only uses buildings/facilities/departments (flat name lists) for entity matching.",
 
   "buildings": [
     "George Block",
@@ -31,7 +31,22 @@
     "Excel Hall",
     "Printing Area",
     "Stationery Shop",
-    "Canteen"
+    "Canteen",
+
+    "Hostel",
+    "Placement Cell",
+    "Sports Complex",
+    "Auditorium",
+    "Conference Hall",
+    "IEDC",
+    "NSS",
+    "Anti-Ragging Committee",
+    "Women's Forum & Grievance Cell",
+    "Student Grievance & Redressal Cell",
+    "Internal Complaints Committee",
+    "IQAC",
+    "Examination Cell",
+    "Research and Consultancy Cell"
   ],
 
   "location_map": {
