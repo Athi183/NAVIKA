@@ -159,17 +159,36 @@ GATED_AUGMENT_GROUPS = [(triggers, _docs_matching(markers)) for markers, trigger
 # figures across sources covers the second, since retrieval can still
 # independently surface a department chunk this function doesn't control.
 _PLACEMENT_TRIGGERS = ("placement", "placed", "recruiter", "stipend", "ctc", "lpa", "batch", "offer")
-_PLACEMENT_SOURCE_MARKER = "mgmits.ac.in/placement"
+# Must be the exact canonical placement page, not a substring/prefix match.
+# A later, much broader crawl added several other pages whose URL starts
+# with "/placement" (placement-statistics-of-cse, placement-test, ...) --
+# with the old substring check, those got joined into the SAME full-text
+# blob this regex walks. The last batch's section has no following header
+# to stop at (it falls through to end-of-text, \Z, by design -- there's
+# nothing after the oldest batch), so once other pages' unrelated content
+# was appended after it, that "last section" silently grew to include all
+# of it: 325,567 characters in one context chunk, which blew Groq's
+# context-length limit outright (400 context_length_exceeded) on every
+# batch-placement question. Restricting to the exact page URL is the
+# correct fix; the length guard below is a second, independent safety net
+# so this class of bug can't silently reintroduce a multi-hundred-KB
+# chunk even if the source set changes again later.
+_PLACEMENT_SOURCE_URLS = ("https://mgmits.ac.in/placement", "https://www.mgmits.ac.in/placement")
+_PLACEMENT_MAX_SECTION_CHARS = 8000
 _YEAR_PATTERN = re.compile(r"\b(?:19|20)\d{2}\b")  # non-capturing group so findall returns the full year
 _BATCH_SECTION_PATTERN = re.compile(
     r"Recruiter Wise Analysis ([\d]{4}-[\d]{4}) Batch.*?(?=Recruiter Wise Analysis [\d]{4}-[\d]{4} Batch|\Z)",
     re.DOTALL,
 )
 
-PLACEMENT_DOCUMENTS = _docs_matching((_PLACEMENT_SOURCE_MARKER,))
+PLACEMENT_DOCUMENTS = [
+    doc.page_content
+    for doc in vectorstore.docstore._dict.values()
+    if doc.metadata.get("source", "") in _PLACEMENT_SOURCE_URLS
+]
 _PLACEMENT_FULL_TEXT = "\n".join(PLACEMENT_DOCUMENTS)
 PLACEMENT_BATCH_SECTIONS = {
-    match.group(1): match.group(0).strip()
+    match.group(1): match.group(0).strip()[:_PLACEMENT_MAX_SECTION_CHARS]
     for match in _BATCH_SECTION_PATTERN.finditer(_PLACEMENT_FULL_TEXT)
 }
 
