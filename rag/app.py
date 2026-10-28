@@ -544,10 +544,28 @@ Response:
         f"Conversation so far:\n{history_text}\n\n"
         if history_text else ""
     )
+    # "Do not mix languages" alone wasn't enough -- the model kept writing
+    # proper nouns (person names, "MITS") in Latin script mid-Malayalam-
+    # sentence even when told the rest must be Malayalam, apparently
+    # treating names as exempt from the instruction (a common and
+    # reasonable judgment call for TEXT, but wrong for this use case: the
+    # answer also gets spoken aloud by a Malayalam-only TTS voice whose
+    # tokenizer vocabulary has almost no Latin letters at all, so any word
+    # with so much as one Latin character gets dropped from speech
+    # entirely -- "Dr. Neelakantan P. C." came out as "Dr. P. C." with the
+    # name itself silently missing). Spelling it out that names must be
+    # transliterated too, not just translated, fixed it in testing.
     language_instruction = (
         "The Current Question is in Malayalam. Write your entire answer in "
-        "Malayalam too, translating the relevant facts from the (English) "
-        "context below — do not answer in English and do not mix languages.\n\n"
+        "Malayalam script, translating the relevant facts from the (English) "
+        "context below — do not answer in English and do not mix languages. "
+        "This includes proper nouns: write person names, institution names, "
+        "and abbreviations (e.g. \"MITS\", \"Dr. Neelakantan P. C.\") "
+        "phonetically in Malayalam script too (e.g. \"ഡോ. നീലകണ്ഠൻ പി. സി.\"), "
+        "never left in Latin letters, even partially — this answer is also "
+        "read aloud by a Malayalam-only voice that cannot pronounce Latin "
+        "script at all, so any word left in English is silently dropped "
+        "from the spoken version entirely.\n\n"
         if language == "ml" else ""
     )
 
