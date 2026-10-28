@@ -1,0 +1,165 @@
+{
+  "floor": "4",
+  "coordinate_system": "CAD XY",
+  "places": [
+    {
+      "id": "room_501",
+      "name": "John McCarthy Lab",
+      "type": "laboratory",
+      "cadX": 657.0,
+      "cadY": 290.38,
+      "roomNumber": "501"
+    },
+    {
+      "id": "room_502",
+      "name": "S3/S4 CSE-A(AI) Class Room",
+      "type": "classroom",
+      "cadX": 670.75,
+      "cadY": 290.38,
+      "roomNumber": "502"
+    },
+    {
+      "id": "room_503",
+      "name": "AI&DS STAFF ROOM",
+      "type": "facility",
+      "cadX": 679.0,
+      "cadY": 290.38,
+      "roomNumber": "503"
+    },
+    {
+      "id": "room_504",
+      "name": "Div. of CSE & AIDS Department",
+      "type": "department",
+      "cadX": 687.61,
+      "cadY": 269.445,
+      "roomNumber": "504"
+    },
+    {
+      "id": "room_505",
+      "name": "Elective/Tutorial Room/IDP Room",
+      "type": "classroom",
+      "cadX": 696.96,
+      "cadY": 269.43,
+      "roomNumber": "505"
+    },
+    {
+      "id": "room_506",
+      "name": "S5/S6 AI&DS Class Room",
+      "type": "classroom",
+      "cadX": 706.36,
+      "cadY": 269.41,
+      "roomNumber": "506"
+    },
+    {
+      "id": "room_507",
+      "name": "Hinton Lab",
+      "type": "laboratory",
+      "cadX": 716.94,
+      "cadY": 269.41,
+      "roomNumber": "507"
+    },
+    {
+      "id": "room_508",
+      "name": "S7/S8 AI&DS Class Room",
+      "type": "classroom",
+      "cadX": 717.0,
+      "cadY": 287.57,
+      "roomNumber": "508"
+    },
+    {
+      "id": "room_509",
+      "name": "MTech(AIDS)",
+      "type": "facility",
+      "cadX": 708.25,
+      "cadY": 287.575,
+      "roomNumber": "509"
+    },
+    {
+      "id": "room_510",
+      "name": "Van Rossum Lab",
+      "type": "laboratory",
+      "cadX": 700.5,
+      "cadY": 287.56,
+      "roomNumber": "510"
+    },
+    {
+      "id": "room_511",
+      "name": "AIDS Dept.Library",
+      "type": "facility",
+      "cadX": 694.5,
+      "cadY": 287.625,
+      "roomNumber": "511"
+    },
+    {
+      "id": "room_512",
+      "name": "S3/S4 AI&DS Class Room",
+      "type": "classroom",
+      "cadX": 687.75,
+      "cadY": 287.605,
+      "roomNumber": "512"
+    },
+    {
+      "id": "electrical_room",
+      "name": "Electrical room",
+      "type": "facility",
+      "cadX": 670.75,
+      "cadY": 280.25
+    },
+    {
+      "id": "engine_room",
+      "name": "Engine Room",
+      "type": "facility",
+      "cadX": 675.5,
+      "cadY": 274.8
+    },
+    {
+      "id": "gents_toilet",
+      "name": "Gents Toilet",
+      "type": "toilet",
+      "cadX": 725.0,
+      "cadY": 285.5
+    },
+    {
+      "id": "ladies_toilet",
+      "name": "Ladies Toilet",
+      "type": "toilet",
+      "cadX": 647.0,
+      "cadY": 286.0
+    },
+    {
+      "id": "lift_east",
+      "name": "Lift B",
+      "type": "vertical_transport",
+      "cadX": 725.0,
+      "cadY": 277.75
+    },
+    {
+      "id": "lift_west",
+      "name": "Lift A",
+      "type": "vertical_transport",
+      "cadX": 675.5,
+      "cadY": 274.8
+    },
+    {
+      "id": "staircase_central",
+      "name": "Staircase B",
+      "type": "staircase",
+      "cadX": 669.0,
+      "cadY": 276.5
+    },
+    {
+      "id": "staircase_east",
+      "name": "Staircase C",
+      "type": "staircase",
+      "cadX": 724.7,
+      "cadY": 269.75
+    },
+    {
+      "id": "staircase_west",
+      "name": "Staircase A",
+      "type": "staircase",
+      "cadX": 644.0,
+      "cadY": 284.7
+    }
+  ]
+}

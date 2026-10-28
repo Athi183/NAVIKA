@@ -1,17 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Canvas, useThree } from '@react-three/fiber'
-import { Html, Line, OrbitControls, Text } from '@react-three/drei'
+import { Box, Html, Line, OrbitControls, Text } from '@react-three/drei'
 import { QRCodeSVG } from 'qrcode.react'
 import { AlertTriangle, Layers3, Map as MapIcon, MapPin, Minus, Plus, QrCode, Route, RotateCcw, Scan } from 'lucide-react'
 import building from '../../data/ramanujan_floors_2_6.json'
 import navigationGraph from '../../data/ramanujan_navigation_graph_candidate.json'
 import MultiFloorDxfViewer from './MultiFloorDxfViewer'
+import RamanujanFloorModel3D from './RamanujanFloorModel3D'
+import { findRamanujanRoute } from '../../services/ramanujanRoute'
 
 const FLOOR_GAP = 6
 const WALL_HEIGHT = 3
 const WALL_THICKNESS = 0.09
-const FLOOR_COLORS = ['#dbeafe', '#d1fae5', '#ede9fe', '#ffedd5', '#fce7f3']
+const FLOOR_COLORS = ['#c9c9c6', '#c9c9c6', '#c9c9c6', '#c9c9c6', '#c9c9c6']
 const ROUTING_ASSUMPTIONS = navigationGraph.routing_assumptions
 const DESTINATIONS = building.floors.flatMap((floor) => floor.labels.map((label, index) => ({
   id: `${floor.floor_number}:${index}`,
@@ -72,110 +74,6 @@ function readEndpoint(param, fallback) {
   return DESTINATION_BY_ID.has(id) ? id : fallback.id
 }
 
-function getConnectorPath(sourceFloor, destinationFloor, connector) {
-  const direction = sourceFloor <= destinationFloor ? 1 : -1
-  const stops = []
-  for (let floor = sourceFloor; direction > 0 ? floor <= destinationFloor : floor >= destinationFloor; floor += direction) {
-    const stop = connector.stops[String(floor)]
-    if (!stop) return null
-    stops.push({ floor, xy: stop })
-  }
-  return stops
-}
-
-function findCandidateRoute(source, destination, connectors, profile, connectorChoice = 'auto') {
-  if (!source || !destination) return null
-  const planarDistance = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1])
-  const edges = []
-  const adjacency = new Map()
-  const addEdge = (edge) => {
-    edges.push(edge)
-    if (!adjacency.has(edge.from)) adjacency.set(edge.from, [])
-    adjacency.get(edge.from).push(edge)
-  }
-  const metric = (edge) => profile === 'shortest' ? edge.distanceM : edge.durationS
-  const start = 'route:source'
-  const goal = 'route:destination'
-  if (source.floor === destination.floor) {
-    const distanceM = planarDistance(source.xy, destination.xy)
-    addEdge({ from: start, to: goal, distanceM, durationS: distanceM / (profile === 'step_free' ? ROUTING_ASSUMPTIONS.accessible_walk_speed_mps : ROUTING_ASSUMPTIONS.walk_speed_mps), points: [{ floor: source.floor, xy: source.xy }, { floor: destination.floor, xy: destination.xy }] })
-  } else {
-    const eligible = connectors.filter((connector) => connectorChoice === 'auto' || connector.id === connectorChoice)
-      .filter((connector) => profile !== 'step_free' || connector.type === 'lift')
-    for (const connector of eligible) {
-      const stops = getConnectorPath(source.floor, destination.floor, connector)
-      if (!stops) continue
-      const landingId = (floor) => `${connector.id}:${floor}`
-      const sourceStop = stops[0]
-      const destinationStop = stops.at(-1)
-      const startDistance = planarDistance(source.xy, sourceStop.xy)
-      const endDistance = planarDistance(destinationStop.xy, destination.xy)
-      const walkingSpeed = profile === 'step_free' ? ROUTING_ASSUMPTIONS.accessible_walk_speed_mps : ROUTING_ASSUMPTIONS.walk_speed_mps
-      addEdge({ from: start, to: landingId(sourceStop.floor), connectorId: connector.id, distanceM: startDistance, durationS: startDistance / walkingSpeed + (connector.type === 'lift' ? ROUTING_ASSUMPTIONS.lift_wait_seconds_per_trip : 0), points: [{ floor: source.floor, xy: source.xy }, sourceStop] })
-      addEdge({ from: landingId(destinationStop.floor), to: goal, connectorId: connector.id, distanceM: endDistance, durationS: endDistance / walkingSpeed, points: [destinationStop, { floor: destination.floor, xy: destination.xy }] })
-      for (const [index, fromStop] of stops.slice(0, -1).entries()) {
-        const toStop = stops[index + 1]
-        const floors = Math.abs(toStop.floor - fromStop.floor)
-        const riseM = ROUTING_ASSUMPTIONS.floor_rise_m * floors
-        const planOffsetM = planarDistance(fromStop.xy, toStop.xy)
-        if (connector.type === 'stair') {
-          const stairLengthM = riseM / Math.sin(ROUTING_ASSUMPTIONS.stair_angle_degrees * Math.PI / 180)
-          const ascending = toStop.floor > fromStop.floor
-          const seconds = stairLengthM / (ascending ? ROUTING_ASSUMPTIONS.stair_up_speed_mps : ROUTING_ASSUMPTIONS.stair_down_speed_mps)
-          addEdge({ from: landingId(fromStop.floor), to: landingId(toStop.floor), connectorId: connector.id, distanceM: stairLengthM + planOffsetM, durationS: seconds, points: [fromStop, toStop] })
-          addEdge({ from: landingId(toStop.floor), to: landingId(fromStop.floor), connectorId: connector.id, distanceM: stairLengthM + planOffsetM, durationS: stairLengthM / (ascending ? ROUTING_ASSUMPTIONS.stair_down_speed_mps : ROUTING_ASSUMPTIONS.stair_up_speed_mps), points: [toStop, fromStop] })
-        } else {
-          const liftSeconds = riseM / ROUTING_ASSUMPTIONS.lift_speed_mps + ROUTING_ASSUMPTIONS.lift_door_seconds_per_floor * floors
-          addEdge({ from: landingId(fromStop.floor), to: landingId(toStop.floor), connectorId: connector.id, distanceM: riseM + planOffsetM, durationS: liftSeconds, points: [fromStop, toStop] })
-          addEdge({ from: landingId(toStop.floor), to: landingId(fromStop.floor), connectorId: connector.id, distanceM: riseM + planOffsetM, durationS: liftSeconds, points: [toStop, fromStop] })
-        }
-      }
-    }
-  }
-
-  // Dijkstra: nonnegative distance/time costs, with predecessor edges retained
-  // so the preview can show which candidate connector was selected.
-  const distances = new Map([[start, 0]])
-  const previous = new Map()
-  const queue = [{ id: start, cost: 0 }]
-  while (queue.length) {
-    queue.sort((a, b) => a.cost - b.cost)
-    const current = queue.shift()
-    if (current.cost !== distances.get(current.id)) continue
-    if (current.id === goal) break
-    for (const edge of adjacency.get(current.id) || []) {
-      const nextCost = current.cost + metric(edge)
-      if (nextCost < (distances.get(edge.to) ?? Infinity)) {
-        distances.set(edge.to, nextCost)
-        previous.set(edge.to, { id: current.id, edge })
-        queue.push({ id: edge.to, cost: nextCost })
-      }
-    }
-  }
-  if (!distances.has(goal)) return null
-  const pathEdges = []
-  let cursor = goal
-  while (cursor !== start) {
-    const step = previous.get(cursor)
-    if (!step) return null
-    pathEdges.unshift(step.edge)
-    cursor = step.id
-  }
-  const routePoints = pathEdges.flatMap((edge, index) => index === 0 ? edge.points : edge.points.slice(1))
-  const uniquePoints = routePoints.filter((item, index) => index === 0 || item.floor !== routePoints[index - 1].floor || planarDistance(item.xy, routePoints[index - 1].xy) > 0.001)
-  const connectorId = pathEdges.find((edge) => edge.connectorId)?.connectorId || null
-  return {
-    algorithm: 'dijkstra',
-    profile,
-    connectorId,
-    points: uniquePoints.map((item) => point3(item.xy, item.floor)),
-    distanceM: pathEdges.reduce((sum, edge) => sum + edge.distanceM, 0),
-    durationS: pathEdges.reduce((sum, edge) => sum + edge.durationS, 0),
-    floorTransitions: pathEdges.filter((edge) => edge.points.length === 2 && edge.points[0].floor !== edge.points[1].floor).length,
-    candidateOnly: true,
-  }
-}
-
 function WallInstances({ floor }) {
   const meshRef = useRef()
   const floorNumber = floor.floor_number
@@ -209,7 +107,7 @@ function WallInstances({ floor }) {
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, geometry.length]} castShadow receiveShadow>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#82919a" roughness={0.82} />
+      <meshStandardMaterial color="#98585b" roughness={0.9} />
     </instancedMesh>
   )
 }
@@ -227,7 +125,7 @@ function FloorPlate({ floor, index }) {
     <group>
       <mesh position={[(bounds.minX + bounds.maxX) / 2, floorY - 0.09, -(bounds.minY + bounds.maxY) / 2]} receiveShadow>
         <boxGeometry args={[width, 0.18, depth]} />
-        <meshStandardMaterial color={FLOOR_COLORS[index]} transparent opacity={0.42} roughness={0.95} />
+        <meshStandardMaterial color={FLOOR_COLORS[index]} roughness={0.96} />
       </mesh>
       <WallInstances floor={floor} />
       <Text position={[bounds.minX + 2, floorY + 0.08, -bounds.minY + 1]} rotation={[-Math.PI / 2, 0, 0]} fontSize={1.15} color="#334155" anchorX="left" anchorY="middle">
@@ -277,26 +175,145 @@ function FloorDestinations({ floor, selectedSource, selectedDestination, onPick,
   )
 }
 
-function VerticalConnections({ connectorId, sourceFloor, destinationFloor }) {
-  const connector = building.vertical_connectors.find((item) => item.id === connectorId)
-  if (!connector) return null
-  const lowFloor = Math.min(sourceFloor, destinationFloor)
-  const highFloor = Math.max(sourceFloor, destinationFloor)
-  const direction = sourceFloor <= destinationFloor ? 1 : -1
-  const stops = []
-  for (let floor = sourceFloor; direction > 0 ? floor <= destinationFloor : floor >= destinationFloor; floor += direction) {
-    const xy = connector.stops[String(floor)]
-    if (!xy) return null
-    stops.push({ floor, xy })
-  }
-  const points = stops.map((stop) => new THREE.Vector3(...point3(stop.xy, stop.floor, 0.42)))
-  const color = connector.type === 'lift' ? '#0284c7' : '#ea580c'
-  const labelPosition = point3(stops[Math.floor(stops.length / 2)].xy, (lowFloor + highFloor) / 2, 0.72)
+function StairBeam({ start, end, thickness = 0.07, color = '#5b5b60' }) {
+  const a = new THREE.Vector3(...start)
+  const b = new THREE.Vector3(...end)
+  const direction = b.clone().sub(a)
+  const quaternion = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(1, 0, 0), direction.clone().normalize())
+  const center = a.clone().add(b).multiplyScalar(0.5)
+  return <mesh position={center} quaternion={quaternion}>
+    <boxGeometry args={[direction.length(), thickness, thickness]} />
+    <meshStandardMaterial color={color} roughness={0.72} />
+  </mesh>
+}
+
+function StairFlightModel({ xStart, z, baseY, rise, run, width, steps, reverse = false, color }) {
+  const stepRun = run / steps
+  const riser = rise / steps
+  const xAt = (distance) => reverse ? xStart - distance : xStart + distance
+  const railSides = [-width / 2, width / 2]
   return <group>
-    <Line points={points} color={color} lineWidth={4} dashed dashSize={0.7} gapSize={0.25} />
-    {stops.map((stop) => <mesh key={stop.floor} position={point3(stop.xy, stop.floor, 0.42)}><sphereGeometry args={[0.5, 16, 12]} /><meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.3} /></mesh>)}
-    <Html position={labelPosition} center distanceFactor={110} sprite zIndexRange={[30, 0]}><span style={{ padding: '3px 6px', borderRadius: 4, background: 'white', border: `2px solid ${color}`, color, font: '700 11px/1.2 system-ui, sans-serif', whiteSpace: 'nowrap' }}>{connector.label} · candidate</span></Html>
+    {Array.from({ length: steps }, (_, index) => {
+      const distance = (index + 0.5) * stepRun
+      const topY = baseY + (index + 1) * riser
+      const edgeX = xAt((index + 1) * stepRun)
+      return <group key={index}>
+        <Box args={[stepRun + 0.04, 0.08, width]} position={[xAt(distance), topY - 0.04, z]}>
+          <meshStandardMaterial color={color} roughness={0.88} />
+        </Box>
+        <Box args={[0.075, riser, width]} position={[edgeX, topY - riser / 2, z]}>
+          <meshStandardMaterial color="#9b968e" roughness={0.9} />
+        </Box>
+      </group>
+    })}
+    {railSides.map((side) => {
+      const bottom = [xAt(0), baseY + 0.14, z + side]
+      const top = [xAt(run), baseY + rise + 0.98, z + side]
+      const count = Math.ceil(steps / 2)
+      return <group key={side}>
+        <StairBeam start={bottom} end={top} />
+        {Array.from({ length: count + 1 }, (_, index) => {
+          const fraction = index / count
+          const x = xAt(run * fraction)
+          const y = baseY + rise * fraction + 0.53
+          return <Box key={index} args={[0.055, 0.92, 0.055]} position={[x, y, z + side]}>
+            <meshStandardMaterial color="#6b6b70" metalness={0.16} roughness={0.62} />
+          </Box>
+        })}
+      </group>
+    })}
   </group>
+}
+
+function StaircaseModel({ connector, lowerFloor, upperFloor, selected, showLabel }) {
+  const lower = connector.stops[String(lowerFloor)]
+  const upper = connector.stops[String(upperFloor)]
+  if (!lower || !upper) return null
+  const centerX = (lower[0] + upper[0]) / 2
+  const centerZ = -(lower[1] + upper[1]) / 2
+  const baseY = (lowerFloor - 2) * FLOOR_GAP + 0.13
+  const rise = FLOOR_GAP - 0.22
+  const run = 2.8
+  const width = 1.15
+  const flightRise = rise / 2
+  const firstBase = baseY
+  const midBase = baseY + flightRise
+  const firstX = -run / 2
+  const secondX = run / 2
+  const color = selected ? '#c99a64' : '#b8b1a5'
+  const labelPosition = [centerX, baseY + rise / 2 + 0.7, centerZ]
+  return <group position={[centerX, 0, centerZ]} rotation={[0, connector.id === 'stair_west' || connector.id === 'stair_east' ? Math.PI / 2 : 0, 0]}>
+    <Box args={[1.15, 0.12, width * 2.5]} position={[run / 2, midBase, 0]}>
+      <meshStandardMaterial color="#aaa49a" roughness={0.9} />
+    </Box>
+    <StairFlightModel xStart={firstX} z={-width / 2} baseY={firstBase} rise={flightRise} run={run} width={width} steps={8} color={color} />
+    <StairFlightModel xStart={secondX} z={width / 2} baseY={midBase} rise={flightRise} run={run} width={width} steps={8} reverse color={color} />
+    <Box args={[1.2, 0.12, width]} position={[firstX, baseY, -width / 2]}><meshStandardMaterial color="#aaa49a" /></Box>
+    <Box args={[1.2, 0.12, width]} position={[firstX, baseY + rise, width / 2]}><meshStandardMaterial color="#aaa49a" /></Box>
+    {showLabel && <Html position={labelPosition} center distanceFactor={95} sprite zIndexRange={[30, 0]}>
+      <span style={{ padding: '3px 6px', borderRadius: 5, background: '#fff7ed', border: '1px solid #c2410c', color: '#7c2d12', font: '700 10px/1.2 system-ui,sans-serif', whiteSpace: 'nowrap' }}>{connector.label} · schematic</span>
+    </Html>}
+  </group>
+}
+
+function LiftShaftModel({ connector, sourceFloor, destinationFloor, selected }) {
+  const low = Math.min(sourceFloor, destinationFloor)
+  const high = Math.max(sourceFloor, destinationFloor)
+  const served = Object.keys(connector.stops).map(Number).filter((floor) => floor >= low && floor <= high).sort((a, b) => a - b)
+  const linked = served.filter((floor, index) => index < served.length - 1 && served[index + 1] === floor + 1)
+  if (!linked.length) return null
+  const centers = served.map((floor) => connector.stops[String(floor)])
+  const x = centers.reduce((sum, point) => sum + point[0], 0) / centers.length
+  const z = -centers.reduce((sum, point) => sum + point[1], 0) / centers.length
+  const baseY = (served[0] - 2) * FLOOR_GAP + 0.1
+  const topY = (served.at(-1) - 2) * FLOOR_GAP
+  const height = Math.max(0.5, topY - baseY + 2.25)
+  const width = 1.75
+  const depth = 1.65
+  const wall = 0.08
+  const glass = { color: selected ? '#8ed8ee' : '#cbd5e1', transparent: true, opacity: 0.17, depthWrite: false, roughness: 0.25, metalness: 0.2 }
+  const frame = selected ? '#0284c7' : '#748394'
+  return <group position={[x, 0, z]}>
+    <Box args={[wall, height, depth]} position={[-width / 2, baseY + height / 2, 0]}><meshStandardMaterial {...glass} /></Box>
+    <Box args={[wall, height, depth]} position={[width / 2, baseY + height / 2, 0]}><meshStandardMaterial {...glass} /></Box>
+    <Box args={[width, height, wall]} position={[0, baseY + height / 2, depth / 2]}><meshStandardMaterial {...glass} /></Box>
+    {[-1, 1].flatMap((sideX) => [-1, 1].map((sideZ) => <Box key={`shaft-edge-${sideX}-${sideZ}`} args={[0.09, height, 0.09]} position={[sideX * width / 2, baseY + height / 2, sideZ * depth / 2]}><meshStandardMaterial color={frame} metalness={0.35} roughness={0.4} /></Box>))}
+    {served.map((floor) => {
+      const y = (floor - 2) * FLOOR_GAP + 0.15
+      return <group key={floor} position={[0, y, -depth / 2]}>
+        <Box args={[0.08, 2.15, 0.09]} position={[-0.58, 1.08, 0]}><meshStandardMaterial color={frame} /></Box>
+        <Box args={[0.08, 2.15, 0.09]} position={[0.58, 1.08, 0]}><meshStandardMaterial color={frame} /></Box>
+        <Box args={[1.2, 0.08, 0.09]} position={[0, 2.16, 0]}><meshStandardMaterial color={frame} /></Box>
+        {[-1, 1].map((side) => <Box key={side} args={[0.52, 2.02, 0.06]} position={[side * 0.27, 1.04, 0.02]}><meshStandardMaterial color={selected ? '#94d9ed' : '#d1d5db'} metalness={0.18} roughness={0.35} /></Box>)}
+        <Html position={[0, 2.42, 0]} center distanceFactor={100} sprite zIndexRange={[30, 0]}><span style={{ padding: '2px 5px', borderRadius: 4, background: 'white', border: `1px solid ${frame}`, color: '#334155', font: '700 9px/1.2 system-ui,sans-serif', whiteSpace: 'nowrap' }}>{building.floors.find((item) => item.floor_number === floor)?.label}</span></Html>
+      </group>
+    })}
+    <Html position={[0, baseY + height / 2, 0]} center distanceFactor={90} sprite zIndexRange={[30, 0]}><span style={{ padding: '3px 6px', borderRadius: 5, background: 'white', border: `1px solid ${frame}`, color: frame, font: '700 10px/1.2 system-ui,sans-serif', whiteSpace: 'nowrap' }}>{connector.label} · schematic</span></Html>
+  </group>
+}
+
+function VerticalConnections({ connectorId, sourceFloor, destinationFloor }) {
+  const low = Math.min(sourceFloor, destinationFloor)
+  const high = Math.max(sourceFloor, destinationFloor)
+  if (low === high) return null
+  const connectors = building.vertical_connectors
+  const selected = connectors.find((item) => item.id === connectorId)
+  const pairs = Array.from({ length: high - low }, (_, index) => [low + index, low + index + 1])
+  const selectedLabelFloor = Math.floor((low + high - 1) / 2)
+  const selectedPath = selected ? Array.from({ length: high - low + 1 }, (_, index) => low + index).map((floor) => connectorPoint(selected, floor)).filter(Boolean) : []
+  return <group>
+    {connectors.map((connector) => connector.type === 'stair'
+      ? pairs.map(([lower, upper]) => connector.stops[String(lower)] && connector.stops[String(upper)]
+        ? <StaircaseModel key={`${connector.id}-${lower}`} connector={connector} lowerFloor={lower} upperFloor={upper} selected={connector.id === connectorId} showLabel={connector.id === connectorId && lower === selectedLabelFloor} />
+        : null)
+      : <LiftShaftModel key={connector.id} connector={connector} sourceFloor={low} destinationFloor={high} selected={connector.id === connectorId} />)}
+    {selectedPath.length > 1 && <Line points={selectedPath.map((point) => new THREE.Vector3(...point3(point.xy, point.floor, 0.48)))} color={selected.type === 'lift' ? '#0284c7' : '#ea580c'} lineWidth={3} dashed dashSize={0.55} gapSize={0.22} />}
+  </group>
+}
+
+function connectorPoint(connector, floor) {
+  const xy = connector.stops[String(floor)]
+  return xy ? { floor, xy } : null
 }
 
 function CandidateRoute({ source, destination, points }) {
@@ -314,7 +331,7 @@ function Scene({ sourceId, destinationId, setEndpoint, connectorId, routePoints,
   const destination = DESTINATION_BY_ID.get(destinationId)
   const lowFloor = Math.min(source?.floor || 2, destination?.floor || 2)
   const highFloor = Math.max(source?.floor || 2, destination?.floor || 2)
-  const visibleFloors = building.floors.filter((floor) => floor.floor_number === source?.floor || floor.floor_number === destination?.floor)
+  const visibleFloors = building.floors.filter((floor) => floor.floor_number >= lowFloor && floor.floor_number <= highFloor)
   const bounds = planBounds(visibleFloors[0] || building.floors[0])
   const targetX = (bounds.minX + bounds.maxX) / 2
   const targetZ = -(bounds.minY + bounds.maxY) / 2
@@ -332,9 +349,9 @@ function Scene({ sourceId, destinationId, setEndpoint, connectorId, routePoints,
   }, [camera, targetX, targetY, targetZ, source?.floor, destination?.floor, bounds.maxX, bounds.minX, bounds.maxY, bounds.minY])
   return (
     <>
-      <color attach="background" args={['#edf2f5']} />
-      <ambientLight intensity={1.3} />
-      <directionalLight position={[80, 100, 40]} intensity={2.2} castShadow />
+      <color attach="background" args={['#202025']} />
+      <ambientLight intensity={1.25} color="#f7f1e8" />
+      <directionalLight position={[80, 100, 40]} intensity={2.1} castShadow />
       {visibleFloors.map((floor) => <group key={floor.floor_number}><FloorPlate floor={floor} index={building.floors.findIndex((item) => item.floor_number === floor.floor_number)} /><FloorDestinations floor={floor} selectedSource={sourceId} selectedDestination={destinationId} onPick={setEndpoint} showLabels={showLabels} labelFloor={labelFloor} /></group>)}
       {lowFloor < highFloor && <VerticalConnections connectorId={connectorId} sourceFloor={source.floor} destinationFloor={destination.floor} />}
       <CandidateRoute source={source} destination={destination} points={routePoints} />
@@ -354,7 +371,9 @@ export default function MultiFloorNavigation3D() {
   const [showLabels, setShowLabels] = useState(true)
   const [labelFloor, setLabelFloor] = useState(initialSource.floor)
   const [showRouteQr, setShowRouteQr] = useState(() => new URLSearchParams(window.location.search).get('qr') === '1')
+  const [qrBaseUrl, setQrBaseUrl] = useState(() => import.meta.env.VITE_NAVIKA_BASE_URL?.trim() || window.location.origin)
   const [view, setView] = useState('3d')
+  const [detailFloor, setDetailFloor] = useState(initialSource.floor)
   const controlsRef = useRef(null)
   // Hot reloads or old bookmarked links can leave IDs that no longer exist
   // after DXF labels are regenerated. Recover to valid endpoints so route,
@@ -372,12 +391,12 @@ export default function MultiFloorNavigation3D() {
     return building.vertical_connectors.filter((connector) => Array.from({ length: high - low + 1 }, (_, index) => String(low + index)).every((floor) => connector.stops[floor]))
   }, [destination, source])
   const candidateRoute = useMemo(
-    () => findCandidateRoute(source, destination, routeConnectorChoices, routeProfile, connectorId),
+    () => findRamanujanRoute(source, destination, routeConnectorChoices, routeProfile, ROUTING_ASSUMPTIONS, connectorId, new Map(building.floors.map((floor) => [floor.floor_number, floor.label]))),
     [source, destination, routeConnectorChoices, routeProfile, connectorId],
   )
   const connectorEstimates = useMemo(() => new Map(routeConnectorChoices.map((connector) => [
     connector.id,
-    findCandidateRoute(source, destination, routeConnectorChoices, routeProfile, connector.id),
+    findRamanujanRoute(source, destination, routeConnectorChoices, routeProfile, ROUTING_ASSUMPTIONS, connector.id, new Map(building.floors.map((floor) => [floor.floor_number, floor.label]))),
   ])), [source, destination, routeConnectorChoices, routeProfile])
   const selectedConnector = routeConnectorChoices.find((connector) => connector.id === candidateRoute?.connectorId)
   const pickEndpoint = (id) => {
@@ -387,14 +406,17 @@ export default function MultiFloorNavigation3D() {
   }
   const routeQrUrl = useMemo(() => {
     if (!source || !destination) return ''
-    const configuredBaseUrl = import.meta.env.VITE_NAVIKA_BASE_URL?.trim()
-    const url = new URL('/mobile-route', configuredBaseUrl || window.location.origin)
-    const params = new URLSearchParams({ from: source.id, to: destination.id })
-    if (selectedConnector?.id) params.set('connector', selectedConnector.id)
-    params.set('profile', routeProfile)
-    url.search = params.toString()
-    return url.toString()
-  }, [destination, routeProfile, selectedConnector, source])
+    try {
+      const url = new URL('/mobile-route', qrBaseUrl.trim())
+      const params = new URLSearchParams({ from: source.id, to: destination.id })
+      if (selectedConnector?.id) params.set('connector', selectedConnector.id)
+      params.set('profile', routeProfile)
+      url.search = params.toString()
+      return url.toString()
+    } catch {
+      return ''
+    }
+  }, [destination, qrBaseUrl, routeProfile, selectedConnector, source])
   const focusedFloors = source?.floor === destination?.floor
     ? source?.floorLabel
     : `${source?.floorLabel} + ${destination?.floorLabel}`
@@ -408,18 +430,21 @@ export default function MultiFloorNavigation3D() {
         : 'No candidate vertical connector covers these floors.'
     : 'Choose source and destination locations.'
   const estimatedDuration = candidateRoute ? formatDuration(candidateRoute.durationS) : null
+  const qrHost = routeQrUrl ? new URL(routeQrUrl).hostname.replace(/^\[|\]$/g, '') : ''
+  const qrIsLoopback = ['localhost', '127.0.0.1', '::1'].includes(qrHost)
 
   return (
     <div className="space-y-4">
       <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
         <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 px-5 py-5 md:px-7">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">{building.building.building_label} · DXF only</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">{building.building.building_label} · indoor navigation</p>
             <h1 className="mt-1 text-2xl font-bold text-slate-900 md:text-3xl">3D floors &amp; navigation preview</h1>
-            <p className="mt-1 text-sm text-slate-500">DXF floor plans extruded into a stacked 3D model · select labelled places to preview a route</p>
+            <p className="mt-1 text-sm text-slate-500">Explore the connected Second–Sixth Floor model, choose a destination and preview its candidate route.</p>
           </div>
-          <div className="flex gap-2" role="group" aria-label="View mode">
+          <div className="flex flex-wrap gap-2" role="group" aria-label="View mode">
             <button onClick={() => setView('3d')} className={`rounded-xl px-4 py-2 text-sm font-semibold ${view === '3d' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}><Layers3 className="mr-2 inline h-4 w-4" />3D building</button>
+            <button onClick={() => { setDetailFloor(source.floor); setView('detail') }} className={`rounded-xl px-4 py-2 text-sm font-semibold ${view === 'detail' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}><Layers3 className="mr-2 inline h-4 w-4" />Detailed floor 3D</button>
             <button onClick={() => setView('plans')} className={`rounded-xl px-4 py-2 text-sm font-semibold ${view === 'plans' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}><MapIcon className="mr-2 inline h-4 w-4" />2D plans</button>
           </div>
         </header>
@@ -468,13 +493,16 @@ export default function MultiFloorNavigation3D() {
                 <span className="mt-2 block border-t border-slate-200 pt-2 text-[11px] leading-4 text-amber-800">Planning estimate only: horizontal room-to-connector links are straight-line guesses. DXF access, corridor, landing, floor-height and lift-wait data are not verified; don’t use this as live wayfinding yet.</span>
                 <details className="mt-2 text-[11px] text-slate-500"><summary className="cursor-pointer font-semibold">Travel-time assumptions</summary><p className="mt-1">Walk {ROUTING_ASSUMPTIONS.walk_speed_mps} m/s; accessible walk {ROUTING_ASSUMPTIONS.accessible_walk_speed_mps} m/s; floor rise {ROUTING_ASSUMPTIONS.floor_rise_m} m; stairs {ROUTING_ASSUMPTIONS.stair_angle_degrees}° at {ROUTING_ASSUMPTIONS.stair_up_speed_mps} m/s up / {ROUTING_ASSUMPTIONS.stair_down_speed_mps} m/s down; lift {ROUTING_ASSUMPTIONS.lift_speed_mps} m/s plus {ROUTING_ASSUMPTIONS.lift_wait_seconds_per_trip}s wait.</p></details>
               </div>
-              <button type="button" onClick={() => setShowRouteQr((shown) => !shown)} className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-700"><QrCode size={16} />{showRouteQr ? 'Hide phone route QR' : 'Start navigation on phone'}</button>
-              {showRouteQr && routeQrUrl && <div className="mt-3 rounded-xl border border-slate-200 bg-white p-3 text-center">
+              <button type="button" disabled={!candidateRoute} onClick={() => setShowRouteQr((shown) => !shown)} className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"><QrCode size={16} />{showRouteQr ? 'Hide phone route QR' : 'Start navigation on phone'}</button>
+              {!candidateRoute && <p className="mt-2 text-xs text-slate-500">QR generation is enabled when a same-floor or candidate connector route is available.</p>}
+              {showRouteQr && candidateRoute && routeQrUrl && <div className="mt-3 rounded-xl border border-slate-200 bg-white p-3 text-center">
                 <p className="text-xs font-semibold text-slate-700">Scan to open this selected route on your phone</p>
+                <label className="mt-3 block text-left text-[11px] font-semibold text-slate-600">Phone-reachable NAVIKA address<input value={qrBaseUrl} onChange={(event) => setQrBaseUrl(event.target.value)} placeholder="http://192.168.x.x:5177" className="mt-1 h-9 w-full rounded-lg border border-slate-300 px-2 text-xs font-normal" /></label>
                 <div className="my-3 flex justify-center"><QRCodeSVG value={routeQrUrl} size={176} level="M" includeMargin /></div>
                 <p className="break-all text-[10px] text-slate-500">{routeQrUrl}</p>
-                <p className="mt-2 text-[10px] text-slate-500">Open on a phone connected to the same Wi-Fi or hotspot. This QR uses {new URL(routeQrUrl).host}; keep the NAVIKA server running.</p>
+                <p className="mt-2 text-[10px] text-slate-500">{qrIsLoopback ? 'This address points back to this computer, so a phone cannot open it. Replace localhost/127.0.0.1 with this computer’s LAN IP and keep the phone on the same Wi-Fi or hotspot.' : `Open on a phone connected to the same Wi-Fi or hotspot. This QR uses ${new URL(routeQrUrl).host}; keep the NAVIKA server running.`}</p>
               </div>}
+              {showRouteQr && candidateRoute && !routeQrUrl && <p className="mt-2 text-xs text-red-700">Enter a valid base address, for example http://192.168.1.20:5177.</p>}
             </div>
             <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-xs leading-5 text-amber-950">
               <h2 className="flex items-center gap-2 font-bold"><AlertTriangle size={15} />Route review required</h2>
@@ -495,6 +523,7 @@ export default function MultiFloorNavigation3D() {
           </aside>
 
           <div className="relative min-h-[680px] overflow-hidden rounded-2xl border border-slate-200 bg-[#edf2f5]">
+            {view === 'detail' && <label className="flex items-center gap-2 border-b border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700">Floor model<select value={detailFloor} onChange={(event) => setDetailFloor(Number(event.target.value))} className="rounded-md border border-slate-300 bg-white px-2 py-1">{building.floors.map((floor) => <option key={floor.floor_number} value={floor.floor_number}>{floor.label}</option>)}</select></label>}
             {view === '3d' && <div className="absolute right-3 top-3 z-10 flex flex-col overflow-hidden rounded-xl border border-slate-300 bg-white/95 shadow-sm" aria-label="3D camera controls">
               <button type="button" onClick={() => { controlsRef.current?.dollyIn(1.22); controlsRef.current?.update() }} className="border-b border-slate-200 p-2 text-slate-700 hover:bg-slate-100" title="Zoom in"><Plus size={18} /></button>
               <button type="button" onClick={() => { controlsRef.current?.dollyOut(1.22); controlsRef.current?.update() }} className="border-b border-slate-200 p-2 text-slate-700 hover:bg-slate-100" title="Zoom out"><Minus size={18} /></button>
@@ -502,16 +531,18 @@ export default function MultiFloorNavigation3D() {
             </div>}
             {view === '3d'
               ? <Canvas shadows camera={{ position: [180, 120, 100], fov: 42 }} gl={{ antialias: true }}>
-                  <Scene sourceId={sourceId} destinationId={destinationId} setEndpoint={pickEndpoint} connectorId={selectedConnector?.id || ''} routePoints={candidateRoute?.points} showLabels={showLabels} labelFloor={labelFloor} controlsRef={controlsRef} />
+                  <Scene sourceId={sourceId} destinationId={destinationId} setEndpoint={pickEndpoint} connectorId={selectedConnector?.id || ''} routePoints={candidateRoute?.points.map((point) => point3(point.xy, point.floor))} showLabels={showLabels} labelFloor={labelFloor} controlsRef={controlsRef} />
                 </Canvas>
-              : <div className="h-full min-h-[680px] overflow-y-auto p-3"><MultiFloorDxfViewer /></div>}
+              : view === 'detail'
+                ? <RamanujanFloorModel3D floorNumber={detailFloor} source={source} destination={destination} />
+                : <div className="h-full min-h-[680px] overflow-y-auto p-3"><MultiFloorDxfViewer /></div>}
           </div>
         </div>
         <footer className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-100 px-5 py-3 text-xs text-slate-500 md:px-7">
           <span><i className="mr-1.5 inline-block h-2.5 w-2.5 rounded-full bg-green-600" />Source</span>
           <span><i className="mr-1.5 inline-block h-2.5 w-2.5 rounded-full bg-red-600" />Destination / candidate path</span>
-          <span><i className="mr-1.5 inline-block w-6 border-t-2 border-dashed border-orange-600" />Candidate stair</span>
-          <span><i className="mr-1.5 inline-block w-6 border-t-2 border-dashed border-sky-600" />Candidate lift</span>
+          <span><i className="mr-1.5 inline-block h-2.5 w-2.5 rounded-sm bg-orange-700" />Schematic stairs</span>
+          <span><i className="mr-1.5 inline-block h-2.5 w-2.5 rounded-sm bg-sky-600" />Schematic lift shaft</span>
           <span className="ml-auto">Illustrative wall height {WALL_HEIGHT} m · diagrammatic floor spacing {FLOOR_GAP} m</span>
         </footer>
       </section>

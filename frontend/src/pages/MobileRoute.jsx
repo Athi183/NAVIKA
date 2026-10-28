@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react'
 import { Accessibility, MapPin, Navigation, Route, TriangleAlert } from 'lucide-react'
 import building from '../data/ramanujan_floors_2_6.json'
 import graph from '../data/ramanujan_navigation_graph_candidate.json'
+import RamanujanFloorModel3D from '../components/navigation/RamanujanFloorModel3D'
+import { buildCandidateRouteSteps, findRamanujanRoute } from '../services/ramanujanRoute'
 
 const places = building.floors.flatMap((floor) => floor.labels.map((label, index) => ({
   id: `${floor.floor_number}:${index}`,
@@ -11,53 +13,11 @@ const places = building.floors.flatMap((floor) => floor.labels.map((label, index
   xy: label.display_xy || label.xy,
 })))
 const assumptions = graph.routing_assumptions
-const distance = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1])
 const duration = (seconds) => {
   const total = Math.max(0, Math.round(seconds))
   return total < 60 ? `${total} sec` : `${Math.floor(total / 60)} min ${total % 60} sec`
 }
-
-function getFloorRoute(source, destination, profile, selectedConnector) {
-  const connectors = building.vertical_connectors
-    .filter((item) => !selectedConnector || selectedConnector === 'auto' || item.id === selectedConnector)
-    .filter((item) => profile !== 'step_free' || item.type === 'lift')
-    .filter((item) => {
-      const low = Math.min(source.floor, destination.floor)
-      const high = Math.max(source.floor, destination.floor)
-      return Array.from({ length: high - low + 1 }, (_, index) => String(low + index)).every((floor) => item.stops[floor])
-    })
-  if (source.floor === destination.floor) {
-    const metres = distance(source.xy, destination.xy)
-    return { connector: null, stops: [], distanceM: metres, durationS: metres / (profile === 'step_free' ? assumptions.accessible_walk_speed_mps : assumptions.walk_speed_mps) }
-  }
-  const candidates = connectors.map((connector) => {
-    const direction = source.floor < destination.floor ? 1 : -1
-    const stops = []
-    for (let floor = source.floor; direction > 0 ? floor <= destination.floor : floor >= destination.floor; floor += direction) {
-      stops.push({ floor, xy: connector.stops[String(floor)] })
-    }
-    const a = stops[0]
-    const b = stops.at(-1)
-    const walkDistance = distance(source.xy, a.xy) + distance(b.xy, destination.xy)
-    const walkSpeed = profile === 'step_free' ? assumptions.accessible_walk_speed_mps : assumptions.walk_speed_mps
-    const floors = Math.abs(destination.floor - source.floor)
-    let connectorDistance
-    let connectorTime
-    if (connector.type === 'stair') {
-      const incline = assumptions.floor_rise_m * floors / Math.sin(assumptions.stair_angle_degrees * Math.PI / 180)
-      connectorDistance = incline
-      connectorTime = incline / (direction > 0 ? assumptions.stair_up_speed_mps : assumptions.stair_down_speed_mps)
-    } else {
-      connectorDistance = assumptions.floor_rise_m * floors
-      connectorTime = connectorDistance / assumptions.lift_speed_mps + assumptions.lift_door_seconds_per_floor * floors + assumptions.lift_wait_seconds_per_trip
-    }
-    const totalDistance = walkDistance + connectorDistance
-    const totalTime = walkDistance / walkSpeed + connectorTime
-    return { connector, stops, distanceM: totalDistance, durationS: totalTime }
-  })
-  const score = (item) => profile === 'shortest' ? item.distanceM : item.durationS
-  return candidates.sort((a, b) => score(a) - score(b))[0] || null
-}
+const floorLabels = new Map(building.floors.map((floor) => [floor.floor_number, floor.label]))
 
 function floorBounds(floor) {
   const segments = floor.segments.filter(([x1, y1, x2, y2]) => {
@@ -102,27 +62,16 @@ export default function MobileRoute() {
   const source = places.find((item) => item.id === params.get('from'))
   const destination = places.find((item) => item.id === params.get('to'))
   const profile = ['fastest', 'shortest', 'step_free'].includes(params.get('profile')) ? params.get('profile') : 'fastest'
+  const connectorChoice = params.get('connector') || 'auto'
   const [selectedFloor, setSelectedFloor] = useState(null)
-  const route = useMemo(() => source && destination ? getFloorRoute(source, destination, profile, params.get('connector') || 'auto') : null, [source, destination, profile])
+  const [mapView, setMapView] = useState('3d')
+  const [currentStep, setCurrentStep] = useState(0)
+  const route = useMemo(() => source && destination ? findRamanujanRoute(source, destination, building.vertical_connectors, profile, assumptions, connectorChoice, floorLabels) : null, [source, destination, profile, connectorChoice])
   if (!source || !destination || !route) return <main className="mx-auto min-h-screen max-w-lg p-6"><h1 className="text-2xl font-bold">NAVIKA route unavailable</h1><p className="mt-3 text-slate-600">This QR link is missing a valid source or destination. Please create a new route QR from the navigation screen.</p></main>
 
-  const floors = building.floors.filter((floor) => floor.floor_number === source.floor || floor.floor_number === destination.floor)
-  const steps = source.floor === destination.floor
-    ? [
-      { floor: source.floor, text: `Start at ${source.name} on ${source.floorLabel}.` },
-      { floor: source.floor, text: `Follow the highlighted candidate line toward ${destination.name}.` },
-      { floor: destination.floor, text: `Arrive at ${destination.name}.` },
-    ]
-    : [
-      { floor: source.floor, text: `Start at ${source.name} on ${source.floorLabel}.` },
-      { floor: source.floor, text: `Proceed toward the ${route.connector.label} landing. The room-to-connector approach is estimated as a straight line.` },
-      ...route.stops.slice(1).map((stop, index) => ({
-        floor: stop.floor,
-        text: `${route.connector.type === 'lift' ? 'Ride' : 'Take'} the ${route.connector.label} from ${route.stops[index].floorLabel} to ${stop.floorLabel}.`,
-      })),
-      { floor: destination.floor, text: `Leave the connector and proceed toward ${destination.name}. The connector-to-room approach is estimated as a straight line.` },
-      { floor: destination.floor, text: `Arrive at ${destination.name}.` },
-    ]
+  const routeFloorNumbers = new Set(route.points.map((point) => point.floor))
+  const floors = building.floors.filter((floor) => routeFloorNumbers.has(floor.floor_number))
+  const steps = buildCandidateRouteSteps(source, destination, route)
   const profileLabel = profile === 'step_free' ? 'Step-free lift candidate' : profile === 'shortest' ? 'Shortest distance candidate' : 'Fastest time candidate'
   const activeFloor = selectedFloor ?? steps[currentStep]?.floor ?? source.floor
   const focused = floors.filter((floor) => floor.floor_number === activeFloor)
@@ -138,11 +87,11 @@ export default function MobileRoute() {
         <div className="rounded-2xl bg-white p-3 shadow-sm"><div className="text-[10px] uppercase text-slate-500">Route type</div><div className="mt-1 flex items-center gap-1 text-xs font-bold">{profile === 'step_free' && <Accessibility size={14} />}{profileLabel}</div></div>
       </section>
 
-      <section className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950"><div className="flex gap-2 font-bold"><TriangleAlert size={18} className="shrink-0" />Planning estimate only</div><p className="mt-2 text-xs leading-5">The DXF graph still has no verified room-to-corridor links. The red segment and room-to-connector approaches are straight-line guesses. Do not rely on these as live turn-by-turn directions until the route is reviewed on site.</p></section>
+      <section className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950"><div className="flex gap-2 font-bold"><TriangleAlert size={18} className="shrink-0" />Planning estimate only</div><p className="mt-2 text-xs leading-5">This QR opens the same candidate Dijkstra route as the kiosk. The phone shows every floor in the candidate route. Room-to-room and room-to-connector legs are straight-line estimates; entrances, corridor paths and connector landings are not verified. Do not use it as live wayfinding until those links are checked against the plans and building.</p></section>
 
-      <section className="space-y-3 rounded-2xl bg-white p-4 shadow-sm"><div className="flex items-center justify-between"><h1 className="flex items-center gap-2 font-bold"><Navigation size={18} className="text-cyan-700" /> Route steps</h1><span className="text-xs text-slate-500">{currentStep + 1} / {steps.length}</span></div><div className="rounded-xl border border-cyan-200 bg-cyan-50 p-3"><div className="text-[10px] font-bold uppercase tracking-widest text-cyan-800">{building.floors.find((floor) => floor.floor_number === steps[currentStep].floor)?.label}</div><div className="mt-1 text-sm font-semibold leading-5">{steps[currentStep].text}</div></div><div className="flex gap-2"><button type="button" disabled={currentStep === 0} onClick={() => setCurrentStep((step) => Math.max(0, step - 1))} className="flex-1 rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold disabled:opacity-40">Previous</button><button type="button" disabled={currentStep === steps.length - 1} onClick={() => setCurrentStep((step) => Math.min(steps.length - 1, step + 1))} className="flex-1 rounded-xl bg-cyan-800 px-3 py-2 text-sm font-semibold text-white disabled:opacity-40">Next step</button></div><details className="text-xs text-slate-500"><summary className="cursor-pointer font-semibold">Show all steps</summary><ol className="mt-2 space-y-2">{steps.map((step, index) => <li key={`${step.floor}-${index}`} className="flex gap-2"><span className="font-semibold">{index + 1}.</span><span>{step.text}</span></li>)}</ol></details></section>
+      <section className="space-y-3 rounded-2xl bg-white p-4 shadow-sm"><div className="flex items-center justify-between"><h1 className="flex items-center gap-2 font-bold"><Navigation size={18} className="text-cyan-700" /> Route steps</h1><span className="text-xs text-slate-500">{currentStep + 1} / {steps.length}</span></div><div className="rounded-xl border border-cyan-200 bg-cyan-50 p-3"><div className="text-[10px] font-bold uppercase tracking-widest text-cyan-800">{building.floors.find((floor) => floor.floor_number === steps[currentStep].floor)?.label}</div><div className="mt-1 text-sm font-semibold leading-5">{steps[currentStep].text}</div></div><div className="flex gap-2"><button type="button" disabled={currentStep === 0} onClick={() => { setCurrentStep((step) => Math.max(0, step - 1)); setSelectedFloor(null) }} className="flex-1 rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold disabled:opacity-40">Previous</button><button type="button" disabled={currentStep === steps.length - 1} onClick={() => { setCurrentStep((step) => Math.min(steps.length - 1, step + 1)); setSelectedFloor(null) }} className="flex-1 rounded-xl bg-cyan-800 px-3 py-2 text-sm font-semibold text-white disabled:opacity-40">Next step</button></div><details className="text-xs text-slate-500"><summary className="cursor-pointer font-semibold">Show all steps</summary><ol className="mt-2 space-y-2">{steps.map((step, index) => <li key={`${step.floor}-${index}`} className="flex gap-2"><span className="font-semibold">{index + 1}.</span><span>{step.text}</span></li>)}</ol></details></section>
 
-      <section className="space-y-3"><div className="flex items-center justify-between"><h2 className="font-bold">Route map · {building.floors.find((floor) => floor.floor_number === activeFloor)?.label}</h2>{floors.length > 1 && <span className="text-xs text-slate-500">Map follows the current step</span>}</div>{floors.length > 1 && <div className="flex gap-2">{floors.map((floor) => <button key={floor.floor_number} onClick={() => setSelectedFloor(floor.floor_number)} className={`rounded-full px-3 py-1.5 text-xs font-semibold ${activeFloor === floor.floor_number ? 'bg-cyan-800 text-white' : 'bg-white text-slate-700'}`}>{floor.label}</button>)}</div>}{focused.map((floor) => <FloorPlan key={floor.floor_number} floor={floor} source={source} destination={destination} stops={route.stops} />)}</section>
+      <section className="space-y-3"><div className="flex items-center justify-between"><h2 className="font-bold">{mapView === '3d' ? '3D floor model' : 'Route map'} · {building.floors.find((floor) => floor.floor_number === activeFloor)?.label}</h2><div className="flex rounded-lg bg-slate-200 p-1"><button type="button" onClick={() => setMapView('2d')} className={`rounded-md px-3 py-1.5 text-xs font-semibold ${mapView === '2d' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'}`}>2D route</button><button type="button" onClick={() => setMapView('3d')} className={`rounded-md px-3 py-1.5 text-xs font-semibold ${mapView === '3d' ? 'bg-cyan-800 text-white shadow-sm' : 'text-slate-600'}`}>3D floor</button></div></div>{floors.length > 1 && <div className="flex flex-wrap gap-2">{floors.map((floor) => <button key={floor.floor_number} onClick={() => setSelectedFloor(floor.floor_number)} className={`rounded-full px-3 py-1.5 text-xs font-semibold ${activeFloor === floor.floor_number ? 'bg-cyan-800 text-white' : 'bg-white text-slate-700'}`}>{floor.label}</button>)}</div>}{mapView === '3d' ? <RamanujanFloorModel3D key={activeFloor} floorNumber={activeFloor} source={source} destination={destination} stops={route.stops} compact /> : focused.map((floor) => <FloorPlan key={floor.floor_number} floor={floor} source={source} destination={destination} stops={route.stops} />)}</section>
 
       <section className="rounded-2xl bg-white p-4 text-xs text-slate-600 shadow-sm"><div className="flex items-center justify-between"><span>Selected connector</span><span className="font-semibold text-slate-900">{route.connector?.label || 'Same floor'}</span></div><div className="mt-2 flex items-center justify-between"><span>Floor transitions</span><span className="font-semibold text-slate-900">{route.stops.length ? route.stops.length - 1 : 0}</span></div><div className="mt-2 flex items-center justify-between"><span>Time model</span><span className="font-semibold text-slate-900">DXF candidate assumptions</span></div></section>
       <footer className="pb-5 text-center text-[11px] text-slate-500"><MapPin size={13} className="mr-1 inline" />Use the floor buttons to focus the map while travelling.</footer>

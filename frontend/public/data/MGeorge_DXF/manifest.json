@@ -1,0 +1,37 @@
+{
+  "building_id": "MGEORGE_BLOCK",
+  "building_label": "M. George Block \u00b7 Building 1",
+  "source": "college plans 3 (1).dxf",
+  "floors": [
+    {
+      "floor_number": 0,
+      "floor_id": "MGEORGE_00",
+      "label": "Ground Floor",
+      "directory": "MGEORGE_00"
+    },
+    {
+      "floor_number": 1,
+      "floor_id": "MGEORGE_01",
+      "label": "First Floor",
+      "directory": "MGEORGE_01"
+    },
+    {
+      "floor_number": 2,
+      "floor_id": "MGEORGE_02",
+      "label": "Second Floor",
+      "directory": "MGEORGE_02"
+    },
+    {
+      "floor_number": 3,
+      "floor_id": "MGEORGE_03",
+      "label": "Third Floor",
+      "directory": "MGEORGE_03"
+    },
+    {
+      "floor_number": 4,
+      "floor_id": "MGEORGE_04",
+      "label": "Fourth Floor",
+      "directory": "MGEORGE_04"
+    }
+  ]
+}
