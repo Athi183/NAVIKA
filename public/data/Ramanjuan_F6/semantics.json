@@ -1,0 +1,125 @@
+{
+  "floor": "6",
+  "coordinate_system": "CAD XY",
+  "places": [
+    {
+      "id": "excel_hall",
+      "name": "ExCEL Hall",
+      "type": "hall",
+      "cadX": 10631.887,
+      "cadY": 2038.8346
+    },
+    {
+      "id": "electrical_room",
+      "name": "Electrical Room",
+      "type": "facility",
+      "cadX": 10635.376,
+      "cadY": 2029.012
+    },
+    {
+      "id": "room_703",
+      "name": "Department of CY",
+      "roomNumber": "703",
+      "type": "department",
+      "cadX": 10652.5933,
+      "cadY": 2035.2489
+    },
+    {
+      "id": "room_704",
+      "name": "S3/S4 CY Classroom",
+      "roomNumber": "704",
+      "type": "classroom",
+      "cadX": 10661.0535,
+      "cadY": 2036.582
+    },
+    {
+      "id": "room_705",
+      "name": "S5/S6 CS-AI Classroom",
+      "roomNumber": "705",
+      "type": "classroom",
+      "cadX": 10671.3882,
+      "cadY": 2036.4872
+    },
+    {
+      "id": "room_706",
+      "name": "S7 Classroom",
+      "roomNumber": "706",
+      "type": "classroom",
+      "cadX": 10683.0453,
+      "cadY": 2036.8359
+    },
+    {
+      "id": "room_707",
+      "name": "Classroom 707",
+      "roomNumber": "707",
+      "type": "classroom",
+      "cadX": 10685.6585,
+      "cadY": 2019.9604
+    },
+    {
+      "id": "room_708",
+      "name": "Classroom 708",
+      "roomNumber": "708",
+      "type": "classroom",
+      "cadX": 10674.8347,
+      "cadY": 2019.7886
+    },
+    {
+      "id": "room_709",
+      "name": "Diffie Hellman Lab",
+      "roomNumber": "709",
+      "type": "laboratory",
+      "cadX": 10657.3085,
+      "cadY": 2018.968
+    },
+    {
+      "id": "ladies_toilet",
+      "name": "Ladies Toilet",
+      "type": "toilet",
+      "cadX": 10615.3658,
+      "cadY": 2035.2604
+    },
+    {
+      "id": "gents_toilet",
+      "name": "Gents Toilet",
+      "type": "toilet",
+      "cadX": 10692.3969,
+      "cadY": 2032.8392
+    },
+    {
+      "id": "lift",
+      "name": "Lift",
+      "type": "vertical_transport",
+      "cadX": 10694.3422,
+      "cadY": 2025.8189
+    },
+    {
+      "id": "wash_area",
+      "name": "Wash Area",
+      "type": "facility",
+      "cadX": 10654.4366,
+      "cadY": 2040.6298
+    },
+    {
+      "id": "staircase_left",
+      "name": "Staircase",
+      "type": "staircase",
+      "cadX": 10611.8805,
+      "cadY": 2031.5249
+    },
+    {
+      "id": "staircase_middle",
+      "name": "Staircase",
+      "type": "staircase",
+      "cadX": 10639.5701,
+      "cadY": 2023.9955
+    },
+    {
+      "id": "staircase_right",
+      "name": "Staircase",
+      "type": "staircase",
+      "cadX": 10694.5005,
+      "cadY": 2020.751
+    }
+  ]
+}

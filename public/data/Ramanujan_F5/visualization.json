@@ -1,0 +1,4837 @@
+{
+    "floor_metadata": {
+        "level": 5,
+        "elevation_z": 15.0,
+        "units": "meters",
+        "node_count": 56,
+        "edge_count": 227
+    },
+    "render_nodes": [
+        {
+            "id": "node_rm_0",
+            "label": "UP",
+            "class_type": "destination",
+            "vector3": [
+                -29.842,
+                14.131,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_0",
+            "label": "Corridor Link to UP",
+            "class_type": "waypoint",
+            "vector3": [
+                -29.842,
+                11.631,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_1",
+            "label": "UP",
+            "class_type": "destination",
+            "vector3": [
+                47.903,
+                -15.835,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_1",
+            "label": "Corridor Link to UP",
+            "class_type": "waypoint",
+            "vector3": [
+                47.903,
+                -18.335,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_2",
+            "label": "UP",
+            "class_type": "destination",
+            "vector3": [
+                -4.711,
+                0.28,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_2",
+            "label": "Corridor Link to UP",
+            "class_type": "waypoint",
+            "vector3": [
+                -4.711,
+                -2.22,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_3",
+            "label": "Ladies Toilet",
+            "class_type": "destination",
+            "vector3": [
+                -25.573,
+                16.939,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_3",
+            "label": "Corridor Link to Ladies Toilet",
+            "class_type": "waypoint",
+            "vector3": [
+                -25.573,
+                14.439,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_4",
+            "label": "Toilet",
+            "class_type": "destination",
+            "vector3": [
+                7.817,
+                -15.832,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_4",
+            "label": "Corridor Link to Toilet",
+            "class_type": "waypoint",
+            "vector3": [
+                7.817,
+                -18.332,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_5",
+            "label": "Lift",
+            "class_type": "destination",
+            "vector3": [
+                48.945,
+                -10.873,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_5",
+            "label": "Corridor Link to Lift",
+            "class_type": "waypoint",
+            "vector3": [
+                48.945,
+                -13.373,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_6",
+            "label": "GENTS TOILET",
+            "class_type": "destination",
+            "vector3": [
+                48.711,
+                -3.592,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_6",
+            "label": "Corridor Link to GENTS TOILET",
+            "class_type": "waypoint",
+            "vector3": [
+                48.711,
+                -6.092,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_7",
+            "label": "ELECTRICAL ROOM",
+            "class_type": "destination",
+            "vector3": [
+                -7.602,
+                6.145,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_7",
+            "label": "Corridor Link to ELECTRICAL ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                -7.602,
+                3.645,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_8",
+            "label": "S5/S6 CSE-A CLASS ROOM",
+            "class_type": "destination",
+            "vector3": [
+                -20.562,
+                19.666,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_8",
+            "label": "Corridor Link to S5/S6 CSE-A CLASS ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                -20.562,
+                17.166,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_9",
+            "label": "S5/S6 CSE-B CLASS ROOM",
+            "class_type": "destination",
+            "vector3": [
+                -9.075,
+                16.924,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_9",
+            "label": "Corridor Link to S5/S6 CSE-B CLASS ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                -9.075,
+                14.424,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_10",
+            "label": "S5/S6 CS AI CLASS ROOM",
+            "class_type": "destination",
+            "vector3": [
+                1.736,
+                14.041,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_10",
+            "label": "Corridor Link to S5/S6 CS AI CLASS ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                1.736,
+                11.541,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_11",
+            "label": "S3/S4 CSE-B CLASS ROOM",
+            "class_type": "destination",
+            "vector3": [
+                11.504,
+                9.122,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_11",
+            "label": "Corridor Link to S3/S4 CSE-B CLASS ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                11.504,
+                6.622,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_12",
+            "label": "S7/S8 CSE-B CLASS ROOM",
+            "class_type": "destination",
+            "vector3": [
+                23.733,
+                6.075,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_12",
+            "label": "Corridor Link to S7/S8 CSE-B CLASS ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                23.733,
+                3.575,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_13",
+            "label": "S7/S8 CS-AI CLASS ROOM",
+            "class_type": "destination",
+            "vector3": [
+                34.647,
+                3.511,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_13",
+            "label": "Corridor Link to S7/S8 CS-AI CLASS ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                34.647,
+                1.011,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_14",
+            "label": "S3/S4 CSE-A CLASS ROOM",
+            "class_type": "destination",
+            "vector3": [
+                25.17,
+                -13.365,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_14",
+            "label": "Corridor Link to S3/S4 CSE-A CLASS ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                25.17,
+                -15.865,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_15",
+            "label": "608",
+            "class_type": "destination",
+            "vector3": [
+                38.785,
+                -15.28,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_15",
+            "label": "Corridor Link to 608",
+            "class_type": "waypoint",
+            "vector3": [
+                38.785,
+                -17.78,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_16",
+            "label": "607",
+            "class_type": "destination",
+            "vector3": [
+                28.94,
+                -12.889,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_16",
+            "label": "Corridor Link to 607",
+            "class_type": "waypoint",
+            "vector3": [
+                28.94,
+                -15.389,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_17",
+            "label": "606",
+            "class_type": "destination",
+            "vector3": [
+                19.076,
+                -10.413,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_17",
+            "label": "Corridor Link to 606",
+            "class_type": "waypoint",
+            "vector3": [
+                19.076,
+                -12.913,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_18",
+            "label": "605",
+            "class_type": "destination",
+            "vector3": [
+                9.986,
+                -8.219,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_18",
+            "label": "Corridor Link to 605",
+            "class_type": "waypoint",
+            "vector3": [
+                9.986,
+                -10.719,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_19",
+            "label": "601",
+            "class_type": "destination",
+            "vector3": [
+                -17.358,
+                20.302,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_19",
+            "label": "Corridor Link to 601",
+            "class_type": "waypoint",
+            "vector3": [
+                -17.358,
+                17.802,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_20",
+            "label": "603",
+            "class_type": "destination",
+            "vector3": [
+                -5.898,
+                17.453,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_20",
+            "label": "Corridor Link to 603",
+            "class_type": "waypoint",
+            "vector3": [
+                -5.898,
+                14.953,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_21",
+            "label": "604",
+            "class_type": "destination",
+            "vector3": [
+                5.266,
+                14.838,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_21",
+            "label": "Corridor Link to 604",
+            "class_type": "waypoint",
+            "vector3": [
+                5.266,
+                12.338,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_22",
+            "label": "613",
+            "class_type": "destination",
+            "vector3": [
+                14.943,
+                9.753,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_22",
+            "label": "Corridor Link to 613",
+            "class_type": "waypoint",
+            "vector3": [
+                14.943,
+                7.253,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_23",
+            "label": "611/612",
+            "class_type": "destination",
+            "vector3": [
+                26.0,
+                7.012,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_23",
+            "label": "Corridor Link to 611/612",
+            "class_type": "waypoint",
+            "vector3": [
+                26.0,
+                4.512,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_24",
+            "label": "610",
+            "class_type": "destination",
+            "vector3": [
+                37.629,
+                4.124,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_24",
+            "label": "Corridor Link to 610",
+            "class_type": "waypoint",
+            "vector3": [
+                37.629,
+                1.624,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_25",
+            "label": "609",
+            "class_type": "destination",
+            "vector3": [
+                45.191,
+                2.38,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_25",
+            "label": "Corridor Link to 609",
+            "class_type": "waypoint",
+            "vector3": [
+                45.191,
+                -0.12,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_26",
+            "label": "EXPERIENTIAL LEARNING HUB",
+            "class_type": "destination",
+            "vector3": [
+                34.238,
+                -15.602,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_26",
+            "label": "Corridor Link to EXPERIENTIAL LEARNING HUB",
+            "class_type": "waypoint",
+            "vector3": [
+                34.238,
+                -18.102,
+                15.0
+            ]
+        },
+        {
+            "id": "node_rm_27",
+            "label": "ELECTIVE / TUTORIAL/ IDP ROOM",
+            "class_type": "destination",
+            "vector3": [
+                15.013,
+                -10.963,
+                15.0
+            ]
+        },
+        {
+            "id": "node_wp_27",
+            "label": "Corridor Link to ELECTIVE / TUTORIAL/ IDP ROOM",
+            "class_type": "waypoint",
+            "vector3": [
+                15.013,
+                -13.463,
+                15.0
+            ]
+        }
+    ],
+    "render_paths": [
+        {
+            "edge_id": "link_0",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -29.842,
+                    14.131,
+                    15.0
+                ],
+                [
+                    -29.842,
+                    11.631,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_1",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_2",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -4.711,
+                    0.28,
+                    15.0
+                ],
+                [
+                    -4.711,
+                    -2.22,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_3",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -25.573,
+                    16.939,
+                    15.0
+                ],
+                [
+                    -25.573,
+                    14.439,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_4",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_5",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -10.873,
+                    15.0
+                ],
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_6",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    48.711,
+                    -3.592,
+                    15.0
+                ],
+                [
+                    48.711,
+                    -6.092,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_7",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -7.602,
+                    6.145,
+                    15.0
+                ],
+                [
+                    -7.602,
+                    3.645,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_8",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -20.562,
+                    19.666,
+                    15.0
+                ],
+                [
+                    -20.562,
+                    17.166,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_9",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -9.075,
+                    16.924,
+                    15.0
+                ],
+                [
+                    -9.075,
+                    14.424,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_10",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    1.736,
+                    14.041,
+                    15.0
+                ],
+                [
+                    1.736,
+                    11.541,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_11",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    9.122,
+                    15.0
+                ],
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_12",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    23.733,
+                    6.075,
+                    15.0
+                ],
+                [
+                    23.733,
+                    3.575,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_13",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    34.647,
+                    3.511,
+                    15.0
+                ],
+                [
+                    34.647,
+                    1.011,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_14",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ],
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_15",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_16",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_17",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_18",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_19",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -17.358,
+                    20.302,
+                    15.0
+                ],
+                [
+                    -17.358,
+                    17.802,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_20",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -5.898,
+                    17.453,
+                    15.0
+                ],
+                [
+                    -5.898,
+                    14.953,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_21",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    5.266,
+                    14.838,
+                    15.0
+                ],
+                [
+                    5.266,
+                    12.338,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_22",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    14.943,
+                    9.753,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_23",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    26.0,
+                    7.012,
+                    15.0
+                ],
+                [
+                    26.0,
+                    4.512,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_24",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    37.629,
+                    4.124,
+                    15.0
+                ],
+                [
+                    37.629,
+                    1.624,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_25",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    45.191,
+                    2.38,
+                    15.0
+                ],
+                [
+                    45.191,
+                    -0.12,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_26",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_27",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_28",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -29.842,
+                    14.131,
+                    15.0
+                ],
+                [
+                    -29.842,
+                    11.631,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_29",
+            "weight": 27.576,
+            "coordinates_3d": [
+                [
+                    -29.842,
+                    11.631,
+                    15.0
+                ],
+                [
+                    -4.711,
+                    0.28,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_30",
+            "weight": 5.11,
+            "coordinates_3d": [
+                [
+                    -29.842,
+                    11.631,
+                    15.0
+                ],
+                [
+                    -25.573,
+                    14.439,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_31",
+            "weight": 22.907,
+            "coordinates_3d": [
+                [
+                    -29.842,
+                    11.631,
+                    15.0
+                ],
+                [
+                    -7.602,
+                    6.145,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_32",
+            "weight": 23.63,
+            "coordinates_3d": [
+                [
+                    -29.842,
+                    11.631,
+                    15.0
+                ],
+                [
+                    -7.602,
+                    3.645,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_33",
+            "weight": 13.926,
+            "coordinates_3d": [
+                [
+                    -29.842,
+                    11.631,
+                    15.0
+                ],
+                [
+                    -17.358,
+                    17.802,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_34",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_35",
+            "weight": 2.673,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_36",
+            "weight": 9.776,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    48.711,
+                    -6.092,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_37",
+            "weight": 22.733,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_38",
+            "weight": 9.323,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_39",
+            "weight": 18.968,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_40",
+            "weight": 28.975,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_41",
+            "weight": 15.947,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    45.191,
+                    -0.12,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_42",
+            "weight": 13.852,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_43",
+            "weight": 32.975,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -15.835,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_44",
+            "weight": 7.534,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    48.945,
+                    -10.873,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_45",
+            "weight": 5.07,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_46",
+            "weight": 14.765,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    48.711,
+                    -3.592,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_47",
+            "weight": 12.27,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    48.711,
+                    -6.092,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_48",
+            "weight": 23.27,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_49",
+            "weight": 22.867,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_50",
+            "weight": 9.616,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_51",
+            "weight": 9.135,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_52",
+            "weight": 19.73,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_53",
+            "weight": 19.19,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_54",
+            "weight": 29.896,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_55",
+            "weight": 29.332,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_56",
+            "weight": 20.892,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    45.191,
+                    2.38,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_57",
+            "weight": 18.416,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    45.191,
+                    -0.12,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_58",
+            "weight": 13.936,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_59",
+            "weight": 13.667,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_60",
+            "weight": 33.706,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_61",
+            "weight": 33.249,
+            "coordinates_3d": [
+                [
+                    47.903,
+                    -18.335,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_62",
+            "weight": 4.436,
+            "coordinates_3d": [
+                [
+                    -4.711,
+                    0.28,
+                    15.0
+                ],
+                [
+                    -7.602,
+                    3.645,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_63",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -25.573,
+                    16.939,
+                    15.0
+                ],
+                [
+                    -25.573,
+                    14.439,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_64",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_65",
+            "weight": 22.755,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_66",
+            "weight": 17.353,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_67",
+            "weight": 21.128,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_68",
+            "weight": 11.631,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_69",
+            "weight": 5.554,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_70",
+            "weight": 24.16,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_71",
+            "weight": 27.286,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    26.0,
+                    4.512,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_72",
+            "weight": 7.576,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -15.832,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_73",
+            "weight": 27.7,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    11.504,
+                    9.122,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_74",
+            "weight": 25.225,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_75",
+            "weight": 13.765,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_76",
+            "weight": 10.343,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_77",
+            "weight": 7.916,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_78",
+            "weight": 28.975,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    14.943,
+                    9.753,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_79",
+            "weight": 26.559,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_80",
+            "weight": 29.197,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    26.0,
+                    4.512,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_81",
+            "weight": 10.3,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_82",
+            "weight": 8.688,
+            "coordinates_3d": [
+                [
+                    7.817,
+                    -18.332,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_83",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -10.873,
+                    15.0
+                ],
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_84",
+            "weight": 4.787,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -10.873,
+                    15.0
+                ],
+                [
+                    48.711,
+                    -6.092,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_85",
+            "weight": 12.285,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -10.873,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_86",
+            "weight": 16.388,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -10.873,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_87",
+            "weight": 9.784,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    48.711,
+                    -3.592,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_88",
+            "weight": 7.285,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    48.711,
+                    -6.092,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_89",
+            "weight": 23.775,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_90",
+            "weight": 23.905,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_91",
+            "weight": 10.337,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_92",
+            "weight": 11.075,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_93",
+            "weight": 20.011,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_94",
+            "weight": 20.106,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_95",
+            "weight": 30.015,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_96",
+            "weight": 29.873,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_97",
+            "weight": 13.774,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    45.191,
+                    -0.12,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_98",
+            "weight": 14.875,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_99",
+            "weight": 15.449,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_100",
+            "weight": 34.017,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_101",
+            "weight": 33.932,
+            "coordinates_3d": [
+                [
+                    48.945,
+                    -13.373,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_102",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    48.711,
+                    -3.592,
+                    15.0
+                ],
+                [
+                    48.711,
+                    -6.092,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_103",
+            "weight": 30.41,
+            "coordinates_3d": [
+                [
+                    48.711,
+                    -6.092,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_104",
+            "weight": 34.495,
+            "coordinates_3d": [
+                [
+                    48.711,
+                    -6.092,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_105",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -20.562,
+                    19.666,
+                    15.0
+                ],
+                [
+                    -20.562,
+                    17.166,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_106",
+            "weight": 3.707,
+            "coordinates_3d": [
+                [
+                    -20.562,
+                    19.666,
+                    15.0
+                ],
+                [
+                    -17.358,
+                    17.802,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_107",
+            "weight": 4.483,
+            "coordinates_3d": [
+                [
+                    -20.562,
+                    17.166,
+                    15.0
+                ],
+                [
+                    -17.358,
+                    20.302,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_108",
+            "weight": 3.267,
+            "coordinates_3d": [
+                [
+                    -20.562,
+                    17.166,
+                    15.0
+                ],
+                [
+                    -17.358,
+                    17.802,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_109",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -9.075,
+                    16.924,
+                    15.0
+                ],
+                [
+                    -9.075,
+                    14.424,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_110",
+            "weight": 3.739,
+            "coordinates_3d": [
+                [
+                    -9.075,
+                    16.924,
+                    15.0
+                ],
+                [
+                    -5.898,
+                    14.953,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_111",
+            "weight": 4.39,
+            "coordinates_3d": [
+                [
+                    -9.075,
+                    14.424,
+                    15.0
+                ],
+                [
+                    -5.898,
+                    17.453,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_112",
+            "weight": 3.221,
+            "coordinates_3d": [
+                [
+                    -9.075,
+                    14.424,
+                    15.0
+                ],
+                [
+                    -5.898,
+                    14.953,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_113",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    1.736,
+                    14.041,
+                    15.0
+                ],
+                [
+                    1.736,
+                    11.541,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_114",
+            "weight": 3.919,
+            "coordinates_3d": [
+                [
+                    1.736,
+                    14.041,
+                    15.0
+                ],
+                [
+                    5.266,
+                    12.338,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_115",
+            "weight": 4.83,
+            "coordinates_3d": [
+                [
+                    1.736,
+                    11.541,
+                    15.0
+                ],
+                [
+                    5.266,
+                    14.838,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_116",
+            "weight": 3.619,
+            "coordinates_3d": [
+                [
+                    1.736,
+                    11.541,
+                    15.0
+                ],
+                [
+                    5.266,
+                    12.338,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_117",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    9.122,
+                    15.0
+                ],
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_118",
+            "weight": 23.3,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    9.122,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_119",
+            "weight": 19.899,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    9.122,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_120",
+            "weight": 3.914,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    9.122,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_121",
+            "weight": 22.856,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    9.122,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_122",
+            "weight": 18.642,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_123",
+            "weight": 20.951,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_124",
+            "weight": 14.918,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_125",
+            "weight": 17.407,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_126",
+            "weight": 4.651,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ],
+                [
+                    14.943,
+                    9.753,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_127",
+            "weight": 3.496,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_128",
+            "weight": 17.932,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_129",
+            "weight": 20.389,
+            "coordinates_3d": [
+                [
+                    11.504,
+                    6.622,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_130",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    23.733,
+                    6.075,
+                    15.0
+                ],
+                [
+                    23.733,
+                    3.575,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_131",
+            "weight": 2.754,
+            "coordinates_3d": [
+                [
+                    23.733,
+                    6.075,
+                    15.0
+                ],
+                [
+                    26.0,
+                    4.512,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_132",
+            "weight": 4.117,
+            "coordinates_3d": [
+                [
+                    23.733,
+                    3.575,
+                    15.0
+                ],
+                [
+                    26.0,
+                    7.012,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_133",
+            "weight": 2.453,
+            "coordinates_3d": [
+                [
+                    23.733,
+                    3.575,
+                    15.0
+                ],
+                [
+                    26.0,
+                    4.512,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_134",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    34.647,
+                    3.511,
+                    15.0
+                ],
+                [
+                    34.647,
+                    1.011,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_135",
+            "weight": 3.529,
+            "coordinates_3d": [
+                [
+                    34.647,
+                    3.511,
+                    15.0
+                ],
+                [
+                    37.629,
+                    1.624,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_136",
+            "weight": 21.617,
+            "coordinates_3d": [
+                [
+                    34.647,
+                    3.511,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_137",
+            "weight": 4.311,
+            "coordinates_3d": [
+                [
+                    34.647,
+                    1.011,
+                    15.0
+                ],
+                [
+                    37.629,
+                    4.124,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_138",
+            "weight": 3.044,
+            "coordinates_3d": [
+                [
+                    34.647,
+                    1.011,
+                    15.0
+                ],
+                [
+                    37.629,
+                    1.624,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_139",
+            "weight": 16.618,
+            "coordinates_3d": [
+                [
+                    34.647,
+                    1.011,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_140",
+            "weight": 19.117,
+            "coordinates_3d": [
+                [
+                    34.647,
+                    1.011,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_141",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ],
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_142",
+            "weight": 14.313,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_143",
+            "weight": 4.279,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_144",
+            "weight": 6.111,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_145",
+            "weight": 15.413,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_146",
+            "weight": 10.231,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_147",
+            "weight": 10.157,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -13.365,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_148",
+            "weight": 13.628,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_149",
+            "weight": 13.749,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_150",
+            "weight": 4.803,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_151",
+            "weight": 3.8,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_152",
+            "weight": 8.177,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_153",
+            "weight": 6.771,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_154",
+            "weight": 17.0,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_155",
+            "weight": 16.032,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_156",
+            "weight": 9.072,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_157",
+            "weight": 9.34,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_158",
+            "weight": 11.278,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_159",
+            "weight": 10.437,
+            "coordinates_3d": [
+                [
+                    25.17,
+                    -15.865,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_160",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ],
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_161",
+            "weight": 9.846,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_162",
+            "weight": 19.851,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_163",
+            "weight": 29.158,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_164",
+            "weight": 5.352,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_165",
+            "weight": 23.841,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -15.28,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_166",
+            "weight": 10.993,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_167",
+            "weight": 10.131,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_168",
+            "weight": 21.041,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_169",
+            "weight": 20.301,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_170",
+            "weight": 30.345,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_171",
+            "weight": 29.652,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_172",
+            "weight": 5.042,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_173",
+            "weight": 4.558,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_174",
+            "weight": 24.73,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_175",
+            "weight": 24.161,
+            "coordinates_3d": [
+                [
+                    38.785,
+                    -17.78,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_176",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ],
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_177",
+            "weight": 9.864,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_178",
+            "weight": 19.078,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_179",
+            "weight": 7.433,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_180",
+            "weight": 13.939,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -12.889,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_181",
+            "weight": 11.048,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_182",
+            "weight": 10.17,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_183",
+            "weight": 20.265,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_184",
+            "weight": 19.521,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_185",
+            "weight": 5.302,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_186",
+            "weight": 5.952,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_187",
+            "weight": 14.613,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_188",
+            "weight": 14.06,
+            "coordinates_3d": [
+                [
+                    28.94,
+                    -15.389,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_189",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ],
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_190",
+            "weight": 9.095,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_191",
+            "weight": 18.143,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_192",
+            "weight": 17.0,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_193",
+            "weight": 5.08,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -10.413,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_194",
+            "weight": 10.23,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_195",
+            "weight": 9.351,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_196",
+            "weight": 20.585,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_197",
+            "weight": 15.399,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_198",
+            "weight": 16.025,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_199",
+            "weight": 4.507,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_200",
+            "weight": 4.1,
+            "coordinates_3d": [
+                [
+                    19.076,
+                    -12.913,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_201",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ],
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_202",
+            "weight": 26.188,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_203",
+            "weight": 7.264,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -8.219,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_204",
+            "weight": 25.989,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ],
+                [
+                    5.266,
+                    14.838,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_205",
+            "weight": 21.064,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ],
+                [
+                    14.943,
+                    9.753,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_206",
+            "weight": 18.643,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_207",
+            "weight": 24.739,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_208",
+            "weight": 25.351,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_209",
+            "weight": 5.033,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_210",
+            "weight": 5.727,
+            "coordinates_3d": [
+                [
+                    9.986,
+                    -10.719,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_211",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -17.358,
+                    20.302,
+                    15.0
+                ],
+                [
+                    -17.358,
+                    17.802,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_212",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    -5.898,
+                    17.453,
+                    15.0
+                ],
+                [
+                    -5.898,
+                    14.953,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_213",
+            "weight": 33.3,
+            "coordinates_3d": [
+                [
+                    -5.898,
+                    14.953,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_214",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    5.266,
+                    14.838,
+                    15.0
+                ],
+                [
+                    5.266,
+                    12.338,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_215",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    14.943,
+                    9.753,
+                    15.0
+                ],
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_216",
+            "weight": 23.216,
+            "coordinates_3d": [
+                [
+                    14.943,
+                    9.753,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_217",
+            "weight": 18.216,
+            "coordinates_3d": [
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_218",
+            "weight": 20.716,
+            "coordinates_3d": [
+                [
+                    14.943,
+                    7.253,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_219",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    26.0,
+                    7.012,
+                    15.0
+                ],
+                [
+                    26.0,
+                    4.512,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_220",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    37.629,
+                    4.124,
+                    15.0
+                ],
+                [
+                    37.629,
+                    1.624,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_221",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    45.191,
+                    2.38,
+                    15.0
+                ],
+                [
+                    45.191,
+                    -0.12,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_222",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ],
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_223",
+            "weight": 19.344,
+            "coordinates_3d": [
+                [
+                    34.238,
+                    -15.602,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_224",
+            "weight": 20.508,
+            "coordinates_3d": [
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_225",
+            "weight": 19.777,
+            "coordinates_3d": [
+                [
+                    34.238,
+                    -18.102,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        },
+        {
+            "edge_id": "link_226",
+            "weight": 2.5,
+            "coordinates_3d": [
+                [
+                    15.013,
+                    -10.963,
+                    15.0
+                ],
+                [
+                    15.013,
+                    -13.463,
+                    15.0
+                ]
+            ]
+        }
+    ],
+    "render_structural_walls": [
+        {
+            "mesh_id": "extruded_wall_0",
+            "point_start": [
+                -30.948273297230735,
+                12.030282406373175,
+                15.0
+            ],
+            "point_end": [
+                -29.060464117314375,
+                19.87813596224119,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_1",
+            "point_start": [
+                -11.346306757352053,
+                0.47307403736455456,
+                15.0
+            ],
+            "point_end": [
+                -2.3590361809531117,
+                -1.6428783984849602,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_2",
+            "point_start": [
+                -26.246686887799157,
+                19.323020428177315,
+                15.0
+            ],
+            "point_end": [
+                -25.023242700259416,
+                24.409027488493834,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_3",
+            "point_start": [
+                -21.866864716665653,
+                25.570920466818926,
+                15.0
+            ],
+            "point_end": [
+                11.231929656560396,
+                17.534005161997165,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_4",
+            "point_start": [
+                -21.692185145467292,
+                25.284896622794264,
+                15.0
+            ],
+            "point_end": [
+                -5.373079835376842,
+                21.322357511893323,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_5",
+            "point_start": [
+                10.553166643310632,
+                14.738624527552687,
+                15.0
+            ],
+            "point_end": [
+                49.36805711478249,
+                5.313749900170379,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_6",
+            "point_start": [
+                6.412555163091469,
+                -2.4703725925600644,
+                15.0
+            ],
+            "point_end": [
+                1.081869197426201,
+                -1.0802106199809174,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_7",
+            "point_start": [
+                6.497612585799828,
+                -2.613230735057879,
+                15.0
+            ],
+            "point_end": [
+                3.672317814533116,
+                -14.07713531348758,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_8",
+            "point_start": [
+                -8.753275279259903,
+                7.56176158040946,
+                15.0
+            ],
+            "point_end": [
+                -13.96220884309011,
+                8.88662943491876,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_9",
+            "point_start": [
+                -14.223215359405714,
+                8.316651164309462,
+                15.0
+            ],
+            "point_end": [
+                -19.82336898709066,
+                9.67042695163336,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_10",
+            "point_start": [
+                -19.793828939874544,
+                10.296368292019118,
+                15.0
+            ],
+            "point_end": [
+                -25.000456415240677,
+                11.555013443278504,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_11",
+            "point_start": [
+                26.499618386769527,
+                -19.83419096235643,
+                15.0
+            ],
+            "point_end": [
+                26.499618386769313,
+                -19.83419096235732,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_12",
+            "point_start": [
+                -10.314984518982861,
+                0.23026074005931818,
+                15.0
+            ],
+            "point_end": [
+                -2.428071630346551,
+                -1.6266247733103185,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_13",
+            "point_start": [
+                11.848511907908588,
+                -15.973588746613995,
+                15.0
+            ],
+            "point_end": [
+                42.30339844690927,
+                -23.491668667323303,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_14",
+            "point_start": [
+                -27.70097311668185,
+                13.794244521267473,
+                15.0
+            ],
+            "point_end": [
+                -26.41723691534542,
+                19.120563512610403,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_15",
+            "point_start": [
+                -22.039533648279885,
+                14.151662511968972,
+                15.0
+            ],
+            "point_end": [
+                -16.560075171235702,
+                12.821051553494392,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_16",
+            "point_start": [
+                -15.179805534131745,
+                12.485879777131174,
+                15.0
+            ],
+            "point_end": [
+                -9.580987293216424,
+                11.126315091437071,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_17",
+            "point_start": [
+                -8.286153887719195,
+                10.690115493761624,
+                15.0
+            ],
+            "point_end": [
+                -3.2842781559438947,
+                9.47544578275366,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_18",
+            "point_start": [
+                -0.013189255743114359,
+                8.681186095512004,
+                15.0
+            ],
+            "point_end": [
+                6.689402430249331,
+                7.053591384130115,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_19",
+            "point_start": [
+                -22.188949183545226,
+                23.726973082630764,
+                15.0
+            ],
+            "point_end": [
+                -24.348403643365778,
+                14.834131758280897,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_20",
+            "point_start": [
+                10.351050527092667,
+                14.909505973683899,
+                15.0
+            ],
+            "point_end": [
+                9.07193044947779,
+                9.641966372054,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_21",
+            "point_start": [
+                43.90246127448329,
+                -17.41675175455373,
+                15.0
+            ],
+            "point_end": [
+                43.910872905798826,
+                -17.41819997252866,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_22",
+            "point_start": [
+                -8.724098642479618,
+                7.676474275782745,
+                15.0
+            ],
+            "point_end": [
+                -0.3628032547463249,
+                5.646095462492184,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_23",
+            "point_start": [
+                -9.089376736795018,
+                5.147139296491098,
+                15.0
+            ],
+            "point_end": [
+                -2.343410705846125,
+                3.5090119646292344,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_24",
+            "point_start": [
+                10.946025474714318,
+                17.35981840098755,
+                15.0
+            ],
+            "point_end": [
+                9.071896437547835,
+                9.641974631193136,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_25",
+            "point_start": [
+                1.4879976176449503,
+                19.65651747523369,
+                15.0
+            ],
+            "point_end": [
+                -1.054867345249832,
+                9.177777793713261,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_26",
+            "point_start": [
+                -9.951356233197508,
+                22.434343233017472,
+                15.0
+            ],
+            "point_end": [
+                -12.495842093270419,
+                11.955905541136083,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_27",
+            "point_start": [
+                10.525237288100897,
+                14.623601791838858,
+                15.0
+            ],
+            "point_end": [
+                7.980765407671399,
+                4.145221669475138,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_28",
+            "point_start": [
+                21.85711354965865,
+                11.871874887171465,
+                15.0
+            ],
+            "point_end": [
+                19.31264166922915,
+                1.3934947648077447,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_29",
+            "point_start": [
+                16.238576104003698,
+                2.0710478034016546,
+                15.0
+            ],
+            "point_end": [
+                22.38019612731989,
+                0.5333798420033098,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_30",
+            "point_start": [
+                23.522689854931755,
+                0.23341544836849693,
+                15.0
+            ],
+            "point_end": [
+                33.53528918400785,
+                -2.2572805750613405,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_31",
+            "point_start": [
+                36.57362593557805,
+                -3.0175898101971583,
+                15.0
+            ],
+            "point_end": [
+                44.62274191567815,
+                -5.0318040398021395,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_32",
+            "point_start": [
+                -5.143035139328958,
+                21.26649560828797,
+                15.0
+            ],
+            "point_end": [
+                2.901493914174978,
+                19.31315184253119,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_33",
+            "point_start": [
+                3.1315563683659775,
+                19.25728890044673,
+                15.0
+            ],
+            "point_end": [
+                10.946022967679767,
+                17.359808076777945,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_34",
+            "point_start": [
+                33.76829632293162,
+                -15.306489439748617,
+                15.0
+            ],
+            "point_end": [
+                33.79017794771589,
+                -15.311416363268737,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_35",
+            "point_start": [
+                18.593478638041006,
+                -5.428291545479006,
+                15.0
+            ],
+            "point_end": [
+                33.56406820818282,
+                -9.063609650491504,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_36",
+            "point_start": [
+                34.94966732137483,
+                -9.400075513014993,
+                15.0
+            ],
+            "point_end": [
+                45.2277262113945,
+                -11.895903257919711,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_37",
+            "point_start": [
+                48.91721697990059,
+                3.481577225436702,
+                15.0
+            ],
+            "point_end": [
+                46.752476929966036,
+                -5.433030667770659,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_38",
+            "point_start": [
+                43.97344017105361,
+                6.501844526679882,
+                15.0
+            ],
+            "point_end": [
+                41.39175325484494,
+                -4.130434293574474,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_39",
+            "point_start": [
+                34.57365196540731,
+                8.784263059516626,
+                15.0
+            ],
+            "point_end": [
+                31.991965049198967,
+                -1.8480157607373506,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_40",
+            "point_start": [
+                11.441809793903701,
+                -3.691647134840263,
+                15.0
+            ],
+            "point_end": [
+                11.327224652059186,
+                -3.6638223500993305,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_41",
+            "point_start": [
+                -9.572234087778376,
+                11.245963902016143,
+                15.0
+            ],
+            "point_end": [
+                -3.22841625233859,
+                9.70549047880133,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_42",
+            "point_start": [
+                14.449954914025056,
+                -10.578473876595702,
+                15.0
+            ],
+            "point_end": [
+                14.449848746963326,
+                -10.578911082775015,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_43",
+            "point_start": [
+                23.6808364567037,
+                -12.841368078857094,
+                15.0
+            ],
+            "point_end": [
+                23.680650713771882,
+                -12.84178733327369,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        },
+        {
+            "mesh_id": "extruded_wall_44",
+            "point_start": [
+                6.41070871718054,
+                -2.4695081055427544,
+                15.0
+            ],
+            "point_end": [
+                1.081869197425874,
+                -1.080210619982246,
+                15.0
+            ],
+            "extrusion_height_meters": 3.0
+        }
+    ]
+}

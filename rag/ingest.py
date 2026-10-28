@@ -3,6 +3,7 @@
 import argparse
 import asyncio
 import json
+import csv
 import pickle
 import re
 import time
@@ -55,6 +56,9 @@ BASE_DIR = Path(__file__).resolve().parent
 CRAWL_REPORT_FILE = BASE_DIR / "crawl_report.json"
 CACHE_FILE = BASE_DIR / "crawl_cache.pkl"
 VECTORSTORE_DIR = BASE_DIR / "vectorstore"
+CACHE_FILE = Path("crawl_cache.pkl")          # raw crawled documents
+VECTORSTORE_DIR = "vectorstore"
+SPATIAL_CSV_DIR = Path(__file__).resolve().parent / "data/spatial/ramanujan_block"
 
 CHUNK_SIZE = 800
 
@@ -612,6 +616,42 @@ def build_courses_document(text):
 
     )
 
+
+def load_spatial_documents(csv_dir=SPATIAL_CSV_DIR):
+    """Load compact semantic/topology CSV rows into the RAG corpus.
+
+    Raw geometry.csv is intentionally kept for structured coordinate queries
+    and is not embedded as thousands of tiny line-segment documents.
+    """
+    documents = []
+    for filename, category in (
+        ("places.csv", "spatial_place"),
+        ("topology_edges.csv", "spatial_candidate_connection"),
+        ("floor_summaries.csv", "spatial_floor_geometry_summary"),
+    ):
+        path = Path(csv_dir) / filename
+        if not path.is_file():
+            continue
+        with path.open("r", encoding="utf-8-sig", newline="") as stream:
+            for row in csv.DictReader(stream):
+                content = row.get("search_text", "").strip()
+                if not content:
+                    continue
+                key = row.get("place_id") or row.get("edge_id") or row.get("floor_id", "row")
+                documents.append(Document(
+                    page_content=content,
+                    metadata={
+                        "source": f"spatial-csv://{filename}#{key}",
+                        "category": category,
+                        "building_id": row.get("building_id", ""),
+                        "floor_id": row.get("floor_id", ""),
+                        "floor_number": row.get("floor_number", ""),
+                        "verification_status": row.get("review_status") or row.get("verification_status", ""),
+                    },
+                ))
+    return documents
+
+
 # ==========================================
 
 # Crawl website
@@ -849,6 +889,14 @@ def main():
 
     with CRAWL_REPORT_FILE.open("w", encoding="utf-8") as report_file:
         json.dump(crawl_report, report_file, indent=2, ensure_ascii=False)
+    spatial_documents = load_spatial_documents()
+    documents.extend(spatial_documents)
+    print(f"Added {len(spatial_documents)} spatial CSV documents from {SPATIAL_CSV_DIR}")
+
+    print("\n================================")
+    print("Crawling completed")
+    print("Pages found:", len(documents))
+    print("================================")
 
     print("\nWebsite crawl summary:")
     print(f"  Sitemap URLs discovered: {crawl_report.get('sitemap_urls_discovered', 'unknown')}")
