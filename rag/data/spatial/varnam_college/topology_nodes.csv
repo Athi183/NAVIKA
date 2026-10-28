@@ -1,0 +1,60 @@
+node_id,building_id,node_type,label,x,y,source_units,source_layer,review_status,route_eligible
+site_label_001,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,10103.205,22619.399,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_002,VARNAM_COLLEGE_SITE,building,WORK SHOP BUILDING,34717.994,28809.97,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_003,VARNAM_COLLEGE_SITE,site_annotation,ENTRANCE,51844.055,22305.742,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_004,VARNAM_COLLEGE_SITE,building,LADIES HOSTEL,53913.229,24057.892,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_005,VARNAM_COLLEGE_SITE,building,MICHAEL JORDAN ARENA (BASKET BALL COURT),20265.615,26298.467,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_006,VARNAM_COLLEGE_SITE,site_annotation,EXIT,10242.965,22220.488,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_007,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,20087.214,24530.55,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_008,VARNAM_COLLEGE_SITE,site_annotation,EXIT,20329.243,24445.328,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_009,VARNAM_COLLEGE_SITE,building,CANTEEN BUILDING,16096.278,25303.528,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_010,VARNAM_COLLEGE_SITE,site_annotation,5.M WIDE PANCHAYATH ROAD,60853.091,23971.481,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_011,VARNAM_COLLEGE_SITE,site_annotation,MAIN ENTRY,54632.495,31669.853,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_012,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,51745.541,30969.397,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_013,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,51974.703,30563.743,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_014,VARNAM_COLLEGE_SITE,building,HOSTEL BLOCK,54243.694,30353.239,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_015,VARNAM_COLLEGE_SITE,site_annotation,APPROACH ROAD,51726.872,27479.333,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_016,VARNAM_COLLEGE_SITE,site_annotation,EVACUATION,24344.868,18932.677,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_017,VARNAM_COLLEGE_SITE,site_annotation,SAFE ZONE,23560.831,19386.053,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_018,VARNAM_COLLEGE_SITE,site_annotation,ASSEMBLY POINT,24825.515,19350.253,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_019,VARNAM_COLLEGE_SITE,building,KALAM HALL,22299.558,21054.678,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_020,VARNAM_COLLEGE_SITE,site_annotation,EXIT,21382.576,20451.312,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_021,VARNAM_COLLEGE_SITE,site_annotation,EXIT,22514.315,20451.312,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_022,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,23581.285,20444.494,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_023,VARNAM_COLLEGE_SITE,site_annotation,EVACUATION ROUTE,20881.475,20350.758,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_024,VARNAM_COLLEGE_SITE,site_annotation,EXIT,20636.039,20631.981,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_025,VARNAM_COLLEGE_SITE,building,VISVESVARAYA HALL,31312.557,20453.023,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_026,VARNAM_COLLEGE_SITE,site_annotation,ASSEMBLY POINT,28084.374,19909.306,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_027,VARNAM_COLLEGE_SITE,site_annotation,SAFE ZONE,28991.129,19931.469,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_028,VARNAM_COLLEGE_SITE,site_annotation,EVACUATION,30180.816,19941.696,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_029,VARNAM_COLLEGE_SITE,site_annotation,EXIT,30709.187,22377.311,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_030,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,30678.509,20291.096,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_031,VARNAM_COLLEGE_SITE,site_annotation,EVACUATION ROUTE,30119.46,22147.222,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_032,VARNAM_COLLEGE_SITE,site_annotation,EXIT,30017.191,22367.084,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_033,VARNAM_COLLEGE_SITE,site_annotation,EXIT 1,40266.659,27374.414,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_034,VARNAM_COLLEGE_SITE,site_annotation,ENTRANCE,40013.75,27515.21,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_035,VARNAM_COLLEGE_SITE,site_annotation,EXIT 2,51116.826,24571.485,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_036,VARNAM_COLLEGE_SITE,site_annotation,SAFE ZONE,41661.823,25608.254,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_037,VARNAM_COLLEGE_SITE,site_annotation,EVACUATION ROUTE,50150.626,22575.637,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_038,VARNAM_COLLEGE_SITE,site_annotation,ASSEMBLY POINT,45507.005,23334.551,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_039,VARNAM_COLLEGE_SITE,site_annotation,EVACUATION,48663.599,23423.181,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_040,VARNAM_COLLEGE_SITE,building,VIKRAM SARABHAI AUDITORIUM,32280.669,21351.66,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_041,VARNAM_COLLEGE_SITE,site_annotation,EXIT,32563.602,21942.631,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_042,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,33347.637,21915.36,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_043,VARNAM_COLLEGE_SITE,site_annotation,EXIT,33661.252,17657.707,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_044,VARNAM_COLLEGE_SITE,site_annotation,EXIT,32231.144,16739.062,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_045,VARNAM_COLLEGE_SITE,building,RAMANUJAN BLOCK,34752.085,20167.595,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_046,VARNAM_COLLEGE_SITE,building,M GEORGE BLOCK,24423.271,22454.932,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_047,VARNAM_COLLEGE_SITE,site_annotation,EVACUATION ROUTE,32706.775,23326.61,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_048,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,26910.204,35806.617,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_049,VARNAM_COLLEGE_SITE,site_annotation,EXIT,25071.078,35546.232,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_050,VARNAM_COLLEGE_SITE,site_annotation,PARKING GROUND,28980.917,27431.93,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_051,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,30785.549,24935.468,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_052,VARNAM_COLLEGE_SITE,site_annotation,EXIT,30157.997,24626.779,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_053,VARNAM_COLLEGE_SITE,building,JIMMI GEORGE ARENA (VOLLEY BALL COURT),23563.009,25988.919,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_054,VARNAM_COLLEGE_SITE,site_annotation,EXIT 2,50589.404,25134.443,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_055,VARNAM_COLLEGE_SITE,site_annotation,TWO WHEELER PARKING,12521.967,17530.005,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_056,VARNAM_COLLEGE_SITE,site_annotation,ENTRY,8536.352,16808.368,inches,PDF_TEXT,label_anchor_candidate,false
+site_label_057,VARNAM_COLLEGE_SITE,site_annotation,EXIT,8528.653,16510.52,inches,PDF_TEXT,label_anchor_candidate,false
+floor_label_001,VARNAM_COLLEGE_SITE,unassigned_floor_label,FOURTH FLOOR,24341.459,19868.399,inches,PDF_TEXT,label_candidate_unassigned_to_building,false
+floor_label_002,VARNAM_COLLEGE_SITE,unassigned_floor_label,FIRST FLOOR,30167.182,20253.6,inches,PDF_TEXT,label_candidate_unassigned_to_building,false
