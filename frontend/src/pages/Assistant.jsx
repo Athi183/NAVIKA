@@ -12,6 +12,23 @@ function createTimestamp() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
+// The browser's own Malayalam speech recognition (Web Speech API, 'ml-IN')
+// has been observed to lose track of the language entirely once a spoken
+// utterance includes a number -- a real Malayalam sentence like "2026
+// ബാച്ചിലെ പ്ലേസ്മെന്റ് സ്ഥിതിവിവരക്കണക്കുകൾ" came back transcribed almost
+// entirely as English words, with only the year itself surviving
+// correctly. That's a limitation of the browser's own recognizer, not
+// something this app's code can fix -- but silently submitting that
+// botched, now-mostly-English transcript as if it were the real question
+// is its own separate problem: it gets answered in English even though
+// the person asked in Malayalam, which is confusing in a different way
+// than an obviously-wrong transcript would be. Catching the specific
+// signature of this failure (ML mode was selected, but the result that
+// came back has no Malayalam script in it at all) and asking to repeat
+// instead turns a silent wrong-language answer into a clear, actionable
+// "that didn't come through right" moment.
+const MALAYALAM_SCRIPT_PATTERN = /[ഀ-ൿ]/
+
 export default function Assistant() {
   const [query, setQuery] = useState('')
   const nextMessageId = useRef(1)
@@ -108,6 +125,19 @@ export default function Assistant() {
       onResult: (transcript) => {
         const cleanedTranscript = transcript.trim()
         if (!cleanedTranscript || cleanedTranscript === lastVoiceTranscriptRef.current) {
+          return
+        }
+
+        // See MALAYALAM_SCRIPT_PATTERN above: ML mode selected, but the
+        // browser's recognizer produced no Malayalam script at all --
+        // the transcript is kept in the input box (so it's visible and
+        // editable) but NOT auto-submitted, rather than silently sending
+        // a botched, likely-wrong-language question and getting an
+        // English answer back to a Malayalam question.
+        if (inputLang === 'ml' && !MALAYALAM_SCRIPT_PATTERN.test(cleanedTranscript)) {
+          lastVoiceTranscriptRef.current = cleanedTranscript
+          setQuery(cleanedTranscript)
+          setVoiceStatus("Didn't catch that in Malayalam — try speaking again, or edit the text below before sending.")
           return
         }
 
