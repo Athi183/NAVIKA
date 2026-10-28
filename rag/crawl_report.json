@@ -1,0 +1,620 @@
+{
+  "start_url": "https://mgmits.ac.in/",
+  "sitemap_urls_discovered": 458,
+  "pages_attempted": 100,
+  "pages_fetched": 100,
+  "html_pages_extracted": 100,
+  "pdfs_extracted": 0,
+  "empty_pages": [],
+  "failed_urls": [],
+  "pages": [
+    {
+      "url": "https://mgmits.ac.in/",
+      "title": "Muthoot Institute of Technology and Science",
+      "text_characters": 13342,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-staff",
+      "title": "CSE Faculty",
+      "text_characters": 2924,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/academic-council",
+      "title": "Academic Council",
+      "text_characters": 4156,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/academic-council-old",
+      "title": "Old Academic Council",
+      "text_characters": 2178,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/academic-dean",
+      "title": "Dean Academics",
+      "text_characters": 3750,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/academic-partnerships",
+      "title": "Academic Partnerships/ Collaborations",
+      "text_characters": 203,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/admission",
+      "title": "Admission",
+      "text_characters": 4220,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/contact",
+      "title": "Contact",
+      "text_characters": 398,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/ad",
+      "title": "Artificial Intelligence & Data Science",
+      "text_characters": 11216,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/bsh",
+      "title": "Department of Basic Science and Humanities",
+      "text_characters": 7779,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/ca",
+      "title": "Department of Computer Applications",
+      "text_characters": 7466,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/cc",
+      "title": "Department of Cyber Security",
+      "text_characters": 7206,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/ce",
+      "title": "Department of Civil Engineering",
+      "text_characters": 9814,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/cs",
+      "title": "Department of Computer Science and Engineering",
+      "text_characters": 9328,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/ec",
+      "title": "Department of Electronics and Communication Engineering",
+      "text_characters": 12760,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/ee",
+      "title": "Department of Electrical and Electronics",
+      "text_characters": 10111,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/department/me",
+      "title": "Department of Mechanical Engineering",
+      "text_characters": 14526,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/faculty",
+      "title": "Faculties",
+      "text_characters": 188,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/faculty-and-student-publication",
+      "title": "Faculty & StudentPublications",
+      "text_characters": 72226,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/hostel",
+      "title": "Hostel",
+      "text_characters": 3215,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/hostel-rules-regulations",
+      "title": "HOSTEL RULES & REGULATIONS",
+      "text_characters": 7656,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/placement",
+      "title": "Placement",
+      "text_characters": 26889,
+      "table_documents": 52
+    },
+    {
+      "url": "https://mgmits.ac.in/placement-statistics-of-civil-engineering",
+      "title": "Placement Statistics of Civil Engineering",
+      "text_characters": 8404,
+      "table_documents": 21
+    },
+    {
+      "url": "https://mgmits.ac.in/placement-statistics-of-cse",
+      "title": "Placement Statistics of Computer Science & Engineering",
+      "text_characters": 16124,
+      "table_documents": 41
+    },
+    {
+      "url": "https://mgmits.ac.in/placement-statistics-of-ece",
+      "title": "Placement Statistics of Electronics & Communication Engineering",
+      "text_characters": 12061,
+      "table_documents": 30
+    },
+    {
+      "url": "https://mgmits.ac.in/placement-statistics-of-eee",
+      "title": "Placement Statistics of Electrical &  Electronics Engineering",
+      "text_characters": 9280,
+      "table_documents": 23
+    },
+    {
+      "url": "https://mgmits.ac.in/placement-statistics-of-me",
+      "title": "Placement Statistics of Mechanical Engineering",
+      "text_characters": 10964,
+      "table_documents": 25
+    },
+    {
+      "url": "https://mgmits.ac.in/placement-test",
+      "title": "placement test",
+      "text_characters": 74,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-artificial-intelligence-data-science",
+      "title": "B.Tech in Artificial Intelligence & Data Science",
+      "text_characters": 6076,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-civil-engineering",
+      "title": "B Tech in Civil Engineering",
+      "text_characters": 7623,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-computer-science-and-engineering",
+      "title": "B.Tech in Computer Science and Engineering",
+      "text_characters": 7798,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-computer-science-and-engineering-cyber-security",
+      "title": "B.Tech in Computer Science and Engineering (Cyber Security)",
+      "text_characters": 6665,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-cse-artificial-intelligence",
+      "title": "B.Tech in CSE(Artificial Intelligence)",
+      "text_characters": 6079,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-electrical-and-electronics-engineering",
+      "title": "B .Tech in Electrical and Electronics Engineering",
+      "text_characters": 7524,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-electronics-and-communication-engineering",
+      "title": "B.Tech in Electronics and Communication Engineering",
+      "text_characters": 8619,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-electronics-engineering-vlsi-design-technology",
+      "title": "B.Tech in Electronics Engineering (VLSI Design& Technology)",
+      "text_characters": 397,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-mechanical-engineering",
+      "title": "B.Tech in Mechanical Engineering",
+      "text_characters": 6315,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/m-tech-artificial-intelligence-data-science",
+      "title": "M.Tech Artificial Intelligence & Data Science",
+      "text_characters": 1798,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/m-tech-artificial-intelligence-data-science-working-professionals",
+      "title": "M.Tech Artificial Intelligence & Data Science(Working Professionals)",
+      "text_characters": 1913,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/m-tech-in-cyber-security",
+      "title": "M.Tech in Cyber Security",
+      "text_characters": 4050,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/m-tech-in-industrial-intelligent-systems",
+      "title": "M.Tech in Industrial Intelligent Systems",
+      "text_characters": 5114,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/m-tech-in-infrastructure-engineering-and-technology-in-partnership-with-l-t-edutech",
+      "title": "M Tech in Infrastructure Engineering and Technology (In partnership with L&T EduTech)",
+      "text_characters": 5468,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/master-of-computer-applications",
+      "title": "Master Of Computer Applications",
+      "text_characters": 4825,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/research-and-consultancy",
+      "title": "Research and Consultancy",
+      "text_characters": 4722,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/research-policy",
+      "title": "RESEARCH POLICY",
+      "text_characters": 95,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/research-supervisors",
+      "title": "Research Supervisors",
+      "text_characters": 2522,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-academics",
+      "title": "MITS",
+      "text_characters": 509,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-careerps",
+      "title": "AD Career&Placement Statistics",
+      "text_characters": 1731,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-faculty",
+      "title": "AI&DS Faculty",
+      "text_characters": 2514,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-faculty-awards",
+      "title": "AD Faculty Awards",
+      "text_characters": 3448,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-faculty-publications",
+      "title": "AD Faculty Publications",
+      "text_characters": 133,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-placements",
+      "title": "AD Career&Placement Statistics",
+      "text_characters": 1738,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-researchsupervisors",
+      "title": "AD Research Supervisors",
+      "text_characters": 290,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-staff",
+      "title": "AI&DS Staff",
+      "text_characters": 413,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-academics",
+      "title": "MITS",
+      "text_characters": 27,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-career-placement-statistics",
+      "title": "MCA Career and Placement Statistics",
+      "text_characters": 5676,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-faculty",
+      "title": "MCA Faculty",
+      "text_characters": 946,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-faculty-awards-achievements",
+      "title": "MCA Faculty Awards & Achievements",
+      "text_characters": 2066,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-staff",
+      "title": "MCA Staff",
+      "text_characters": 149,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-academics",
+      "title": "MITS",
+      "text_characters": 65,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-faculty",
+      "title": "CC Faculty",
+      "text_characters": 1106,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-placement",
+      "title": "CC placement",
+      "text_characters": 63,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-staff",
+      "title": "CC Technical Staff",
+      "text_characters": 252,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-career-development",
+      "title": "CAREER DEVELOPMENT",
+      "text_characters": 5203,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-department-library",
+      "title": "CE DEPARTMENT LIBRARY",
+      "text_characters": 1097,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-faculty",
+      "title": "CE Faculty",
+      "text_characters": 2198,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-facultyawardsandachievements",
+      "title": "CE Faculty Awards and Achievements",
+      "text_characters": 9177,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-facultyenrichmentprogramme",
+      "title": "CE FACULTY ENRICHMENT PROGRAMME",
+      "text_characters": 207,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-facultypublications",
+      "title": "CE FACULTY PUBLICATIONS",
+      "text_characters": 179,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-placement",
+      "title": "CAREER & PLACEMENTS",
+      "text_characters": 3941,
+      "table_documents": 5
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-placements",
+      "title": "CAREER & PLACEMENTS",
+      "text_characters": 3941,
+      "table_documents": 5
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-research-supervisor",
+      "title": "RESEARCH SUPERVISORS",
+      "text_characters": 449,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-staff",
+      "title": "CE Technical Staff",
+      "text_characters": 755,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-academics",
+      "title": "MITS",
+      "text_characters": 1372,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-careerandplacementstatistics",
+      "title": "CS Career and Placement Statistics",
+      "text_characters": 34220,
+      "table_documents": 89
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-departmentadvisoryboard",
+      "title": "CS Department Advisory Board",
+      "text_characters": 1655,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-departmentassociation",
+      "title": "CS Department Association",
+      "text_characters": 77,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-faculty",
+      "title": "CSE Staff",
+      "text_characters": 736,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-facultyawardsandachievements",
+      "title": "CS Faculty Awards and Achievements",
+      "text_characters": 9612,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-facultyenrichmentprograms",
+      "title": "CS Faculty Enrichment Programs",
+      "text_characters": 1016,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-researchscholars",
+      "title": "CS Research Scholars",
+      "text_characters": 107,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-researchsupervisors",
+      "title": "CS ResearchSupervisors",
+      "text_characters": 235,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-academics",
+      "title": "MITS",
+      "text_characters": 60,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-career-and-placement-statistics",
+      "title": "ECE Placement Statistics",
+      "text_characters": 7056,
+      "table_documents": 21
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-department-association",
+      "title": "ECE Department Association",
+      "text_characters": 75,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-faculty",
+      "title": "ECE Faculty",
+      "text_characters": 1845,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-faculty-awards-and-achievements",
+      "title": "ECE Faculty Awards and Achievements",
+      "text_characters": 3743,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-faculty-publications",
+      "title": "ECE Faculty Publications",
+      "text_characters": 138,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-research-supervisors",
+      "title": "ECE Research Supervisors",
+      "text_characters": 513,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-academics",
+      "title": "MITS",
+      "text_characters": 56,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-department-library",
+      "title": "EE Department Library",
+      "text_characters": 627,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-faculty",
+      "title": "EE- Teaching",
+      "text_characters": 1224,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-faculty-awards",
+      "title": "EE Faculty Awards & Achievements",
+      "text_characters": 4557,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-facultyenrichmentprogramme",
+      "title": "EE Faculty Enrichment Programme",
+      "text_characters": 105,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-placement",
+      "title": "EE Placement Statistics",
+      "text_characters": 1329,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-research-supervisors",
+      "title": "EE Research Supervisors",
+      "text_characters": 180,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-faculty",
+      "title": "ME Teaching",
+      "text_characters": 1440,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-placement-careers",
+      "title": "ME Career and Placements",
+      "text_characters": 5422,
+      "table_documents": 20
+    },
+    {
+      "url": "https://mgmits.ac.in/me-research-supervisors",
+      "title": "ME Research Supervisors",
+      "text_characters": 140,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-faculty",
+      "title": "BSH Faculty",
+      "text_characters": 1850,
+      "table_documents": 0
+    }
+  ],
+  "max_pages": 100,
+  "queue_remaining_at_limit": 869,
+  "crawler": "Crawl4AI with Requests fallback",
+  "crawl4ai_failures": [],
+  "pages_visited_unique": 100,
+  "department_links_discovered": 9,
+  "documents_created": 456,
+  "note": "Crawl4AI supplies rendered HTML where available; the existing BeautifulSoup extraction, table-aware documents, PDF extraction, and synthesized college documents are retained. Crawl4AI failures are recorded and fall back to Requests. Scanned/image-only PDFs may require OCR."
+}
