@@ -254,10 +254,19 @@ def extract_entities(clean_text, cutoff=0.75):
 
 VALID_INTENTS = set(INTENT_KEYWORDS) | {"unknown"}
 
+# TEMPORARY (2026-10-28 night): same qwen quota exhaustion as rag/app.py
+# -- see that file's matching comment above its own llm instantiation for
+# the full explanation. This call degrades gracefully on failure (falls
+# back to keyword classification, see classify_with_llm's docstring), so
+# it was never a hard failure, but every qwen 429 here was still silently
+# degrading intent/entity quality and spamming the log on nearly every
+# request. Revert alongside rag/app.py once qwen's quota recovers:
+#   _llm = ChatGroq(model="qwen/qwen3.8-27b", temperature=0, max_tokens=300, request_timeout=10)
 _llm = ChatGroq(
-    model="qwen/qwen3.8-27b",
+    model="openai/gpt-oss-120b",
     temperature=0,
-    max_tokens=300,
+    max_tokens=800,
+    reasoning_effort="low",
     request_timeout=10,
 )
 
