@@ -335,10 +335,36 @@ def augment_documents_for(question):
 # cap with margin while still comfortably covering the 20-200 tokens
 # any real answer here has needed.
 
+# TEMPORARY (2026-10-28 night): qwen/qwen3.8-27b hit its Groq free-tier
+# daily token quota (200,000 TPD) from heavy same-day testing, and retrying
+# against it was actively extending the cooldown rather than letting it
+# clear (observed: "Used" tokens and the retry-after estimate both climbed
+# on each rejected attempt). Groq tracks TPD per model, not per account, so
+# openai/gpt-oss-120b -- untouched today -- has its own separate, unused
+# quota. Verified directly against this app's real pipeline before
+# switching: correct faculty designation lookup, correct placement figures
+# (428 total offers, full untruncated 78-row recruiter table, no
+# fabricated median) matching ground truth, and correct Malayalam
+# generation, all via this fallback.
+#
+# reasoning_effort="low" (Groq's default low-latency setting for this
+# model family) was NOT enough -- it answered the placement question with
+# a wrong, contaminated number (93 instead of 428). "medium" fixed it.
+# max_tokens raised to 2500 (from 900) because this model also spends
+# tokens on hidden reasoning before the visible answer, on top of the
+# longer context GPUs here can produce (a full recruiter table alone is
+# ~1500+ tokens); 900 was sized for qwen's non-reasoning, terse-answer
+# behavior specifically and isn't enough headroom for this model.
+#
+# Revert once qwen/qwen3.8-27b's quota has recovered (check by watching
+# backend logs for "429 ... rate_limit_exceeded" disappearing, or just
+# retry this block):
+#   llm = ChatGroq(model="qwen/qwen3.8-27b", temperature=0, max_tokens=900)
 llm = ChatGroq(
-    model="qwen/qwen3.8-27b",
+    model="openai/gpt-oss-120b",
     temperature=0,
-    max_tokens=900,
+    max_tokens=2500,
+    reasoning_effort="medium",
 )
 
 # ==========================================
