@@ -1,0 +1,544 @@
+{
+  "source_file": "/home/fathima-mehrin-v-s/RAMANUJAN_6TH/DXF/RAMANUJAN_6THFLOOR.dxf",
+  "entity_counts": {
+    "LINE": 458,
+    "LWPOLYLINE": 79,
+    "TEXT": 11,
+    "POLYLINE": 1,
+    "MTEXT": 37
+  },
+  "layer_counts": {
+    "0": 586
+  },
+  "text_records": [
+    {
+      "entity": "TEXT",
+      "text": "UP",
+      "layer": "0",
+      "position": [
+        10611.8805,
+        2031.5249,
+        -0.0
+      ],
+      "height": 0.2367300448382294
+    },
+    {
+      "entity": "TEXT",
+      "text": "UP",
+      "layer": "0",
+      "position": [
+        10694.5005,
+        2020.751,
+        -0.0
+      ],
+      "height": 0.2367300448382294
+    },
+    {
+      "entity": "TEXT",
+      "text": "UP",
+      "layer": "0",
+      "position": [
+        10639.5701,
+        2023.9955,
+        -0.0
+      ],
+      "height": 0.2367300448382294
+    },
+    {
+      "entity": "MTEXT",
+      "text": "Ladies Toilet",
+      "layer": "0",
+      "position": [
+        10615.3658,
+        2035.2604,
+        -49.2649
+      ],
+      "height": 0.5681521076117506
+    },
+    {
+      "entity": "MTEXT",
+      "text": "{\\L\\OSIXTH FLOOR}",
+      "layer": "0",
+      "position": [
+        10616.8287,
+        2013.7299,
+        0.0
+      ],
+      "height": 1.420380269029377
+    },
+    {
+      "entity": "TEXT",
+      "text": "Lift",
+      "layer": "0",
+      "position": [
+        10694.3422,
+        2025.8189,
+        0.0
+      ],
+      "height": 0.5681521076117506
+    },
+    {
+      "entity": "MTEXT",
+      "text": "GENTS TOILET",
+      "layer": "0",
+      "position": [
+        10692.3969,
+        2032.8392,
+        0.0
+      ],
+      "height": 0.2840760538058753
+    },
+    {
+      "entity": "TEXT",
+      "text": "ELECTRICAL ROOM",
+      "layer": "0",
+      "position": [
+        10635.376,
+        2029.012,
+        0.0
+      ],
+      "height": 0.3550950672573441
+    },
+    {
+      "entity": "TEXT",
+      "text": "DEPT. OF CY",
+      "layer": "0",
+      "position": [
+        10652.5933,
+        2035.2489,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "TEXT",
+      "text": "S3/S4 CY CLASS ROOM",
+      "layer": "0",
+      "position": [
+        10661.0535,
+        2036.582,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "TEXT",
+      "text": "S5/S6 CS-AI CLASS ROOM",
+      "layer": "0",
+      "position": [
+        10671.3882,
+        2036.4872,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "TEXT",
+      "text": "CLASS ROOM",
+      "layer": "0",
+      "position": [
+        10683.9589,
+        2018.379,
+        -35.5812
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi0.72698;11.25 x 10.45",
+      "layer": "0",
+      "position": [
+        10683.031,
+        2017.6806,
+        -35.5812
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi0.9388;11.82x 10.92",
+      "layer": "0",
+      "position": [
+        10672.0481,
+        2017.5037,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.07258;17.85X10.95",
+      "layer": "0",
+      "position": [
+        10657.282,
+        2017.6848,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi0.9834;11.63x 11.03",
+      "layer": "0",
+      "position": [
+        10683.0953,
+        2035.6875,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi0.9834;11.78x 11.03",
+      "layer": "0",
+      "position": [
+        10672.0724,
+        2035.9991,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi0.77158;11.77 x 11.03",
+      "layer": "0",
+      "position": [
+        10661.1454,
+        2036.0924,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.03914;6.32 x 8.35",
+      "layer": "0",
+      "position": [
+        10651.4907,
+        2034.697,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "DIFFIE HELLMAN LAB",
+      "layer": "0",
+      "position": [
+        10657.3085,
+        2018.968,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "707",
+      "layer": "0",
+      "position": [
+        10685.6585,
+        2019.9604,
+        -35.5796
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "708",
+      "layer": "0",
+      "position": [
+        10674.8347,
+        2019.7886,
+        -35.5796
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "709",
+      "layer": "0",
+      "position": [
+        10659.8105,
+        2020.1651,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "703",
+      "layer": "0",
+      "position": [
+        10653.9223,
+        2036.7115,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "705",
+      "layer": "0",
+      "position": [
+        10674.5041,
+        2038.0843,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "706",
+      "layer": "0",
+      "position": [
+        10685.5951,
+        2037.9843,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "TEXT",
+      "text": "ExCEL Hall",
+      "layer": "0",
+      "position": [
+        10631.887,
+        2038.8346,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "TEXT",
+      "text": "35.25X10.98",
+      "layer": "0",
+      "position": [
+        10631.84,
+        2037.8026,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "704",
+      "layer": "0",
+      "position": [
+        10663.9164,
+        2038.1802,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi0.25875;S7 CLASS ROOM",
+      "layer": "0",
+      "position": [
+        10683.0453,
+        2036.8359,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi0.91651;CLASS ROOM",
+      "layer": "0",
+      "position": [
+        10672.0628,
+        2018.5932,
+        -35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.39589;52.8 sq.m",
+      "layer": "0",
+      "position": [
+        10651.4329,
+        2033.8149,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.19522;567.8 sq.ft",
+      "layer": "0",
+      "position": [
+        10651.4329,
+        2032.8013,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.21751;129.8 sq.m",
+      "layer": "0",
+      "position": [
+        10661.1253,
+        2035.1696,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.01684;1396.9 sq.ft",
+      "layer": "0",
+      "position": [
+        10661.1253,
+        2034.1561,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.21751;129.9 sq.m",
+      "layer": "0",
+      "position": [
+        10671.9348,
+        2034.7283,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.06144;1398.1 sq.ft",
+      "layer": "0",
+      "position": [
+        10671.9348,
+        2033.7148,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.21751;128.3 sq.m",
+      "layer": "0",
+      "position": [
+        10682.9606,
+        2034.6037,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.3513;1380 sq.ft",
+      "layer": "0",
+      "position": [
+        10682.9606,
+        2033.5902,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.21751;195.5 sq.m",
+      "layer": "0",
+      "position": [
+        10657.2079,
+        2016.5003,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.3513;2103 sq.ft",
+      "layer": "0",
+      "position": [
+        10657.2079,
+        2015.4868,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.26211;129.1 sq.m",
+      "layer": "0",
+      "position": [
+        10672.028,
+        2016.5725,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.01684;1388.8 sq.ft",
+      "layer": "0",
+      "position": [
+        10672.028,
+        2015.559,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.26211;117.6 sq.m",
+      "layer": "0",
+      "position": [
+        10683.0889,
+        2016.5003,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.01684;1264.9 sq.ft",
+      "layer": "0",
+      "position": [
+        10683.0889,
+        2015.4868,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi0.94995;387.05 sq.m",
+      "layer": "0",
+      "position": [
+        10630.2494,
+        2037.1978,
+        35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "\\pi1.01684;4164.6 sq.ft",
+      "layer": "0",
+      "position": [
+        10630.2494,
+        2036.1843,
+        35.5806
+      ],
+      "height": 0.4682349152515882
+    },
+    {
+      "entity": "MTEXT",
+      "text": "WASH",
+      "layer": "0",
+      "position": [
+        10654.4366,
+        2040.6298,
+        0.0
+      ],
+      "height": 0.4682349152515882
+    }
+  ],
+  "block_inserts": []
+}

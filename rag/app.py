@@ -13,6 +13,11 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_groq import ChatGroq
 
+try:
+    from .spatial_lookup import spatial_context_for_question
+except ImportError:
+    from spatial_lookup import spatial_context_for_question
+
 
 load_dotenv()
 
@@ -302,6 +307,10 @@ def ask_question(question, history=None):
         if text not in chunks:
             chunks.append(text)
 
+    spatial_context = spatial_context_for_question(retrieval_query)
+    if spatial_context:
+        chunks.append(f"Structured DXF spatial lookup (candidate/unreviewed data):\n{spatial_context}")
+
     context = "\n\n".join(chunks)
 
     # 4. Include conversation history for follow-up questions.
@@ -313,14 +322,16 @@ def ask_question(question, history=None):
 
     # 5. Generate an answer grounded in the retrieved context.
     prompt = f"""
-You are a helpful college information assistant.
+You are a helpful campus information assistant.
 
 {history_block}Answer the user's current question using only the
 information in the context below. Use conversation history only
 to understand references in the current question, not as a source
 of factual information.
 
-If the answer cannot be found in the context, say:
+If the answer cannot be found in the context,
+say:
+
 "I couldn't find that information on the college website."
 
 Do not invent facts or unsupported details.
