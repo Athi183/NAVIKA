@@ -1,0 +1,76 @@
+{
+  "college": {
+    "name": "Muthoot Institute of Technology and Science (MITS)",
+    "location": "Varikoli P.O., Puthencruz, Ernakulam, Kerala - 682308",
+    "established": 2013,
+    "office_hours": "Monday - Saturday: 8:50 AM - 4:10 PM",
+    "contact": {
+      "phone": "+91 484 2732111 / 2732100",
+      "email": "info@mgmits.ac.in",
+      "website": "https://mgmits.ac.in"
+    }
+  },
+  "programmes": [
+    "B.Tech in Computer Science and Engineering (Intake: 120)",
+    "B.Tech in Computer Science & Engineering (Artificial Intelligence)",
+    "B.Tech in Artificial Intelligence and Data Science",
+    "B.Tech in Electronics and Communication Engineering",
+    "B.Tech in Electrical and Electronics Engineering",
+    "B.Tech in Mechanical Engineering",
+    "B.Tech in Civil Engineering"
+  ],
+  "cse_department": {
+    "name": "Department of Computer Science and Engineering",
+    "intake": 120,
+    "duration_years": 4,
+    "credits": 160,
+    "labs": [
+      "Grace Hopper Lab",
+      "Turing Lab",
+      "Neumann Lab",
+      "Codd Base Lab",
+      "FOSS Lab",
+      "Singularity Lab",
+      "Dedicated Project Lab equipped with modern servers, Linux systems, and compilers for C, C++, Java, and Python"
+    ],
+    "professional_bodies_and_clubs": [
+      "CLIQUE",
+      "ACM Student Chapter",
+      "GDSC (Google Developer Student Club)",
+      "FOSS Club"
+    ],
+    "placement_overview": {
+      "total_offers_received": 708,
+      "average_salary_package_lpa": 4.4,
+      "total_students_placed": 372,
+      "companies_associated": 177
+    },
+    "batch_placement_statistics": [
+      {"batch": "2022-2026 (Ongoing)", "students_placed": 74, "offers": 93},
+      {"batch": "2021-2025", "students_placed": 81, "offers": 103},
+      {"batch": "2020-2024", "students_placed": 104, "offers": 183},
+      {"batch": "2019-2023", "students_placed": 59, "offers": 147},
+      {"batch": "2018-2022", "students_placed": 54, "offers": 182},
+      {"batch": "2017-2021", "students_placed": 57, "offers": 138},
+      {"batch": "2016-2020", "students_placed": 61, "offers": 125},
+      {"batch": "2015-2019", "students_placed": 42, "offers": 89},
+      {"batch": "2014-2018", "students_placed": 42, "offers": 42},
+      {"batch": "2013-2017", "students_placed": 45, "offers": 47}
+    ],
+    "top_recruiters": [
+      "Vanenburg Software (India) Pvt. Ltd",
+      "Acsia Technologies Private Limited",
+      "Big Binary Solutions Pvt. Ltd.",
+      "Dexlock",
+      "Tata Consultancy Services (TCS)",
+      "Wipro",
+      "Thinkpalm Technologies",
+      "Menerva Software Pvt. Ltd."
+    ]
+  },
+  "hostels": {
+    "mens_hostel": "Adam's House",
+    "womens_hostel": "Eve's House",
+    "rules": "Strict adherence to study hours, gate closing times, and anti-ragging policies."
+  }
+}

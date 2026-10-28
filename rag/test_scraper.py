@@ -1,73 +1,99 @@
+"""Standalone checks for extracting MITS CSE and faculty-page content."""
+
+import re
+from urllib.parse import urljoin
+
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://mgmits.ac.in/"
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; NAVIKACollegeAssistant/1.0)"}
+TIMEOUT = 20
 
-response = requests.get(url, timeout=10)
 
-print("Status:", response.status_code)
+def fetch_soup(url):
+    response = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
+    response.raise_for_status()
+    return BeautifulSoup(response.text, "html.parser"), response.url
 
-soup = BeautifulSoup(response.text, "html.parser")
 
-# Remove unwanted sections
-for tag in soup(["script", "style", "header", "footer", "nav"]):
-    tag.decompose()
+def clean_soup(soup):
+    for element in soup(["script", "style", "header", "footer", "nav", "noscript"]):
+        element.decompose()
+    return soup
 
-# Get remaining text
-import requests
-from bs4 import BeautifulSoup
 
-url = "https://mgmits.ac.in/"
+def scrape_placement_tables(link):
+    """Return readable row records from placement tables on the supplied page."""
+    soup, final_url = fetch_soup(link)
+    records = []
 
-response = requests.get(url, timeout=10)
+    for table in soup.find_all("table"):
+        rows = []
+        for tr in table.find_all("tr"):
+            cells = [cell.get_text(" ", strip=True) for cell in tr.find_all(["th", "td"])]
+            cells = [re.sub(r"\s+", " ", cell) for cell in cells if cell]
+            if cells:
+                rows.append(cells)
+        if not rows:
+            continue
 
-print("Status:", response.status_code)
+        headers = rows[0]
+        for row in rows[1:]:
+            if len(headers) == len(row):
+                records.append(dict(zip(headers, row)))
+            else:
+                records.append({"row": " | ".join(row)})
 
-soup = BeautifulSoup(response.text, "html.parser")
+    return {"url": final_url, "records": records}
 
-# Remove unwanted webpage elements
-for tag in soup(["script", "style", "header", "footer", "nav"]):
-    tag.decompose()
 
-# Extract content boxes
-for box in soup.select(".bxCnt"):
+def scrape_cse_page(link):
+    """Extract visible CSE department content and follow placement links."""
+    soup, final_url = fetch_soup(link)
+    soup = clean_soup(soup)
+    sections = []
 
-    title_tag = box.select_one(".tle")
+    # Prefer the site's department landing-page sections when available.
+    section_nodes = soup.select(".departmentlandingPage .mTle")
+    if section_nodes:
+        for heading in section_nodes:
+            title = heading.get_text(" ", strip=True)
+            collected = [title] if title else []
+            for sibling in heading.find_all_next():
+                if sibling in section_nodes and sibling is not heading:
+                    break
+                if sibling.name in {"p", "li", "h1", "h2", "h3", "h4", "td", "th"}:
+                    value = sibling.get_text(" ", strip=True)
+                    if value and value not in collected:
+                        collected.append(value)
+            if collected:
+                sections.append("\n".join(collected))
 
-    if not title_tag:
-        continue
+    if not sections:
+        for node in soup.find_all(["h1", "h2", "h3", "h4", "p", "li", "td", "th"]):
+            value = node.get_text(" ", strip=True)
+            if value:
+                sections.append(value)
 
-    title = title_tag.get_text(" ", strip=True)
+    placement_links = []
+    for anchor in soup.find_all("a", href=True):
+        label = anchor.get_text(" ", strip=True).lower()
+        href = urljoin(final_url, anchor["href"])
+        if "placement" in label or "placement" in href.lower() or "recruit" in label:
+            if href not in placement_links:
+                placement_links.append(href)
 
-    # Find a link inside this box
-    link_tag = box.find("a", href=True)
+    placement_tables = []
+    for placement_url in placement_links:
+        try:
+            result = scrape_placement_tables(placement_url)
+            if result["records"]:
+                placement_tables.append(result)
+        except requests.RequestException as exc:
+            print(f"Could not read placement page {placement_url}: {exc}")
 
-    if link_tag:
-        link = link_tag["href"]
-    else:
-        link = None
-
-    # Remove title before extracting content
-    title_tag.decompose()
-
-    content = box.get_text(" ", strip=True)
-
-    if not content:
-        continue
-
-    print("\n----------------------------")
-    print("TITLE:", title)
-    print("CONTENT:", content)
-    print("LINK:", link)
-    # Ignore empty sections
-    if not content:
-        continue
-
-    print("\n----------------------------")
-    print("TITLE:", title)
-    print("CONTENT:", content)
-        # Find the text "ABOUT US"
-about = soup.find(string=lambda text: text and "ABOUT US" in text)
-
-if about:
-    print(about.parent.prettify()[:5000])
+    return {
+        "url": final_url,
+        "sections": sections,
+        "placement_tables": placement_tables
+    }

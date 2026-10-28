@@ -1,4 +1,5 @@
 import os
+import re
 
 # Must be set before HuggingFaceEmbeddings loads the tokenizer — the
 # STT/NLU pipeline that calls into this module runs it after already
@@ -49,6 +50,21 @@ vectorstore = FAISS.load_local(
     embeddings,
     allow_dangerous_deserialization=True
 )
+print("\n--- PLACEMENT DATA CHECK ---")
+
+for doc in vectorstore.docstore._dict.values():
+    content = doc.page_content.lower()
+
+    if any(term in content for term in [
+        "tcs - digital",
+        "tcs - ninja",
+        "total offers",
+        "placement statistics",
+        "students placed",
+    ]):
+        print("\nSOURCE:", doc.metadata)
+        print(doc.page_content[:1200])
+        print("-" * 50)
 
 # ==========================================
 # Create retriever
@@ -90,6 +106,8 @@ _GATED_AUGMENT_GROUPS = [
     (("admission process",), ("admission", "eligib", "apply", "entrance", "counsel")),
     (("programmes offered",), ("course", "programme", "program", "btech", "b.tech", "mtech", "m.tech", "degree")),
     (("/deans-and-heads",), ("hod", "dean", "head of department", "head of the department")),
+    (("cse placement summary", "cse recruiters"), ("placement", "placed", "recruit", "offer", "salary", "package", "lpa", "company", "companies", "recruiter", "hired", "job")),
+    (("cse department labs and facilities",), ("lab", "labs", "facility", "facilities", "turing", "grace hopper", "neumann", "codd", "foss", "singularity", "project lab")),
 ]
 
 
@@ -181,60 +199,144 @@ def format_history(history):
     return "\n".join(lines)
 
 
+
+def get_conversational_response(question):
+    message = re.sub(r"[^\w\s']", " ", question.lower())
+    message = " ".join(message.split())
+
+    responses = {
+        # Greetings
+        "hi": "Hello! I'm NAVIKA, your MITS assistant. How can I help you today?",
+        "hello": "Hello! I'm NAVIKA, your MITS assistant. What would you like to know about MITS?",
+        "hey": "Hey! Welcome to NAVIKA. How can I help you with MITS?",
+        "good morning": "Good morning! Welcome to NAVIKA. How can I help you today?",
+        "good afternoon": "Good afternoon! How can I help you today?",
+        "good evening": "Good evening! Welcome to NAVIKA. What would you like to know about MITS?",
+
+        # Acknowledgements
+        "ok": "Alright! If you'd like to know anything else about MITS, feel free to ask.",
+        "okay": "Alright! If you'd like to know anything else about MITS, feel free to ask.",
+        "alright": "Alright! Let me know if there's anything else I can help you with.",
+        "got it": "Great! Feel free to ask if you need any more information.",
+
+        # Gratitude
+        "thanks": "You're welcome! Feel free to ask if you need any more information about MITS.",
+        "thank you": "You're very welcome! Is there anything else you'd like to know about MITS?",
+        "thanks a lot": "You're welcome! I'm happy to help.",
+
+        # Conversation endings
+        "bye": "Goodbye! Have a wonderful day. I'm here whenever you need information about MITS.",
+        "goodbye": "Goodbye! Have a great day.",
+        "see you": "See you! Feel free to return whenever you need help with MITS.",
+        "that's all": "Alright! Thank you for using NAVIKA. Have a great day.",
+        "thats all": "Alright! Thank you for using NAVIKA. Have a great day.",
+    }
+
+    return responses.get(message)
+
+
 def ask_question(question, history=None):
+    conversational_reply = get_conversational_response(question)
 
-    # The current question alone can be too thin to retrieve well when
-    # it's a follow-up ("name all of them" carries no lexical signal
-    # about departments on its own) — folding in the previous question's
-    # text gives the retriever and the keyword-based augment gating
-    # something to actually match against, without the cost of a separate
-    # LLM call to rewrite the question.
+    if conversational_reply:
+        return conversational_reply
+       # Prepare the query, including the previous answer
+    # so follow-up references can retrieve relevant documents.
     retrieval_query = question
-    if history:
-        retrieval_query = f"{history[-1]['question']} {question}"
 
+    if history:
+        previous_turn = history[-1]
+
+        previous_question = previous_turn.get("question", "")
+        previous_answer = previous_turn.get("answer", "")
+
+        retrieval_query = (
+            f"{previous_question}\n"
+            f"{previous_answer}\n"
+            f"Current question: {question}"
+        )
+    # 1. Retrieve semantically relevant documents.
     documents = retriever.invoke(retrieval_query)
 
-    chunks = [document.page_content for document in documents]
-    for augment_text in augment_documents_for(retrieval_query):
-        if augment_text not in chunks:
-            chunks.append(augment_text)
+    # 2. Find additional documents using lexical matching.
+    stopwords = {
+        "what", "who", "where", "when", "which", "how",
+        "are", "is", "was", "were", "the", "a", "an",
+        "of", "in", "on", "at", "to", "for", "from",
+        "and", "or", "does", "do", "did", "there",
+        "their", "with", "about", "tell", "me", "please"
+    }
+
+    query_terms = {
+        word.lower()
+        for word in re.findall(r"[a-zA-Z]+", retrieval_query)
+        if len(word) > 2 and word.lower() not in stopwords
+    }
+
+    lexical_matches = []
+
+    if query_terms:
+        for doc in vectorstore.docstore._dict.values():
+            content = doc.page_content.lower()
+
+            matched_terms = sum(
+                1 for term in query_terms if term in content
+            )
+
+            if matched_terms >= 2:
+                lexical_matches.append((matched_terms, doc))
+
+    # Add up to three lexical matches without duplicating documents.
+    lexical_matches.sort(key=lambda item: item[0], reverse=True)
+    existing_content = {doc.page_content for doc in documents}
+
+    for _, doc in lexical_matches[:3]:
+        if doc.page_content not in existing_content:
+            documents.append(doc)
+            existing_content.add(doc.page_content)
+
+    # 3. Add relevant predefined college information.
+    chunks = [doc.page_content for doc in documents]
+
+    for text in augment_documents_for(retrieval_query):
+        if text not in chunks:
+            chunks.append(text)
 
     context = "\n\n".join(chunks)
+
+    # 4. Include conversation history for follow-up questions.
     history_text = format_history(history)
     history_block = (
-        f"Conversation so far:\n{history_text}\n\n" if history_text else ""
+        f"Conversation so far:\n{history_text}\n\n"
+        if history_text else ""
     )
 
+    # 5. Generate an answer grounded in the retrieved context.
     prompt = f"""
 You are a helpful college information assistant.
 
-{history_block}Answer the user's CURRENT question ONLY using the information
-provided in the context below. If the current question refers back to the
-conversation above (words like "them", "it", "there", "those", "the
-second one"), use the conversation to work out what is actually being
-asked — but still answer strictly from the context, never from the
-conversation history itself.
+{history_block}Answer the user's current question using only the
+information in the context below. Use conversation history only
+to understand references in the current question, not as a source
+of factual information.
 
-If the answer cannot be found in the context,
-say:
-
+If the answer cannot be found in the context, say:
 "I couldn't find that information on the college website."
 
-Do not make up information.
+Do not invent facts or unsupported details.
 
 Context:
 {context}
 
-Current Question:
+Current question:
 {question}
 
 Answer:
 """
 
     response = llm.invoke(prompt)
-
     return response.content
+
 
 
 # ==========================================
