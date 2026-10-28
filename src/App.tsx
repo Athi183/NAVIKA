@@ -4,6 +4,7 @@ import { OrbitControls, Text } from "@react-three/drei";
 import { ExtrudeGeometry, Path, Shape, ShapeGeometry } from "three";
 import { STACKED_FLOOR_CONFIG } from "./stackedFloorConfig";
 import { Staircase } from "./Staircase";
+import { LiftShaft } from "./LiftShaft";
 
 type Wall = {
   id: string;
@@ -653,7 +654,7 @@ function StackedFloorPreview() {
   return <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
     <a href="/" style={viewLinkStyle}>Return to individual floor</a>
     <div style={{ ...viewLinkStyle, left: 235, pointerEvents: "none" }}>
-      {exploded ? "Exploded inspection: 10 m floor gap; stair geometry uses display scale" : "Architectural view: estimated physical elevations and stair proportions"}
+      {exploded ? "Exploded inspection: 10 m floor gap; stair and lift spans use display scale" : "Architectural view: estimated physical elevations and stair proportions"}
     </div>
     <div style={{ position: "absolute", zIndex: 2, top: 54, left: 12, display: "flex", gap: 8 }}>
       {(["exploded", "architectural"] as const).map((viewMode) => (
@@ -668,6 +669,7 @@ function StackedFloorPreview() {
       <ambientLight intensity={1.0} />
       <directionalLight position={[20, 60, 20]} intensity={1.3} />
       {floors.map((floor, index) => <StackedFloorModel key={floor.id} floorId={floor.id} displayElevation={floorY(index)} offsetX={floor.offsetX} offsetZ={floor.offsetZ} />)}
+      {STACKED_FLOOR_CONFIG.lifts.connectors.map((lift) => <LiftShaft key={lift.id} lift={lift} floors={floors} floorY={floorY} />)}
       {STACKED_FLOOR_CONFIG.stairs.connectors.map((connector) => {
         const lowerIndex = floors.findIndex((item) => item.id === connector.lowerFloor);
         const upperIndex = floors.findIndex((item) => item.id === connector.upperFloor);
