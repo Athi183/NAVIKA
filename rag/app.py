@@ -335,31 +335,14 @@ def augment_documents_for(question):
 # cap with margin while still comfortably covering the 20-200 tokens
 # any real answer here has needed.
 
-# TEMPORARY (2026-10-28 night): qwen/qwen3.8-27b hit its Groq free-tier
-# daily token quota (200,000 TPD) from heavy same-day testing, and retrying
-# against it was actively extending the cooldown rather than letting it
-# clear (observed: "Used" tokens and the retry-after estimate both climbed
-# on each rejected attempt). Groq tracks TPD per model, not per account, so
-# openai/gpt-oss-120b -- untouched today -- has its own separate, unused
-# quota. Verified directly against this app's real pipeline before
-# switching: correct faculty designation lookup, correct placement figures
-# (428 total offers, full untruncated 78-row recruiter table, no
-# fabricated median) matching ground truth, and correct Malayalam
-# generation, all via this fallback.
-#
-# reasoning_effort="low" (Groq's default low-latency setting for this
-# model family) was NOT enough -- it answered the placement question with
-# a wrong, contaminated number (93 instead of 428). "medium" fixed it.
-# max_tokens raised to 2500 (from 900) because this model also spends
-# tokens on hidden reasoning before the visible answer, on top of the
-# longer context GPUs here can produce (a full recruiter table alone is
-# ~1500+ tokens); 900 was sized for qwen's non-reasoning, terse-answer
-# behavior specifically and isn't enough headroom for this model.
-#
-# Revert once qwen/qwen3.8-27b's quota has recovered (check by watching
-# backend logs for "429 ... rate_limit_exceeded" disappearing, or just
-# retry this block):
-#   llm = ChatGroq(model="qwen/qwen3.8-27b", temperature=0, max_tokens=900)
+# TEMPORARY (2026-10-28 night): back on openai/gpt-oss-120b. qwen's quota
+# only *looked* recovered -- a single 10-token ping succeeded, but it had
+# nowhere near enough headroom for sustained real queries (~1800+ tokens
+# each with this app's context size): two actual RAG calls right after
+# that ping both 429'd again immediately. gpt-oss-120b's quota is
+# reliable tonight; its tradeoff is the hidden-reasoning flip-flop noted
+# below, which ask_question's retry-on-fallback logic (see below) now
+# covers instead of trying to fight with model choice alone.
 llm = ChatGroq(
     model="openai/gpt-oss-120b",
     temperature=0,
@@ -638,9 +621,39 @@ Current question:
 Answer:
 """
 
-    response = llm.invoke(prompt)
-    return response.content
+    return _invoke_with_fallback_retry(prompt)
 
+
+# gpt-oss-120b (a reasoning model) has been observed to flip-flop on the
+# exact same (question, context) pair despite temperature=0: "who is the
+# principal" answered correctly once, then "I couldn't find that
+# information" on a later identical attempt, with no error either time --
+# its hidden reasoning occasionally reaches a wrong conclusion that the
+# context is insufficient even when it isn't. A retry on exactly that
+# signal is a cheap, targeted fix for this specific failure mode (as
+# opposed to retrying on anything else, which would just waste tokens).
+# Matches both languages this app answers in; a third language would need
+# its own marker here, but English and Malayalam are all CONVERSATIONAL
+# questions ever resolve to (see detect_language).
+_NOT_FOUND_MARKERS = (
+    "couldn't find that information",
+    "കണ്ടെത്താൻ കഴിഞ്ഞില്ല",
+)
+
+
+def _looks_like_not_found(answer_text):
+    lowered = answer_text.lower()
+    return any(marker.lower() in lowered for marker in _NOT_FOUND_MARKERS)
+
+
+def _invoke_with_fallback_retry(prompt, attempts=2):
+    last_answer = None
+    for attempt in range(attempts):
+        response = llm.invoke(prompt)
+        last_answer = response.content
+        if not _looks_like_not_found(last_answer):
+            return last_answer
+    return last_answer
 
 
 # ==========================================
