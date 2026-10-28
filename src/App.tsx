@@ -5,6 +5,7 @@ import { ExtrudeGeometry, Path, Shape, ShapeGeometry } from "three";
 import { STACKED_FLOOR_CONFIG } from "./stackedFloorConfig";
 import { Staircase } from "./Staircase";
 import { LiftShaft } from "./LiftShaft";
+import MGeorgeViewer from "./MGeorgeViewer";
 
 type Wall = {
   id: string;
@@ -478,7 +479,7 @@ function SemanticFloorRegionMesh({
   );
 }
 
-function App() {
+function RamanujanApp() {
   const [data, setData] = useState<WallData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [semantics, setSemantics] = useState<SemanticData | null>(null);
@@ -689,6 +690,11 @@ function StackedFloorPreview() {
       <OrbitControls target={[45, exploded ? 10 : 3, -20]} />
     </Canvas>
   </div>;
+}
+
+function App() {
+  const building = new URLSearchParams(window.location.search).get("building");
+  return building === "mgeorge" ? <MGeorgeViewer /> : <RamanujanApp />;
 }
 
 export default App;
