@@ -114,6 +114,33 @@ def _significant_tokens(text: str) -> set[str]:
     }
 
 
+# Generic room-type/qualifier words that exist on many unrelated labels
+# (every department has its own "library"; "main" matches "MAIN ENTRY" for
+# a "main library" question that has nothing to do with the campus
+# entrance). A match on one of these alone isn't specific enough to trust:
+# confirmed directly -- "where is the main library" matched bare "LIBRARY"
+# (a small Ramanujan-block reading-corner label, floor 2) and "MAIN ENTRY"
+# equally, and the model picked one as if it were the actual Tagore/
+# Central Library, which isn't in this building's DXF data at all. A match
+# needs a second, more specific shared token (a department code, a named
+# room like "turing", etc.) before it's trusted.
+_GENERIC_MATCH_ONLY_WORDS = {
+    "library", "main", "lab", "room", "hall", "office", "entry", "cabin",
+    "staff", "stair", "lift", "toilet", "washroom",
+}
+
+
+def _match_score(name_tokens: set[str], question_tokens: set[str]) -> int:
+    overlap = name_tokens & question_tokens
+    if not overlap:
+        return 0
+    if overlap <= _GENERIC_MATCH_ONLY_WORDS:
+        # Every token in the overlap is a generic word -- not specific
+        # enough on its own to trust as identifying this particular place.
+        return 0
+    return len(overlap)
+
+
 # Limited to abbreviations that actually appear in the DXF labels above
 # (confirmed against data/spatial/ramanujan_block/places.csv: CSE, EEE,
 # AIDS, CY) -- the DXF data never spells a department's full name out, so
@@ -151,11 +178,18 @@ def spatial_context_for_question(question: str) -> str:
     places = read_rows("places.csv")
     campus_places = read_campus_rows("places.csv")
     question_tokens = _significant_tokens(lower) | _expand_department_synonyms(lower)
-    campus_mentioned = []
+    campus_scored = []
     for row in campus_places:
         name = " ".join(row.get("display_name", "").casefold().split())
-        if (len(name) >= 4 and name in lower) or (_significant_tokens(name) & question_tokens):
-            campus_mentioned.append(row)
+        name_tokens = _significant_tokens(name)
+        if len(name) >= 4 and name in lower and not (name_tokens and name_tokens <= _GENERIC_MATCH_ONLY_WORDS):
+            campus_scored.append((99, row))
+            continue
+        score = _match_score(name_tokens, question_tokens)
+        if score > 0:
+            campus_scored.append((score, row))
+    campus_scored.sort(key=lambda item: item[0], reverse=True)
+    campus_mentioned = [row for _, row in campus_scored[:5]]
     seen_campus_names = set()
     for row in campus_mentioned:
         name = row["display_name"]
@@ -169,18 +203,37 @@ def spatial_context_for_question(question: str) -> str:
             f"source layer={row['source_layer']}; review status={row['review_status']}. "
             "This is a text anchor, not a surveyed building footprint or entrance, and it is not connected to indoor route edges."
         )
-    mentioned = []
+    # Scored and sorted rather than taken in CSV file order: multiple rows
+    # can share a generic token like "cse" (every CSE-area room on every
+    # floor does), and without ranking by how SPECIFIC the match is, the
+    # plain [:5] cap below used to cut off the actually-correct answer in
+    # favor of whatever five happened to appear earliest in the file --
+    # confirmed directly: "computer science department library" matched
+    # five different floor-2 CSE rooms before "400 CSE DEPT. LIBRARY"
+    # (floor 3, the room actually asked about) ever got a chance.
+    scored = []
     for row in places:
         name = row["display_name"].casefold().strip()
         room_number = row.get("room_number", "")
-        token_match = bool(_significant_tokens(name) & question_tokens)
-        if (
-            (len(name) >= 4 and name in lower)
-            or token_match
-            or (room_number and re.search(rf"(?<!\d){re.escape(room_number)}(?!\d)", lower))
-        ):
-            mentioned.append(row)
-    for row in mentioned[:5]:
+        name_tokens = _significant_tokens(name)
+        # A literal full-name match is only trusted as a strong signal
+        # when the name has at least one non-generic token -- otherwise a
+        # bare generic label ("LIBRARY") would substring-match any
+        # question that happens to say that word, exactly the false
+        # positive this scoring exists to prevent (see
+        # _GENERIC_MATCH_ONLY_WORDS above).
+        if len(name) >= 4 and name in lower and not (name_tokens and name_tokens <= _GENERIC_MATCH_ONLY_WORDS):
+            scored.append((99, row))
+            continue
+        if room_number and re.search(rf"(?<!\d){re.escape(room_number)}(?!\d)", lower):
+            scored.append((98, row))
+            continue
+        score = _match_score(name_tokens, question_tokens)
+        if score > 0:
+            scored.append((score, row))
+    scored.sort(key=lambda item: item[0], reverse=True)
+    mentioned = [row for _, row in scored[:5]]
+    for row in mentioned:
         contexts.append(
             f"DXF extracted place candidate: {row['display_name']} ({row['floor_id']}, floor {row['floor_number']}); "
             f"registered plan anchor x={row['registered_x']}, y={row['registered_y']} {row['source_units']}; "

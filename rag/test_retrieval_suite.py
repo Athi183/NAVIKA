@@ -74,6 +74,13 @@ TEST_CASES = [
     ("research", "what research activities are available at MITS", "research", "research"),
     ("facilities", "what facilities does the computer science department have", "laborator", "department/cs"),
     ("contact", "what is the contact information for MITS", "phone", "contact"),
+    # Spatial-matching regression cases: a department library sharing a
+    # generic word ("library") with several other labels must still rank
+    # to the correct floor, not get crowded out by same-department rooms
+    # that merely share the department code (see spatial_lookup.py's
+    # _match_score / _GENERIC_MATCH_ONLY_WORDS).
+    ("spatial", "where is the computer science department library", "floor 3", None),
+    ("spatial", "where is the artificial intelligence department library", "floor 4", None),
     ("absent", "what is the price of a semester abroad exchange program at MIT Boston", None, None),
     ("absent", "who is the president of the United States mentioned on the MITS website", None, None),
     ("absent", "what is MITS's policy on cryptocurrency payments for fees", None, None),
