@@ -27,6 +27,14 @@ WALL_THICKNESS = 0.24
 PAD = 2.0
 EXTERIOR = 128
 
+# Floor 4 has no generated lift floor-region polygons. These two openings are
+# traced from its CAD wall enclosures, inset by the same 0.18-unit margin used
+# for the explicitly generated connector regions on Floors 5 and 6.
+FLOOR4_WALL_DERIVED_LIFT_OPENINGS = {
+    "lift_west": [[674.10, 273.124], [676.51, 273.124], [676.51, 275.228], [674.10, 275.228]],
+    "lift_east": [[725.522, 276.776], [726.967, 276.776], [726.967, 278.567], [725.522, 278.567]],
+}
+
 
 def signed_area(points: list[tuple[int, int]]) -> float:
     return sum(
@@ -144,7 +152,12 @@ def recover_floor(floor: int) -> dict:
         if type_by_id.get(region["semantic_id"]) not in {"staircase", "vertical_transport", "lift", "elevator"}:
             continue
         openings.append({"source_region": region["semantic_id"], "cad_xy": region["polygon"]})
-    opening_ids = {opening["source_region"] for opening in openings}
+    if floor == 4:
+        openings.extend(
+            {"source_region": f"wall_enclosure:{connector_id}", "connector_id": connector_id, "cad_xy": polygon}
+            for connector_id, polygon in FLOOR4_WALL_DERIVED_LIFT_OPENINGS.items()
+        )
+    opening_ids = {opening.get("connector_id", opening["source_region"]) for opening in openings}
     unsupported_connector_regions = [
         place["id"] for place in semantics
         if place.get("type") in {"staircase", "vertical_transport", "lift", "elevator"}

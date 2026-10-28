@@ -13,6 +13,53 @@ export const STACKED_FLOOR_CONFIG = {
   visualFloorGap: 10,
   // Shared slab appearance; thickness is along world Y.
   floorSlab: { thickness: 0.16, color: "#D9D9D9" },
+  lifts: {
+    shaftWallThickness: 0.12,
+    shaftOpacity: 0.56,
+    shaftColor: "#D8DDE2",
+    shaftMetalness: 0.38,
+    shaftRoughness: 0.3,
+    shaftEdgeThickness: 0.075,
+    doorWidth: 1.4,
+    doorHeight: 2.1,
+    doorThickness: 0.07,
+    doorFrameThickness: 0.1,
+    doorColor: "#F5F5F5",
+    frameColor: "#687783",
+    // Shared-building centers are means of CAD-derived enclosure centers after
+    // floor alignment. Shaft sizes follow the traced CAD cores. Door offsets
+    // and north/west facings are estimates from nearby wall/corridor geometry.
+    connectors: [
+      {
+        id: "a",
+        name: "Lift A",
+        centerX: 32.5561,
+        centerZ: -12.2974,
+        width: 3.15,
+        depth: 2.95,
+        doorFacing: "north",
+        floors: [
+          { floor: "4", record: "lift_west", connectorX: 32.964367, connectorZ: -12.832926, doorOffsetX: -0.195, doorOffsetZ: -0.608 },
+          { floor: "5", record: "lift_b", connectorX: 32.746422, connectorZ: -12.215487, doorOffsetX: 0.12, doorOffsetZ: -1.464 },
+          { floor: "6", record: "lift_middle", connectorX: 32.7498, connectorZ: -10.9426, doorOffsetX: -0.001, doorOffsetZ: -1.519 },
+        ],
+      },
+      {
+        id: "b",
+        name: "Lift B",
+        centerX: 83.5104,
+        centerZ: -15.7936,
+        width: 1.8,
+        depth: 2.15,
+        doorFacing: "west",
+        floors: [
+          { floor: "4", record: "lift_east", connectorX: 82.464367, connectorZ: -15.782926, doorOffsetX: 0.342, doorOffsetZ: 0.0785 },
+          { floor: "5", record: "lift", connectorX: 83.074922, connectorZ: -15.402487, doorOffsetX: -0.27, doorOffsetZ: -0.305 },
+          { floor: "6", record: "lift", connectorX: 83.1775, connectorZ: -14.0675, doorOffsetX: -0.3792, doorOffsetZ: -0.3761 },
+        ],
+      },
+    ],
+  },
   stairs: {
     flightsPerStorey: 2,
     stepsPerFlight: 10,
