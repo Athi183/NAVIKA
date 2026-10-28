@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Text } from "@react-three/drei";
-import { Shape, ShapeGeometry } from "three";
+import { ExtrudeGeometry, Path, Shape, ShapeGeometry } from "three";
+import { STACKED_FLOOR_CONFIG } from "./stackedFloorConfig";
+import { Staircase } from "./Staircase";
 
 type Wall = {
   id: string;
@@ -42,6 +44,14 @@ type FloorRegionData = {
   surface_elevation: number;
   regions: FloorRegion[];
 };
+
+type SlabOpening = { source_region: string; cad_xy: [number, number][] };
+type SlabFootprint = {
+  floor: string;
+  boundary_cad_xy: [number, number][];
+  openings: SlabOpening[];
+};
+type SlabFootprintData = { floors: SlabFootprint[] };
 
 const SEMANTIC_TYPE_COLORS: Record<string, string> = {
   classroom: "#F6D878",
@@ -92,7 +102,8 @@ function getSemanticColor(type: string): string {
   return SEMANTIC_TYPE_COLORS[normalizedType] ?? SEMANTIC_FALLBACK_COLOR;
 }
 
-function getFloorRegionColor(type: string | undefined): string {
+function getFloorRegionColor(type: string | undefined, semanticId?: string): string {
+  if (semanticId === "excel_hall") return "#F6D878";
   if (!type) return FLOOR_REGION_FALLBACK_COLOR;
   const normalizedType = type.trim().toLowerCase().replace(/[\s-]+/g, "_");
   return FLOOR_REGION_TYPE_COLORS[normalizedType] ?? FLOOR_REGION_FALLBACK_COLOR;
@@ -217,7 +228,7 @@ function SemanticLabels({
         if (isFloor4 && place.id === "engine_room") return null;
         const displayName =
           isFloor4 && place.id === "lift_west"
-            ? "LIFT\nEngine Room"
+            ? "LIFT A\nEngine Room"
             : isFloor4
               ? FLOOR4_DISPLAY_NAMES[place.id] ?? place.name
               : isFloor5
@@ -356,12 +367,8 @@ function FloorWalls({ data }: { data: WallData }) {
   );
 }
 
-function FloorSlab({ data }: { data: WallData }) {
+function FloorSlab({ data, footprint }: { data: WallData; footprint: SlabFootprint }) {
   const minX = Math.min(
-    ...data.walls.flatMap((wall) => [wall.x1, wall.x2])
-  );
-
-  const maxX = Math.max(
     ...data.walls.flatMap((wall) => [wall.x1, wall.x2])
   );
 
@@ -369,20 +376,33 @@ function FloorSlab({ data }: { data: WallData }) {
     ...data.walls.flatMap((wall) => [wall.y1, wall.y2])
   );
 
-  const maxY = Math.max(
-    ...data.walls.flatMap((wall) => [wall.y1, wall.y2])
-  );
-
-  const width = maxX - minX;
-  const depth = maxY - minY;
-
-  const centerX = width / 2;
-  const centerZ = -depth / 2;
+  const thickness = STACKED_FLOOR_CONFIG.floorSlab.thickness;
+  const geometry = useMemo(() => {
+    const shape = new Shape();
+    footprint.boundary_cad_xy.forEach(([x, y], index) => {
+      const localX = x - minX;
+      const localY = y - minY;
+      if (index === 0) shape.moveTo(localX, localY);
+      else shape.lineTo(localX, localY);
+    });
+    shape.closePath();
+    for (const opening of footprint.openings) {
+      const hole = new Path();
+      opening.cad_xy.forEach(([x, y], index) => {
+        const localX = x - minX;
+        const localY = y - minY;
+        if (index === 0) hole.moveTo(localX, localY);
+        else hole.lineTo(localX, localY);
+      });
+      hole.closePath();
+      shape.holes.push(hole);
+    }
+    return new ExtrudeGeometry(shape, { depth: thickness, bevelEnabled: false, curveSegments: 1 });
+  }, [footprint, minX, minY, thickness]);
 
   return (
-    <mesh position={[centerX, -0.08, centerZ]}>
-      <boxGeometry args={[width, 0.16, depth]} />
-      <meshStandardMaterial color="#D9D9D9" roughness={1} />
+    <mesh geometry={geometry} position={[0, -thickness, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <meshStandardMaterial color={STACKED_FLOOR_CONFIG.floorSlab.color} roughness={1} />
     </mesh>
   );
 }
@@ -392,11 +412,13 @@ function SemanticFloorRegions({
   semantics,
   minX,
   minY,
+  omitConnectorSurfaces = false,
 }: {
   data: FloorRegionData;
   semantics: SemanticData;
   minX: number;
   minY: number;
+  omitConnectorSurfaces?: boolean;
 }) {
   const placesById = new Map(semantics.places.map((place) => [place.id, place]));
 
@@ -404,11 +426,12 @@ function SemanticFloorRegions({
     <>
       {data.regions.map((region) => {
         const place = placesById.get(region.semantic_id);
+        if (omitConnectorSurfaces && ["staircase", "vertical_transport", "lift", "elevator"].includes(place?.type ?? "")) return null;
         return (
           <SemanticFloorRegionMesh
             key={region.semantic_id}
             region={region}
-            color={getFloorRegionColor(place?.type)}
+            color={getFloorRegionColor(place?.type, region.semantic_id)}
             minX={minX}
             minY={minY}
             elevation={data.surface_elevation}
@@ -459,7 +482,9 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [semantics, setSemantics] = useState<SemanticData | null>(null);
   const [floorRegions, setFloorRegions] = useState<FloorRegionData | null>(null);
+  const [slabFootprint, setSlabFootprint] = useState<SlabFootprint | null>(null);
   const requestedFloor = new URLSearchParams(window.location.search).get("floor");
+  const stackedView = new URLSearchParams(window.location.search).get("view") === "stacked";
   const floorId = ["3", "5", "6"].includes(requestedFloor ?? "")
     ? requestedFloor!
     : "4";
@@ -485,20 +510,29 @@ function App() {
       if (!response.ok) throw new Error(`Could not load floor ${floorId} floor regions`);
       return response.json() as Promise<FloorRegionData>;
     }),
+    fetch("/data/floor_slab_footprints.json").then((response) => {
+      if (!response.ok) throw new Error("Could not load CAD-derived slab footprints");
+      return response.json() as Promise<SlabFootprintData>;
+    }),
   ])
-    .then(([wallData, semanticData, regionData]) => {
+    .then(([wallData, semanticData, regionData, footprintData]) => {
       setData(wallData);
       setSemantics(semanticData);
       setFloorRegions(regionData);
+      const floorFootprint = footprintData.floors.find((item) => item.floor === floorId);
+      if (!floorFootprint) throw new Error(`No slab footprint for Floor ${floorId}`);
+      setSlabFootprint(floorFootprint);
     })
     .catch((err: Error) => setError(err.message));
 }, [floorId]);
+
+  if (stackedView) return <StackedFloorPreview />;
 
   if (error) {
     return <div>{error}</div>;
   }
 
-  if (!data || !semantics || !floorRegions) {
+  if (!data || !semantics || !floorRegions || !slabFootprint) {
   return <div>Loading floor {floorId} model...</div>;
 }
 
@@ -528,6 +562,8 @@ function App() {
   const centerZ = -depth / 2;
 
   return (
+    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+    <a href="/?view=stacked" style={viewLinkStyle}>Open Floors 4–6 stacked preview</a>
     <Canvas
       camera={{
         position: [centerX + 45, 35, centerZ + 45],
@@ -543,7 +579,7 @@ function App() {
         intensity={1.25}
       />
 
-      <FloorSlab data={data} />
+      <FloorSlab data={data} footprint={slabFootprint} />
       <SemanticFloorRegions
         data={floorRegions}
         semantics={semantics}
@@ -566,7 +602,91 @@ function App() {
         target={[centerX, 0, centerZ]}
       />
     </Canvas>
+    </div>
   );
+}
+
+const viewLinkStyle: React.CSSProperties = {
+  position: "absolute", zIndex: 2, top: 12, left: 12,
+  padding: "9px 12px", borderRadius: 6, background: "#ffffffed",
+  color: "#202025", font: "14px sans-serif", textDecoration: "none",
+};
+
+function StackedFloorModel({ floorId, displayElevation, offsetX, offsetZ }: {
+  floorId: string; displayElevation: number; offsetX: number; offsetZ: number;
+}) {
+  const [model, setModel] = useState<{ walls: WallData; semantics: SemanticData; regions: FloorRegionData; footprint: SlabFootprint } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    Promise.all([
+      fetch(`/data/Ramanujan_F${floorId}/walls.json`).then((r) => { if (!r.ok) throw new Error(`Could not load Floor ${floorId}`); return r.json() as Promise<WallData>; }),
+      fetch(`/data/Ramanujan_F${floorId}/semantics.json`).then((r) => r.json() as Promise<SemanticData>),
+      fetch(`/data/Ramanujan_F${floorId}/floor_regions.json`).then((r) => r.json() as Promise<FloorRegionData>),
+      fetch("/data/floor_slab_footprints.json").then((r) => r.json() as Promise<SlabFootprintData>),
+    ]).then(([walls, semantics, regions, footprints]) => {
+      const footprint = footprints.floors.find((item) => item.floor === floorId);
+      if (!footprint) throw new Error(`No slab footprint for Floor ${floorId}`);
+      setModel({ walls, semantics, regions, footprint });
+    }).catch((e: Error) => setError(e.message));
+  }, [floorId]);
+  if (!model || error) return null;
+  const minX = Math.min(...model.walls.walls.flatMap((wall) => [wall.x1, wall.x2]));
+  const maxX = Math.max(...model.walls.walls.flatMap((wall) => [wall.x1, wall.x2]));
+  const minY = Math.min(...model.walls.walls.flatMap((wall) => [wall.y1, wall.y2]));
+  const maxY = Math.max(...model.walls.walls.flatMap((wall) => [wall.y1, wall.y2]));
+  return <group position={[offsetX, displayElevation, offsetZ]}>
+    <FloorSlab data={model.walls} footprint={model.footprint} />
+    <SemanticFloorRegions data={model.regions} semantics={model.semantics} minX={minX} minY={minY} omitConnectorSurfaces />
+    <FloorWalls data={model.walls} />
+    <SemanticLabels data={model.semantics} minX={minX} minY={minY} />
+    <Text position={[maxX - minX - 5, 0.18, -(maxY - minY) - 2]} fontSize={1.25} color="#ffffff" anchorX="right">Floor {floorId}</Text>
+  </group>;
+}
+
+function StackedFloorPreview() {
+  const floors = STACKED_FLOOR_CONFIG.floors;
+  const [mode, setMode] = useState<"exploded" | "architectural">("exploded");
+  const floorY = (floorIndex: number) => mode === "exploded"
+    ? floorIndex * STACKED_FLOOR_CONFIG.visualFloorGap
+    : floors[floorIndex].elevation;
+  const exploded = mode === "exploded";
+  return <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+    <a href="/" style={viewLinkStyle}>Return to individual floor</a>
+    <div style={{ ...viewLinkStyle, left: 235, pointerEvents: "none" }}>
+      {exploded ? "Exploded inspection: 10 m floor gap; stair geometry uses display scale" : "Architectural view: estimated physical elevations and stair proportions"}
+    </div>
+    <div style={{ position: "absolute", zIndex: 2, top: 54, left: 12, display: "flex", gap: 8 }}>
+      {(["exploded", "architectural"] as const).map((viewMode) => (
+        <button key={viewMode} type="button" onClick={() => setMode(viewMode)} aria-pressed={mode === viewMode}
+          style={{ ...viewLinkStyle, position: "static", cursor: "pointer", border: mode === viewMode ? "2px solid #2867b2" : "1px solid #777" }}>
+          {viewMode === "exploded" ? "Exploded inspection" : "Architectural stairs"}
+        </button>
+      ))}
+    </div>
+    <Canvas camera={{ position: [95, exploded ? 70 : 45, 95], fov: 50 }}>
+      <color attach="background" args={["#202025"]} />
+      <ambientLight intensity={1.0} />
+      <directionalLight position={[20, 60, 20]} intensity={1.3} />
+      {floors.map((floor, index) => <StackedFloorModel key={floor.id} floorId={floor.id} displayElevation={floorY(index)} offsetX={floor.offsetX} offsetZ={floor.offsetZ} />)}
+      {STACKED_FLOOR_CONFIG.stairs.connectors.map((connector) => {
+        const lowerIndex = floors.findIndex((item) => item.id === connector.lowerFloor);
+        const upperIndex = floors.findIndex((item) => item.id === connector.upperFloor);
+        const floor = floors[lowerIndex];
+        const upper = floors[upperIndex];
+        const lowerDisplayY = floorY(lowerIndex);
+        const upperDisplayY = floorY(upperIndex);
+        const x = connector.x + floor.offsetX;
+        const z = connector.z + floor.offsetZ;
+        const upperOffsetX = connector.upperX + upper.offsetX + connector.upperLandingOffsetX - x;
+        const upperOffsetZ = connector.upperZ + upper.offsetZ + connector.upperLandingOffsetZ - z;
+        return <group key={`${connector.lowerFloor}-${connector.id}`}>
+          <Staircase x={x} z={z} y={lowerDisplayY} rotation={connector.rotation}
+            storeyRise={upperDisplayY - lowerDisplayY} upperOffsetX={upperOffsetX} upperOffsetZ={upperOffsetZ} />
+        </group>;
+      })}
+      <OrbitControls target={[45, exploded ? 10 : 3, -20]} />
+    </Canvas>
+  </div>;
 }
 
 export default App;
