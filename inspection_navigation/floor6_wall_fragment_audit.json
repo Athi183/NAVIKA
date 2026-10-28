@@ -1,0 +1,54 @@
+{
+  "floor": 6,
+  "source": "/home/fathima-mehrin-v-s/RAMANUJAN_6TH/DXF/RAMANUJAN_6THFLOOR.dxf",
+  "method": "Compared wall JSON edges to source LWPOLYLINE vertices. The renderer extrudes every edge to full wall height, so near-zero-length edges become pole-like vertical prisms.",
+  "removed_segments": [
+    {
+      "id": "POLY_WALL_01_00",
+      "source_handle": "EEB",
+      "source_polyline_index": 50,
+      "vertices": [
+        [
+          10690.8157974439,
+          2041.767127044136
+        ],
+        [
+          10690.81579524629,
+          2041.766404123888
+        ]
+      ],
+      "length": 0.0007,
+      "reason": "Two consecutive source vertices differ by less than 0.001 units; degenerate edge. Neighboring polyline geometry remains intact."
+    },
+    {
+      "id": "POLY_WALL_10_00",
+      "source_handle": "EF8",
+      "source_polyline_index": 63,
+      "vertices": [
+        [
+          10642.54631477247,
+          2022.446594973266
+        ],
+        [
+          10642.54659657108,
+          2022.446596943623
+        ]
+      ],
+      "length": 0.0003,
+      "reason": "Two consecutive source vertices differ by less than 0.001 units; degenerate edge. The following EF8 edge (POLY_WALL_10_01, length 1.4707) remains intact."
+    }
+  ],
+  "preserved_short_segments": [
+    {
+      "id": "POLY_WALL_05_00",
+      "length": 0.4735,
+      "reason": "Non-degenerate source edge; retained."
+    },
+    {
+      "id": "POLY_WALL_11_00",
+      "length": 0.2368,
+      "reason": "Non-degenerate source edge; retained."
+    }
+  ],
+  "other_floors": "Floors 3, 4, and 5 were inspected; their short edges were attached to coherent wall runs or represented plausible wall returns/jambs. No comparable confirmed near-zero isolated extrusion was found, so no data or shared filter changes were applied."
+}

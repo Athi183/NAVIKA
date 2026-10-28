@@ -128,35 +128,35 @@
     },
     {
       "id": "lift_east",
-      "name": "LIFT",
+      "name": "Lift B",
       "type": "vertical_transport",
       "cadX": 725.0,
       "cadY": 277.75
     },
     {
       "id": "lift_west",
-      "name": "LIFT",
+      "name": "Lift A",
       "type": "vertical_transport",
       "cadX": 675.5,
       "cadY": 274.8
     },
     {
       "id": "staircase_central",
-      "name": "Staircase",
+      "name": "Staircase B",
       "type": "staircase",
       "cadX": 669.0,
       "cadY": 276.5
     },
     {
       "id": "staircase_east",
-      "name": "Staircase",
+      "name": "Staircase C",
       "type": "staircase",
       "cadX": 724.7,
       "cadY": 269.75
     },
     {
       "id": "staircase_west",
-      "name": "Staircase",
+      "name": "Staircase A",
       "type": "staircase",
       "cadX": 644.0,
       "cadY": 284.7

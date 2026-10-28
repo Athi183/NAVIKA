@@ -88,10 +88,17 @@
     },
     {
       "id": "lift",
-      "name": "Lift",
+      "name": "Lift B",
       "type": "vertical_transport",
       "cadX": 10694.3422,
       "cadY": 2025.8189
+    },
+    {
+      "id": "lift_middle",
+      "name": "Lift A",
+      "type": "vertical_transport",
+      "cadX": 10643.9145,
+      "cadY": 2022.694
     },
     {
       "id": "wash_area",
@@ -102,21 +109,21 @@
     },
     {
       "id": "staircase_left",
-      "name": "Staircase",
+      "name": "Staircase A",
       "type": "staircase",
       "cadX": 10611.8805,
       "cadY": 2031.5249
     },
     {
       "id": "staircase_middle",
-      "name": "Staircase",
+      "name": "Staircase B",
       "type": "staircase",
       "cadX": 10639.5701,
       "cadY": 2023.9955
     },
     {
       "id": "staircase_right",
-      "name": "Staircase",
+      "name": "Staircase C",
       "type": "staircase",
       "cadX": 10694.5005,
       "cadY": 2020.751

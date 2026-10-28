@@ -11,6 +11,13 @@ from pathlib import Path
 
 import ezdxf
 
+# These source LINE entities sit in the middle of nine door openings, aligned
+# with the DXF door-swing inserts. Extruding them as walls creates isolated
+# full-height posts. Handles 84A and 8F3 are exact duplicate source lines.
+FLOOR4_DOOR_OPENING_FRAGMENT_HANDLES = {
+    "848", "84A", "8F3", "8EE", "84C", "84E", "851", "932", "91F", "921",
+}
+
 
 def xy_segments(points, closed=False):
     points = list(points)
@@ -29,6 +36,8 @@ def inside(p, bounds, margin=0.0):
 def extract(source, output, bounds, min_length, floor, exclude_handles=()):
     doc = ezdxf.readfile(source)
     msp = doc.modelspace()
+    if floor == "4" and Path(source).name == "Ramanujan_4thFloor.dxf":
+        exclude_handles = sorted(set(exclude_handles) | FLOOR4_DOOR_OPENING_FRAGMENT_HANDLES)
     segments = []
     included = {}
     excluded = {}

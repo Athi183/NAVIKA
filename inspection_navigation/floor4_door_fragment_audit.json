@@ -1,0 +1,220 @@
+{
+  "floor": 4,
+  "source_dxf": "Ramanujan_4thFloor.dxf",
+  "change": "Excluded only source LINE entities whose projected segments sit at the centers of door openings and render as isolated full-height posts. No length-only filter was applied; other short segments remain.",
+  "excluded_source_handles": [
+    "848",
+    "84A",
+    "84C",
+    "84E",
+    "851",
+    "8EE",
+    "8F3",
+    "91F",
+    "921",
+    "932"
+  ],
+  "removed_unique_segments": [
+    {
+      "original_wall_id": "WALL_062",
+      "source_line_handles": [
+        "848"
+      ],
+      "segment": {
+        "x1": 647.308925,
+        "y1": 284.749591,
+        "x2": 647.387835,
+        "y2": 284.749591,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "8AE",
+        "insert_xy": [
+          646.6381903291942,
+          284.749591
+        ],
+        "rotation_degrees": 0
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    },
+    {
+      "original_wall_id": "WALL_089",
+      "source_line_handles": [
+        "84A",
+        "8F3"
+      ],
+      "segment": {
+        "x1": 650.078556,
+        "y1": 284.749591,
+        "x2": 650.157466,
+        "y2": 284.749591,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "8F4",
+        "insert_xy": [
+          649.408,
+          284.749591
+        ],
+        "rotation_degrees": 0
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    },
+    {
+      "original_wall_id": "WALL_145",
+      "source_line_handles": [
+        "8EE"
+      ],
+      "segment": {
+        "x1": 664.299823,
+        "y1": 284.749532,
+        "x2": 664.378733,
+        "y2": 284.749532,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "8EF",
+        "insert_xy": [
+          663.629,
+          284.749591
+        ],
+        "rotation_degrees": 0
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    },
+    {
+      "original_wall_id": "WALL_146",
+      "source_line_handles": [
+        "84C"
+      ],
+      "segment": {
+        "x1": 664.299823,
+        "y1": 284.749591,
+        "x2": 664.378733,
+        "y2": 284.749591,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "8EF",
+        "insert_xy": [
+          663.629,
+          284.749591
+        ],
+        "rotation_degrees": 0
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    },
+    {
+      "original_wall_id": "WALL_182",
+      "source_line_handles": [
+        "84E"
+      ],
+      "segment": {
+        "x1": 666.710289,
+        "y1": 284.749591,
+        "x2": 666.789199,
+        "y2": 284.749591,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "8E9",
+        "insert_xy": [
+          666.04,
+          284.749591
+        ],
+        "rotation_degrees": 0
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    },
+    {
+      "original_wall_id": "WALL_286",
+      "source_line_handles": [
+        "851"
+      ],
+      "segment": {
+        "x1": 681.091511,
+        "y1": 284.749591,
+        "x2": 681.170421,
+        "y2": 284.749591,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "8E6",
+        "insert_xy": [
+          680.421,
+          284.749591
+        ],
+        "rotation_degrees": 0
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    },
+    {
+      "original_wall_id": "WALL_340",
+      "source_line_handles": [
+        "932"
+      ],
+      "segment": {
+        "x1": 683.48885,
+        "y1": 275.547607,
+        "x2": 683.56776,
+        "y2": 275.547607,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "96F",
+        "insert_xy": [
+          684.238,
+          275.547607
+        ],
+        "rotation_degrees": 180
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    },
+    {
+      "original_wall_id": "WALL_417",
+      "source_line_handles": [
+        "91F"
+      ],
+      "segment": {
+        "x1": 694.231798,
+        "y1": 275.547607,
+        "x2": 694.310708,
+        "y2": 275.547607,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "96B",
+        "insert_xy": [
+          694.981,
+          275.547607
+        ],
+        "rotation_degrees": 180
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    },
+    {
+      "original_wall_id": "WALL_486",
+      "source_line_handles": [
+        "921"
+      ],
+      "segment": {
+        "x1": 710.347654,
+        "y1": 275.547607,
+        "x2": 710.426564,
+        "y2": 275.547607,
+        "length": 0.07891
+      },
+      "door_insert": {
+        "handle": "967",
+        "insert_xy": [
+          711.097,
+          275.547607
+        ],
+        "rotation_degrees": 180
+      },
+      "evidence": "The segment midpoint lies at the center of the corresponding approximately 1.42-unit-wide door opening; the source door-swing INSERT confirms this is an opening, not a short wall."
+    }
+  ],
+  "preserved_short_walls": "All other short segments remain, including the nearby segments that form wall ends and jambs.",
+  "coordinate_transform": "Unchanged; segment geometry and floor semantics positions are otherwise unchanged."
+}
