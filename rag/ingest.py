@@ -8,12 +8,14 @@ import pickle
 import re
 import time
 import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
 
 from pathlib import Path
 
 from collections import deque
 
 from urllib.parse import urljoin, urlparse, urlunparse, parse_qsl, urlencode
+from urllib.robotparser import RobotFileParser
 
 from spatial_loader import load_spatial_documents
 
@@ -48,7 +50,21 @@ except ImportError:
 
 START_URL = "https://mgmits.ac.in/"
 
-MAX_PAGES = 30
+# This is a safety ceiling, not the expected page count -- it exists so a
+# crawl can never run away indefinitely, not as a substitute for actually
+# discovering the site's pages. The previous value (30, then 100 on the
+# last real run) was well below the site's real size: the sitemap alone
+# lists 458 URLs, and the last run's own crawl_report.json recorded
+# "queue_remaining_at_limit": 869 -- 869 already-discovered pages that were
+# never even attempted, with zero failures among the 100 that were (so the
+# gap was the cap, not broken discovery or extraction). 600 covers the
+# known sitemap plus real headroom for link-discovered pages beyond it,
+# while still excluding runaway recursive discovery (DXF-era testing saw
+# individual per-student "congratulations on placement" pages multiplying
+# indefinitely) from consuming the whole budget, since priority_terms
+# sorting below puts departments/faculty/admissions/placements/academics
+# first regardless of where the cap eventually lands.
+MAX_PAGES = 600
 REQUEST_TIMEOUT = 20
 REQUEST_DELAY_SECONDS = 0.15
 
@@ -124,6 +140,10 @@ def normalize_url(url):
 def clean_url(url):
     return normalize_url(url) or url.split("#", 1)[0].rstrip("/")
 
+def _now_iso():
+    return datetime.now(timezone.utc).isoformat()
+
+
 def is_same_domain(url, base_url):
     host = (urlparse(url).hostname or "").lower().removeprefix("www.")
     base_host = (urlparse(base_url).hostname or "").lower().removeprefix("www.")
@@ -132,6 +152,41 @@ def is_same_domain(url, base_url):
 def is_ignored_url(url):
     path = urlparse(url).path.lower()
     return path.endswith(IGNORED_EXTENSIONS) or path.endswith((".css", ".js", ".json", ".xml", ".woff", ".woff2", ".ttf", ".eot"))
+
+# Loaded once per process and reused for every URL decision rather than
+# re-fetching robots.txt per check. mgmits.ac.in's current robots.txt only
+# disallows /private/, /tmp/, /admin-portal/, /cgi-bin/ -- paths this
+# crawler would never reach anyway -- but enforcing it properly (instead of
+# not checking it at all, which is what this did before) means a future
+# change to the site's robots.txt is honored automatically rather than
+# silently ignored. If robots.txt can't be fetched or parsed, fail open
+# (allow everything) rather than stopping the crawl over it.
+_ROBOTS_PARSER = None
+_ROBOTS_CHECKED = False
+
+
+def _get_robots_parser(base_url):
+    global _ROBOTS_PARSER, _ROBOTS_CHECKED
+    if _ROBOTS_CHECKED:
+        return _ROBOTS_PARSER
+    _ROBOTS_CHECKED = True
+    root = normalize_url(base_url) or base_url
+    parser = RobotFileParser()
+    parser.set_url(urljoin(root + "/", "robots.txt"))
+    try:
+        response = fetch_response(parser.url)
+        parser.parse(response.text.splitlines())
+        _ROBOTS_PARSER = parser
+    except requests.RequestException:
+        _ROBOTS_PARSER = None
+    return _ROBOTS_PARSER
+
+
+def is_disallowed_by_robots(url):
+    parser = _get_robots_parser(url)
+    if parser is None:
+        return False
+    return not parser.can_fetch("*", url)
 
 def fetch_response(url):
     response = SESSION.get(url, timeout=REQUEST_TIMEOUT, allow_redirects=True)
@@ -182,7 +237,7 @@ def discover_sitemap_urls(base_url):
             elif element.tag.lower().endswith("url"):
                 loc = next((child.text.strip() for child in element if child.tag.lower().endswith("loc") and child.text), None)
                 normalized = normalize_url(loc) if loc else None
-                if normalized and is_same_domain(normalized, root) and not is_ignored_url(normalized):
+                if normalized and is_same_domain(normalized, root) and not is_ignored_url(normalized) and not is_disallowed_by_robots(normalized):
                     found.append(normalized)
     # Preserve order while deduplicating.
     return list(dict.fromkeys(found))
@@ -270,7 +325,7 @@ def extract_table_documents(html, source_url, page_title):
                 lines.append("Record: " + " | ".join(pairs))
             table_documents.append(Document(
                 page_content="\n".join(lines),
-                metadata={"source": source_url, "title": page_title or "MITS table", "content_type": "table", "table_number": table_index},
+                metadata={"source": source_url, "title": page_title or "MITS table", "content_type": "table", "table_number": table_index, "fetched_at": _now_iso()},
             ))
     return table_documents
 
@@ -289,7 +344,7 @@ def extract_pdf_document(response, source_url):
         if not text:
             return None
         title = Path(urlparse(source_url).path).name or "MITS PDF"
-        return Document(page_content=f"PDF document: {title}\nSource URL: {source_url}\n\n{text}", metadata={"source": source_url, "title": title, "content_type": "pdf"})
+        return Document(page_content=f"PDF document: {title}\nSource URL: {source_url}\n\n{text}", metadata={"source": source_url, "title": title, "content_type": "pdf", "fetched_at": _now_iso()})
     except ImportError:
         print(f"PDF skipped (install pypdf to extract it): {source_url}")
     except Exception as exc:
@@ -703,7 +758,7 @@ async def crawl_website_async(start_url, max_pages=MAX_PAGES):
             url = clean_url(queue.popleft())
             if not url or url in visited:
                 continue
-            if not is_same_domain(url, start_url) or is_ignored_url(url):
+            if not is_same_domain(url, start_url) or is_ignored_url(url) or is_disallowed_by_robots(url):
                 continue
             visited.add(url)
             report["pages_attempted"] += 1
@@ -782,7 +837,7 @@ async def crawl_website_async(start_url, max_pages=MAX_PAGES):
             if text:
                 documents.append(Document(
                     page_content=f"Page title: {page_title}\nSource URL: {final_url}\n\n{text}",
-                    metadata={"source": final_url, "title": page_title, "content_type": "html"},
+                    metadata={"source": final_url, "title": page_title, "content_type": "html", "fetched_at": _now_iso()},
                 ))
                 documents.extend(table_docs)
                 report["html_pages_extracted"] += 1
@@ -815,7 +870,7 @@ async def crawl_website_async(start_url, max_pages=MAX_PAGES):
                 if not href or href.startswith(("mailto:", "tel:", "javascript:")):
                     continue
                 next_url = normalize_url(urljoin(final_url, href))
-                if not next_url or not is_same_domain(next_url, start_url) or is_ignored_url(next_url):
+                if not next_url or not is_same_domain(next_url, start_url) or is_ignored_url(next_url) or is_disallowed_by_robots(next_url):
                     continue
                 if next_url not in visited and next_url not in queued:
                     queue.append(next_url)

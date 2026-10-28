@@ -1,17 +1,79 @@
 {
   "start_url": "https://mgmits.ac.in/",
   "sitemap_urls_discovered": 458,
-  "pages_attempted": 100,
-  "pages_fetched": 100,
-  "html_pages_extracted": 100,
-  "pdfs_extracted": 0,
-  "empty_pages": [],
-  "failed_urls": [],
+  "pages_attempted": 600,
+  "pages_fetched": 592,
+  "html_pages_extracted": 547,
+  "pdfs_extracted": 38,
+  "empty_pages": [
+    {
+      "url": "https://mgmits.ac.in/storage/1960/NEWSLETTER-AUG-2019.pdf",
+      "reason": "PDF had no extractable text or pypdf is unavailable"
+    },
+    {
+      "url": "https://mgmits.ac.in/storage/1959/NEWSLETTER-JAN-2020.pdf",
+      "reason": "PDF had no extractable text or pypdf is unavailable"
+    },
+    {
+      "url": "https://mgmits.ac.in/storage/1958/NEWSLETTER-JAN-2021_compressed.pdf",
+      "reason": "PDF had no extractable text or pypdf is unavailable"
+    },
+    {
+      "url": "https://mgmits.ac.in/storage/1957/NEWSLETTER-JAN-2022_compressed.pdf",
+      "reason": "PDF had no extractable text or pypdf is unavailable"
+    },
+    {
+      "url": "https://mgmits.ac.in/storage/27037/JAN-JUNE'26(new)-(2).pdf",
+      "reason": "PDF had no extractable text or pypdf is unavailable"
+    },
+    {
+      "url": "https://mgmits.ac.in/storage/21623/library.pdf",
+      "reason": "PDF had no extractable text or pypdf is unavailable"
+    },
+    {
+      "url": "https://mgmits.ac.in/storage/26781/Jan-June_2026.pdf",
+      "reason": "PDF had no extractable text or pypdf is unavailable"
+    }
+  ],
+  "failed_urls": [
+    {
+      "url": "https://mgmits.ac.in/ec-research-supervisors",
+      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "url": "https://mgmits.ac.in/aicte-approved-documents",
+      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "url": "https://mgmits.ac.in/awards",
+      "error": "404 Client Error: Not Found for url: https://mgmits.ac.in/awards"
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-activities",
+      "error": "404 Client Error: Not Found for url: https://mgmits.ac.in/cc-activities"
+    },
+    {
+      "url": "https://mgmits.ac.in/storage/7686/MITS_INSTITUTIONAL-DEVELOPMENT-PLAN.pdf",
+      "error": "404 Client Error: Not Found for url: https://mgmits.ac.in/storage/7686/MITS_INSTITUTIONAL-DEVELOPMENT-PLAN.pdf"
+    },
+    {
+      "url": "https://mgmits.ac.in/cdn-cgi/l/email-protection",
+      "error": "404 Client Error: Not Found for url: https://mgmits.ac.in/cdn-cgi/l/email-protection"
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/b-tech-in-cyber-security",
+      "error": "404 Client Error: Not Found for url: https://mgmits.ac.in/programme/b-tech-in-cyber-security"
+    },
+    {
+      "url": "https://mgmits.ac.in/programme/mtech-cyber-security",
+      "error": "404 Client Error: Not Found for url: https://mgmits.ac.in/programme/mtech-cyber-security"
+    }
+  ],
   "pages": [
     {
       "url": "https://mgmits.ac.in/",
       "title": "Muthoot Institute of Technology and Science",
-      "text_characters": 13342,
+      "text_characters": 13334,
       "table_documents": 0
     },
     {
@@ -47,13 +109,13 @@
     {
       "url": "https://mgmits.ac.in/admission",
       "title": "Admission",
-      "text_characters": 4220,
+      "text_characters": 4215,
       "table_documents": 2
     },
     {
       "url": "https://mgmits.ac.in/contact",
       "title": "Contact",
-      "text_characters": 398,
+      "text_characters": 399,
       "table_documents": 0
     },
     {
@@ -89,25 +151,25 @@
     {
       "url": "https://mgmits.ac.in/department/cs",
       "title": "Department of Computer Science and Engineering",
-      "text_characters": 9328,
+      "text_characters": 9327,
       "table_documents": 0
     },
     {
       "url": "https://mgmits.ac.in/department/ec",
       "title": "Department of Electronics and Communication Engineering",
-      "text_characters": 12760,
+      "text_characters": 12759,
       "table_documents": 0
     },
     {
       "url": "https://mgmits.ac.in/department/ee",
       "title": "Department of Electrical and Electronics",
-      "text_characters": 10111,
+      "text_characters": 10110,
       "table_documents": 0
     },
     {
       "url": "https://mgmits.ac.in/department/me",
       "title": "Department of Mechanical Engineering",
-      "text_characters": 14526,
+      "text_characters": 14527,
       "table_documents": 0
     },
     {
@@ -137,7 +199,7 @@
     {
       "url": "https://mgmits.ac.in/placement",
       "title": "Placement",
-      "text_characters": 26889,
+      "text_characters": 26628,
       "table_documents": 52
     },
     {
@@ -317,7 +379,7 @@
     {
       "url": "https://mgmits.ac.in/ad-placements",
       "title": "AD Career&Placement Statistics",
-      "text_characters": 1738,
+      "text_characters": 1731,
       "table_documents": 0
     },
     {
@@ -455,13 +517,13 @@
     {
       "url": "https://mgmits.ac.in/cs-careerandplacementstatistics",
       "title": "CS Career and Placement Statistics",
-      "text_characters": 34220,
+      "text_characters": 34206,
       "table_documents": 89
     },
     {
       "url": "https://mgmits.ac.in/cs-departmentadvisoryboard",
       "title": "CS Department Advisory Board",
-      "text_characters": 1655,
+      "text_characters": 1623,
       "table_documents": 0
     },
     {
@@ -537,12 +599,6 @@
       "table_documents": 0
     },
     {
-      "url": "https://mgmits.ac.in/ec-research-supervisors",
-      "title": "ECE Research Supervisors",
-      "text_characters": 513,
-      "table_documents": 0
-    },
-    {
       "url": "https://mgmits.ac.in/ee-academics",
       "title": "MITS",
       "text_characters": 56,
@@ -607,14 +663,2702 @@
       "title": "BSH Faculty",
       "text_characters": 1850,
       "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-faculty-awards",
+      "title": "BSH Awards & Achievements",
+      "text_characters": 2292,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-research-supervisors",
+      "title": "BSH Research Supervisors",
+      "text_characters": 399,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ece-facultyenrichementprogrammes",
+      "title": "ECE Faculty Enrichment Programmes",
+      "text_characters": 13452,
+      "table_documents": 14
+    },
+    {
+      "url": "https://mgmits.ac.in/mca-admission",
+      "title": "MCA Admission",
+      "text_characters": 4099,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/mtech-admission",
+      "title": "M.Tech Admission",
+      "text_characters": 2106,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/faculty-empowerment-workshop-on-obe-curriculum-development-assessment-by-dr-joshua-earnest-former-professor-dean-nitttr-bhopal",
+      "title": "Faculty empowerment workshop on OBE Curriculum Development & Assessment by Dr. Joshua Earnest (Former Professor & Dean - NITTTR Bhopal)",
+      "text_characters": 470,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/my-research-journey-struggles-and-challenges-researcher-talk",
+      "title": "My Research Journey,  Struggles and Challenges -Researcher Talk",
+      "text_characters": 326,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/academic-year-2023-24",
+      "title": "ACADEMIC YEAR: 2023-24",
+      "text_characters": 6664,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/academic-year-2024-25",
+      "title": "ACADEMIC YEAR: 2024-25",
+      "text_characters": 1921,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cstechnicalstaff",
+      "title": "CSE Staff",
+      "text_characters": 736,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/mits-research-seminar-series-17",
+      "title": "MITS Research Seminar Series – 17",
+      "text_characters": 601,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-technical-staff",
+      "title": "ECE Technical Staff",
+      "text_characters": 347,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-technical-staff",
+      "title": "EE - Technical Staff",
+      "text_characters": 337,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-technical-staff",
+      "title": "BSH Technical Staff",
+      "text_characters": 114,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/ownyourcareer-oyc-29th-april-2023",
+      "title": "#OwnYourCareer (OYC) – 29th April 2023",
+      "text_characters": 1018,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/google-cloud-career-practitioner-campaign",
+      "title": "Google Cloud Career Practitioner Campaign",
+      "text_characters": 2382,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/anti-ragging-awareness-program",
+      "title": "Anti ragging awareness program",
+      "text_characters": 218,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/nss-unit-no-264-and-mits-women-cell-host-cup-of-life-programme",
+      "title": "NSS Unit No. 264 and MITS Women Cell Host \"Cup of Life\" Programme",
+      "text_characters": 3138,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/nss-unit-264-mits-kochi-conducted-an-inspiring-orientation-programme",
+      "title": "NSS Unit 264, MITS Kochi, conducted an inspiring orientation programme",
+      "text_characters": 2788,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/session-on-the-topic-sustainable-innovations-in-construction-a-research-perspective",
+      "title": "Session on the Topic “Sustainable Innovations in Construction – A Research Perspective”",
+      "text_characters": 597,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/100x",
+      "title": "MITS Elevate @ 100x",
+      "text_characters": 105,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/accreditations",
+      "title": "Accreditations",
+      "text_characters": 227,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/18th-february-2025",
+      "title": "18th February 2025",
+      "text_characters": 490,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/18th-october-2024",
+      "title": "18th October 2024",
+      "text_characters": 489,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/2019-activity",
+      "title": "2019 Activity",
+      "text_characters": 1506,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/22nd-november-2024",
+      "title": "22nd November 2024",
+      "text_characters": 490,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/27th-march-2024",
+      "title": "27th March 2024",
+      "text_characters": 487,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/27th-october-2023",
+      "title": "27th October 2023",
+      "text_characters": 489,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/5th-august-2025",
+      "title": "5th August 2025",
+      "text_characters": 487,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/a-proud-achievement-for-nss-unit-264",
+      "title": "A Proud Achievement for NSS Unit 264",
+      "text_characters": 2640,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/aesthete-design-workshop-for-beginners",
+      "title": "Aesthete – Design Workshop for Beginners",
+      "text_characters": 2192,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/annual-inter-collegiate-quiz",
+      "title": "Annual Inter-Collegiate Quiz",
+      "text_characters": 725,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/anti-drug-pledge",
+      "title": "Anti-Drug Pledge",
+      "text_characters": 2962,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/anti-ragging-pledge-and-signature-campaign",
+      "title": "Anti-Ragging Pledge and Signature Campaign",
+      "text_characters": 2646,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/arivu-24",
+      "title": "Arivu 24",
+      "text_characters": 206,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/artificial-general-intelligence-chips",
+      "title": "Artificial General Intelligence Chips",
+      "text_characters": 2679,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/automaze-showdown-workshop",
+      "title": "Automaze Showdown Workshop",
+      "text_characters": 2668,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/big-win-for-our-s2-ece-student-team",
+      "title": "🎉 Big win for our S2 ECE student team! 🎉",
+      "text_characters": 2692,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/birds-club-inauguration",
+      "title": "Birds Club Inauguration",
+      "text_characters": 1516,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/blood-donation-camp-nss-unit-no-264-mits-july-8-2026",
+      "title": "Blood Donation Camp – NSS Unit No. 264, MITS | July 8, 2026",
+      "text_characters": 2663,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/blood-donation-drive-was-organized-by-nss-unit-264-mits-kochi",
+      "title": "Blood Donation Drive was organized by NSS Unit 264, MITS Kochi",
+      "text_characters": 2947,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/chayeem-puppsum",
+      "title": "Chayeem Puppsum",
+      "text_characters": 595,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/code-a-star",
+      "title": "Code A Star",
+      "text_characters": 993,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/code-a-star-winter-is-coming-coding-challenge",
+      "title": "Code A Star – Winter-is-Coming Coding Challenge",
+      "text_characters": 1027,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/college-day-18",
+      "title": "COLLEGE DAY ’18",
+      "text_characters": 4447,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/computational-intelligence-club-launch",
+      "title": "Computational Intelligence Club Launch",
+      "text_characters": 897,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/cultural-inauguration-november-2018",
+      "title": "Cultural Inauguration November 2018",
+      "text_characters": 4467,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/day-1-day-2-basic-setup-and-app-building",
+      "title": "Day 1 & Day 2 – Basic Setup and App Building",
+      "text_characters": 2385,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/day-3-add-a-button-to-an-app",
+      "title": "Day 3: Add a Button to an App",
+      "text_characters": 2370,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/dev-summits-2024",
+      "title": "Dev Summits 2024",
+      "text_characters": 2658,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/environmental-awareness-seminar",
+      "title": "Environmental Awareness Seminar",
+      "text_characters": 1499,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/environmental-day-celebration-on-5th-june-2018",
+      "title": "Environmental Day Celebration on 5th June 2018",
+      "text_characters": 1539,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/first-prize-in-group-dance-at-aaravam-23",
+      "title": "First Prize in Group Dance at AARAVAM’23",
+      "text_characters": 2192,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/flutter-forward-extended-introduction-to-flutter-day-1",
+      "title": "FLUTTER FORWARD EXTENDED – INTRODUCTION TO FLUTTER | DAY 1",
+      "text_characters": 2113,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/flutter-forward-extended-introduction-to-flutter-day-2-hands-on",
+      "title": "FLUTTER FORWARD EXTENDED -INTRODUCTION TO FLUTTER | DAY 2- Hands-On",
+      "text_characters": 2228,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/forest-day-celebration-on-21st-march-2017",
+      "title": "Forest Day celebration on 21st March 2017",
+      "text_characters": 1534,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/futurefusion-iot-and-vega-processors",
+      "title": "FutureFusion: IoT and VEGA Processors",
+      "text_characters": 2679,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/good-earth-mits-a-tree-sapling-planting-marathon-on-5th-october-2016",
+      "title": "Good earth MITS- A tree sapling planting marathon on 5th October 2016",
+      "text_characters": 1562,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/hands-on-workshop-on-embedded-intelligence-with-jetson-nano",
+      "title": "Hands-on workshop on Embedded Intelligence with Jetson Nano",
+      "text_characters": 1543,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/hope-donation-drive-march-2023",
+      "title": "HOPE Donation Drive – March 2023",
+      "text_characters": 2184,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/inaguration",
+      "title": "INAGURATION",
+      "text_characters": 273,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/inaugural-event-of-gdsc-mits-with-ms-ananya-r-on-30th-september-2022",
+      "title": "Inaugural Event of GDSC MITS With Ms. Ananya R on 30th September 2022",
+      "text_characters": 2410,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/inauguration-report",
+      "title": "INAUGURATION REPORT",
+      "text_characters": 1512,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/induction-orientation",
+      "title": "Induction / Orientation",
+      "text_characters": 720,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/industrial-visit-to-infra-elevators-march-2023",
+      "title": "Industrial Visit to Infra Elevators – March 2023",
+      "text_characters": 2200,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/international-day-of-yoga-celebration-by-nss-mits-unit-no-264",
+      "title": "International Day of Yoga Celebration by NSS MITS Unit No. 264",
+      "text_characters": 2666,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/introduction-to-no-code",
+      "title": "Introduction to No Code",
+      "text_characters": 1003,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/leadership-summit-2024-building-future-leaders",
+      "title": "Leadership Summit 2024: Building Future Leaders",
+      "text_characters": 838,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/leadership-summit-2024-building-future-leaders-2",
+      "title": "Leadership Summit 2024: Building future leaders",
+      "text_characters": 838,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/leadership-summit-2024-building-future-leaders-3",
+      "title": "Leadership Summit 2024: Building future leaders",
+      "text_characters": 838,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/leadership-summit-2024-building-future-leaders-4",
+      "title": "Leadership Summit 2024: Building future leaders",
+      "text_characters": 838,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/let-s-git-started",
+      "title": "Let’s Git Started",
+      "text_characters": 2358,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/navigating-google-cloud-with-the-cloud-pilot",
+      "title": "Navigating Google Cloud with the Cloud Pilot",
+      "text_characters": 2385,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/onam-16",
+      "title": "ONAM ’16",
+      "text_characters": 4989,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/onam-17",
+      "title": "ONAM’17",
+      "text_characters": 4950,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/online-session-on-git",
+      "title": "Online Session on Git",
+      "text_characters": 1001,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/quiz-competition-was-conducted-by-nss-unit-264-mits-kochi",
+      "title": "Quiz Competition was conducted by NSS Unit 264, MITS Kochi",
+      "text_characters": 3217,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/risimide-workshop-2026",
+      "title": "RISIMIDE Workshop 2026",
+      "text_characters": 2849,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/rotaract-club-of-mits-inauguration",
+      "title": "Rotaract Club of MITS Inauguration",
+      "text_characters": 2186,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/silicon-synergy-vlsi-industry-connect",
+      "title": "Silicon Synergy: VLSI Industry Connect",
+      "text_characters": 2680,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/speaker-session-with-suraj-van-varma",
+      "title": "Speaker Session with Suraj Van Varma",
+      "text_characters": 2024,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/sports-quiz-tiki-taka",
+      "title": "Sports Quiz – “Tiki Taka”",
+      "text_characters": 722,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/teacher-s-day-was-celebration",
+      "title": "Teacher’s Day  was celebration",
+      "text_characters": 2967,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/the-chipathon-ic-design-competition",
+      "title": "The CHIPATHON: IC Design Competition",
+      "text_characters": 2678,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/theme-based-quizzes",
+      "title": "Theme-Based Quizzes",
+      "text_characters": 716,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/urava-muthoot-pond-rejuvenation-initiative",
+      "title": "URAVA – Muthoot Pond Rejuvenation Initiative",
+      "text_characters": 3233,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/useless-project",
+      "title": "Useless Project",
+      "text_characters": 264,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/varnam-2k17",
+      "title": "VARNAM 2K17",
+      "text_characters": 4905,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/varnam-2k18",
+      "title": "VARNAM 2K18",
+      "text_characters": 4800,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/varnam-2k19",
+      "title": "VARNAM 2K19",
+      "text_characters": 4443,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/varnam-2k21",
+      "title": "VARNAM 2K21",
+      "text_characters": 4443,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/varnam-2k22",
+      "title": "VARNAM 2k22",
+      "text_characters": 4443,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/varnam-2k23",
+      "title": "VARNAM 2K23",
+      "text_characters": 4443,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/world-environment-day-2026",
+      "title": "World Environment Day 2026",
+      "text_characters": 2825,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/activities/world-environment-day-2026-family-garden-initiative",
+      "title": "World Environment Day 2026 – Family Garden Initiative",
+      "text_characters": 2657,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-activities",
+      "title": "AD Activities",
+      "text_characters": 1651,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-addoncourses",
+      "title": "AD Add on Courses",
+      "text_characters": 610,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-association",
+      "title": "Association of Artificial Intelligence and Data Science",
+      "text_characters": 1395,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-awards",
+      "title": "AD Awards & Achievements",
+      "text_characters": 6905,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-boardofstady",
+      "title": "AD Department Advisory Board",
+      "text_characters": 736,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-bos",
+      "title": "AI & DS Board of Studies",
+      "text_characters": 7727,
+      "table_documents": 13
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-capestone",
+      "title": "AI&DS Capstone Projects",
+      "text_characters": 7789,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-cic",
+      "title": "Computational Intelligence Club (CIC)",
+      "text_characters": 1762,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-colaboration",
+      "title": "AD Collaborators&Counsultancy",
+      "text_characters": 59,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-dab",
+      "title": "AD Department Advisory Board",
+      "text_characters": 736,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-deptassociation",
+      "title": "AD Department Association",
+      "text_characters": 51,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-facilities",
+      "title": "AD Facilities",
+      "text_characters": 598,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-fundedprojects",
+      "title": "AD Funded Projects",
+      "text_characters": 3329,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-ipr",
+      "title": "IPR",
+      "text_characters": 81,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-newsevents",
+      "title": "AD News & Events",
+      "text_characters": 3956,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-polarisgamelabs",
+      "title": "AD Polaris GameLabs",
+      "text_characters": 3551,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-students-awards",
+      "title": "AD Students Awards",
+      "text_characters": 3869,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-students-publications",
+      "title": "AD Students Publications",
+      "text_characters": 63,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-tinker-hub",
+      "title": "Tinker Hub",
+      "text_characters": 1930,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/add-on-courses",
+      "title": "Add-on Courses",
+      "text_characters": 3584,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/administrative-office",
+      "title": "Administrative Office",
+      "text_characters": 715,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ai",
+      "title": "MITS",
+      "text_characters": 2841,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/annual-reports",
+      "title": "Annual Reports",
+      "text_characters": 97,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/anti-ragging-committee",
+      "title": "Anti-Ragging Committee",
+      "text_characters": 1515,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/arts-club",
+      "title": "Arts Club",
+      "text_characters": 8621,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/audited-financial-statement",
+      "title": "Audited Financial Statements",
+      "text_characters": 411,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/a-proud-achievement-for-ieee-pes-sbc-mits",
+      "title": "A Proud Achievement for IEEE PES SBC MITS!",
+      "text_characters": 591,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/a-step-towards-better-menstrual-health-and-empowered-womanhood",
+      "title": "A step towards better menstrual health and empowered womanhood.",
+      "text_characters": 653,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/ai-for-common-good-aicte-hei-pre-summit",
+      "title": "AI for Common Good (AICTE-HEI Pre-Summit)",
+      "text_characters": 1144,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/apjakt-university-d-zone-basketball-championship-2026-27",
+      "title": "APJAKT University D-Zone Basketball championship 2026-27",
+      "text_characters": 445,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/apjaktu-inter-zone-basketball-championship-2025-26",
+      "title": "APJAKTU Inter-Zone Basketball Championship 2025-26",
+      "text_characters": 300,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/connecting-minds-from-communication-to-connection",
+      "title": "Connecting minds : from communication to connection",
+      "text_characters": 302,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/expert-talk-the-power-of-inter-disciplinary-engineering",
+      "title": "✨ Expert Talk: The Power of Inter-Disciplinary Engineering",
+      "text_characters": 1218,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/from-circuit-to-chip",
+      "title": "From Circuit to Chip!",
+      "text_characters": 717,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/from-idea-to-enterprise-techxcel-3-0-inauguration",
+      "title": "🚀 FROM IDEA TO ENTERPRISE: TECHXCEL 3.0 INAUGURATION",
+      "text_characters": 582,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/global-glory-our-student-team-ranks-in-the-top-8-worldwide-at-sauvc-26",
+      "title": "🏆 Global Glory: Our Student Team Ranks in the Top 8 Worldwide at SAUVC '26!",
+      "text_characters": 1878,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/gyan-samarpan-2026",
+      "title": "Gyan Samarpan 2026",
+      "text_characters": 236,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/inauguration-of-decibel-the-official-logo-launch",
+      "title": "INAUGURATION OF DECIBEL – The Official Logo Launch!",
+      "text_characters": 989,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/inauguration-of-fdp-and-technical-session-on-application-of-dc-dc-converters-in-fuel-cell-systems",
+      "title": "Inauguration of FDP and Technical session on \" Application of DC-DC Converters in Fuel cell systems",
+      "text_characters": 398,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/inauguration-of-mits-sciverse-exploring-the-universe-of-science",
+      "title": "Inauguration of MITS SCIVERSE - Exploring the Universe of Science!",
+      "text_characters": 970,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/panel-discussion-on-trends-prospects-of-battery-energy-storage-systems",
+      "title": "Panel Discussion on “Trends & Prospects of Battery Energy Storage Systems”",
+      "text_characters": 590,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/sreshta",
+      "title": "SRESHTA",
+      "text_characters": 214,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/technical-session-on-quantum-computing-quantum-resistant-cryptography",
+      "title": "Technical Session on “Quantum Computing & Quantum-Resistant Cryptography",
+      "text_characters": 344,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/vox-mits-presents-brand-you-personal-marketing-for-students-a-student-speaker-session",
+      "title": "🌟🎤 VOX MITS PRESENTS: Brand YOU – Personal Marketing for Students🎤🌟 A Student Speaker Session.",
+      "text_characters": 1465,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/workshop-session-matlab-for-machine-learning-concepts-to-application",
+      "title": "📢 Workshop Session: “MATLAB for Machine Learning – Concepts to Application” 💻🤖",
+      "text_characters": 992,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/world-environment-day-2026-celebration",
+      "title": "World Environment Day 2026 Celebration",
+      "text_characters": 866,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bank-details",
+      "title": "Bank Details",
+      "text_characters": 350,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/board-of-governors",
+      "title": "Board Of Governors",
+      "text_characters": 1574,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/bos",
+      "title": "Board of Studies",
+      "text_characters": 7408,
+      "table_documents": 11
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-bos",
+      "title": "BSH Board of Studies",
+      "text_characters": 3570,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-capstone-project",
+      "title": "BSH-CAPSTONE PROJECT",
+      "text_characters": 352,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-collaboration",
+      "title": "BSH Collaborations",
+      "text_characters": 52,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-dab",
+      "title": "BSH Advisory Board",
+      "text_characters": 342,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-facilities",
+      "title": "BSH Facilities",
+      "text_characters": 1710,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-funded-projects",
+      "title": "BSH Funded Projects",
+      "text_characters": 1276,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-internship",
+      "title": "BSH -INTERNSHIPS",
+      "text_characters": 1834,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-news",
+      "title": "BSH News & Events",
+      "text_characters": 7572,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-publications",
+      "title": "BSH Publications",
+      "text_characters": 115,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-student-awards",
+      "title": "BSH Student Awards & Achievements",
+      "text_characters": 477,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/btech-government-quota",
+      "title": "B.Tech Government Quota Admissions",
+      "text_characters": 9423,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/btech-management-quota",
+      "title": "B.Tech Management Merit Quota Admissions",
+      "text_characters": 10429,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-add-on-courses",
+      "title": "MCA Add On Courses",
+      "text_characters": 1159,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-advisory-board",
+      "title": "MCA Department Advisory Board",
+      "text_characters": 371,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-bos",
+      "title": "MCA Board of Studies",
+      "text_characters": 376,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-dpet-association",
+      "title": "MCA Department Association",
+      "text_characters": 62,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-facilities",
+      "title": "MCA Facilities",
+      "text_characters": 633,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-news-events",
+      "title": "MCA News & Events",
+      "text_characters": 2147,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-patents-publications",
+      "title": "MCA Publications",
+      "text_characters": 123,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-publications-older",
+      "title": "Older Publications",
+      "text_characters": 171,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-student-awards-achievements",
+      "title": "MCA Students Awards & Achievements",
+      "text_characters": 2139,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-addon",
+      "title": "CC Add On Courses",
+      "text_characters": 77,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-awards",
+      "title": "Awards & Achievements",
+      "text_characters": 2609,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-bos",
+      "title": "CY-Board of Studies",
+      "text_characters": 3442,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-dab",
+      "title": "CC Department Advisory Board",
+      "text_characters": 613,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-deptassn",
+      "title": "CC Department Association",
+      "text_characters": 1109,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-facilities",
+      "title": "CC Facilities",
+      "text_characters": 61,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-fdprojects",
+      "title": "CC Funded Projects",
+      "text_characters": 280,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-news",
+      "title": "News & Events",
+      "text_characters": 12293,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-publications",
+      "title": "CC Publications",
+      "text_characters": 133,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-addoncourses",
+      "title": "CE SKILL ENHANCEMENT TRAINING  & CERTIFICATION",
+      "text_characters": 20288,
+      "table_documents": 35
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-asce",
+      "title": "The American Society of Civil Engineers (ASCE)",
+      "text_characters": 1045,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-association",
+      "title": "CE Department Association",
+      "text_characters": 166,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-associationeternia",
+      "title": "ETERNIA - CE ASSOCIATION",
+      "text_characters": 47,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-bos",
+      "title": "CE Board of Studies",
+      "text_characters": 5098,
+      "table_documents": 7
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-capstoneproject",
+      "title": "CAPSTONE PROJECTS",
+      "text_characters": 2353,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-cocurricular",
+      "title": "CO-CURRICULAR & EXTRA CURRICULAR ACTIVITIES",
+      "text_characters": 536,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-collaboration",
+      "title": "CE COLLABORATIONS",
+      "text_characters": 231,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-consultancies",
+      "title": "CE CONSULTANCIES",
+      "text_characters": 61,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-dab",
+      "title": "CE Department Advisory Board",
+      "text_characters": 973,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-facilities",
+      "title": "CE LABORATORIES",
+      "text_characters": 10492,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-fundedprojects",
+      "title": "CE FUNDED PROJECTS",
+      "text_characters": 3865,
+      "table_documents": 5
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-ici",
+      "title": "Indian Concrete Institute",
+      "text_characters": 1408,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-igbc",
+      "title": "Indian Green Building Council (IGBC)",
+      "text_characters": 1200,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-industrialvisits",
+      "title": "INDUSTRIAL VISITS",
+      "text_characters": 13041,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-internships",
+      "title": "INTERNSHIPS",
+      "text_characters": 2134,
+      "table_documents": 10
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-newsandevents",
+      "title": "CE News and Events",
+      "text_characters": 23603,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-patentscopyright",
+      "title": "CE IPR",
+      "text_characters": 61,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-productdevelopment",
+      "title": "CE PRODUCT DEVELOPMENT",
+      "text_characters": 3046,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-smart-classrooms",
+      "title": "CE SMART CLASSROOMS",
+      "text_characters": 668,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-studentawardsandachievements",
+      "title": "CE Student Awards and Achievements",
+      "text_characters": 11805,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-studentpublications",
+      "title": "CE STUDENT PUBLICATIONS",
+      "text_characters": 149,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-technicaltalk",
+      "title": "TECHNICAL TALKS",
+      "text_characters": 8548,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/centre-for-continuing-education-mits",
+      "title": "Centre for Continuing Education @ MITS",
+      "text_characters": 4121,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/centre-of-excellence",
+      "title": "Centres of Excellence",
+      "text_characters": 394,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/chemistry-lab",
+      "title": "CHEMISTRY LAB",
+      "text_characters": 779,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cic",
+      "title": "Computational Intelligence Club",
+      "text_characters": 1127,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cidrie",
+      "title": "CIDRIE",
+      "text_characters": 3823,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/coding-club",
+      "title": "Coding Club",
+      "text_characters": 865,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/collaborators",
+      "title": "Collaborators",
+      "text_characters": 112,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/college-council",
+      "title": "College Council",
+      "text_characters": 1461,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/conferences-symposiums",
+      "title": "Conferences/Symposiums",
+      "text_characters": 2787,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/continuing--education--cell",
+      "title": "Continuing Education Cell",
+      "text_characters": 1472,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/continuing-education-cell",
+      "title": "CONTINUING EDUCATION CELL (CEC-MITS)",
+      "text_characters": 2295,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/conveyance",
+      "title": "Conveyance",
+      "text_characters": 1989,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-acmstudentchapter",
+      "title": "CS ACM Student Chapter",
+      "text_characters": 1095,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-activities",
+      "title": "CS Activities",
+      "text_characters": 30,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-addoncourses",
+      "title": "CS Add on Courses",
+      "text_characters": 65,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-associationclique",
+      "title": "CS CLIQUE -Department Association",
+      "text_characters": 663,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-awards",
+      "title": "CSE Test Awards",
+      "text_characters": 36,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-boardofstudies",
+      "title": "CS Board of Studies",
+      "text_characters": 2725,
+      "table_documents": 5
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-boardofstudy",
+      "title": "CS Board of Studies",
+      "text_characters": 2725,
+      "table_documents": 5
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-bos",
+      "title": "Board of Studies",
+      "text_characters": 639,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-collaborationsandconsultancy",
+      "title": "CS Collaborations and Consultancy",
+      "text_characters": 82,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-facilities",
+      "title": "CS Facilities",
+      "text_characters": 490,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-fundedprojects",
+      "title": "CS Funded Projects",
+      "text_characters": 1677,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-gdsc",
+      "title": "CS GDSC",
+      "text_characters": 649,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-infrastructure",
+      "title": "CS Facilities",
+      "text_characters": 490,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-publications",
+      "title": "CS Publications",
+      "text_characters": 183,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-studentawardsandachievements",
+      "title": "IEEE Fashion Hackathon – Second Prize",
+      "text_characters": 2747,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/csnewsandevents",
+      "title": "CS News and Events",
+      "text_characters": 5481,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/curriculum",
+      "title": "Autonomous Curriculum & Syllabus",
+      "text_characters": 135,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/dean1",
+      "title": "Dean Aacdemics",
+      "text_characters": 1275,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/deans-and-heads",
+      "title": "Academic & Administrative Heads",
+      "text_characters": 1779,
+      "table_documents": 5
+    },
+    {
+      "url": "https://mgmits.ac.in/disciplinary-action-committee",
+      "title": "Disciplinary Action Committee",
+      "text_characters": 719,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-activities",
+      "title": "ECE Activities",
+      "text_characters": 29,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-add-on-courses",
+      "title": "ECE Add on Courses",
+      "text_characters": 2507,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-awards",
+      "title": "ECE Faculty Awards and Achievements",
+      "text_characters": 3743,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-bos",
+      "title": "ECE Board of Studies",
+      "text_characters": 1559,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-collaborations-and-consultancy",
+      "title": "ECE Collaborations & Consultancy",
+      "text_characters": 374,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-dab",
+      "title": "EC Department Advisory Board",
+      "text_characters": 596,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-facilities",
+      "title": "ECE Facilities",
+      "text_characters": 5309,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-funded-projects",
+      "title": "EC Funded Projects",
+      "text_characters": 1209,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-news-events",
+      "title": "ECE News & Events",
+      "text_characters": 9337,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-student-publications",
+      "title": "ECE Student Publications",
+      "text_characters": 135,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ece-student-awards-and-achievements",
+      "title": "ECE Student Awards and Achievements",
+      "text_characters": 6903,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/eco-club",
+      "title": "ECO Club",
+      "text_characters": 4249,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-activities",
+      "title": "EE Activities",
+      "text_characters": 134,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-addon-course",
+      "title": "EE Add on Courses",
+      "text_characters": 1220,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-association",
+      "title": "EE Department Association",
+      "text_characters": 57,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-bos",
+      "title": "EE Board Of Studies",
+      "text_characters": 3302,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-collaboration",
+      "title": "EE Collaborations & Consultancy",
+      "text_characters": 122,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-dab",
+      "title": "EE Advisory Board",
+      "text_characters": 468,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-facilities",
+      "title": "EE Facilities",
+      "text_characters": 5506,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-funded-project",
+      "title": "EE Funded Projects",
+      "text_characters": 1957,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-news",
+      "title": "EEE News & Events",
+      "text_characters": 8650,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-professional-bodies",
+      "title": "EE Professional Body",
+      "text_characters": 5103,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-publications",
+      "title": "EE Publication",
+      "text_characters": 122,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-student-awards",
+      "title": "EE Student Awards & Achievements",
+      "text_characters": 3598,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ee-student-publications",
+      "title": "EE Student Publication",
+      "text_characters": 109,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/equal-opportunity-cell",
+      "title": "Equal Opportunity Cell",
+      "text_characters": 616,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ethics-committee",
+      "title": "Ethics Committee",
+      "text_characters": 2991,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/exam-calendar",
+      "title": "Exam Calendar",
+      "text_characters": 444,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/exam-notifications",
+      "title": "Exam Notifications",
+      "text_characters": 1173,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/exam-results",
+      "title": "Exam Results",
+      "text_characters": 1545,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/exam-timetable",
+      "title": "Examination Timetables",
+      "text_characters": 1434,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/exams",
+      "title": "Exams",
+      "text_characters": 2236,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/finance",
+      "title": "Finance Committee",
+      "text_characters": 1939,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/foss-club",
+      "title": "CS FOSS Club",
+      "text_characters": 384,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/funded-projects",
+      "title": "Funded Projects",
+      "text_characters": 10244,
+      "table_documents": 8
+    },
+    {
+      "url": "https://mgmits.ac.in/gallery",
+      "title": "Gallery",
+      "text_characters": 133,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/gallery/2026",
+      "title": "പ്രകമ്പനം 2026",
+      "text_characters": 193,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/gallery/armaadham-25",
+      "title": "Armaadham '25",
+      "text_characters": 129,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/gallery/gyan-samarpan-2026",
+      "title": "Gyan Samarpan 2026",
+      "text_characters": 279,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/gallery/gyandheeksha-2026",
+      "title": "Gyandheeksha - 2026",
+      "text_characters": 253,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/gallery/varnam-shreshta-2025",
+      "title": "VARNAM & SHRESHTA 2025",
+      "text_characters": 179,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/gallery/varnam-sreshta-2026",
+      "title": "VARNAM & SRESHTA 2026",
+      "text_characters": 321,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/gdsc",
+      "title": "GDSC",
+      "text_characters": 4495,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/governing-body",
+      "title": "Governing Body",
+      "text_characters": 3315,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/guide-lines-for-industrial-visits",
+      "title": "GUIDELINES FOR INDUSTRIAL VISITS",
+      "text_characters": 4039,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/icc",
+      "title": "Internal Complaints Committee(ICC)",
+      "text_characters": 1691,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/icrc-mits",
+      "title": "ICRC",
+      "text_characters": 1230,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/idp",
+      "title": "Individual Development Plan (IDP)",
+      "text_characters": 795,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/iedc",
+      "title": "Innovation And Entrepreneurship Development Centre",
+      "text_characters": 2648,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/ieee",
+      "title": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "text_characters": 20289,
+      "table_documents": 25
+    },
+    {
+      "url": "https://mgmits.ac.in/iic",
+      "title": "Institute Innovation Council",
+      "text_characters": 3496,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/industry-institute-interaction-cell",
+      "title": "INDUSTRY INSTITUTE INTERACTION CELL",
+      "text_characters": 8350,
+      "table_documents": 4
+    },
+    {
+      "url": "https://mgmits.ac.in/infrastructure",
+      "title": "Infrastructure",
+      "text_characters": 1040,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ipr",
+      "title": "Intellectual Property Rights (IPR) Cell",
+      "text_characters": 3791,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/iqac",
+      "title": "IQAC",
+      "text_characters": 7360,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/ktu-affiliations",
+      "title": "KTU Affiliations",
+      "text_characters": 219,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/language-lab",
+      "title": "LANGUAGE LAB",
+      "text_characters": 1097,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/life-at-mits",
+      "title": "Life at MITS",
+      "text_characters": 4133,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/main-news",
+      "title": "ME News & Events",
+      "text_characters": 7092,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/management",
+      "title": "Management Profile",
+      "text_characters": 4201,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/mandatory-disclosure",
+      "title": "Mandatory Disclosure",
+      "text_characters": 761,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/mandatory-disclosure-statements",
+      "title": "Mandatory Disclosure Statements",
+      "text_characters": 332,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/manuals",
+      "title": "Manuals",
+      "text_characters": 55,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/math-club",
+      "title": "MATH CLUB",
+      "text_characters": 1993,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/math-club-activities",
+      "title": "MATH CLUB ACTIVITIES",
+      "text_characters": 1912,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-addons",
+      "title": "ME Addon Courses",
+      "text_characters": 1820,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-awards",
+      "title": "ME Awards",
+      "text_characters": 3751,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-awards-achievements-faculties",
+      "title": "ME Faculty Achievements",
+      "text_characters": 827,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-awards-achievements-students",
+      "title": "ME Students Achievements and Awards",
+      "text_characters": 4001,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-board-of-studies",
+      "title": "ME Board of Studies",
+      "text_characters": 2826,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/me-collaboration",
+      "title": "ME Collaborations and Consultancy",
+      "text_characters": 174,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-dab",
+      "title": "ME Department Advisory Board",
+      "text_characters": 547,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-dept-association",
+      "title": "ME Department Association",
+      "text_characters": 146,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-facilties",
+      "title": "ME Facilities",
+      "text_characters": 3237,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/me-funded-projects",
+      "title": "ME Funded Projects",
+      "text_characters": 976,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/me-news",
+      "title": "ME News & Events",
+      "text_characters": 7092,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-news-event",
+      "title": "ME News & Events",
+      "text_characters": 7113,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-publications",
+      "title": "ME Publications",
+      "text_characters": 183,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/me-technical",
+      "title": "ME Technical",
+      "text_characters": 423,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/milestonecopy",
+      "title": "Milestone copy",
+      "text_characters": 980,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/milestones",
+      "title": "Milestones",
+      "text_characters": 1251,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/mits-central-library",
+      "title": "TAGORE LIBRARY",
+      "text_characters": 5578,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/mits-elevate",
+      "title": "MITS",
+      "text_characters": 1614,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/mits-talk",
+      "title": "MITS Talk",
+      "text_characters": 3196,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/mits-webinar",
+      "title": "MITS Webinar Series",
+      "text_characters": 1275,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/music-club",
+      "title": "Music Club",
+      "text_characters": 1254,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/news-events",
+      "title": "MITS News & Events",
+      "text_characters": 8630,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/newsletter",
+      "title": "College Newsletter",
+      "text_characters": 134,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/nisp",
+      "title": "NISP",
+      "text_characters": 474,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/nri-quota",
+      "title": "B.Tech NRI Quota",
+      "text_characters": 4883,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/nss",
+      "title": "NATIONAL SERVICE SCHEME",
+      "text_characters": 8410,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/oci-pio-cwig-quota",
+      "title": "OCI/PIO/CIWG QUOTA 2027",
+      "text_characters": 7315,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/osam",
+      "title": "Old Student Association of MITS (OSAM)",
+      "text_characters": 2919,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/patents",
+      "title": "Patents",
+      "text_characters": 80,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/physics-lab",
+      "title": "PHYSICS LAB",
+      "text_characters": 960,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/polaris-game-lab",
+      "title": "MITS Polaris GameLabs",
+      "text_characters": 2288,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/policies",
+      "title": "Policies",
+      "text_characters": 89,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/principal",
+      "title": "Principal",
+      "text_characters": 3461,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/privacy-policy",
+      "title": "Policies",
+      "text_characters": 6330,
+      "table_documents": 1
+    },
+    {
+      "url": "https://mgmits.ac.in/pta",
+      "title": "PTA",
+      "text_characters": 4299,
+      "table_documents": 14
+    },
+    {
+      "url": "https://mgmits.ac.in/publications",
+      "title": "Publications",
+      "text_characters": 196,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/quiz-club",
+      "title": "Quiz Club",
+      "text_characters": 1545,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/rd-gallery",
+      "title": "R & D Gallery",
+      "text_characters": 1126,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/regulation",
+      "title": "Autonomous Regulations",
+      "text_characters": 112,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/regulations",
+      "title": "Regulations",
+      "text_characters": 328,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/rotaract-club",
+      "title": "ROTARACT CLUB OF MITS",
+      "text_characters": 2422,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/sample",
+      "title": "Sample",
+      "text_characters": 284,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/sc-st-welfare-committee",
+      "title": "SC/ST Welfare Committee",
+      "text_characters": 621,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/science-club",
+      "title": "MITS SCIVERSE CLUB",
+      "text_characters": 2987,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/science-club-activities",
+      "title": "MITS SCIVERSE CLUB ACTIVITIES",
+      "text_characters": 1931,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/sedg",
+      "title": "Socio-Economically Disadvantaged Groups Cell (SEDG)",
+      "text_characters": 1128,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/sgrc",
+      "title": "Students Grievance and Redressal Cell",
+      "text_characters": 2074,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/sports",
+      "title": "Sports",
+      "text_characters": 2915,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/student-council",
+      "title": "Student Council",
+      "text_characters": 1925,
+      "table_documents": 2
+    },
+    {
+      "url": "https://mgmits.ac.in/student-counselling",
+      "title": "Centre for Student Wellness  & Welfare",
+      "text_characters": 4238,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/student-manuals-circulars",
+      "title": "Student Manuals/Circulars",
+      "text_characters": 1586,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/students-corner",
+      "title": "Students Corner",
+      "text_characters": 8252,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/syllabus",
+      "title": "Curriculum/Syllabus",
+      "text_characters": 446,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/test-md",
+      "title": "Test MD Page",
+      "text_characters": 92,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/testmilestone",
+      "title": "test milestone",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/tinker-hub",
+      "title": "Tinker Hub",
+      "text_characters": 3336,
+      "table_documents": 3
+    },
+    {
+      "url": "https://mgmits.ac.in/ugc-mits-order",
+      "title": "AUTONOMOUS ORDERS",
+      "text_characters": 109,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ugccompliance",
+      "title": "Compliance of UGC Guidelines / Regulations",
+      "text_characters": 2425,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/upcoming-events",
+      "title": "MITS Upcoming Events",
+      "text_characters": 4518,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/vice-principal",
+      "title": "Vice Principal",
+      "text_characters": 2222,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/womens-forum",
+      "title": "Women's Forum",
+      "text_characters": 910,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/mits-research-seminar-series-19",
+      "title": "MITS Research Seminar Series-19",
+      "text_characters": 591,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/awards/mits-converge-2026",
+      "title": "MITS CONVERGE - 2026",
+      "text_characters": 747,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/upcoming-events/mits-research-seminar-series-18",
+      "title": "📢 *MITS Research Seminar Series-18",
+      "text_characters": 600,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/upcoming-events/anti-ragging-awareness-program",
+      "title": "Anti Ragging Awareness Program",
+      "text_characters": 542,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/upcoming-events/gyandheeksha-2026",
+      "title": "GYANDHEEKSHA - 2026",
+      "text_characters": 633,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/upcoming-events/presenting-the-great-banter",
+      "title": "Presenting: The Great Banter!",
+      "text_characters": 788,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=WXVUaStEMit2Q0hFTGhIbXpJZDZqdz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=SmFSWE9DQXpVd2lrY3dSTWE1TFBoUT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=UHdmRDVOd2NiRGxJdmFoWGJVamZDUT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=UnI5LzZwTzlBaXZmUEt0UmRjZDhCdz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=Y05xZkp0MnJtYlkvYVFwSFlyT2gyZz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=UXZORzNpcitjTnExZTFZWUZJcUplQT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=NjdUYWhEQlgzalJyWkEvdkxpM0tUdz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=akx0QUR1NHhEMGg2YlRUbWF0MkVjUT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=OStEWDY1dGpZOWNSeDBDUkNUWUUyUT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=MVBYeGVwcEpjZHdNSWRkbzgrWW5NQT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=SWpCZlZQSWJuV0MrdW5majRmMkRsZz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=RkZCbUF6NEs5SW5ZdG9MaXovN1BiZz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=YS9jNUJDS3dCT2oxaXM5SzN1c2NDZz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=TzFxUEt4NlBncCs1M2d2cXVrZ00zdz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=UTl0STc1amFBOElLRno5TUFKMmZtQT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=Qkp2ajlGWk1ZY3dsTnBkZmc5K05vUT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=NjB3MGN2WEVIOUdDYXB5K203cTVGUT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=NnFGMVFQWEpERkduQWJmK0ZXclE4QT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=bmgzQWsyY25mZHZrQmNUalBrUmQ5UT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=QnEvekpwVm5NeHZ2bldXTUhmK1U0dz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=NjFsS0NpZ290MkFFTFNNU3RVYlhLQT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=ZXA1aEhuQVpjOWJzdjZEdnpOYU5Sdz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=TnlOZHV0NHhKbHVUc1hENDJMeWVHQT09%2F",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=MDRsS3ZlR1AyM3BRZTRiRW43c2lUQT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=Ym9Ma2lHNityU3RiOXFaUTFKak55UT09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/profile-details?staff_id=eHhKb1d0b3B3d1lqRkVIcmdaZHJRZz09",
+      "title": "MITS | Faculty Profile",
+      "text_characters": 33,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-CIC",
+      "title": "Computational Intelligence Club (CIC)",
+      "text_characters": 1762,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-faculty-awards/hosted-the-pre-summit-event-of-india-ai-impact-summit-2026",
+      "title": "Hosted the Pre-Summit Event of India AI Impact Summit 2026",
+      "text_characters": 3068,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-faculty-awards/summer-workshop-in-mathematics-mathematical-foundations-for-ai-and-data-science-2",
+      "title": "Summer Workshop in Mathematics – Mathematical Foundations for AI and Data Science",
+      "text_characters": 1693,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-faculty-awards/nptel-discipline-star-jan-apr-2026",
+      "title": "NPTEL Discipline Star (Jan–Apr 2026)",
+      "text_characters": 1886,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-newsevents/aicte-hei-pre-summit-at-mits-kochi",
+      "title": "AICTE-HEI Pre-Summit @ MITS Kochi",
+      "text_characters": 1186,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-newsevents/robo-dreams",
+      "title": "ROBO-Dreams",
+      "text_characters": 883,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ad-newsevents/five-day-fdp-titled-genai-unleashing-the-power-of-language-and-vision-models",
+      "title": "Five-day FDP titled ‘GenAI: Unleashing the Power of Language and Vision Models’",
+      "text_characters": 707,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-faculty-awards/minor-in-mathematics",
+      "title": "MINOR IN MATHEMATICS",
+      "text_characters": 786,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-faculty-awards/completed-ph-d",
+      "title": "COMPLETED Ph.D.",
+      "text_characters": 709,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-faculty-awards/nptel-topper",
+      "title": "NPTEL TOPPER",
+      "text_characters": 692,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-news/summer-workshop-on-mathematical-foundations-for-ai-data-science",
+      "title": "SUMMER WORKSHOP ON MATHEMATICAL FOUNDATIONS FOR AI & DATA SCIENCE",
+      "text_characters": 2930,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-news/summer-internship-in-mathematics-2026",
+      "title": "SUMMER INTERNSHIP IN MATHEMATICS 2026",
+      "text_characters": 3136,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-news/scientia-26-2",
+      "title": "SCIENTIA '26",
+      "text_characters": 2591,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-news/elementa-26-3",
+      "title": "ELEMENTA '26",
+      "text_characters": 2593,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-news/all-kerala-inter-collegiate-mathematics-quiz-competition-3",
+      "title": "ALL KERALA INTER - COLLEGIATE MATHEMATICS QUIZ COMPETITION",
+      "text_characters": 1794,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/bsh-news/one-day-national-seminar-on-linear-algebra-and-networks",
+      "title": "ONE DAY NATIONAL SEMINAR ON LINEAR ALGEBRA AND NETWORKS",
+      "text_characters": 1953,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-faculty-awards-achievements/mr-sivadas-t-nair",
+      "title": "Mr. Sivadas T Nair",
+      "text_characters": 1161,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-faculty-awards-achievements/dr-geethu-s",
+      "title": "Dr. Geethu S",
+      "text_characters": 1834,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-faculty-awards-achievements/dr-smitha-anu-thomas",
+      "title": "Dr. Smitha Anu Thomas",
+      "text_characters": 1781,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-news-events/congratulations-to-ms-roshal-babu",
+      "title": "Congratulations to Ms. Roshal Babu",
+      "text_characters": 517,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-news-events/congratgulations-to-anirudh",
+      "title": "Congratgulations to Anirudh",
+      "text_characters": 468,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-news-events/congratulations-to-ms-bhagya-p-s",
+      "title": "Congratulations to Ms. Bhagya P S",
+      "text_characters": 475,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-news-events/congratulations-for-getting-placed-at-infosys",
+      "title": "Congratulations for getting placed at Infosys",
+      "text_characters": 514,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-news-events/congratulations-qualified-for-phd-admission",
+      "title": "Congratulations, Qualified for PhD admission",
+      "text_characters": 552,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ca-news-events/congratulations-to-mr-blesson-mathew-georgye",
+      "title": "Congratulations to Mr. Blesson Mathew Georgye",
+      "text_characters": 490,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-awards/8th-position-in-kaspersky-ctf-2025",
+      "title": "8th position in Kaspersky{CTF} 2025",
+      "text_characters": 888,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-awards/mou-with-one-team-solutions-edtech-pvt-ltd-infopark-kochi",
+      "title": "MoU with One Team Solutions EdTech Pvt Ltd.,Infopark Kochi",
+      "text_characters": 728,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-awards/semifinal-winners-in-the-national-level-hackathon-x",
+      "title": "Semifinal winners in the National Level Hackathon X",
+      "text_characters": 808,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-news/mcsc-club-conducts-hands-on-session-on-intro-to-web-exploitation",
+      "title": "MCSC Club Conducts Hands-On Session on \"Intro to Web Exploitation\"",
+      "text_characters": 2587,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-news/mits-kochi-organizes-session-on-promoting-innovation-through-intellectual-property-rights",
+      "title": "MITS Kochi Organizes Session on Promoting Innovation Through Intellectual Property Rights",
+      "text_characters": 2610,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-news/mits-hosts-national-level-fdp-on-ai-ml-integration-for-information-security",
+      "title": "MITS Hosts National Level FDP on AI-ML Integration for Information Security",
+      "text_characters": 2578,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-news/mits-hosts-silicon-valley-expert-for-session-on-secure-software-development",
+      "title": "MITS Hosts Silicon Valley Expert for Session on Secure Software Development",
+      "text_characters": 2662,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-news/mits-cyber-security-students-gain-industry-insights-at-ust-global",
+      "title": "MITS Cyber Security Students Gain Industry Insights at UST Global",
+      "text_characters": 2373,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cc-news/global-cybersecurity-experts-crowned-at-eschaton-ctf-2026-finale",
+      "title": "Global Cybersecurity Experts Crowned at ESCHATON CTF 2026 Finale",
+      "text_characters": 2784,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-studentawardsandachievements/congratulations-to-our-talented-s7ce-students-2023-27-for-their-outstanding-achievements-2",
+      "title": "Congratulations to our talented S7CE students (2023–27) for their outstanding achievements",
+      "text_characters": 1951,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-studentawardsandachievements/congratulations-to-the-winners-of-poster-presentation-competition-2",
+      "title": "Congratulations to the winners of Poster presentation Competition",
+      "text_characters": 1933,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-studentawardsandachievements/congratulations-to-aiswarya-wilson-on-securing-a-placement-at-arya-bhangy-builders-pvt-ltd",
+      "title": "Congratulations to Aiswarya Wilson on securing a placement at Arya Bhangy Builders Pvt Ltd.",
+      "text_characters": 1487,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-newsandevents/technical-talk-on-the-future-of-construction-ai-digital-transformation-bim-emerging-technologies",
+      "title": "Technical Talk on \"The Future of Construction: AI, Digital Transformation, BIM & Emerging Technologies\"",
+      "text_characters": 1392,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-newsandevents/congratulations-to-our-talented-s7ce-students-2023-27-for-their-outstanding-achievements",
+      "title": "Congratulations to our talented S7CE students (2023–27) for their outstanding achievements",
+      "text_characters": 1809,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-newsandevents/the-speak-forth-session-organised-by-ici-student-chapter-for-s5ce-students",
+      "title": "The speak forth session organised by ICI student chapter for S5CE students",
+      "text_characters": 1203,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-newsandevents/expert-talk-by-dr-shaji-m-jamal-at-sjcet-palai",
+      "title": "Expert talk by Dr Shaji M Jamal at SJCET Palai",
+      "text_characters": 1206,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-newsandevents/congratulations-to-the-winners-of-poster-presentation-competition",
+      "title": "Congratulations to the winners of Poster presentation Competition",
+      "text_characters": 1713,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ce-newsandevents/environmental-engineering-lab-has-been-reaccredited-under-grade-c-category-by-the-kerala-state-pollution-control-board",
+      "title": "Environmental Engineering Lab has been reaccredited under Grade C Category by the Kerala State Pollution Control Board",
+      "text_characters": 1589,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-facultyawardsandachievements/ms-arshiya-sulfikar-innovation-ambassador-ia-training-advanced-level",
+      "title": "Ms. Arshiya Sulfikar- Innovation Ambassador (IA) Training _Advanced Level",
+      "text_characters": 1363,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-facultyawardsandachievements/dr-suja-c-nair-design-registration",
+      "title": "Dr. SUJA C. NAIR _ Design Registration",
+      "text_characters": 1329,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/cs-facultyawardsandachievements/dr-saira-varghese-nptel-discipline-star",
+      "title": "Dr.SAIRA VARGHESE _ NPTEL DISCIPLINE STAR",
+      "text_characters": 1332,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/csnewsandevents/partial-delivery-of-course-on-machine-learning-by-ibs-software-private-limited",
+      "title": "Partial Delivery of Course on Machine Learning by IBS Software Private Limited:",
+      "text_characters": 2789,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/csnewsandevents/summer-internship-program",
+      "title": "Summer Internship Program",
+      "text_characters": 2611,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/csnewsandevents/ktu-cse-s8-results-published",
+      "title": "KTU CSE S8 Results Published",
+      "text_characters": 3013,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/csnewsandevents/faculty-development-program-on-generative-intelligence-theory-practice-and-research-through-ann-llms-agentic-systems",
+      "title": "Faculty Development Program on Generative Intelligence: Theory, Practice and Research through ANN, LLMs & Agentic Systems",
+      "text_characters": 2707,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/csnewsandevents/introduction-to-theorem-proving-using-lean",
+      "title": "Introduction to Theorem Proving Using Lean",
+      "text_characters": 2837,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/csnewsandevents/expert-talk-series-on-computational-complexity-and-streaming-algorithms",
+      "title": "Expert Talk Series on Computational Complexity and Streaming Algorithms",
+      "text_characters": 4643,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-news-events/internships-at-amara-raja",
+      "title": "Internships at Amara Raja",
+      "text_characters": 2067,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-news-events/congratulations-to-our-samsung-fellows",
+      "title": "Congratulations to Our Samsung Fellows",
+      "text_characters": 2080,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-news-events/paper-accepted-for-vlsid-2027",
+      "title": "Paper accepted for VLSID 2027",
+      "text_characters": 2071,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-news-events/visit-to-vvdn-technologies-kochi",
+      "title": "Visit to VVDN Technologies, Kochi",
+      "text_characters": 2210,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-news-events/session-on-end-to-end-antenna-development-using-matlab-modeling-and-analysis",
+      "title": "Session on “End-to-End Antenna Development Using MATLAB: Modeling and Analysis\"",
+      "text_characters": 2333,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ec-news-events/international-faculty-exchange-initiative-between-mits-and-esigelec-school-of-engineering",
+      "title": "International Faculty Exchange Initiative Between MITS and ESIGELEC School of Engineering",
+      "text_characters": 2743,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ece-student-awards-and-achievements/ist-position-pals-innowah-competition-2026-held-at-iit-madras",
+      "title": "Ist Position PALS InnoWAH Competition 2026 held at IIT Madras",
+      "text_characters": 1560,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ece-student-awards-and-achievements/2-nd-position-for-a-hackathon-competition",
+      "title": "2 nd position for a hackathon competition",
+      "text_characters": 1293,
+      "table_documents": 0
+    },
+    {
+      "url": "https://mgmits.ac.in/ece-student-awards-and-achievements/2nd-position-in-techexel-challenge",
+      "title": "2nd Position in Techexel challenge",
+      "text_characters": 1286,
+      "table_documents": 0
     }
   ],
-  "max_pages": 100,
-  "queue_remaining_at_limit": 869,
-  "crawler": "Crawl4AI with Requests fallback",
+  "max_pages": 600,
+  "queue_remaining_at_limit": 1000,
+  "crawler": "Requests fallback (Crawl4AI not installed)",
   "crawl4ai_failures": [],
-  "pages_visited_unique": 100,
+  "pages_visited_unique": 600,
   "department_links_discovered": 9,
-  "documents_created": 456,
+  "documents_created": 1224,
   "note": "Crawl4AI supplies rendered HTML where available; the existing BeautifulSoup extraction, table-aware documents, PDF extraction, and synthesized college documents are retained. Crawl4AI failures are recorded and fall back to Requests. Scanned/image-only PDFs may require OCR."
 }
