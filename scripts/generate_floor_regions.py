@@ -45,6 +45,8 @@ FLOOR5_BOUNDS = {
     "toilet": (992.20, 996.10, 200.05, 201.65),
     "lift": (1031.93, 1033.74, 214.68, 216.83),
     "electrical_room": (972.50, 980.40, 217.00, 220.00),
+    # Enclosed lift bay between Room 605 and Staircase B.
+    "lift_b": (980.501, 983.242, 211.031, 213.495),
     "staircase_west": (949.00, 952.30, 218.70, 227.00),
     "staircase_east": (1028.80, 1033.80, 204.00, 213.70),
 }
@@ -53,14 +55,18 @@ FLOOR5_BOUNDS = {
 # edge are treated as door thresholds; the remaining edges must still match.
 FLOOR6_BOUNDS = {
     "excel_hall": (10617.18, 10650.75, 2033.50, 2044.40),
-    "electrical_room": (10634.16, 10641.11, 2027.69, 2033.34),
+    # The electrical room is the enclosed bay below the corridor wall at Y=2030.
+    "electrical_room": (10634.166, 10641.109, 2027.692, 2030.0),
     "room_703": (10651.07, 10658.20, 2030.76, 2041.65),
     "room_704": (10658.44, 10669.37, 2030.57, 2041.65),
     "room_705": (10669.60, 10681.44, 2030.57, 2041.65),
     "room_706": (10681.78, 10690.83, 2030.57, 2041.65),
     "room_707": (10680.54, 10690.83, 2011.93, 2023.95),
     "room_708": (10669.04, 10680.54, 2011.93, 2023.95),
-    "room_709": (10652.87, 10668.79, 2011.93, 2023.95),
+    # Use the actual west wall; the previous bound started well inside the room.
+    "room_709": (10651.14, 10668.79, 2011.93, 2023.95),
+    # Small enclosed lift bay beside Room 709, bounded by the extracted walls.
+    "lift_middle": (10642.548, 10645.281, 2021.462, 2023.926),
     "ladies_toilet": (10614.28, 10616.94, 2033.50, 2037.18),
     "lift": (10693.97, 10695.78, 2025.12, 2027.27),
     "staircase_left": (10611.41, 10614.07, 2029.10, 2037.18),

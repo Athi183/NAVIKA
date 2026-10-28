@@ -3,7 +3,7 @@
   "source": "Ramanujan_4thFloor.dxf",
   "coordinate_system": "CAD XY (source drawing units; see DXF $INSUNITS metadata)",
   "geometry_summary": {
-    "wall_segment_count": 616,
+    "wall_segment_count": 607,
     "source_entity_counts": {
       "INSERT": 37,
       "LINE": 526,
@@ -13,16 +13,17 @@
       "TEXT": 14
     },
     "included_entity_counts": {
-      "LINE": 526,
+      "LINE": 516,
       "LWPOLYLINE": 85,
       "POLYLINE": 1
     },
     "excluded_entity_counts": {
       "TEXT": 14,
       "INSERT": 37,
-      "MTEXT": 32
+      "MTEXT": 32,
+      "configured_nonwall_handles": 10
     },
-    "exact_duplicate_segments_removed": 15,
+    "exact_duplicate_segments_removed": 14,
     "plan_bounds": {
       "min_x": 642.0,
       "min_y": 261.0,
@@ -30,7 +31,19 @@
       "max_y": 297.0
     },
     "minimum_segment_length": 0.001,
-    "source_unit_code": 4
+    "source_unit_code": 4,
+    "excluded_source_handles": [
+      "848",
+      "84A",
+      "84C",
+      "84E",
+      "851",
+      "8EE",
+      "8F3",
+      "91F",
+      "921",
+      "932"
+    ]
   },
   "walls": [
     {
@@ -646,16 +659,6 @@
     {
       "id": "WALL_062",
       "type": "line_wall",
-      "x1": 647.308925,
-      "y1": 284.749591,
-      "x2": 647.387835,
-      "y2": 284.749591,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_063",
-      "type": "line_wall",
       "x1": 647.618333,
       "y1": 281.525538,
       "x2": 645.650565,
@@ -664,7 +667,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_064",
+      "id": "WALL_063",
       "type": "line_wall",
       "x1": 647.618333,
       "y1": 281.764308,
@@ -674,7 +677,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_065",
+      "id": "WALL_064",
       "type": "line_wall",
       "x1": 647.657788,
       "y1": 281.764304,
@@ -684,7 +687,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_066",
+      "id": "WALL_065",
       "type": "line_wall",
       "x1": 648.019116,
       "y1": 284.749591,
@@ -694,7 +697,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_067",
+      "id": "WALL_066",
       "type": "line_wall",
       "x1": 648.058571,
       "y1": 284.749591,
@@ -704,7 +707,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_068",
+      "id": "WALL_067",
       "type": "line_wall",
       "x1": 648.058571,
       "y1": 284.986321,
@@ -714,7 +717,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_069",
+      "id": "WALL_068",
       "type": "line_wall",
       "x1": 648.301358,
       "y1": 296.005475,
@@ -724,7 +727,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_070",
+      "id": "WALL_069",
       "type": "line_wall",
       "x1": 648.302263,
       "y1": 280.085695,
@@ -734,7 +737,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_071",
+      "id": "WALL_070",
       "type": "line_wall",
       "x1": 648.305126,
       "y1": 294.255963,
@@ -744,7 +747,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_072",
+      "id": "WALL_071",
       "type": "line_wall",
       "x1": 648.305126,
       "y1": 294.019233,
@@ -754,7 +757,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_073",
+      "id": "WALL_072",
       "type": "line_wall",
       "x1": 648.327063,
       "y1": 281.531634,
@@ -764,7 +767,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_074",
+      "id": "WALL_073",
       "type": "line_wall",
       "x1": 648.328523,
       "y1": 281.531637,
@@ -774,7 +777,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_075",
+      "id": "WALL_074",
       "type": "line_wall",
       "x1": 648.538599,
       "y1": 295.768748,
@@ -784,7 +787,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_076",
+      "id": "WALL_075",
       "type": "line_wall",
       "x1": 648.539365,
       "y1": 279.85014,
@@ -794,7 +797,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_077",
+      "id": "WALL_076",
       "type": "line_wall",
       "x1": 648.541856,
       "y1": 294.256473,
@@ -804,7 +807,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_078",
+      "id": "WALL_077",
       "type": "line_wall",
       "x1": 648.541856,
       "y1": 284.986321,
@@ -814,7 +817,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_079",
+      "id": "WALL_078",
       "type": "line_wall",
       "x1": 648.541856,
       "y1": 294.255963,
@@ -824,7 +827,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_080",
+      "id": "WALL_079",
       "type": "line_wall",
       "x1": 648.557404,
       "y1": 281.505714,
@@ -834,7 +837,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_081",
+      "id": "WALL_080",
       "type": "line_wall",
       "x1": 648.563514,
       "y1": 281.764304,
@@ -844,7 +847,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_082",
+      "id": "WALL_081",
       "type": "line_wall",
       "x1": 648.563758,
       "y1": 281.527574,
@@ -854,7 +857,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_083",
+      "id": "WALL_082",
       "type": "line_wall",
       "x1": 648.563758,
       "y1": 281.527574,
@@ -864,7 +867,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_084",
+      "id": "WALL_083",
       "type": "line_wall",
       "x1": 648.937976,
       "y1": 295.883955,
@@ -874,7 +877,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_085",
+      "id": "WALL_084",
       "type": "line_wall",
       "x1": 648.937976,
       "y1": 296.00232,
@@ -884,7 +887,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_086",
+      "id": "WALL_085",
       "type": "line_wall",
       "x1": 648.985765,
       "y1": 281.646375,
@@ -894,7 +897,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_087",
+      "id": "WALL_086",
       "type": "line_wall",
       "x1": 648.985765,
       "y1": 281.76474,
@@ -904,7 +907,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_088",
+      "id": "WALL_087",
       "type": "line_wall",
       "x1": 649.40782,
       "y1": 284.749591,
@@ -914,17 +917,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_089",
-      "type": "line_wall",
-      "x1": 650.078556,
-      "y1": 284.749591,
-      "x2": 650.157466,
-      "y2": 284.749591,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_090",
+      "id": "WALL_088",
       "type": "line_wall",
       "x1": 650.737124,
       "y1": 296.00232,
@@ -934,7 +927,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_091",
+      "id": "WALL_089",
       "type": "line_wall",
       "x1": 650.784914,
       "y1": 281.76474,
@@ -944,7 +937,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_092",
+      "id": "WALL_090",
       "type": "line_wall",
       "x1": 650.788746,
       "y1": 284.749591,
@@ -954,7 +947,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_093",
+      "id": "WALL_091",
       "type": "line_wall",
       "x1": 650.828202,
       "y1": 284.749591,
@@ -964,7 +957,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_094",
+      "id": "WALL_092",
       "type": "line_wall",
       "x1": 650.828202,
       "y1": 284.986321,
@@ -974,7 +967,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_095",
+      "id": "WALL_093",
       "type": "line_wall",
       "x1": 651.396196,
       "y1": 284.871631,
@@ -984,7 +977,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_096",
+      "id": "WALL_094",
       "type": "line_wall",
       "x1": 651.396196,
       "y1": 284.989996,
@@ -994,7 +987,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_097",
+      "id": "WALL_095",
       "type": "line_wall",
       "x1": 651.72223,
       "y1": 281.649196,
@@ -1004,7 +997,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_098",
+      "id": "WALL_096",
       "type": "line_wall",
       "x1": 651.72223,
       "y1": 281.767561,
@@ -1014,7 +1007,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_099",
+      "id": "WALL_097",
       "type": "line_wall",
       "x1": 652.030082,
       "y1": 295.894161,
@@ -1024,7 +1017,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_100",
+      "id": "WALL_098",
       "type": "line_wall",
       "x1": 652.030082,
       "y1": 296.012526,
@@ -1034,7 +1027,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_101",
+      "id": "WALL_099",
       "type": "line_wall",
       "x1": 653.195345,
       "y1": 284.989996,
@@ -1044,7 +1037,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_102",
+      "id": "WALL_100",
       "type": "line_wall",
       "x1": 653.521378,
       "y1": 281.767561,
@@ -1054,7 +1047,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_103",
+      "id": "WALL_101",
       "type": "line_wall",
       "x1": 653.82923,
       "y1": 296.012526,
@@ -1064,7 +1057,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_104",
+      "id": "WALL_102",
       "type": "line_wall",
       "x1": 653.920111,
       "y1": 281.769827,
@@ -1074,7 +1067,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_105",
+      "id": "WALL_103",
       "type": "line_wall",
       "x1": 653.920111,
       "y1": 281.769827,
@@ -1084,7 +1077,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_106",
+      "id": "WALL_104",
       "type": "line_wall",
       "x1": 653.920355,
       "y1": 281.533097,
@@ -1094,7 +1087,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_107",
+      "id": "WALL_105",
       "type": "line_wall",
       "x1": 653.920989,
       "y1": 280.91774,
@@ -1104,7 +1097,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_108",
+      "id": "WALL_106",
       "type": "line_wall",
       "x1": 654.157085,
       "y1": 281.533342,
@@ -1114,7 +1107,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_109",
+      "id": "WALL_107",
       "type": "line_wall",
       "x1": 654.157475,
       "y1": 281.154714,
@@ -1124,7 +1117,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_110",
+      "id": "WALL_108",
       "type": "line_wall",
       "x1": 654.157475,
       "y1": 281.154714,
@@ -1134,7 +1127,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_111",
+      "id": "WALL_109",
       "type": "line_wall",
       "x1": 654.157597,
       "y1": 281.036349,
@@ -1144,7 +1137,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_112",
+      "id": "WALL_110",
       "type": "line_wall",
       "x1": 654.68816,
       "y1": 284.860754,
@@ -1154,7 +1147,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_113",
+      "id": "WALL_111",
       "type": "line_wall",
       "x1": 654.68816,
       "y1": 284.979119,
@@ -1164,7 +1157,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_114",
+      "id": "WALL_112",
       "type": "line_wall",
       "x1": 655.03148,
       "y1": 295.886715,
@@ -1174,7 +1167,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_115",
+      "id": "WALL_113",
       "type": "line_wall",
       "x1": 655.03148,
       "y1": 296.00508,
@@ -1184,7 +1177,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_116",
+      "id": "WALL_114",
       "type": "line_wall",
       "x1": 656.487308,
       "y1": 284.979119,
@@ -1194,7 +1187,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_117",
+      "id": "WALL_115",
       "type": "line_wall",
       "x1": 656.830628,
       "y1": 296.00508,
@@ -1204,7 +1197,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_118",
+      "id": "WALL_116",
       "type": "line_wall",
       "x1": 657.680624,
       "y1": 295.882466,
@@ -1214,7 +1207,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_119",
+      "id": "WALL_117",
       "type": "line_wall",
       "x1": 657.680624,
       "y1": 296.000831,
@@ -1224,7 +1217,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_120",
+      "id": "WALL_118",
       "type": "line_wall",
       "x1": 657.709186,
       "y1": 284.868355,
@@ -1234,7 +1227,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_121",
+      "id": "WALL_119",
       "type": "line_wall",
       "x1": 657.709186,
       "y1": 284.98672,
@@ -1244,7 +1237,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_122",
+      "id": "WALL_120",
       "type": "line_wall",
       "x1": 659.479772,
       "y1": 296.000831,
@@ -1254,7 +1247,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_123",
+      "id": "WALL_121",
       "type": "line_wall",
       "x1": 659.508334,
       "y1": 284.98672,
@@ -1264,7 +1257,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_124",
+      "id": "WALL_122",
       "type": "line_wall",
       "x1": 659.681812,
       "y1": 281.539038,
@@ -1274,7 +1267,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_125",
+      "id": "WALL_123",
       "type": "line_wall",
       "x1": 659.681812,
       "y1": 281.539038,
@@ -1284,7 +1277,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_126",
+      "id": "WALL_124",
       "type": "line_wall",
       "x1": 659.682203,
       "y1": 281.160411,
@@ -1294,7 +1287,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_127",
+      "id": "WALL_125",
       "type": "line_wall",
       "x1": 659.682203,
       "y1": 281.160411,
@@ -1304,7 +1297,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_128",
+      "id": "WALL_126",
       "type": "line_wall",
       "x1": 659.918542,
       "y1": 281.539282,
@@ -1314,7 +1307,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_129",
+      "id": "WALL_127",
       "type": "line_wall",
       "x1": 659.919177,
       "y1": 280.923925,
@@ -1324,7 +1317,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_130",
+      "id": "WALL_128",
       "type": "line_wall",
       "x1": 659.921109,
       "y1": 281.775998,
@@ -1334,7 +1327,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_131",
+      "id": "WALL_129",
       "type": "line_wall",
       "x1": 660.559838,
       "y1": 281.650706,
@@ -1344,7 +1337,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_132",
+      "id": "WALL_130",
       "type": "line_wall",
       "x1": 660.559838,
       "y1": 281.769071,
@@ -1354,7 +1347,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_133",
+      "id": "WALL_131",
       "type": "line_wall",
       "x1": 660.917661,
       "y1": 284.868355,
@@ -1364,7 +1357,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_134",
+      "id": "WALL_132",
       "type": "line_wall",
       "x1": 660.917661,
       "y1": 284.98672,
@@ -1374,7 +1367,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_135",
+      "id": "WALL_133",
       "type": "line_wall",
       "x1": 661.087348,
       "y1": 295.873916,
@@ -1384,7 +1377,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_136",
+      "id": "WALL_134",
       "type": "line_wall",
       "x1": 661.087348,
       "y1": 295.992281,
@@ -1394,7 +1387,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_137",
+      "id": "WALL_135",
       "type": "line_wall",
       "x1": 662.358987,
       "y1": 281.769071,
@@ -1404,7 +1397,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_138",
+      "id": "WALL_136",
       "type": "line_wall",
       "x1": 662.71681,
       "y1": 284.98672,
@@ -1414,7 +1407,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_139",
+      "id": "WALL_137",
       "type": "line_wall",
       "x1": 662.886496,
       "y1": 295.992281,
@@ -1424,7 +1417,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_140",
+      "id": "WALL_138",
       "type": "line_wall",
       "x1": 663.103438,
       "y1": 281.628491,
@@ -1434,7 +1427,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_141",
+      "id": "WALL_139",
       "type": "line_wall",
       "x1": 663.103438,
       "y1": 281.746856,
@@ -1444,7 +1437,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_142",
+      "id": "WALL_140",
       "type": "line_wall",
       "x1": 663.629087,
       "y1": 284.749532,
@@ -1454,7 +1447,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_143",
+      "id": "WALL_141",
       "type": "line_wall",
       "x1": 664.193513,
       "y1": 279.16911,
@@ -1464,7 +1457,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_144",
+      "id": "WALL_142",
       "type": "line_wall",
       "x1": 664.211293,
       "y1": 273.860584,
@@ -1474,27 +1467,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_145",
-      "type": "line_wall",
-      "x1": 664.299823,
-      "y1": 284.749532,
-      "x2": 664.378733,
-      "y2": 284.749532,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_146",
-      "type": "line_wall",
-      "x1": 664.299823,
-      "y1": 284.749591,
-      "x2": 664.378733,
-      "y2": 284.749591,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_147",
+      "id": "WALL_143",
       "type": "line_wall",
       "x1": 664.31267,
       "y1": 278.932778,
@@ -1504,7 +1477,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_148",
+      "id": "WALL_144",
       "type": "line_wall",
       "x1": 664.322417,
       "y1": 295.877923,
@@ -1514,7 +1487,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_149",
+      "id": "WALL_145",
       "type": "line_wall",
       "x1": 664.322417,
       "y1": 295.996288,
@@ -1524,7 +1497,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_150",
+      "id": "WALL_146",
       "type": "line_wall",
       "x1": 664.431035,
       "y1": 278.933174,
@@ -1534,7 +1507,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_151",
+      "id": "WALL_147",
       "type": "line_wall",
       "x1": 664.431035,
       "y1": 278.933174,
@@ -1544,7 +1517,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_152",
+      "id": "WALL_148",
       "type": "line_wall",
       "x1": 664.447226,
       "y1": 274.098969,
@@ -1554,7 +1527,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_153",
+      "id": "WALL_149",
       "type": "line_wall",
       "x1": 664.447226,
       "y1": 274.098969,
@@ -1564,7 +1537,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_154",
+      "id": "WALL_150",
       "type": "line_wall",
       "x1": 664.447226,
       "y1": 274.098969,
@@ -1574,7 +1547,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_155",
+      "id": "WALL_151",
       "type": "line_wall",
       "x1": 664.902317,
       "y1": 281.721978,
@@ -1584,7 +1557,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_156",
+      "id": "WALL_152",
       "type": "line_wall",
       "x1": 665.010013,
       "y1": 284.749591,
@@ -1594,7 +1567,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_157",
+      "id": "WALL_153",
       "type": "line_wall",
       "x1": 665.049468,
       "y1": 284.749532,
@@ -1604,7 +1577,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_158",
+      "id": "WALL_154",
       "type": "line_wall",
       "x1": 665.049468,
       "y1": 284.986262,
@@ -1614,7 +1587,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_159",
+      "id": "WALL_155",
       "type": "line_wall",
       "x1": 665.293007,
       "y1": 281.480997,
@@ -1624,7 +1597,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_160",
+      "id": "WALL_156",
       "type": "line_wall",
       "x1": 665.295574,
       "y1": 281.717713,
@@ -1634,7 +1607,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_161",
+      "id": "WALL_157",
       "type": "line_wall",
       "x1": 665.295574,
       "y1": 281.717713,
@@ -1644,7 +1617,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_162",
+      "id": "WALL_158",
       "type": "line_wall",
       "x1": 665.300737,
       "y1": 279.172819,
@@ -1654,7 +1627,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_163",
+      "id": "WALL_159",
       "type": "line_wall",
       "x1": 665.300737,
       "y1": 279.172819,
@@ -1664,7 +1637,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_164",
+      "id": "WALL_160",
       "type": "line_wall",
       "x1": 665.301142,
       "y1": 281.103895,
@@ -1674,7 +1647,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_165",
+      "id": "WALL_161",
       "type": "line_wall",
       "x1": 665.333545,
       "y1": 284.986321,
@@ -1684,7 +1657,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_166",
+      "id": "WALL_162",
       "type": "line_wall",
       "x1": 665.419507,
       "y1": 279.304746,
@@ -1694,7 +1667,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_167",
+      "id": "WALL_163",
       "type": "line_wall",
       "x1": 665.419507,
       "y1": 279.304746,
@@ -1704,7 +1677,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_168",
+      "id": "WALL_164",
       "type": "line_wall",
       "x1": 665.506721,
       "y1": 274.106377,
@@ -1714,7 +1687,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_169",
+      "id": "WALL_165",
       "type": "line_wall",
       "x1": 665.529735,
       "y1": 281.48179,
@@ -1724,7 +1697,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_170",
+      "id": "WALL_166",
       "type": "line_wall",
       "x1": 665.537026,
       "y1": 279.30514,
@@ -1734,7 +1707,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_171",
+      "id": "WALL_167",
       "type": "line_wall",
       "x1": 665.537466,
       "y1": 279.173612,
@@ -1744,7 +1717,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_172",
+      "id": "WALL_168",
       "type": "line_wall",
       "x1": 665.537466,
       "y1": 279.173612,
@@ -1754,7 +1727,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_173",
+      "id": "WALL_169",
       "type": "line_wall",
       "x1": 665.568628,
       "y1": 295.768981,
@@ -1764,7 +1737,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_174",
+      "id": "WALL_170",
       "type": "line_wall",
       "x1": 665.568628,
       "y1": 295.768981,
@@ -1774,7 +1747,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_175",
+      "id": "WALL_171",
       "type": "line_wall",
       "x1": 665.568628,
       "y1": 284.986321,
@@ -1784,7 +1757,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_176",
+      "id": "WALL_172",
       "type": "line_wall",
       "x1": 666.039553,
       "y1": 284.749591,
@@ -1794,7 +1767,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_177",
+      "id": "WALL_173",
       "type": "line_wall",
       "x1": 666.121565,
       "y1": 295.996288,
@@ -1804,7 +1777,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_178",
+      "id": "WALL_174",
       "type": "line_wall",
       "x1": 666.703909,
       "y1": 274.114748,
@@ -1814,7 +1787,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_179",
+      "id": "WALL_175",
       "type": "line_wall",
       "x1": 666.703909,
       "y1": 276.448303,
@@ -1824,7 +1797,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_180",
+      "id": "WALL_176",
       "type": "line_wall",
       "x1": 666.703909,
       "y1": 276.590341,
@@ -1834,7 +1807,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_181",
+      "id": "WALL_177",
       "type": "line_wall",
       "x1": 666.703909,
       "y1": 278.940787,
@@ -1844,17 +1817,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_182",
-      "type": "line_wall",
-      "x1": 666.710289,
-      "y1": 284.749591,
-      "x2": 666.789199,
-      "y2": 284.749591,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_183",
+      "id": "WALL_178",
       "type": "line_wall",
       "x1": 666.938377,
       "y1": 295.895879,
@@ -1864,7 +1827,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_184",
+      "id": "WALL_179",
       "type": "line_wall",
       "x1": 666.938377,
       "y1": 296.014244,
@@ -1874,7 +1837,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_185",
+      "id": "WALL_180",
       "type": "line_wall",
       "x1": 666.987985,
       "y1": 274.116734,
@@ -1884,7 +1847,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_186",
+      "id": "WALL_181",
       "type": "line_wall",
       "x1": 666.987985,
       "y1": 278.941738,
@@ -1894,7 +1857,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_187",
+      "id": "WALL_182",
       "type": "line_wall",
       "x1": 667.272061,
       "y1": 274.118721,
@@ -1904,7 +1867,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_188",
+      "id": "WALL_183",
       "type": "line_wall",
       "x1": 667.272061,
       "y1": 278.94269,
@@ -1914,7 +1877,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_189",
+      "id": "WALL_184",
       "type": "line_wall",
       "x1": 667.420479,
       "y1": 284.749591,
@@ -1924,7 +1887,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_190",
+      "id": "WALL_185",
       "type": "line_wall",
       "x1": 667.459935,
       "y1": 284.749591,
@@ -1934,7 +1897,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_191",
+      "id": "WALL_186",
       "type": "line_wall",
       "x1": 667.459935,
       "y1": 284.986321,
@@ -1944,7 +1907,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_192",
+      "id": "WALL_187",
       "type": "line_wall",
       "x1": 667.556137,
       "y1": 274.120707,
@@ -1954,7 +1917,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_193",
+      "id": "WALL_188",
       "type": "line_wall",
       "x1": 667.556137,
       "y1": 278.943641,
@@ -1964,7 +1927,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_194",
+      "id": "WALL_189",
       "type": "line_wall",
       "x1": 667.840213,
       "y1": 274.122693,
@@ -1974,7 +1937,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_195",
+      "id": "WALL_190",
       "type": "line_wall",
       "x1": 667.840213,
       "y1": 278.944593,
@@ -1984,7 +1947,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_196",
+      "id": "WALL_191",
       "type": "line_wall",
       "x1": 668.004984,
       "y1": 277.379093,
@@ -1994,7 +1957,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_197",
+      "id": "WALL_192",
       "type": "line_wall",
       "x1": 668.124289,
       "y1": 274.12468,
@@ -2004,7 +1967,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_198",
+      "id": "WALL_193",
       "type": "line_wall",
       "x1": 668.124289,
       "y1": 278.945544,
@@ -2014,7 +1977,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_199",
+      "id": "WALL_194",
       "type": "line_wall",
       "x1": 668.138159,
       "y1": 277.000716,
@@ -2024,7 +1987,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_200",
+      "id": "WALL_195",
       "type": "line_wall",
       "x1": 668.348061,
       "y1": 277.000716,
@@ -2034,7 +1997,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_201",
+      "id": "WALL_196",
       "type": "line_wall",
       "x1": 668.408365,
       "y1": 274.126666,
@@ -2044,7 +2007,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_202",
+      "id": "WALL_197",
       "type": "line_wall",
       "x1": 668.692441,
       "y1": 274.128652,
@@ -2054,7 +2017,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_203",
+      "id": "WALL_198",
       "type": "line_wall",
       "x1": 668.737525,
       "y1": 296.014244,
@@ -2064,7 +2027,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_204",
+      "id": "WALL_199",
       "type": "line_wall",
       "x1": 668.892869,
       "y1": 284.867956,
@@ -2074,7 +2037,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_205",
+      "id": "WALL_200",
       "type": "line_wall",
       "x1": 668.892869,
       "y1": 284.986321,
@@ -2084,7 +2047,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_206",
+      "id": "WALL_201",
       "type": "line_wall",
       "x1": 668.976517,
       "y1": 274.130638,
@@ -2094,7 +2057,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_207",
+      "id": "WALL_202",
       "type": "line_wall",
       "x1": 669.260594,
       "y1": 274.132625,
@@ -2104,7 +2067,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_208",
+      "id": "WALL_203",
       "type": "line_wall",
       "x1": 669.54467,
       "y1": 274.134611,
@@ -2114,7 +2077,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_209",
+      "id": "WALL_204",
       "type": "line_wall",
       "x1": 669.828746,
       "y1": 274.136597,
@@ -2124,7 +2087,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_210",
+      "id": "WALL_205",
       "type": "line_wall",
       "x1": 670.112822,
       "y1": 274.138583,
@@ -2134,7 +2097,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_211",
+      "id": "WALL_206",
       "type": "line_wall",
       "x1": 670.112822,
       "y1": 278.952204,
@@ -2144,7 +2107,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_212",
+      "id": "WALL_207",
       "type": "line_wall",
       "x1": 670.163558,
       "y1": 275.283248,
@@ -2154,7 +2117,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_213",
+      "id": "WALL_208",
       "type": "line_wall",
       "x1": 670.163558,
       "y1": 275.283248,
@@ -2164,7 +2127,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_214",
+      "id": "WALL_209",
       "type": "line_wall",
       "x1": 670.501066,
       "y1": 281.717713,
@@ -2174,7 +2137,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_215",
+      "id": "WALL_210",
       "type": "line_wall",
       "x1": 670.501066,
       "y1": 281.48179,
@@ -2184,7 +2147,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_216",
+      "id": "WALL_211",
       "type": "line_wall",
       "x1": 670.667652,
       "y1": 295.877964,
@@ -2194,7 +2157,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_217",
+      "id": "WALL_212",
       "type": "line_wall",
       "x1": 670.667652,
       "y1": 295.996329,
@@ -2204,7 +2167,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_218",
+      "id": "WALL_213",
       "type": "line_wall",
       "x1": 670.692018,
       "y1": 284.986321,
@@ -2214,7 +2177,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_219",
+      "id": "WALL_214",
       "type": "line_wall",
       "x1": 670.840606,
       "y1": 275.283248,
@@ -2224,7 +2187,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_220",
+      "id": "WALL_215",
       "type": "line_wall",
       "x1": 671.311123,
       "y1": 284.986321,
@@ -2234,7 +2197,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_221",
+      "id": "WALL_216",
       "type": "line_wall",
       "x1": 671.350578,
       "y1": 284.749591,
@@ -2244,7 +2207,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_222",
+      "id": "WALL_217",
       "type": "line_wall",
       "x1": 671.68688,
       "y1": 274.149589,
@@ -2254,7 +2217,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_223",
+      "id": "WALL_218",
       "type": "line_wall",
       "x1": 671.687619,
       "y1": 274.043809,
@@ -2264,7 +2227,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_224",
+      "id": "WALL_219",
       "type": "line_wall",
       "x1": 671.687619,
       "y1": 274.043809,
@@ -2274,7 +2237,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_225",
+      "id": "WALL_220",
       "type": "line_wall",
       "x1": 672.466801,
       "y1": 295.996329,
@@ -2284,7 +2247,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_226",
+      "id": "WALL_221",
       "type": "line_wall",
       "x1": 672.479477,
       "y1": 281.48179,
@@ -2294,7 +2257,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_227",
+      "id": "WALL_222",
       "type": "line_wall",
       "x1": 672.716207,
       "y1": 279.173612,
@@ -2304,7 +2267,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_228",
+      "id": "WALL_223",
       "type": "line_wall",
       "x1": 672.716207,
       "y1": 279.173612,
@@ -2314,7 +2277,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_229",
+      "id": "WALL_224",
       "type": "line_wall",
       "x1": 672.716207,
       "y1": 281.48179,
@@ -2324,7 +2287,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_230",
+      "id": "WALL_225",
       "type": "line_wall",
       "x1": 672.716207,
       "y1": 281.48179,
@@ -2334,7 +2297,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_231",
+      "id": "WALL_226",
       "type": "line_wall",
       "x1": 672.731504,
       "y1": 284.749591,
@@ -2344,7 +2307,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_232",
+      "id": "WALL_227",
       "type": "line_wall",
       "x1": 673.42853,
       "y1": 295.890849,
@@ -2354,7 +2317,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_233",
+      "id": "WALL_228",
       "type": "line_wall",
       "x1": 673.42853,
       "y1": 296.009214,
@@ -2364,7 +2327,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_234",
+      "id": "WALL_229",
       "type": "line_wall",
       "x1": 673.486768,
       "y1": 274.162174,
@@ -2374,7 +2337,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_235",
+      "id": "WALL_230",
       "type": "line_wall",
       "x1": 673.523399,
       "y1": 284.749591,
@@ -2384,7 +2347,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_236",
+      "id": "WALL_231",
       "type": "line_wall",
       "x1": 673.562854,
       "y1": 284.986321,
@@ -2394,7 +2357,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_237",
+      "id": "WALL_232",
       "type": "line_wall",
       "x1": 673.562854,
       "y1": 284.986321,
@@ -2404,7 +2367,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_238",
+      "id": "WALL_233",
       "type": "line_wall",
       "x1": 673.663127,
       "y1": 279.173612,
@@ -2414,7 +2377,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_239",
+      "id": "WALL_234",
       "type": "line_wall",
       "x1": 673.663127,
       "y1": 281.48179,
@@ -2424,7 +2387,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_240",
+      "id": "WALL_235",
       "type": "line_wall",
       "x1": 673.663922,
       "y1": 278.964098,
@@ -2434,7 +2397,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_241",
+      "id": "WALL_236",
       "type": "line_wall",
       "x1": 673.663922,
       "y1": 278.964098,
@@ -2444,7 +2407,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_242",
+      "id": "WALL_237",
       "type": "line_wall",
       "x1": 673.68,
       "y1": 274.163525,
@@ -2454,7 +2417,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_243",
+      "id": "WALL_238",
       "type": "line_wall",
       "x1": 673.683136,
       "y1": 272.707501,
@@ -2464,7 +2427,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_244",
+      "id": "WALL_239",
       "type": "line_wall",
       "x1": 673.846913,
       "y1": 295.769092,
@@ -2474,7 +2437,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_245",
+      "id": "WALL_240",
       "type": "line_wall",
       "x1": 673.846931,
       "y1": 284.986321,
@@ -2484,7 +2447,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_246",
+      "id": "WALL_241",
       "type": "line_wall",
       "x1": 673.899857,
       "y1": 279.20162,
@@ -2494,7 +2457,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_247",
+      "id": "WALL_242",
       "type": "line_wall",
       "x1": 673.90065,
       "y1": 278.964891,
@@ -2504,7 +2467,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_248",
+      "id": "WALL_243",
       "type": "line_wall",
       "x1": 673.909819,
       "y1": 275.603768,
@@ -2514,7 +2477,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_249",
+      "id": "WALL_244",
       "type": "line_wall",
       "x1": 673.909819,
       "y1": 277.177172,
@@ -2524,7 +2487,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_250",
+      "id": "WALL_245",
       "type": "line_wall",
       "x1": 673.911818,
       "y1": 275.630628,
@@ -2534,7 +2497,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_251",
+      "id": "WALL_246",
       "type": "line_wall",
       "x1": 673.917519,
       "y1": 273.92845,
@@ -2544,7 +2507,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_252",
+      "id": "WALL_247",
       "type": "line_wall",
       "x1": 673.919357,
       "y1": 272.944231,
@@ -2554,7 +2517,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_253",
+      "id": "WALL_248",
       "type": "line_wall",
       "x1": 674.083661,
       "y1": 284.986321,
@@ -2564,7 +2527,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_254",
+      "id": "WALL_249",
       "type": "line_wall",
       "x1": 674.083661,
       "y1": 295.769095,
@@ -2574,7 +2537,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_255",
+      "id": "WALL_250",
       "type": "line_wall",
       "x1": 674.592842,
       "y1": 284.877097,
@@ -2584,7 +2547,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_256",
+      "id": "WALL_251",
       "type": "line_wall",
       "x1": 674.592842,
       "y1": 284.995462,
@@ -2594,7 +2557,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_257",
+      "id": "WALL_252",
       "type": "line_wall",
       "x1": 675.227678,
       "y1": 296.009214,
@@ -2604,7 +2567,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_258",
+      "id": "WALL_253",
       "type": "line_wall",
       "x1": 675.594195,
       "y1": 281.991356,
@@ -2614,7 +2577,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_259",
+      "id": "WALL_254",
       "type": "line_wall",
       "x1": 675.594195,
       "y1": 284.749591,
@@ -2624,7 +2587,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_260",
+      "id": "WALL_255",
       "type": "line_wall",
       "x1": 675.897976,
       "y1": 295.881654,
@@ -2634,7 +2597,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_261",
+      "id": "WALL_256",
       "type": "line_wall",
       "x1": 675.897976,
       "y1": 296.000019,
@@ -2644,7 +2607,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_262",
+      "id": "WALL_257",
       "type": "line_wall",
       "x1": 676.197769,
       "y1": 295.769124,
@@ -2654,7 +2617,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_263",
+      "id": "WALL_258",
       "type": "line_wall",
       "x1": 676.39199,
       "y1": 284.995462,
@@ -2664,7 +2627,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_264",
+      "id": "WALL_259",
       "type": "line_wall",
       "x1": 676.434516,
       "y1": 284.986353,
@@ -2674,7 +2637,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_265",
+      "id": "WALL_260",
       "type": "line_wall",
       "x1": 676.606765,
       "y1": 272.944231,
@@ -2684,7 +2647,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_266",
+      "id": "WALL_261",
       "type": "line_wall",
       "x1": 676.652271,
       "y1": 275.408287,
@@ -2694,7 +2657,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_267",
+      "id": "WALL_262",
       "type": "line_wall",
       "x1": 676.652271,
       "y1": 275.408287,
@@ -2704,7 +2667,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_268",
+      "id": "WALL_263",
       "type": "line_wall",
       "x1": 676.699939,
       "y1": 275.603768,
@@ -2714,7 +2677,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_269",
+      "id": "WALL_264",
       "type": "line_wall",
       "x1": 676.699939,
       "y1": 277.177172,
@@ -2724,7 +2687,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_270",
+      "id": "WALL_265",
       "type": "line_wall",
       "x1": 676.839163,
       "y1": 272.707501,
@@ -2734,7 +2697,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_271",
+      "id": "WALL_266",
       "type": "line_wall",
       "x1": 676.88896,
       "y1": 275.403916,
@@ -2744,7 +2707,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_272",
+      "id": "WALL_267",
       "type": "line_wall",
       "x1": 676.88896,
       "y1": 275.403916,
@@ -2754,7 +2717,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_273",
+      "id": "WALL_268",
       "type": "line_wall",
       "x1": 676.892957,
       "y1": 275.640612,
@@ -2764,7 +2727,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_274",
+      "id": "WALL_269",
       "type": "line_wall",
       "x1": 677.390632,
       "y1": 284.986321,
@@ -2774,7 +2737,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_275",
+      "id": "WALL_270",
       "type": "line_wall",
       "x1": 677.485324,
       "y1": 284.986321,
@@ -2784,7 +2747,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_276",
+      "id": "WALL_271",
       "type": "line_wall",
       "x1": 677.697125,
       "y1": 296.000019,
@@ -2794,7 +2757,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_277",
+      "id": "WALL_272",
       "type": "line_wall",
       "x1": 678.282867,
       "y1": 284.867956,
@@ -2804,7 +2767,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_278",
+      "id": "WALL_273",
       "type": "line_wall",
       "x1": 678.282867,
       "y1": 284.986321,
@@ -2814,7 +2777,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_279",
+      "id": "WALL_274",
       "type": "line_wall",
       "x1": 679.181565,
       "y1": 295.873113,
@@ -2824,7 +2787,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_280",
+      "id": "WALL_275",
       "type": "line_wall",
       "x1": 679.181565,
       "y1": 295.991478,
@@ -2834,7 +2797,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_281",
+      "id": "WALL_276",
       "type": "line_wall",
       "x1": 680.082015,
       "y1": 284.986321,
@@ -2844,7 +2807,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_282",
+      "id": "WALL_277",
       "type": "line_wall",
       "x1": 680.231392,
       "y1": 284.749591,
@@ -2854,7 +2817,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_283",
+      "id": "WALL_278",
       "type": "line_wall",
       "x1": 680.231392,
       "y1": 281.991356,
@@ -2864,7 +2827,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_284",
+      "id": "WALL_279",
       "type": "line_wall",
       "x1": 680.420775,
       "y1": 284.749591,
@@ -2874,7 +2837,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_285",
+      "id": "WALL_280",
       "type": "line_wall",
       "x1": 680.980714,
       "y1": 295.991478,
@@ -2884,17 +2847,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_286",
-      "type": "line_wall",
-      "x1": 681.091511,
-      "y1": 284.749591,
-      "x2": 681.170421,
-      "y2": 284.749591,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_287",
+      "id": "WALL_281",
       "type": "line_wall",
       "x1": 681.801701,
       "y1": 284.749591,
@@ -2904,7 +2857,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_288",
+      "id": "WALL_282",
       "type": "line_wall",
       "x1": 681.841157,
       "y1": 284.749591,
@@ -2914,7 +2867,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_289",
+      "id": "WALL_283",
       "type": "line_wall",
       "x1": 681.841157,
       "y1": 284.986321,
@@ -2924,7 +2877,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_290",
+      "id": "WALL_284",
       "type": "line_wall",
       "x1": 682.125198,
       "y1": 287.732389,
@@ -2934,7 +2887,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_291",
+      "id": "WALL_285",
       "type": "line_wall",
       "x1": 682.125198,
       "y1": 295.769204,
@@ -2944,7 +2897,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_292",
+      "id": "WALL_286",
       "type": "line_wall",
       "x1": 682.125198,
       "y1": 295.769214,
@@ -2954,7 +2907,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_293",
+      "id": "WALL_287",
       "type": "line_wall",
       "x1": 682.125198,
       "y1": 295.769214,
@@ -2964,7 +2917,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_294",
+      "id": "WALL_288",
       "type": "line_wall",
       "x1": 682.125233,
       "y1": 287.732389,
@@ -2974,7 +2927,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_295",
+      "id": "WALL_289",
       "type": "line_wall",
       "x1": 682.125233,
       "y1": 284.749591,
@@ -2984,7 +2937,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_296",
+      "id": "WALL_290",
       "type": "line_wall",
       "x1": 682.125233,
       "y1": 284.749591,
@@ -2994,7 +2947,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_297",
+      "id": "WALL_291",
       "type": "line_wall",
       "x1": 682.125233,
       "y1": 287.732389,
@@ -3004,7 +2957,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_298",
+      "id": "WALL_292",
       "type": "line_wall",
       "x1": 682.125233,
       "y1": 293.247701,
@@ -3014,7 +2967,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_299",
+      "id": "WALL_293",
       "type": "line_wall",
       "x1": 682.126882,
       "y1": 282.228315,
@@ -3024,7 +2977,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_300",
+      "id": "WALL_294",
       "type": "line_wall",
       "x1": 682.355308,
       "y1": 263.385743,
@@ -3034,7 +2987,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_301",
+      "id": "WALL_295",
       "type": "line_wall",
       "x1": 682.356208,
       "y1": 263.622472,
@@ -3044,7 +2997,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_302",
+      "id": "WALL_296",
       "type": "line_wall",
       "x1": 682.361511,
       "y1": 282.890925,
@@ -3054,7 +3007,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_303",
+      "id": "WALL_297",
       "type": "line_wall",
       "x1": 682.361925,
       "y1": 296.005947,
@@ -3064,7 +3017,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_304",
+      "id": "WALL_298",
       "type": "line_wall",
       "x1": 682.361963,
       "y1": 293.247705,
@@ -3074,7 +3027,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_305",
+      "id": "WALL_299",
       "type": "line_wall",
       "x1": 682.361966,
       "y1": 282.228081,
@@ -3084,7 +3037,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_306",
+      "id": "WALL_300",
       "type": "line_wall",
       "x1": 682.361966,
       "y1": 282.701542,
@@ -3094,7 +3047,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_307",
+      "id": "WALL_301",
       "type": "line_wall",
       "x1": 682.361966,
       "y1": 282.701542,
@@ -3104,7 +3057,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_308",
+      "id": "WALL_302",
       "type": "line_wall",
       "x1": 682.361966,
       "y1": 293.010975,
@@ -3114,7 +3067,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_309",
+      "id": "WALL_303",
       "type": "line_wall",
       "x1": 682.361966,
       "y1": 293.010975,
@@ -3124,7 +3077,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_310",
+      "id": "WALL_304",
       "type": "line_wall",
       "x1": 682.361966,
       "y1": 293.010975,
@@ -3134,7 +3087,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_311",
+      "id": "WALL_305",
       "type": "line_wall",
       "x1": 682.363395,
       "y1": 281.991356,
@@ -3144,7 +3097,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_312",
+      "id": "WALL_306",
       "type": "line_wall",
       "x1": 682.363395,
       "y1": 281.991356,
@@ -3154,7 +3107,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_313",
+      "id": "WALL_307",
       "type": "line_wall",
       "x1": 682.364452,
       "y1": 264.188003,
@@ -3164,7 +3117,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_314",
+      "id": "WALL_308",
       "type": "line_wall",
       "x1": 682.365297,
       "y1": 265.987551,
@@ -3174,7 +3127,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_315",
+      "id": "WALL_309",
       "type": "line_wall",
       "x1": 682.366159,
       "y1": 266.240508,
@@ -3184,7 +3137,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_316",
+      "id": "WALL_310",
       "type": "line_wall",
       "x1": 682.378015,
       "y1": 268.15825,
@@ -3194,7 +3147,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_317",
+      "id": "WALL_311",
       "type": "line_wall",
       "x1": 682.37886,
       "y1": 269.957798,
@@ -3204,7 +3157,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_318",
+      "id": "WALL_312",
       "type": "line_wall",
       "x1": 682.392258,
       "y1": 272.338259,
@@ -3214,7 +3167,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_319",
+      "id": "WALL_313",
       "type": "line_wall",
       "x1": 682.393103,
       "y1": 274.137806,
@@ -3224,7 +3177,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_320",
+      "id": "WALL_314",
       "type": "line_wall",
       "x1": 682.397146,
       "y1": 275.310911,
@@ -3234,7 +3187,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_321",
+      "id": "WALL_315",
       "type": "line_wall",
       "x1": 682.397146,
       "y1": 275.310911,
@@ -3244,7 +3197,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_322",
+      "id": "WALL_316",
       "type": "line_wall",
       "x1": 682.397146,
       "y1": 275.310911,
@@ -3254,7 +3207,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_323",
+      "id": "WALL_317",
       "type": "line_wall",
       "x1": 682.397146,
       "y1": 275.429663,
@@ -3264,7 +3217,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_324",
+      "id": "WALL_318",
       "type": "line_wall",
       "x1": 682.401143,
       "y1": 275.547607,
@@ -3274,7 +3227,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_325",
+      "id": "WALL_319",
       "type": "line_wall",
       "x1": 682.401143,
       "y1": 275.547607,
@@ -3284,7 +3237,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_326",
+      "id": "WALL_320",
       "type": "line_wall",
       "x1": 682.483662,
       "y1": 264.188402,
@@ -3294,7 +3247,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_327",
+      "id": "WALL_321",
       "type": "line_wall",
       "x1": 682.483662,
       "y1": 264.188402,
@@ -3304,7 +3257,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_328",
+      "id": "WALL_322",
       "type": "line_wall",
       "x1": 682.497225,
       "y1": 268.158649,
@@ -3314,7 +3267,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_329",
+      "id": "WALL_323",
       "type": "line_wall",
       "x1": 682.497225,
       "y1": 268.158649,
@@ -3324,7 +3277,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_330",
+      "id": "WALL_324",
       "type": "line_wall",
       "x1": 682.511468,
       "y1": 272.338658,
@@ -3334,7 +3287,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_331",
+      "id": "WALL_325",
       "type": "line_wall",
       "x1": 682.511468,
       "y1": 272.338658,
@@ -3344,7 +3297,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_332",
+      "id": "WALL_326",
       "type": "line_wall",
       "x1": 682.593944,
       "y1": 263.621568,
@@ -3354,7 +3307,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_333",
+      "id": "WALL_327",
       "type": "line_wall",
       "x1": 682.624057,
       "y1": 272.436234,
@@ -3364,7 +3317,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_334",
+      "id": "WALL_328",
       "type": "line_wall",
       "x1": 682.633875,
       "y1": 275.310102,
@@ -3374,7 +3327,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_335",
+      "id": "WALL_329",
       "type": "line_wall",
       "x1": 682.633875,
       "y1": 275.310102,
@@ -3384,7 +3337,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_336",
+      "id": "WALL_330",
       "type": "line_wall",
       "x1": 682.633875,
       "y1": 275.310877,
@@ -3394,7 +3347,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_337",
+      "id": "WALL_331",
       "type": "line_wall",
       "x1": 682.633875,
       "y1": 275.547607,
@@ -3404,7 +3357,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_338",
+      "id": "WALL_332",
       "type": "line_wall",
       "x1": 682.633875,
       "y1": 275.547607,
@@ -3414,7 +3367,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_339",
+      "id": "WALL_333",
       "type": "line_wall",
       "x1": 682.818114,
       "y1": 275.547607,
@@ -3424,17 +3377,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_340",
-      "type": "line_wall",
-      "x1": 683.48885,
-      "y1": 275.547607,
-      "x2": 683.56776,
-      "y2": 275.547607,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_341",
+      "id": "WALL_334",
       "type": "line_wall",
       "x1": 683.590452,
       "y1": 263.492577,
@@ -3444,7 +3387,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_342",
+      "id": "WALL_335",
       "type": "line_wall",
       "x1": 683.590452,
       "y1": 263.610942,
@@ -3454,7 +3397,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_343",
+      "id": "WALL_336",
       "type": "line_wall",
       "x1": 683.745712,
       "y1": 293.123866,
@@ -3464,7 +3407,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_344",
+      "id": "WALL_337",
       "type": "line_wall",
       "x1": 683.745712,
       "y1": 293.242231,
@@ -3474,7 +3417,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_345",
+      "id": "WALL_338",
       "type": "line_wall",
       "x1": 684.165496,
       "y1": 282.705876,
@@ -3484,7 +3427,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_346",
+      "id": "WALL_339",
       "type": "line_wall",
       "x1": 684.165496,
       "y1": 282.705876,
@@ -3494,7 +3437,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_347",
+      "id": "WALL_340",
       "type": "line_wall",
       "x1": 684.19904,
       "y1": 275.547607,
@@ -3504,7 +3447,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_348",
+      "id": "WALL_341",
       "type": "line_wall",
       "x1": 684.238495,
       "y1": 275.310877,
@@ -3514,7 +3457,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_349",
+      "id": "WALL_342",
       "type": "line_wall",
       "x1": 684.238495,
       "y1": 275.547607,
@@ -3524,7 +3467,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_350",
+      "id": "WALL_343",
       "type": "line_wall",
       "x1": 684.354425,
       "y1": 282.895714,
@@ -3534,7 +3477,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_351",
+      "id": "WALL_344",
       "type": "line_wall",
       "x1": 684.355563,
       "y1": 282.895717,
@@ -3544,7 +3487,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_352",
+      "id": "WALL_345",
       "type": "line_wall",
       "x1": 684.356018,
       "y1": 282.706333,
@@ -3554,7 +3497,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_353",
+      "id": "WALL_346",
       "type": "line_wall",
       "x1": 684.356018,
       "y1": 282.706333,
@@ -3564,7 +3507,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_354",
+      "id": "WALL_347",
       "type": "line_wall",
       "x1": 684.83054,
       "y1": 275.429242,
@@ -3574,7 +3517,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_355",
+      "id": "WALL_348",
       "type": "line_wall",
       "x1": 684.83054,
       "y1": 275.547607,
@@ -3584,7 +3527,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_356",
+      "id": "WALL_349",
       "type": "line_wall",
       "x1": 685.3896,
       "y1": 263.610942,
@@ -3594,7 +3537,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_357",
+      "id": "WALL_350",
       "type": "line_wall",
       "x1": 685.544861,
       "y1": 293.242231,
@@ -3604,7 +3547,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_358",
+      "id": "WALL_351",
       "type": "line_wall",
       "x1": 685.847897,
       "y1": 261.967074,
@@ -3614,7 +3557,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_359",
+      "id": "WALL_352",
       "type": "line_wall",
       "x1": 685.847897,
       "y1": 263.372468,
@@ -3624,7 +3567,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_360",
+      "id": "WALL_353",
       "type": "line_wall",
       "x1": 685.847897,
       "y1": 263.372468,
@@ -3634,7 +3577,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_361",
+      "id": "WALL_354",
       "type": "line_wall",
       "x1": 686.084627,
       "y1": 262.203355,
@@ -3644,7 +3587,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_362",
+      "id": "WALL_355",
       "type": "line_wall",
       "x1": 686.084627,
       "y1": 263.371568,
@@ -3654,7 +3597,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_363",
+      "id": "WALL_356",
       "type": "line_wall",
       "x1": 686.159548,
       "y1": 282.710668,
@@ -3664,7 +3607,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_364",
+      "id": "WALL_357",
       "type": "line_wall",
       "x1": 686.159548,
       "y1": 282.710668,
@@ -3674,7 +3617,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_365",
+      "id": "WALL_358",
       "type": "line_wall",
       "x1": 686.348476,
       "y1": 282.900506,
@@ -3684,7 +3627,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_366",
+      "id": "WALL_359",
       "type": "line_wall",
       "x1": 686.601291,
       "y1": 282.25367,
@@ -3694,7 +3637,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_367",
+      "id": "WALL_360",
       "type": "line_wall",
       "x1": 686.604365,
       "y1": 282.146175,
@@ -3704,7 +3647,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_368",
+      "id": "WALL_361",
       "type": "line_wall",
       "x1": 686.63031,
       "y1": 275.310877,
@@ -3714,7 +3657,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_369",
+      "id": "WALL_362",
       "type": "line_wall",
       "x1": 687.220932,
       "y1": 262.201195,
@@ -3724,7 +3667,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_370",
+      "id": "WALL_363",
       "type": "line_wall",
       "x1": 687.236714,
       "y1": 263.367189,
@@ -3734,7 +3677,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_371",
+      "id": "WALL_364",
       "type": "line_wall",
       "x1": 687.315624,
       "y1": 262.66143,
@@ -3744,7 +3687,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_372",
+      "id": "WALL_365",
       "type": "line_wall",
       "x1": 687.315624,
       "y1": 262.203355,
@@ -3754,7 +3697,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_373",
+      "id": "WALL_366",
       "type": "line_wall",
       "x1": 687.540791,
       "y1": 263.366033,
@@ -3764,7 +3707,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_374",
+      "id": "WALL_367",
       "type": "line_wall",
       "x1": 687.540791,
       "y1": 263.603927,
@@ -3774,7 +3717,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_375",
+      "id": "WALL_368",
       "type": "line_wall",
       "x1": 687.546609,
       "y1": 293.110112,
@@ -3784,7 +3727,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_376",
+      "id": "WALL_369",
       "type": "line_wall",
       "x1": 687.546609,
       "y1": 293.228477,
@@ -3794,7 +3737,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_377",
+      "id": "WALL_370",
       "type": "line_wall",
       "x1": 688.250943,
       "y1": 262.203939,
@@ -3804,7 +3747,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_378",
+      "id": "WALL_371",
       "type": "line_wall",
       "x1": 688.250943,
       "y1": 262.657005,
@@ -3814,7 +3757,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_379",
+      "id": "WALL_372",
       "type": "line_wall",
       "x1": 688.250981,
       "y1": 263.600065,
@@ -3824,7 +3767,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_380",
+      "id": "WALL_373",
       "type": "line_wall",
       "x1": 688.250981,
       "y1": 263.603927,
@@ -3834,7 +3777,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_381",
+      "id": "WALL_374",
       "type": "line_wall",
       "x1": 688.345635,
       "y1": 262.200339,
@@ -3844,7 +3787,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_382",
+      "id": "WALL_375",
       "type": "line_wall",
       "x1": 688.403513,
       "y1": 282.26454,
@@ -3854,7 +3797,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_383",
+      "id": "WALL_376",
       "type": "line_wall",
       "x1": 688.606015,
       "y1": 282.029042,
@@ -3864,7 +3807,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_384",
+      "id": "WALL_377",
       "type": "line_wall",
       "x1": 688.877555,
       "y1": 275.429242,
@@ -3874,7 +3817,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_385",
+      "id": "WALL_378",
       "type": "line_wall",
       "x1": 688.878178,
       "y1": 275.310877,
@@ -3884,7 +3827,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_386",
+      "id": "WALL_379",
       "type": "line_wall",
       "x1": 689.345757,
       "y1": 293.228477,
@@ -3894,7 +3837,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_387",
+      "id": "WALL_380",
       "type": "line_wall",
       "x1": 689.398844,
       "y1": 263.358971,
@@ -3904,7 +3847,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_388",
+      "id": "WALL_381",
       "type": "line_wall",
       "x1": 689.398844,
       "y1": 263.358971,
@@ -3914,7 +3857,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_389",
+      "id": "WALL_382",
       "type": "line_wall",
       "x1": 689.635574,
       "y1": 261.967074,
@@ -3924,7 +3867,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_390",
+      "id": "WALL_383",
       "type": "line_wall",
       "x1": 689.882646,
       "y1": 263.46866,
@@ -3934,7 +3877,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_391",
+      "id": "WALL_384",
       "type": "line_wall",
       "x1": 689.882646,
       "y1": 263.587025,
@@ -3944,7 +3887,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_392",
+      "id": "WALL_385",
       "type": "line_wall",
       "x1": 690.026372,
       "y1": 282.037617,
@@ -3954,7 +3897,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_393",
+      "id": "WALL_386",
       "type": "line_wall",
       "x1": 690.026397,
       "y1": 282.037617,
@@ -3964,7 +3907,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_394",
+      "id": "WALL_387",
       "type": "line_wall",
       "x1": 690.026397,
       "y1": 282.285406,
@@ -3974,7 +3917,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_395",
+      "id": "WALL_388",
       "type": "line_wall",
       "x1": 690.676703,
       "y1": 275.547607,
@@ -3984,7 +3927,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_396",
+      "id": "WALL_389",
       "type": "line_wall",
       "x1": 690.676703,
       "y1": 275.547607,
@@ -3994,7 +3937,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_397",
+      "id": "WALL_390",
       "type": "line_wall",
       "x1": 690.867982,
       "y1": 263.590118,
@@ -4004,7 +3947,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_398",
+      "id": "WALL_391",
       "type": "line_wall",
       "x1": 690.867982,
       "y1": 263.590118,
@@ -4014,7 +3957,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_399",
+      "id": "WALL_392",
       "type": "line_wall",
       "x1": 690.875195,
       "y1": 282.042741,
@@ -4024,7 +3967,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_400",
+      "id": "WALL_393",
       "type": "line_wall",
       "x1": 690.913433,
       "y1": 275.310877,
@@ -4034,7 +3977,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_401",
+      "id": "WALL_394",
       "type": "line_wall",
       "x1": 691.681795,
       "y1": 263.587025,
@@ -4044,7 +3987,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_402",
+      "id": "WALL_395",
       "type": "line_wall",
       "x1": 692.057933,
       "y1": 282.145869,
@@ -4054,7 +3997,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_403",
+      "id": "WALL_396",
       "type": "line_wall",
       "x1": 692.057933,
       "y1": 282.264234,
@@ -4064,7 +4007,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_404",
+      "id": "WALL_397",
       "type": "line_wall",
       "x1": 692.838605,
       "y1": 263.581728,
@@ -4074,7 +4017,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_405",
+      "id": "WALL_398",
       "type": "line_wall",
       "x1": 693.075335,
       "y1": 263.581728,
@@ -4084,7 +4027,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_406",
+      "id": "WALL_399",
       "type": "line_wall",
       "x1": 693.119919,
       "y1": 275.311021,
@@ -4094,7 +4037,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_407",
+      "id": "WALL_400",
       "type": "line_wall",
       "x1": 693.132522,
       "y1": 293.011118,
@@ -4104,7 +4047,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_408",
+      "id": "WALL_401",
       "type": "line_wall",
       "x1": 693.36927,
       "y1": 282.262057,
@@ -4114,7 +4057,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_409",
+      "id": "WALL_402",
       "type": "line_wall",
       "x1": 693.561062,
       "y1": 275.547607,
@@ -4124,7 +4067,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_410",
+      "id": "WALL_403",
       "type": "line_wall",
       "x1": 693.60519,
       "y1": 263.45451,
@@ -4134,7 +4077,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_411",
+      "id": "WALL_404",
       "type": "line_wall",
       "x1": 693.60519,
       "y1": 263.572875,
@@ -4144,7 +4087,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_412",
+      "id": "WALL_405",
       "type": "line_wall",
       "x1": 693.857081,
       "y1": 282.258649,
@@ -4154,7 +4097,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_413",
+      "id": "WALL_406",
       "type": "line_wall",
       "x1": 693.955999,
       "y1": 293.129962,
@@ -4164,7 +4107,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_414",
+      "id": "WALL_407",
       "type": "line_wall",
       "x1": 693.955999,
       "y1": 293.248327,
@@ -4174,7 +4117,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_415",
+      "id": "WALL_408",
       "type": "line_wall",
       "x1": 694.057664,
       "y1": 282.191441,
@@ -4184,7 +4127,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_416",
+      "id": "WALL_409",
       "type": "line_wall",
       "x1": 694.057664,
       "y1": 282.257248,
@@ -4194,17 +4137,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_417",
-      "type": "line_wall",
-      "x1": 694.231798,
-      "y1": 275.547607,
-      "x2": 694.310708,
-      "y2": 275.547607,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_418",
+      "id": "WALL_410",
       "type": "line_wall",
       "x1": 694.941988,
       "y1": 275.547607,
@@ -4214,7 +4147,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_419",
+      "id": "WALL_411",
       "type": "line_wall",
       "x1": 694.981443,
       "y1": 275.310877,
@@ -4224,7 +4157,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_420",
+      "id": "WALL_412",
       "type": "line_wall",
       "x1": 694.981443,
       "y1": 275.547607,
@@ -4234,7 +4167,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_421",
+      "id": "WALL_413",
       "type": "line_wall",
       "x1": 695.404339,
       "y1": 263.572875,
@@ -4244,7 +4177,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_422",
+      "id": "WALL_414",
       "type": "line_wall",
       "x1": 695.478044,
       "y1": 282.191441,
@@ -4254,7 +4187,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_423",
+      "id": "WALL_415",
       "type": "line_wall",
       "x1": 695.478044,
       "y1": 282.241091,
@@ -4264,7 +4197,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_424",
+      "id": "WALL_416",
       "type": "line_wall",
       "x1": 695.755147,
       "y1": 293.248327,
@@ -4274,7 +4207,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_425",
+      "id": "WALL_417",
       "type": "line_wall",
       "x1": 695.773639,
       "y1": 282.241091,
@@ -4284,7 +4217,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_426",
+      "id": "WALL_418",
       "type": "line_wall",
       "x1": 695.773639,
       "y1": 293.011121,
@@ -4294,7 +4227,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_427",
+      "id": "WALL_419",
       "type": "line_wall",
       "x1": 696.010387,
       "y1": 282.241091,
@@ -4304,7 +4237,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_428",
+      "id": "WALL_420",
       "type": "line_wall",
       "x1": 696.331367,
       "y1": 282.004631,
@@ -4314,7 +4247,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_429",
+      "id": "WALL_421",
       "type": "line_wall",
       "x1": 696.370822,
       "y1": 282.004355,
@@ -4324,7 +4257,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_430",
+      "id": "WALL_422",
       "type": "line_wall",
       "x1": 696.370822,
       "y1": 282.004355,
@@ -4334,7 +4267,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_431",
+      "id": "WALL_423",
       "type": "line_wall",
       "x1": 696.370822,
       "y1": 282.241091,
@@ -4344,7 +4277,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_432",
+      "id": "WALL_424",
       "type": "line_wall",
       "x1": 696.370822,
       "y1": 282.241091,
@@ -4354,7 +4287,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_433",
+      "id": "WALL_425",
       "type": "line_wall",
       "x1": 696.394468,
       "y1": 263.443908,
@@ -4364,7 +4297,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_434",
+      "id": "WALL_426",
       "type": "line_wall",
       "x1": 696.394468,
       "y1": 263.562273,
@@ -4374,7 +4307,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_435",
+      "id": "WALL_427",
       "type": "line_wall",
       "x1": 697.067638,
       "y1": 293.130006,
@@ -4384,7 +4317,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_436",
+      "id": "WALL_428",
       "type": "line_wall",
       "x1": 697.067638,
       "y1": 293.248371,
@@ -4394,7 +4327,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_437",
+      "id": "WALL_429",
       "type": "line_wall",
       "x1": 697.545263,
       "y1": 281.996152,
@@ -4404,7 +4337,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_438",
+      "id": "WALL_430",
       "type": "line_wall",
       "x1": 698.193616,
       "y1": 263.562273,
@@ -4414,7 +4347,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_439",
+      "id": "WALL_431",
       "type": "line_wall",
       "x1": 698.866786,
       "y1": 293.248371,
@@ -4424,7 +4357,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_440",
+      "id": "WALL_432",
       "type": "line_wall",
       "x1": 698.976386,
       "y1": 281.986156,
@@ -4434,7 +4367,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_441",
+      "id": "WALL_433",
       "type": "line_wall",
       "x1": 698.976387,
       "y1": 281.986156,
@@ -4444,7 +4377,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_442",
+      "id": "WALL_434",
       "type": "line_wall",
       "x1": 698.976387,
       "y1": 282.222892,
@@ -4454,7 +4387,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_443",
+      "id": "WALL_435",
       "type": "line_wall",
       "x1": 699.116306,
       "y1": 263.433562,
@@ -4464,7 +4397,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_444",
+      "id": "WALL_436",
       "type": "line_wall",
       "x1": 699.116306,
       "y1": 263.551927,
@@ -4474,7 +4407,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_445",
+      "id": "WALL_437",
       "type": "line_wall",
       "x1": 699.391731,
       "y1": 293.01109,
@@ -4484,7 +4417,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_446",
+      "id": "WALL_438",
       "type": "line_wall",
       "x1": 699.619509,
       "y1": 275.429242,
@@ -4494,7 +4427,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_447",
+      "id": "WALL_439",
       "type": "line_wall",
       "x1": 699.619509,
       "y1": 275.547607,
@@ -4504,7 +4437,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_448",
+      "id": "WALL_440",
       "type": "line_wall",
       "x1": 699.764319,
       "y1": 293.130006,
@@ -4514,7 +4447,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_449",
+      "id": "WALL_441",
       "type": "line_wall",
       "x1": 699.764319,
       "y1": 293.248371,
@@ -4524,7 +4457,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_450",
+      "id": "WALL_442",
       "type": "line_wall",
       "x1": 700.324443,
       "y1": 282.088129,
@@ -4534,7 +4467,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_451",
+      "id": "WALL_443",
       "type": "line_wall",
       "x1": 700.324443,
       "y1": 282.206494,
@@ -4544,7 +4477,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_452",
+      "id": "WALL_444",
       "type": "line_wall",
       "x1": 700.915455,
       "y1": 263.551927,
@@ -4554,7 +4487,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_453",
+      "id": "WALL_445",
       "type": "line_wall",
       "x1": 701.054696,
       "y1": 275.311237,
@@ -4564,7 +4497,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_454",
+      "id": "WALL_446",
       "type": "line_wall",
       "x1": 701.149388,
       "y1": 275.310877,
@@ -4574,7 +4507,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_455",
+      "id": "WALL_447",
       "type": "line_wall",
       "x1": 701.418657,
       "y1": 275.547607,
@@ -4584,7 +4517,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_456",
+      "id": "WALL_448",
       "type": "line_wall",
       "x1": 701.563467,
       "y1": 293.248371,
@@ -4594,7 +4527,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_457",
+      "id": "WALL_449",
       "type": "line_wall",
       "x1": 702.123592,
       "y1": 282.206494,
@@ -4604,7 +4537,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_458",
+      "id": "WALL_450",
       "type": "line_wall",
       "x1": 702.340621,
       "y1": 293.130079,
@@ -4614,7 +4547,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_459",
+      "id": "WALL_451",
       "type": "line_wall",
       "x1": 702.340621,
       "y1": 293.248444,
@@ -4624,7 +4557,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_460",
+      "id": "WALL_452",
       "type": "line_wall",
       "x1": 704.139769,
       "y1": 293.248444,
@@ -4634,7 +4567,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_461",
+      "id": "WALL_453",
       "type": "line_wall",
       "x1": 704.292281,
       "y1": 263.413888,
@@ -4644,7 +4577,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_462",
+      "id": "WALL_454",
       "type": "line_wall",
       "x1": 704.292281,
       "y1": 263.532253,
@@ -4654,7 +4587,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_463",
+      "id": "WALL_455",
       "type": "line_wall",
       "x1": 704.554348,
       "y1": 292.941318,
@@ -4664,7 +4597,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_464",
+      "id": "WALL_456",
       "type": "line_wall",
       "x1": 704.791096,
       "y1": 282.182277,
@@ -4674,7 +4607,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_465",
+      "id": "WALL_457",
       "type": "line_wall",
       "x1": 704.791096,
       "y1": 282.182277,
@@ -4684,7 +4617,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_466",
+      "id": "WALL_458",
       "type": "line_wall",
       "x1": 705.055758,
       "y1": 275.429242,
@@ -4694,7 +4627,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_467",
+      "id": "WALL_459",
       "type": "line_wall",
       "x1": 705.055758,
       "y1": 275.547607,
@@ -4704,7 +4637,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_468",
+      "id": "WALL_460",
       "type": "line_wall",
       "x1": 705.259386,
       "y1": 282.116527,
@@ -4714,7 +4647,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_469",
+      "id": "WALL_461",
       "type": "line_wall",
       "x1": 705.259386,
       "y1": 282.179006,
@@ -4724,7 +4657,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_470",
+      "id": "WALL_462",
       "type": "line_wall",
       "x1": 706.09143,
       "y1": 263.532253,
@@ -4734,7 +4667,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_471",
+      "id": "WALL_463",
       "type": "line_wall",
       "x1": 706.534579,
       "y1": 293.130137,
@@ -4744,7 +4677,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_472",
+      "id": "WALL_464",
       "type": "line_wall",
       "x1": 706.534579,
       "y1": 293.248502,
@@ -4754,7 +4687,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_473",
+      "id": "WALL_465",
       "type": "line_wall",
       "x1": 706.679766,
       "y1": 281.932349,
@@ -4764,7 +4697,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_474",
+      "id": "WALL_466",
       "type": "line_wall",
       "x1": 706.679766,
       "y1": 282.037617,
@@ -4774,7 +4707,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_475",
+      "id": "WALL_467",
       "type": "line_wall",
       "x1": 706.679766,
       "y1": 282.169085,
@@ -4784,7 +4717,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_476",
+      "id": "WALL_468",
       "type": "line_wall",
       "x1": 706.679766,
       "y1": 282.169085,
@@ -4794,7 +4727,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_477",
+      "id": "WALL_469",
       "type": "line_wall",
       "x1": 706.854906,
       "y1": 275.547607,
@@ -4804,7 +4737,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_478",
+      "id": "WALL_470",
       "type": "line_wall",
       "x1": 706.934928,
       "y1": 282.048938,
@@ -4814,7 +4747,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_479",
+      "id": "WALL_471",
       "type": "line_wall",
       "x1": 706.934928,
       "y1": 282.167303,
@@ -4824,7 +4757,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_480",
+      "id": "WALL_472",
       "type": "line_wall",
       "x1": 708.099895,
       "y1": 263.399415,
@@ -4834,7 +4767,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_481",
+      "id": "WALL_473",
       "type": "line_wall",
       "x1": 708.099895,
       "y1": 263.51778,
@@ -4844,7 +4777,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_482",
+      "id": "WALL_474",
       "type": "line_wall",
       "x1": 708.333728,
       "y1": 293.248502,
@@ -4854,7 +4787,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_483",
+      "id": "WALL_475",
       "type": "line_wall",
       "x1": 708.734076,
       "y1": 282.167303,
@@ -4864,7 +4797,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_484",
+      "id": "WALL_476",
       "type": "line_wall",
       "x1": 709.676919,
       "y1": 275.547607,
@@ -4874,7 +4807,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_485",
+      "id": "WALL_477",
       "type": "line_wall",
       "x1": 709.899043,
       "y1": 263.51778,
@@ -4884,17 +4817,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_486",
-      "type": "line_wall",
-      "x1": 710.347654,
-      "y1": 275.547607,
-      "x2": 710.426564,
-      "y2": 275.547607,
-      "length": 0.07891,
-      "source_segments": 1
-    },
-    {
-      "id": "WALL_487",
+      "id": "WALL_478",
       "type": "line_wall",
       "x1": 711.057845,
       "y1": 275.547607,
@@ -4904,7 +4827,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_488",
+      "id": "WALL_479",
       "type": "line_wall",
       "x1": 711.095123,
       "y1": 293.011377,
@@ -4914,7 +4837,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_489",
+      "id": "WALL_480",
       "type": "line_wall",
       "x1": 711.096783,
       "y1": 282.138233,
@@ -4924,7 +4847,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_490",
+      "id": "WALL_481",
       "type": "line_wall",
       "x1": 711.0973,
       "y1": 275.310877,
@@ -4934,7 +4857,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_491",
+      "id": "WALL_482",
       "type": "line_wall",
       "x1": 711.0973,
       "y1": 275.547607,
@@ -4944,7 +4867,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_492",
+      "id": "WALL_483",
       "type": "line_wall",
       "x1": 711.331853,
       "y1": 293.011385,
@@ -4954,7 +4877,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_493",
+      "id": "WALL_484",
       "type": "line_wall",
       "x1": 711.528537,
       "y1": 275.310877,
@@ -4964,7 +4887,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_494",
+      "id": "WALL_485",
       "type": "line_wall",
       "x1": 711.682255,
       "y1": 293.130209,
@@ -4974,7 +4897,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_495",
+      "id": "WALL_486",
       "type": "line_wall",
       "x1": 711.682255,
       "y1": 293.248574,
@@ -4984,7 +4907,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_496",
+      "id": "WALL_487",
       "type": "line_wall",
       "x1": 711.726213,
       "y1": 263.510835,
@@ -4994,7 +4917,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_497",
+      "id": "WALL_488",
       "type": "line_wall",
       "x1": 711.771065,
       "y1": 275.310877,
@@ -5004,7 +4927,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_498",
+      "id": "WALL_489",
       "type": "line_wall",
       "x1": 712.034077,
       "y1": 281.89495,
@@ -5014,7 +4937,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_499",
+      "id": "WALL_490",
       "type": "line_wall",
       "x1": 712.034077,
       "y1": 282.131686,
@@ -5024,7 +4947,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_500",
+      "id": "WALL_491",
       "type": "line_wall",
       "x1": 712.176999,
       "y1": 263.383918,
@@ -5034,7 +4957,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_501",
+      "id": "WALL_492",
       "type": "line_wall",
       "x1": 712.176999,
       "y1": 263.502283,
@@ -5044,7 +4967,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_502",
+      "id": "WALL_493",
       "type": "line_wall",
       "x1": 713.481403,
       "y1": 293.248574,
@@ -5054,7 +4977,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_503",
+      "id": "WALL_494",
       "type": "line_wall",
       "x1": 713.976148,
       "y1": 263.502283,
@@ -5064,7 +4987,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_504",
+      "id": "WALL_495",
       "type": "line_wall",
       "x1": 714.049687,
       "y1": 275.4311,
@@ -5074,7 +4997,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_505",
+      "id": "WALL_496",
       "type": "line_wall",
       "x1": 714.049687,
       "y1": 275.549465,
@@ -5084,7 +5007,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_506",
+      "id": "WALL_497",
       "type": "line_wall",
       "x1": 714.241443,
       "y1": 293.130244,
@@ -5094,7 +5017,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_507",
+      "id": "WALL_498",
       "type": "line_wall",
       "x1": 714.241443,
       "y1": 293.248609,
@@ -5104,7 +5027,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_508",
+      "id": "WALL_499",
       "type": "line_wall",
       "x1": 714.412032,
       "y1": 263.375422,
@@ -5114,7 +5037,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_509",
+      "id": "WALL_500",
       "type": "line_wall",
       "x1": 714.412032,
       "y1": 263.493787,
@@ -5124,7 +5047,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_510",
+      "id": "WALL_501",
       "type": "line_wall",
       "x1": 715.577952,
       "y1": 281.976001,
@@ -5134,7 +5057,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_511",
+      "id": "WALL_502",
       "type": "line_wall",
       "x1": 715.577952,
       "y1": 282.094366,
@@ -5144,7 +5067,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_512",
+      "id": "WALL_503",
       "type": "line_wall",
       "x1": 715.848835,
       "y1": 275.549465,
@@ -5154,7 +5077,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_513",
+      "id": "WALL_504",
       "type": "line_wall",
       "x1": 716.040591,
       "y1": 293.248609,
@@ -5164,7 +5087,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_514",
+      "id": "WALL_505",
       "type": "line_wall",
       "x1": 716.211181,
       "y1": 263.493787,
@@ -5174,7 +5097,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_515",
+      "id": "WALL_506",
       "type": "line_wall",
       "x1": 717.187667,
       "y1": 293.130285,
@@ -5184,7 +5107,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_516",
+      "id": "WALL_507",
       "type": "line_wall",
       "x1": 717.187667,
       "y1": 293.24865,
@@ -5194,7 +5117,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_517",
+      "id": "WALL_508",
       "type": "line_wall",
       "x1": 717.377101,
       "y1": 282.094366,
@@ -5204,7 +5127,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_518",
+      "id": "WALL_509",
       "type": "line_wall",
       "x1": 717.485277,
       "y1": 263.363741,
@@ -5214,7 +5137,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_519",
+      "id": "WALL_510",
       "type": "line_wall",
       "x1": 717.485277,
       "y1": 263.482106,
@@ -5224,7 +5147,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_520",
+      "id": "WALL_511",
       "type": "line_wall",
       "x1": 718.97354,
       "y1": 275.425925,
@@ -5234,7 +5157,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_521",
+      "id": "WALL_512",
       "type": "line_wall",
       "x1": 718.97354,
       "y1": 275.54429,
@@ -5244,7 +5167,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_522",
+      "id": "WALL_513",
       "type": "line_wall",
       "x1": 718.986816,
       "y1": 293.24865,
@@ -5254,7 +5177,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_523",
+      "id": "WALL_514",
       "type": "line_wall",
       "x1": 719.284425,
       "y1": 263.482106,
@@ -5264,7 +5187,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_524",
+      "id": "WALL_515",
       "type": "line_wall",
       "x1": 719.713001,
       "y1": 293.130285,
@@ -5274,7 +5197,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_525",
+      "id": "WALL_516",
       "type": "line_wall",
       "x1": 719.713001,
       "y1": 293.24865,
@@ -5284,7 +5207,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_526",
+      "id": "WALL_517",
       "type": "line_wall",
       "x1": 719.989128,
       "y1": 263.363741,
@@ -5294,7 +5217,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_527",
+      "id": "WALL_518",
       "type": "line_wall",
       "x1": 719.989128,
       "y1": 263.482106,
@@ -5304,7 +5227,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_528",
+      "id": "WALL_519",
       "type": "line_wall",
       "x1": 720.441852,
       "y1": 281.826302,
@@ -5314,7 +5237,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_529",
+      "id": "WALL_520",
       "type": "line_wall",
       "x1": 721.512149,
       "y1": 293.24865,
@@ -5324,7 +5247,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_530",
+      "id": "WALL_521",
       "type": "line_wall",
       "x1": 721.788276,
       "y1": 263.482106,
@@ -5334,7 +5257,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_531",
+      "id": "WALL_522",
       "type": "line_wall",
       "x1": 721.862233,
       "y1": 281.826302,
@@ -5344,7 +5267,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_532",
+      "id": "WALL_523",
       "type": "line_wall",
       "x1": 721.862233,
       "y1": 281.826302,
@@ -5354,7 +5277,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_533",
+      "id": "WALL_524",
       "type": "line_wall",
       "x1": 721.862233,
       "y1": 282.063038,
@@ -5364,7 +5287,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_534",
+      "id": "WALL_525",
       "type": "line_wall",
       "x1": 722.180536,
       "y1": 291.243077,
@@ -5374,7 +5297,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_535",
+      "id": "WALL_526",
       "type": "line_wall",
       "x1": 722.180593,
       "y1": 291.233663,
@@ -5384,7 +5307,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_536",
+      "id": "WALL_527",
       "type": "line_wall",
       "x1": 722.185998,
       "y1": 293.011528,
@@ -5394,7 +5317,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_537",
+      "id": "WALL_528",
       "type": "line_wall",
       "x1": 722.185998,
       "y1": 293.011528,
@@ -5404,7 +5327,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_538",
+      "id": "WALL_529",
       "type": "line_wall",
       "x1": 722.225803,
       "y1": 274.855913,
@@ -5414,7 +5337,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_539",
+      "id": "WALL_530",
       "type": "line_wall",
       "x1": 722.245498,
       "y1": 265.995067,
@@ -5424,7 +5347,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_540",
+      "id": "WALL_531",
       "type": "line_wall",
       "x1": 722.245498,
       "y1": 265.995067,
@@ -5434,7 +5357,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_541",
+      "id": "WALL_532",
       "type": "line_wall",
       "x1": 722.417267,
       "y1": 291.243077,
@@ -5444,7 +5367,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_542",
+      "id": "WALL_533",
       "type": "line_wall",
       "x1": 722.418046,
       "y1": 291.471181,
@@ -5454,7 +5377,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_543",
+      "id": "WALL_534",
       "type": "line_wall",
       "x1": 722.422745,
       "y1": 282.228756,
@@ -5464,7 +5387,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_544",
+      "id": "WALL_535",
       "type": "line_wall",
       "x1": 722.423449,
       "y1": 293.248261,
@@ -5474,7 +5397,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_545",
+      "id": "WALL_536",
       "type": "line_wall",
       "x1": 722.45987,
       "y1": 275.547607,
@@ -5484,7 +5407,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_546",
+      "id": "WALL_537",
       "type": "line_wall",
       "x1": 722.462976,
       "y1": 274.855913,
@@ -5494,7 +5417,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_547",
+      "id": "WALL_538",
       "type": "line_wall",
       "x1": 722.469354,
       "y1": 273.435531,
@@ -5504,7 +5427,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_548",
+      "id": "WALL_539",
       "type": "line_wall",
       "x1": 722.469354,
       "y1": 273.435531,
@@ -5514,7 +5437,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_549",
+      "id": "WALL_540",
       "type": "line_wall",
       "x1": 722.472795,
       "y1": 263.233255,
@@ -5524,7 +5447,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_550",
+      "id": "WALL_541",
       "type": "line_wall",
       "x1": 722.472795,
       "y1": 263.233255,
@@ -5534,7 +5457,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_551",
+      "id": "WALL_542",
       "type": "line_wall",
       "x1": 722.478473,
       "y1": 271.404711,
@@ -5544,7 +5467,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_552",
+      "id": "WALL_543",
       "type": "line_wall",
       "x1": 722.481424,
       "y1": 265.759394,
@@ -5554,7 +5477,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_553",
+      "id": "WALL_544",
       "type": "line_wall",
       "x1": 722.487402,
       "y1": 269.416178,
@@ -5564,7 +5487,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_554",
+      "id": "WALL_545",
       "type": "line_wall",
       "x1": 722.488678,
       "y1": 269.132102,
@@ -5574,7 +5497,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_555",
+      "id": "WALL_546",
       "type": "line_wall",
       "x1": 722.489953,
       "y1": 268.848026,
@@ -5584,7 +5507,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_556",
+      "id": "WALL_547",
       "type": "line_wall",
       "x1": 722.491229,
       "y1": 268.56395,
@@ -5594,7 +5517,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_557",
+      "id": "WALL_548",
       "type": "line_wall",
       "x1": 722.492505,
       "y1": 268.279874,
@@ -5604,7 +5527,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_558",
+      "id": "WALL_549",
       "type": "line_wall",
       "x1": 722.49378,
       "y1": 267.995798,
@@ -5614,7 +5537,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_559",
+      "id": "WALL_550",
       "type": "line_wall",
       "x1": 722.502759,
       "y1": 265.996222,
@@ -5624,7 +5547,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_560",
+      "id": "WALL_551",
       "type": "line_wall",
       "x1": 722.503291,
       "y1": 265.877859,
@@ -5634,7 +5557,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_561",
+      "id": "WALL_552",
       "type": "line_wall",
       "x1": 722.700637,
       "y1": 281.820446,
@@ -5644,7 +5567,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_562",
+      "id": "WALL_553",
       "type": "line_wall",
       "x1": 723.969749,
       "y1": 269.296873,
@@ -5654,7 +5577,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_563",
+      "id": "WALL_554",
       "type": "line_wall",
       "x1": 724.121018,
       "y1": 281.810525,
@@ -5664,7 +5587,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_564",
+      "id": "WALL_555",
       "type": "line_wall",
       "x1": 724.121018,
       "y1": 281.810525,
@@ -5674,7 +5597,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_565",
+      "id": "WALL_556",
       "type": "line_wall",
       "x1": 724.121018,
       "y1": 282.04726,
@@ -5684,7 +5607,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_566",
+      "id": "WALL_557",
       "type": "line_wall",
       "x1": 724.348126,
       "y1": 269.430048,
@@ -5694,7 +5617,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_567",
+      "id": "WALL_558",
       "type": "line_wall",
       "x1": 724.348126,
       "y1": 269.63995,
@@ -5704,7 +5627,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_568",
+      "id": "WALL_559",
       "type": "line_wall",
       "x1": 724.758501,
       "y1": 267.995798,
@@ -5714,7 +5637,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_569",
+      "id": "WALL_560",
       "type": "line_wall",
       "x1": 724.900539,
       "y1": 267.995798,
@@ -5724,7 +5647,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_570",
+      "id": "WALL_561",
       "type": "line_wall",
       "x1": 725.022773,
       "y1": 291.243077,
@@ -5734,7 +5657,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_571",
+      "id": "WALL_562",
       "type": "line_wall",
       "x1": 725.077049,
       "y1": 282.249117,
@@ -5744,7 +5667,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_572",
+      "id": "WALL_563",
       "type": "line_wall",
       "x1": 725.077049,
       "y1": 282.249117,
@@ -5754,7 +5677,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_573",
+      "id": "WALL_564",
       "type": "line_wall",
       "x1": 725.09604,
       "y1": 279.293763,
@@ -5764,7 +5687,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_574",
+      "id": "WALL_565",
       "type": "line_wall",
       "x1": 725.09604,
       "y1": 281.092911,
@@ -5774,7 +5697,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_575",
+      "id": "WALL_566",
       "type": "line_wall",
       "x1": 725.098185,
       "y1": 275.648495,
@@ -5784,7 +5707,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_576",
+      "id": "WALL_567",
       "type": "line_wall",
       "x1": 725.098185,
       "y1": 278.746562,
@@ -5794,7 +5717,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_577",
+      "id": "WALL_568",
       "type": "line_wall",
       "x1": 725.098185,
       "y1": 278.746562,
@@ -5804,7 +5727,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_578",
+      "id": "WALL_569",
       "type": "line_wall",
       "x1": 725.214405,
       "y1": 279.293763,
@@ -5814,7 +5737,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_579",
+      "id": "WALL_570",
       "type": "line_wall",
       "x1": 725.258074,
       "y1": 291.480587,
@@ -5824,7 +5747,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_580",
+      "id": "WALL_571",
       "type": "line_wall",
       "x1": 725.333422,
       "y1": 278.994799,
@@ -5834,7 +5757,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_581",
+      "id": "WALL_572",
       "type": "line_wall",
       "x1": 725.333488,
       "y1": 278.983816,
@@ -5844,7 +5767,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_582",
+      "id": "WALL_573",
       "type": "line_wall",
       "x1": 725.334916,
       "y1": 278.747088,
@@ -5854,7 +5777,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_583",
+      "id": "WALL_574",
       "type": "line_wall",
       "x1": 725.334916,
       "y1": 278.747088,
@@ -5864,7 +5787,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_584",
+      "id": "WALL_575",
       "type": "line_wall",
       "x1": 725.334916,
       "y1": 278.747088,
@@ -5874,7 +5797,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_585",
+      "id": "WALL_576",
       "type": "line_wall",
       "x1": 725.334916,
       "y1": 278.747088,
@@ -5884,7 +5807,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_586",
+      "id": "WALL_577",
       "type": "line_wall",
       "x1": 725.340514,
       "y1": 276.595638,
@@ -5894,7 +5817,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_587",
+      "id": "WALL_578",
       "type": "line_wall",
       "x1": 725.342361,
       "y1": 275.885811,
@@ -5904,7 +5827,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_588",
+      "id": "WALL_579",
       "type": "line_wall",
       "x1": 725.342361,
       "y1": 275.885811,
@@ -5914,7 +5837,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_589",
+      "id": "WALL_580",
       "type": "line_wall",
       "x1": 725.342361,
       "y1": 276.359272,
@@ -5924,7 +5847,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_590",
+      "id": "WALL_581",
       "type": "line_wall",
       "x1": 725.342361,
       "y1": 276.359272,
@@ -5934,7 +5857,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_591",
+      "id": "WALL_582",
       "type": "line_wall",
       "x1": 726.065593,
       "y1": 271.455447,
@@ -5944,7 +5867,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_592",
+      "id": "WALL_583",
       "type": "line_wall",
       "x1": 726.065593,
       "y1": 271.455447,
@@ -5954,7 +5877,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_593",
+      "id": "WALL_584",
       "type": "line_wall",
       "x1": 726.065593,
       "y1": 272.132495,
@@ -5964,7 +5887,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_594",
+      "id": "WALL_585",
       "type": "line_wall",
       "x1": 727.140154,
       "y1": 278.751101,
@@ -5974,7 +5897,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_595",
+      "id": "WALL_586",
       "type": "line_wall",
       "x1": 727.145892,
       "y1": 276.363606,
@@ -5984,7 +5907,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_596",
+      "id": "WALL_587",
       "type": "line_wall",
       "x1": 727.145892,
       "y1": 276.363606,
@@ -5994,7 +5917,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_597",
+      "id": "WALL_588",
       "type": "line_wall",
       "x1": 727.145892,
       "y1": 276.600336,
@@ -6004,7 +5927,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_598",
+      "id": "WALL_589",
       "type": "line_wall",
       "x1": 727.147598,
       "y1": 275.65342,
@@ -6014,7 +5937,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_599",
+      "id": "WALL_590",
       "type": "line_wall",
       "x1": 727.157808,
       "y1": 271.404711,
@@ -6024,7 +5947,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_600",
+      "id": "WALL_591",
       "type": "line_wall",
       "x1": 727.158491,
       "y1": 271.120635,
@@ -6034,7 +5957,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_601",
+      "id": "WALL_592",
       "type": "line_wall",
       "x1": 727.159174,
       "y1": 270.836559,
@@ -6044,7 +5967,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_602",
+      "id": "WALL_593",
       "type": "line_wall",
       "x1": 727.159856,
       "y1": 270.552483,
@@ -6054,7 +5977,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_603",
+      "id": "WALL_594",
       "type": "line_wall",
       "x1": 727.160539,
       "y1": 270.268407,
@@ -6064,7 +5987,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_604",
+      "id": "WALL_595",
       "type": "line_wall",
       "x1": 727.161222,
       "y1": 269.98433,
@@ -6074,7 +5997,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_605",
+      "id": "WALL_596",
       "type": "line_wall",
       "x1": 727.161904,
       "y1": 269.700254,
@@ -6084,7 +6007,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_606",
+      "id": "WALL_597",
       "type": "line_wall",
       "x1": 727.162587,
       "y1": 269.416178,
@@ -6094,7 +6017,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_607",
+      "id": "WALL_598",
       "type": "line_wall",
       "x1": 727.16327,
       "y1": 269.132102,
@@ -6104,7 +6027,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_608",
+      "id": "WALL_599",
       "type": "line_wall",
       "x1": 727.163952,
       "y1": 268.848026,
@@ -6114,7 +6037,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_609",
+      "id": "WALL_600",
       "type": "line_wall",
       "x1": 727.164635,
       "y1": 268.56395,
@@ -6124,7 +6047,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_610",
+      "id": "WALL_601",
       "type": "line_wall",
       "x1": 727.165318,
       "y1": 268.279874,
@@ -6134,7 +6057,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_611",
+      "id": "WALL_602",
       "type": "line_wall",
       "x1": 727.166,
       "y1": 267.995798,
@@ -6144,7 +6067,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_612",
+      "id": "WALL_603",
       "type": "line_wall",
       "x1": 727.170755,
       "y1": 266.017183,
@@ -6154,7 +6077,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_613",
+      "id": "WALL_604",
       "type": "line_wall",
       "x1": 727.170755,
       "y1": 266.017183,
@@ -6164,7 +6087,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_614",
+      "id": "WALL_605",
       "type": "line_wall",
       "x1": 727.376287,
       "y1": 278.999708,
@@ -6174,7 +6097,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_615",
+      "id": "WALL_606",
       "type": "line_wall",
       "x1": 727.376315,
       "y1": 278.988356,
@@ -6184,7 +6107,7 @@
       "source_segments": 1
     },
     {
-      "id": "WALL_616",
+      "id": "WALL_607",
       "type": "line_wall",
       "x1": 727.408052,
       "y1": 265.781517,
