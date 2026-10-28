@@ -1,0 +1,42 @@
+source_id,category,page_name,url,keep,priority,spatial,dynamic,notes
+S001,Institution,MITS Homepage,https://mgmits.ac.in/ ,Yes,High,No,Yes,Main institutional website and entry point
+S002,Institution,About MITS,https://mgmits.ac.in/ ,Yes,High,No,No,General information about MITS
+S003,Institution,Vision and Mission,https://mgmits.ac.in/ ,Yes,Medium,No,No,Institutional vision and mission
+S004,Institution,Principal's Message,https://mgmits.ac.in/principal ,Yes,Medium,No,No,Message from the principal
+S005,Institution,Contact,https://mgmits.ac.in/contact ,Yes,High,Maybe,Yes,Official contact information
+S006,Administration,Vice Principal,https://mgmits.ac.in/vice-principal ,Yes,High,Maybe,Yes,Current Vice Principal information
+S007,Administration,Dean Academics,https://mgmits.ac.in/academic-dean ,Yes,High,No,Yes,Current Dean Academics information
+S008,Administration,HoDs and Academic/Administrative Heads,https://mgmits.ac.in/deans-and-heads ,Yes,Very High,Maybe,Yes,Current academic and administrative heads
+S009,Administration,College Council,https://mgmits.ac.in/college-council ,Yes,Medium,No,Yes,College Council members and information
+S010,Administration,Academic Council,https://mgmits.ac.in/academic-council ,Yes,Medium,No,Yes,Academic Council members functions and meetings
+S011,Department,Artificial Intelligence and Data Science,https://mgmits.ac.in/department/ad ,Yes,Very High,Yes,Yes,Department overview academics faculty research infrastructure and contact
+S012,Department,Computer Science and Engineering,https://mgmits.ac.in/department/cs ,Yes,Very High,Yes,Yes,Department overview academics faculty research infrastructure and contact
+S013,Department,Cyber Security,https://mgmits.ac.in/department/cc ,Yes,Very High,Yes,Yes,Department overview academics faculty research infrastructure and contact
+S014,Department,Basic Science and Humanities,https://mgmits.ac.in/department/bsh ,Yes,High,Yes,Yes,Department information faculty laboratories activities and contact
+S015,Department,Civil Engineering,https://mgmits.ac.in/department/ce ,Yes,Very High,Yes,Yes,Department information faculty laboratories infrastructure and contact
+S016,Department,Computer Applications,https://mgmits.ac.in/department/ca ,Yes,High,Yes,Yes,MCA department information faculty academics placements and infrastructure
+S017,Department,Electrical and Electronics Engineering,https://mgmits.ac.in/department/ee ,Yes,Very High,Yes,Yes,Department information faculty laboratories infrastructure and contact
+S018,Department,Electronics and Communication Engineering,https://mgmits.ac.in/department/ec ,Yes,Very High,Yes,Yes,Department information faculty laboratories infrastructure and contact
+S019,Department,Mechanical Engineering,https://mgmits.ac.in/department/me ,Yes,Very High,Yes,Yes,Department information faculty laboratories infrastructure and contact
+S020,Academics,Regulations,https://mgmits.ac.in/regulations ,Yes,High,No,Yes,Academic regulations and rules
+S021,Academics,Curriculum and Syllabus,https://mgmits.ac.in/curriculum ,Yes,High,No,Yes,Programme curriculum and syllabus information
+S022,Academics,Academic Council,https://mgmits.ac.in/academic-council ,Yes,Medium,No,Yes,Academic Council information
+S023,Academics,Board of Studies,https://mgmits.ac.in/bos ,Yes,Medium,No,Yes,Board of Studies information
+S024,Academics,Governing Body,https://mgmits.ac.in/governing-body ,Yes,Medium,No,Yes,Governing Body information
+S025,Academics,Academic Partnerships,https://mgmits.ac.in/academic-partnerships ,Yes,Medium,No,Yes,Academic collaborations and partnerships
+S026,Infrastructure,Tagore Library,https://mgmits.ac.in/mits-central-library ,Yes,Very High,Maybe,Yes,Central library facilities services rules staff and working hours
+S027,Infrastructure,Hostel,https://mgmits.ac.in/hostel ,Yes,High,Maybe,Yes ,Hostel facilities administration capacity and rules
+S028,Infrastructure,Conveyance,https://mgmits.ac.in/conveyance ,Yes,High,Maybe,Yes ,College bus facilities routes rules and applications
+S029,Infrastructure,CIDRIE,https://mgmits.ac.in/cidrie ,Yes,Medium,Maybe,Yes,Research innovation consultancy and entrepreneurship centre
+S030,Examinations,Office of the Controller of Examinations,https://mgmits.ac.in/exams ,Yes,High,No,Yes,Official examination office information
+S031,Admissions,MITS Admission,https://mgmits.ac.in/admission ,Yes,Very High,No,Yes,Admission procedures eligibility programmes seat matrix quota information and current admission updates
+S032,Admissions,Management Merit Quota 2027,https://mgmits.ac.in/btech-management-quota ,Yes,High,No,Yes,Management quota admission procedure eligibility fees and related information
+S033,Admissions,Government Merit Quota 2027,https://mgmits.ac.in/btech-government-quota ,Yes,High,No,Yes,Government merit quota admission procedure eligibility and related information
+S034,Admissions,NRI Quota 2027,https://mgmits.ac.in/nri-quota ,Yes,High,No,Yes,NRI admission procedure eligibility fees and related information
+S035,Admissions,OCI PIO CIWG Quota 2027,https://mgmits.ac.in/oci-pio-cwig-quota ,Yes,Medium,No,Yes,OCI PIO CIWG admission procedure eligibility and related information
+S036,Placements,MITS Career Development Center,https://mgmits.ac.in/placement ,Yes,Very High,No,Yes,Placement statistics recruiter analysis internship policy training intervention placement policy procedure skill mapping IDP and career guidance
+S037,Research,Research and Consultancy Cell,https://mgmits.ac.in/research-and-consultancy ,Yes,Medium,No,Yes,Research consultancy funded projects research activities and related information
+S038,Research,Research Supervisors,https://mgmits.ac.in/research-supervisors ,Yes,Medium,No,Yes,Research supervisors research areas departments and guideship status
+S039,Student Life,Life at MITS,https://mgmits.ac.in/life-at-mits ,Yes,High,Maybe,Yes,Student activities clubs sports cultural activities and campus life
+S040,Student Development,Industry Institute Interaction Cell,https://mgmits.ac.in/industry-institute-interaction-cell ,Yes,Medium,No,Yes,Industry collaborations internships projects technical sessions and interaction activities
+S041,Student Development,Industrial Visit Guidelines,https://mgmits.ac.in/guide-lines-for-industrial-visits ,Yes,Medium,No,Yes,Rules procedures eligibility scheduling and requirements for industrial visits

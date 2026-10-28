@@ -1,0 +1,169 @@
+Node_ID,Location_Name,Node_Type,Floor_Level,Campus_Zone,Block,RAG_Text
+node_rm_0,UP,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: UP
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_0"
+node_rm_1,UP,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: UP
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_1"
+node_rm_2,UP,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: UP
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_2"
+node_rm_3,Ladies Toilet,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: Ladies Toilet
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_3"
+node_rm_4,Toilet,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: Toilet
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_4"
+node_rm_5,Lift,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: Lift
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_5"
+node_rm_6,GENTS TOILET,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: GENTS TOILET
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_6"
+node_rm_7,ELECTRICAL ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: ELECTRICAL ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_7"
+node_rm_8,S5/S6 CSE-A CLASS ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: S5/S6 CSE-A CLASS ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_8"
+node_rm_9,S5/S6 CSE-B CLASS ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: S5/S6 CSE-B CLASS ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_9"
+node_rm_10,S5/S6 CS AI CLASS ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: S5/S6 CS AI CLASS ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_10"
+node_rm_11,S3/S4 CSE-B CLASS ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: S3/S4 CSE-B CLASS ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_11"
+node_rm_12,S7/S8 CSE-B CLASS ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: S7/S8 CSE-B CLASS ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_12"
+node_rm_13,S7/S8 CS-AI CLASS ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: S7/S8 CS-AI CLASS ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_13"
+node_rm_14,S3/S4 CSE-A CLASS ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: S3/S4 CSE-A CLASS ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_14"
+node_rm_15,608,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 608
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_15"
+node_rm_16,607,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 607
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_16"
+node_rm_17,606,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 606
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_17"
+node_rm_18,605,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 605
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_18"
+node_rm_19,601,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 601
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_19"
+node_rm_20,603,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 603
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_20"
+node_rm_21,604,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 604
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_21"
+node_rm_22,613,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 613
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_22"
+node_rm_23,611/612,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 611/612
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_23"
+node_rm_24,610,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 610
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_24"
+node_rm_25,609,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: 609
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_25"
+node_rm_26,EXPERIENTIAL LEARNING HUB,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: EXPERIENTIAL LEARNING HUB
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_26"
+node_rm_27,ELECTIVE / TUTORIAL/ IDP ROOM,Room_Destination,5th Floor,Academic Block,Ramanujan Block,"Location: ELECTIVE / TUTORIAL/ IDP ROOM
+Type: Room_Destination
+Floor: 5th Floor
+Campus Zone: Academic Block
+Block: Ramanujan Block
+Node ID: node_rm_27"
