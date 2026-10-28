@@ -206,9 +206,32 @@ def _placement_docs_for(question_lower):
         # than including every batch's table unfiltered.
         return []
 
+    # A question naming a full "2022-2026"-style range is matched against
+    # that exact range first, before falling back to single-year
+    # matching. This isn't just an optimization: a bare single year is
+    # fundamentally ambiguous between two different batches whenever one
+    # batch's START year equals another batch's END year, which is
+    # genuinely true here ("2022-2026" starts the same year "2018-2022"
+    # ends) -- asking about "the 2022-2026 batch" would otherwise also
+    # exact-match "2018-2022" via its own end year, doubling the prompt
+    # size and risking the two batches' figures getting blended in the
+    # answer. An explicit range in the question resolves that ambiguity
+    # outright, so it takes priority whenever present.
+    explicit_range_match = re.search(r"\b((?:19|20)\d{2})\s*-\s*((?:19|20)\d{2})\b", question_lower)
+    if explicit_range_match:
+        exact_range = f"{explicit_range_match.group(1)}-{explicit_range_match.group(2)}"
+        if exact_range in PLACEMENT_BATCH_SECTIONS:
+            return [PLACEMENT_BATCH_SECTIONS[exact_range]]
+
+    # No explicit range given -- a single year ("the 2026 batch") refers
+    # to the GRADUATION year by the standard convention established in
+    # the prompt instructions above, so only match each batch's END year,
+    # never its start year (which is what let "2022" wrongly resolve to
+    # "2018-2022" in the first place).
     matched_sections = []
     for batch_range, section_text in PLACEMENT_BATCH_SECTIONS.items():
-        if any(year in batch_range for year in years_in_question):
+        graduation_year = batch_range.split("-")[1]
+        if graduation_year in years_in_question:
             matched_sections.append(section_text)
 
     return matched_sections
@@ -335,18 +358,33 @@ def augment_documents_for(question):
 # cap with margin while still comfortably covering the 20-200 tokens
 # any real answer here has needed.
 
-# TEMPORARY (2026-10-28 night): back on openai/gpt-oss-120b. qwen's quota
-# only *looked* recovered -- a single 10-token ping succeeded, but it had
-# nowhere near enough headroom for sustained real queries (~1800+ tokens
-# each with this app's context size): two actual RAG calls right after
-# that ping both 429'd again immediately. gpt-oss-120b's quota is
-# reliable tonight; its tradeoff is the hidden-reasoning flip-flop noted
-# below, which ask_question's retry-on-fallback logic (see below) now
-# covers instead of trying to fight with model choice alone.
+# TEMPORARY (2026-10-28 night): both qwen/qwen3.8-27b and
+# openai/gpt-oss-120b hit their Groq free-tier DAILY quota from tonight's
+# extensive testing (each tracked separately per model). openai/gpt-oss-20b
+# has quota but was directly confirmed unreliable here -- on the identical
+# placement question, it gave the correct figure (428 total offers) once
+# and a wrong, contaminated one (93) on the very next run, even with a
+# strengthened anti-hallucination instruction. That's model inconsistency,
+# not something a prompt or retry can fully paper over, so it was rejected
+# even though it's the one option with quota left tonight.
+#
+# Left configured on gpt-oss-120b (the more reliable of the two reasoning
+# models tested) so the app is in its best-available state the moment
+# either model's quota resets -- these are daily limits, so both should
+# recover well within a normal day. max_tokens raised from 2500 to 4000
+# after observing gpt-oss-20b exhaust 2500 entirely on hidden reasoning
+# for a complex placement prompt and return nothing visible; 120b hasn't
+# shown that specific failure, but the headroom is cheap insurance.
+#
+# Revert to the original, most consistent setup once qwen's quota is back
+# (check with a real query, not just a tiny ping -- a ping succeeding
+# doesn't mean there's enough headroom for this app's actual ~1800+
+# token-per-call context sizes):
+#   llm = ChatGroq(model="qwen/qwen3.8-27b", temperature=0, max_tokens=900)
 llm = ChatGroq(
     model="openai/gpt-oss-120b",
     temperature=0,
-    max_tokens=2500,
+    max_tokens=4000,
     reasoning_effort="medium",
 )
 
@@ -362,14 +400,30 @@ llm = ChatGroq(
 # filled in — "them" refers to a list the previous *answer* gave, which
 # only the RAG's own context can supply.
 
+# History exists so the model can resolve references ("name all of
+# them", "what about that batch") to what was just discussed -- it was
+# never meant to reproduce a previous answer's exact content, only enough
+# of it to know what's being referred back to. Without a cap, a previous
+# turn that happened to be a big table (e.g. a full placement
+# recruiter-wise breakdown, which alone runs several thousand characters)
+# got included in full, verbatim, in EVERY subsequent question's prompt
+# for as long as it stayed in the last-2-turns window -- a real
+# contributor to blowing past Groq's per-minute token limit on an
+# otherwise ordinary follow-up question.
+_HISTORY_ANSWER_CHAR_LIMIT = 300
+
+
 def format_history(history):
     if not history:
         return ""
 
     lines = []
     for turn in history:
+        answer = turn["answer"]
+        if len(answer) > _HISTORY_ANSWER_CHAR_LIMIT:
+            answer = answer[:_HISTORY_ANSWER_CHAR_LIMIT] + " [...truncated]"
         lines.append(f"User: {turn['question']}")
-        lines.append(f"Assistant: {turn['answer']}")
+        lines.append(f"Assistant: {answer}")
 
     return "\n".join(lines)
 
@@ -577,9 +631,18 @@ Response:
         "summary line covering whichever of these are actually present "
         "for the specific thing asked about: highest package/offer, "
         "median salary, average salary, and total offers/students "
-        "placed. Only state a figure that is actually present in the "
-        "context — omit any of these from the summary rather than "
-        "estimating or inferring one that isn't given.\n\n"
+        "placed. A \"Highest Package\" figure only counts if that exact "
+        "label appears explicitly in the context for this batch — never "
+        "state one by scanning the recruiter-wise table yourself and "
+        "reporting whichever CTC value looks largest; that number was "
+        "wrong in testing (it picked up a company's stipend or one "
+        "recruiter's package as if it were the batch's official highest "
+        "package, which the source material never actually claims). The "
+        "same applies to median or average salary: only state one if "
+        "that exact figure is given in the text, never computed from the "
+        "per-recruiter rows. If a figure isn't explicitly labeled as such "
+        "in the context, omit it from the summary rather than computing "
+        "or estimating it.\n\n"
         if any(trigger in question.lower() for trigger in _PLACEMENT_TRIGGERS) else ""
     )
 
@@ -647,12 +710,36 @@ def _looks_like_not_found(answer_text):
 
 
 def _invoke_with_fallback_retry(prompt, attempts=2):
-    last_answer = None
-    for attempt in range(attempts):
-        response = llm.invoke(prompt)
-        last_answer = response.content
+    """
+    The retry itself must never be able to make things WORSE than not
+    retrying at all. A real failure mode this caused before this fix: the
+    first call succeeds but looks like a "not found" answer, triggering a
+    retry -- and if that retry then hits Groq's per-minute token limit
+    (a real, separate cap from the daily one; confirmed in production
+    logs: 8000 TPM for this model, and ordinary requests here run
+    1500-4000+ tokens of context alone before the reserved max_tokens is
+    even added), the resulting RateLimitError was propagating all the way
+    up through ask_question into main.py's broad exception handler --
+    turning a graceful "couldn't find that" into the much uglier generic
+    "I couldn't reach the knowledge base yet" failure. So: only the FIRST
+    attempt is allowed to raise (a genuine hard failure there should still
+    surface to the caller, same as before this retry logic existed at
+    all); any later attempt that errors just falls back to whatever
+    answer is already in hand instead of raising.
+    """
+
+    first_response = llm.invoke(prompt)
+    last_answer = first_response.content
+
+    for _ in range(attempts - 1):
         if not _looks_like_not_found(last_answer):
             return last_answer
+        try:
+            response = llm.invoke(prompt)
+        except Exception:
+            return last_answer
+        last_answer = response.content
+
     return last_answer
 
 

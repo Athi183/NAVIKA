@@ -69,6 +69,11 @@ TEST_CASES = [
     ("departments", "where is the CSE department located", "cse", None),
     ("placement", "what is the total offers for the 2022-2026 batch", "2022-2026", "placement"),
     ("placement", "how many offers did TCS make", "tcs", "placement"),
+    # Regression: "2022" is the exact start year of 2022-2026 AND the
+    # exact end year of the unrelated batch 2018-2022 -- naming the full
+    # range must resolve to only the batch actually asked about, not pull
+    # in both (see _placement_docs_for's explicit-range-first matching).
+    ("placement", "placement stats for the 2018-2022 batch", "2018-2022", "placement"),
     ("admissions", "what are the admission requirements", "eligib", "admission"),
     ("admissions", "what entrance exams are accepted", "keam", "admission"),
     ("research", "what research activities are available at MITS", "research", "research"),
