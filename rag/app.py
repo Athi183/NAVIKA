@@ -358,34 +358,23 @@ def augment_documents_for(question):
 # cap with margin while still comfortably covering the 20-200 tokens
 # any real answer here has needed.
 
-# TEMPORARY (2026-10-28 night): both qwen/qwen3.8-27b and
-# openai/gpt-oss-120b hit their Groq free-tier DAILY quota from tonight's
-# extensive testing (each tracked separately per model). openai/gpt-oss-20b
-# has quota but was directly confirmed unreliable here -- on the identical
-# placement question, it gave the correct figure (428 total offers) once
-# and a wrong, contaminated one (93) on the very next run, even with a
-# strengthened anti-hallucination instruction. That's model inconsistency,
-# not something a prompt or retry can fully paper over, so it was rejected
-# even though it's the one option with quota left tonight.
-#
-# Left configured on gpt-oss-120b (the more reliable of the two reasoning
-# models tested) so the app is in its best-available state the moment
-# either model's quota resets -- these are daily limits, so both should
-# recover well within a normal day. max_tokens raised from 2500 to 4000
-# after observing gpt-oss-20b exhaust 2500 entirely on hidden reasoning
-# for a complex placement prompt and return nothing visible; 120b hasn't
-# shown that specific failure, but the headroom is cheap insurance.
-#
-# Revert to the original, most consistent setup once qwen's quota is back
-# (check with a real query, not just a tiny ping -- a ping succeeding
-# doesn't mean there's enough headroom for this app's actual ~1800+
-# token-per-call context sizes):
-#   llm = ChatGroq(model="qwen/qwen3.8-27b", temperature=0, max_tokens=900)
+# openai/gpt-oss-20b (an even earlier model here) is a *reasoning* model: it
+# spends completion tokens on hidden chain-of-thought before writing the
+# actual answer, and that reasoning length scales with context size and
+# question difficulty rather than being bounded. The gpt-oss family (20b
+# and 120b) was used as a temporary fallback on the night of 2026-10-28
+# when qwen's daily Groq quota was exhausted from heavy same-day testing;
+# see git history around that date for the full story, including a
+# directly-confirmed case of gpt-oss-20b giving a correct placement figure
+# once and a wrong, contaminated one on the very next identical run. Back
+# on qwen/qwen3.8-27b as of 2026-10-29 (quota resets daily) -- re-verified
+# with 5 real queries covering faculty lookup, two different placement
+# batches (confirming no cross-batch contamination), and spatial lookup,
+# all correct with zero errors.
 llm = ChatGroq(
-    model="openai/gpt-oss-120b",
+    model="qwen/qwen3.8-27b",
     temperature=0,
-    max_tokens=4000,
-    reasoning_effort="medium",
+    max_tokens=900,
 )
 
 # ==========================================

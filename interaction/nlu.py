@@ -254,16 +254,15 @@ def extract_entities(clean_text, cutoff=0.75):
 
 VALID_INTENTS = set(INTENT_KEYWORDS) | {"unknown"}
 
-# TEMPORARY (2026-10-28 night): back on openai/gpt-oss-120b -- qwen's
-# quota only looked recovered (one tiny ping succeeded) but had no real
-# headroom left; see the matching comment in rag/app.py for the full
-# story. This call already degrades gracefully to keyword classification
-# on any failure, so no retry logic needed here specifically.
+# Back on qwen/qwen3.8-27b as of 2026-10-29 -- see the matching comment in
+# rag/app.py for the full story of why this was temporarily gpt-oss-120b
+# on the night of 2026-10-28 (qwen's daily Groq quota was exhausted from
+# heavy same-day testing; quota resets daily and was re-verified recovered
+# the next day with real, non-trivial queries).
 _llm = ChatGroq(
-    model="openai/gpt-oss-120b",
+    model="qwen/qwen3.8-27b",
     temperature=0,
-    max_tokens=800,
-    reasoning_effort="low",
+    max_tokens=300,
     request_timeout=10,
 )
 
