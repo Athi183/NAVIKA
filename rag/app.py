@@ -399,9 +399,10 @@ def augment_documents_for(question):
 # batches (confirming no cross-batch contamination), and spatial lookup,
 # all correct with zero errors.
 llm = ChatGroq(
-    model="qwen/qwen3.8-27b",
+    model="openai/gpt-oss-20b",
     temperature=0,
-    max_tokens=900,
+    max_tokens=4000,
+    reasoning_effort="medium",
 )
 
 # ==========================================

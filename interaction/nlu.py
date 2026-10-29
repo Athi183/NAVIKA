@@ -264,7 +264,7 @@ VALID_INTENTS = set(INTENT_KEYWORDS) | {"unknown"}
 # fallback instead of real classification. Revert alongside rag/app.py
 # once qwen's quota is reliably back.
 _llm = ChatGroq(
-    model="openai/gpt-oss-120b",
+    model="openai/gpt-oss-20b",
     temperature=0,
     max_tokens=800,
     reasoning_effort="low",
