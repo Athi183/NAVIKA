@@ -32,3 +32,4 @@ rag/vectorstore/
 rag/tts_models/
 vectorstore/.DS_Store
 .DS_Store
+query_diagnostics.log

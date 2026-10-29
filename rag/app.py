@@ -1,5 +1,7 @@
 import os
 import re
+from datetime import datetime, timezone
+from pathlib import Path
 
 # Must be set before HuggingFaceEmbeddings loads the tokenizer — the
 # STT/NLU pipeline that calls into this module runs it after already
@@ -742,19 +744,54 @@ def _invoke_with_fallback_retry(prompt, attempts=2):
     answer is already in hand instead of raising.
     """
 
-    first_response = llm.invoke(prompt)
+    try:
+        first_response = llm.invoke(prompt)
+    except Exception as error:
+        _log_query_diagnostics(prompt, None, None, attempt=1, retry_error=error)
+        raise
     last_answer = first_response.content
+    _log_query_diagnostics(prompt, first_response, last_answer, attempt=1)
 
-    for _ in range(attempts - 1):
+    for attempt_number in range(2, attempts + 1):
         if not _looks_like_not_found(last_answer):
             return last_answer
         try:
             response = llm.invoke(prompt)
-        except Exception:
+        except Exception as error:
+            _log_query_diagnostics(prompt, None, last_answer, attempt=attempt_number, retry_error=error)
             return last_answer
         last_answer = response.content
+        _log_query_diagnostics(prompt, response, last_answer, attempt=attempt_number)
 
     return last_answer
+
+
+# TEMPORARY diagnostic logging (2026-10-29): added to track down a report
+# that couldn't be reproduced directly -- the exact same question, run
+# fresh moments apart, succeeded here but failed on the user's machine
+# with no exception (a genuine "couldn't find" answer from the model, not
+# a crash). Logs the actual context size and raw model output for every
+# attempt so the next occurrence can be inspected directly instead of
+# re-guessing. Remove once the cause is found.
+_DIAGNOSTIC_LOG_PATH = Path(__file__).resolve().parent / "query_diagnostics.log"
+
+
+def _log_query_diagnostics(prompt, response, answer, attempt, retry_error=None):
+    try:
+        with _DIAGNOSTIC_LOG_PATH.open("a", encoding="utf-8") as f:
+            f.write(f"\n=== {datetime.now(timezone.utc).isoformat()} | attempt {attempt} ===\n")
+            f.write(f"prompt_chars: {len(prompt)}\n")
+            if response is not None:
+                usage = response.response_metadata.get("token_usage", {})
+                f.write(f"token_usage: {usage}\n")
+                f.write(f"finish_reason: {response.response_metadata.get('finish_reason')}\n")
+            if retry_error is not None:
+                f.write(f"retry_error: {retry_error}\n")
+            if answer is not None:
+                f.write(f"looks_like_not_found: {_looks_like_not_found(answer)}\n")
+            f.write(f"answer: {answer!r}\n")
+    except Exception:
+        pass
 
 
 # ==========================================
