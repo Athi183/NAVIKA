@@ -1,0 +1,978 @@
+{
+  "source_file": "/home/fathima-mehrin-v-s/RAMANUJAN-5TH/RAMANUJAN_5THDXF/RAMANUJAN_5THFloor.dxf",
+  "dxf_version": "AC1027",
+  "insunits_code": 4,
+  "insunits_declared": "millimetres",
+  "coordinate_scale_note": "DXF header declares millimetres, while room text explicitly includes dimensions in metres and the floor footprint is about 85 by 34 coordinate units. Physical scale is uncertain; coordinates are kept in source XY without rescaling.",
+  "modelspace_entity_count": 594,
+  "entity_counts": {
+    "LINE": 466,
+    "LWPOLYLINE": 85,
+    "TEXT": 15,
+    "POLYLINE": 1,
+    "MTEXT": 27
+  },
+  "layer_counts": {
+    "0": 594
+  },
+  "drawing_extents_xyz": {
+    "min": [
+      949.125078,
+      200.047513,
+      -50.977849
+    ],
+    "max": [
+      1033.997498,
+      615.461861,
+      98.717504
+    ]
+  },
+  "type_extents": {
+    "LINE": {
+      "count": 466,
+      "extents_xyz": {
+        "min": [
+          949.125078,
+          200.047513,
+          -50.977849
+        ],
+        "max": [
+          1033.761264,
+          234.100982,
+          98.717504
+        ]
+      }
+    },
+    "LWPOLYLINE": {
+      "count": 85,
+      "extents_xyz": {
+        "min": [
+          949.364861,
+          201.500324,
+          0.0
+        ],
+        "max": [
+          1033.997498,
+          231.335718,
+          0.0
+        ]
+      }
+    },
+    "MTEXT": {
+      "count": 27,
+      "extents_xyz": {
+        "min": [
+          952.758065,
+          203.298476,
+          -49.26486
+        ],
+        "max": [
+          1030.357262,
+          615.461861,
+          0.0
+        ]
+      }
+    },
+    "POLYLINE": {
+      "count": 1,
+      "extents_xyz": {
+        "min": [
+          982.183641,
+          220.078093,
+          47.968985
+        ],
+        "max": [
+          986.820838,
+          222.836328,
+          49.343537
+        ]
+      }
+    },
+    "TEXT": {
+      "count": 15,
+      "extents_xyz": {
+        "min": [
+          949.840846,
+          200.762086,
+          -0.179751
+        ],
+        "max": [
+          1033.298545,
+          229.176711,
+          0.0
+        ]
+      }
+    }
+  },
+  "block_definitions": [
+    {
+      "name": "_ArchTick",
+      "entity_counts": {
+        "LWPOLYLINE": 1
+      }
+    },
+    {
+      "name": "_DetailCallout",
+      "entity_counts": {
+        "CIRCLE": 1,
+        "LINE": 1,
+        "ATTDEF": 2
+      }
+    }
+  ],
+  "insert_references": {},
+  "text_entities": [
+    {
+      "handle": "81D",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        949.840846,
+        221.093444,
+        -0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "841",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        1032.460901,
+        210.319623,
+        -0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "876",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        977.530442,
+        213.564124,
+        -0.0
+      ],
+      "rotation_degrees": 90.0
+    },
+    {
+      "handle": "991",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "Ladies Toilet",
+      "display_text": "Ladies Toilet",
+      "insertion_point": [
+        953.326217,
+        224.82902,
+        -49.26486
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "99A",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "FIFTH FLOOR",
+      "display_text": "FIFTH FLOOR",
+      "insertion_point": [
+        954.789107,
+        203.298476,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "99D",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "Toilet",
+      "display_text": "Toilet",
+      "insertion_point": [
+        993.506475,
+        200.863406,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "99E",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "FILE \nASSOCIATION \nROOM",
+      "display_text": "FILE ASSOCIATION ROOM",
+      "insertion_point": [
+        1024.154783,
+        226.373694,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A1",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "Lift",
+      "display_text": "Lift",
+      "insertion_point": [
+        1032.302585,
+        215.387447,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A2",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "GENTS TOILET",
+      "display_text": "GENTS TOILET",
+      "insertion_point": [
+        1030.357262,
+        222.407824,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A3",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "ELECTRICAL ROOM",
+      "display_text": "ELECTRICAL ROOM",
+      "insertion_point": [
+        973.336411,
+        218.580633,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A4",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S5/S6 CSE-A CLASS ROOM",
+      "display_text": "S5/S6 CSE-A CLASS ROOM",
+      "insertion_point": [
+        957.551927,
+        228.661487,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A5",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S5/S6 CSE-B CLASS ROOM",
+      "display_text": "S5/S6 CSE-B CLASS ROOM",
+      "insertion_point": [
+        969.361836,
+        228.708476,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A6",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S5/S6 CS AI CLASS ROOM",
+      "display_text": "S5/S6 CS AI CLASS ROOM",
+      "insertion_point": [
+        980.548172,
+        228.457122,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A7",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S3/S4 CSE-B CLASS ROOM",
+      "display_text": "S3/S4 CSE-B CLASS ROOM",
+      "insertion_point": [
+        991.201201,
+        225.982712,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A8",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S7/S8 CSE-B CLASS ROOM",
+      "display_text": "S7/S8 CSE-B CLASS ROOM",
+      "insertion_point": [
+        1003.802975,
+        225.907139,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9A9",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S7/S8 CS-AI CLASS ROOM",
+      "display_text": "S7/S8 CS-AI CLASS ROOM",
+      "insertion_point": [
+        1015.01465,
+        225.990702,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AA",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S3/S4 CSE-A CLASS ROOM",
+      "display_text": "S3/S4 CSE-A CLASS ROOM",
+      "insertion_point": [
+        1009.786955,
+        207.355482,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.95 x 11.84\n141.488 m²\n1522.4 Sq.ft",
+      "display_text": "11.95 x 11.84 141.488 m² 1522.4 Sq.ft",
+      "insertion_point": [
+        1020.972117,
+        206.787041,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.94 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "11.94 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        1010.610644,
+        206.754559,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.9 x 11.84\n105.378 m²\n1133.85 Sq.ft",
+      "display_text": "8.9 x 11.84 105.378 m² 1133.85 Sq.ft",
+      "insertion_point": [
+        1000.565099,
+        206.754559,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B1",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.88 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "8.88 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        991.268914,
+        206.008253,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "5.9 x 11.9\n70.21 m²\n755.46 Sq.ft",
+      "display_text": "5.9 x 11.9 70.21 m² 755.46 Sq.ft",
+      "insertion_point": [
+        1023.133532,
+        224.061359,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.8x 11.9\n140.42 m²\n1510.92 Sq.ft",
+      "display_text": "11.8x 11.9 140.42 m² 1510.92 Sq.ft",
+      "insertion_point": [
+        1015.326458,
+        225.569986,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "12.0 x 11.9\n142.80 m²\n1536.53 Sq.ft",
+      "display_text": "12.0 x 11.9 142.80 m² 1536.53 Sq.ft",
+      "insertion_point": [
+        1004.049561,
+        225.521665,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.78 x 11.9\n140.182 m²\n1508.36 Sq.ft",
+      "display_text": "11.78 x 11.9 140.182 m² 1508.36 Sq.ft",
+      "insertion_point": [
+        991.92971,
+        225.482809,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.5 x 11.82\n135.93 m²\n1462.61 Sq.ft",
+      "display_text": "11.5 x 11.82 135.93 m² 1462.61 Sq.ft",
+      "insertion_point": [
+        981.284288,
+        228.040927,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.98 x 11.82 m\n141.60 m²\n1523.65 Sq.ft",
+      "display_text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "insertion_point": [
+        970.089324,
+        228.254162,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.98 x 11.82 m\n141.60 m²\n1523.65 Sq.ft",
+      "display_text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "insertion_point": [
+        957.943685,
+        228.096354,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C1",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "DIV OF CSE & \nAIDS \nDEPARTMENT",
+      "display_text": "DIV OF CSE & AIDS DEPARTMENT",
+      "insertion_point": [
+        991.295437,
+        207.760003,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "608",
+      "display_text": "608",
+      "insertion_point": [
+        1023.469565,
+        208.707655,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C4",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "607",
+      "display_text": "607",
+      "insertion_point": [
+        1013.338471,
+        208.707309,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "606",
+      "display_text": "606",
+      "insertion_point": [
+        1003.1687,
+        208.786364,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C6",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "605",
+      "display_text": "605",
+      "insertion_point": [
+        993.817224,
+        208.772785,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "601",
+      "display_text": "601",
+      "insertion_point": [
+        960.516052,
+        230.035867,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C8",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "603",
+      "display_text": "603",
+      "insertion_point": [
+        972.324202,
+        229.972093,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "604",
+      "display_text": "604",
+      "insertion_point": [
+        983.790474,
+        230.064714,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CA",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "613",
+      "display_text": "613",
+      "insertion_point": [
+        994.393532,
+        227.406779,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "611/612",
+      "display_text": "611/612",
+      "insertion_point": [
+        1005.785084,
+        227.352354,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CC",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "610",
+      "display_text": "610",
+      "insertion_point": [
+        1017.767449,
+        227.29066,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "609",
+      "display_text": "609",
+      "insertion_point": [
+        1025.527308,
+        227.380039,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CE",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "EXPERIENTIAL LEARNING HUB",
+      "display_text": "EXPERIENTIAL LEARNING HUB",
+      "insertion_point": [
+        1019.127001,
+        207.321723,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CF",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "ELECTIVE / TUTORIAL/ IDP ROOM",
+      "display_text": "ELECTIVE / TUTORIAL/ IDP ROOM",
+      "insertion_point": [
+        999.349668,
+        207.293016,
+        -0.179751
+      ],
+      "rotation_degrees": 0.0
+    }
+  ],
+  "text_entity_count": 42,
+  "room_number_texts": [
+    {
+      "handle": "9C3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "608",
+      "display_text": "608",
+      "insertion_point": [
+        1023.469565,
+        208.707655,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C4",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "607",
+      "display_text": "607",
+      "insertion_point": [
+        1013.338471,
+        208.707309,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "606",
+      "display_text": "606",
+      "insertion_point": [
+        1003.1687,
+        208.786364,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C6",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "605",
+      "display_text": "605",
+      "insertion_point": [
+        993.817224,
+        208.772785,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "601",
+      "display_text": "601",
+      "insertion_point": [
+        960.516052,
+        230.035867,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C8",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "603",
+      "display_text": "603",
+      "insertion_point": [
+        972.324202,
+        229.972093,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9C9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "604",
+      "display_text": "604",
+      "insertion_point": [
+        983.790474,
+        230.064714,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CA",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "613",
+      "display_text": "613",
+      "insertion_point": [
+        994.393532,
+        227.406779,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "611/612",
+      "display_text": "611/612",
+      "insertion_point": [
+        1005.785084,
+        227.352354,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CC",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "610",
+      "display_text": "610",
+      "insertion_point": [
+        1017.767449,
+        227.29066,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9CD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "609",
+      "display_text": "609",
+      "insertion_point": [
+        1025.527308,
+        227.380039,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    }
+  ],
+  "numeric_dimension_annotations": [
+    {
+      "handle": "9AB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.95 x 11.84\n141.488 m²\n1522.4 Sq.ft",
+      "display_text": "11.95 x 11.84 141.488 m² 1522.4 Sq.ft",
+      "insertion_point": [
+        1020.972117,
+        206.787041,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.94 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "11.94 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        1010.610644,
+        206.754559,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9AF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.9 x 11.84\n105.378 m²\n1133.85 Sq.ft",
+      "display_text": "8.9 x 11.84 105.378 m² 1133.85 Sq.ft",
+      "insertion_point": [
+        1000.565099,
+        206.754559,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B1",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.88 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "8.88 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        991.268914,
+        206.008253,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "5.9 x 11.9\n70.21 m²\n755.46 Sq.ft",
+      "display_text": "5.9 x 11.9 70.21 m² 755.46 Sq.ft",
+      "insertion_point": [
+        1023.133532,
+        224.061359,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.8x 11.9\n140.42 m²\n1510.92 Sq.ft",
+      "display_text": "11.8x 11.9 140.42 m² 1510.92 Sq.ft",
+      "insertion_point": [
+        1015.326458,
+        225.569986,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "12.0 x 11.9\n142.80 m²\n1536.53 Sq.ft",
+      "display_text": "12.0 x 11.9 142.80 m² 1536.53 Sq.ft",
+      "insertion_point": [
+        1004.049561,
+        225.521665,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9B9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.78 x 11.9\n140.182 m²\n1508.36 Sq.ft",
+      "display_text": "11.78 x 11.9 140.182 m² 1508.36 Sq.ft",
+      "insertion_point": [
+        991.92971,
+        225.482809,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.5 x 11.82\n135.93 m²\n1462.61 Sq.ft",
+      "display_text": "11.5 x 11.82 135.93 m² 1462.61 Sq.ft",
+      "insertion_point": [
+        981.284288,
+        228.040927,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.98 x 11.82 m\n141.60 m²\n1523.65 Sq.ft",
+      "display_text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "insertion_point": [
+        970.089324,
+        228.254162,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    },
+    {
+      "handle": "9BF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.98 x 11.82 m\n141.60 m²\n1523.65 Sq.ft",
+      "display_text": "11.98 x 11.82 m 141.60 m² 1523.65 Sq.ft",
+      "insertion_point": [
+        957.943685,
+        228.096354,
+        0.0
+      ],
+      "rotation_degrees": 0.0
+    }
+  ],
+  "plan_bounds": {
+    "min_x": 948.5,
+    "min_y": 199.5,
+    "max_x": 1034.5,
+    "max_y": 234.5
+  },
+  "observations": [
+    "Modelspace has no INSERT, ARC, CIRCLE or SPLINE entities; geometry is mostly LINE/LWPOLYLINE.",
+    "Every modelspace entity is on layer 0, so layers cannot distinguish architecture from annotations.",
+    "The 11 room number text objects are 601, 603, 604, 605, 606, 607, 608, 609, 610, 611/612, 613. No 602 label was found.",
+    "Three UP markers align with visible stair symbols.",
+    "The drawing contains paired wall faces, room partitions, door/opening breaks, stair graphics, toilet/lift/electrical labels and area dimensions.",
+    "All 11 room number labels sit within apparent room footprints; 607 and 608 have no descriptive room label. 611/612 is a single combined source text label.",
+    "Existing f5_visualization.json uses a separate normalized 3D/navigation schema. Its walls are dimensionally consistent with the DXF after translation, and its 11 room nodes corroborate the room count; it was not copied into the endpoint schema."
+  ]
+}

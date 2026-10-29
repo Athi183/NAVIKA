@@ -1,0 +1,1570 @@
+{
+  "source_file": "/home/fathima-mehrin-v-s/RAMANUJAN_4TH/RAMANUJAN_4THDXF/Ramanujan_4thFloor.dxf",
+  "dxf_version": "AC1027",
+  "insunits_code": 4,
+  "insunits_declared": "millimetres",
+  "unit_scale_note": "The drawing contains room dimension strings in metres while $INSUNITS declares millimetres; physical coordinate scale is contradictory/uncertain. Coordinates are preserved without scaling.",
+  "modelspace_entity_count": 695,
+  "entity_counts": {
+    "LINE": 526,
+    "LWPOLYLINE": 85,
+    "TEXT": 14,
+    "INSERT": 37,
+    "POLYLINE": 1,
+    "MTEXT": 32
+  },
+  "layer_counts": {
+    "0": 695
+  },
+  "layouts": {
+    "Layout1": {},
+    "Layout2": {},
+    "Model": {
+      "LINE": 526,
+      "LWPOLYLINE": 85,
+      "TEXT": 14,
+      "INSERT": 37,
+      "POLYLINE": 1,
+      "MTEXT": 32
+    }
+  },
+  "attribute_counts": {
+    "modelspace_ATTRIB": 0,
+    "insert_attributes": 0,
+    "block_ATTDEF": 2
+  },
+  "text_entity_count": 46,
+  "text_counts": {
+    "TEXT": 14,
+    "MTEXT": 32
+  },
+  "text_entities": [
+    {
+      "handle": "8A7",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        643.2514004110996,
+        283.0067062631272,
+        -6.7106e-12
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.2367300448382294,
+      "nearest_extracted_line_distance": 0.387844,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "8CD",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        725.8714551016959,
+        272.2328850977877,
+        -6.7106e-12
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.2367300448382294,
+      "nearest_extracted_line_distance": 0.218558,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "917",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "UP",
+      "display_text": "UP",
+      "insertion_point": [
+        670.9409960150687,
+        275.4773864125912,
+        -6.7106e-12
+      ],
+      "rotation_degrees": 90.0,
+      "height": 0.2367300448382294,
+      "nearest_extracted_line_distance": 0.218559,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A4D",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "LIFT ",
+      "display_text": "LIFT",
+      "insertion_point": [
+        674.5410713799964,
+        274.3595568175809,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.2367300448382294,
+      "nearest_extracted_line_distance": 0.624993,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A4F",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "LIFT ",
+      "display_text": "LIFT",
+      "insertion_point": [
+        725.7184140919927,
+        277.8779773632389,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.2367300448382294,
+      "nearest_extracted_line_distance": 0.381235,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A51",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "Engine \nRoom ",
+      "display_text": "Engine Room",
+      "insertion_point": [
+        674.2152780730274,
+        274.0512916596284,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.2367300448382294,
+      "nearest_extracted_line_distance": 0.298169,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A53",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "Gents Toilet",
+      "display_text": "Gents Toilet",
+      "insertion_point": [
+        723.6908752053936,
+        285.1797388856508,
+        0.0789486857442922
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.2840760538058753,
+      "nearest_extracted_line_distance": 1.26813,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A54",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "Ladies Toilet",
+      "display_text": "Ladies Toilet",
+      "insertion_point": [
+        646.4571444430484,
+        288.2460600897335,
+        0.0789486857442922
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.818097,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A66",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "FOURTH FLOOR",
+      "display_text": "FOURTH FLOOR",
+      "insertion_point": [
+        647.3543579955743,
+        268.5178238062675,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 1.420380269029377,
+      "nearest_extracted_line_distance": 11.326288,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A67",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "Electrical room",
+      "display_text": "Electrical room",
+      "insertion_point": [
+        668.0592436717455,
+        280.2867160065774,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.113104,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A6A",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "John McCarthy Lab",
+      "display_text": "John McCarthy Lab",
+      "insertion_point": [
+        653.9736880253107,
+        290.5099554290194,
+        48.65626092040786
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 5.258868,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A6B",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S3/S4 CSE-A(AI) Class Room",
+      "display_text": "S3/S4 CSE-A(AI) Class Room",
+      "insertion_point": [
+        666.6702635548821,
+        290.6681990724167,
+        48.65626092040786
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.101636,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A6C",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "AI&DS STAFF ROOM",
+      "display_text": "AI&DS STAFF ROOM",
+      "insertion_point": [
+        676.4899879141177,
+        290.6062120288164,
+        38.92500873632629
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.055472,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A8C",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S3/S4 AI&DS Class Room",
+      "display_text": "S3/S4 AI&DS Class Room",
+      "insertion_point": [
+        683.9792737888782,
+        287.9770430951988,
+        48.08103718328957
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.617308,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A8D",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "Van Rossum Lab",
+      "display_text": "Van Rossum Lab",
+      "insertion_point": [
+        697.8776947306477,
+        287.779192034029,
+        72.64073389266981
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.867308,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A8E",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "AIDS Dept.Library",
+      "display_text": "AIDS Dept.Library",
+      "insertion_point": [
+        695.245560191703,
+        288.0579560225918,
+        71.28343962332457
+      ],
+      "rotation_degrees": 90.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.528079,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A8F",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "MTech(AIDS)",
+      "display_text": "MTech(AIDS)",
+      "insertion_point": [
+        705.8185100361897,
+        288.0078514574555,
+        72.64073389266981
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.027414,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A90",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S7/S8 AI&DS Class Room",
+      "display_text": "S7/S8 AI&DS Class Room",
+      "insertion_point": [
+        712.815402832979,
+        287.8551225840832,
+        48.65622970845868
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.48355,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A91",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "S5/S6 AI&DS Class Room",
+      "display_text": "S5/S6 AI&DS Class Room",
+      "insertion_point": [
+        702.8773358280076,
+        269.4530008697314,
+        72.64073389266981
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.750202,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A92",
+      "entity_type": "TEXT",
+      "layer": "0",
+      "raw_text": "Hinton Lab",
+      "display_text": "Hinton Lab",
+      "insertion_point": [
+        715.3251521924161,
+        269.5870032074284,
+        23.98447297226195
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 3.575818,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A95",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "17.95 x 11.85 m\n212.71 m²\n2288.73 Sq.ft",
+      "display_text": "17.95 x 11.85 m 212.71 m² 2288.73 Sq.ft",
+      "insertion_point": [
+        653.5675054301599,
+        290.1303106208946,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 5.025649,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A97",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "501",
+      "display_text": "501",
+      "insertion_point": [
+        656.1284529041094,
+        291.8942154802265,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 3.874638,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A98",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "502",
+      "display_text": "502",
+      "insertion_point": [
+        669.8999788469908,
+        292.0340235297538,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 3.735016,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A99",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "503",
+      "display_text": "503",
+      "insertion_point": [
+        678.758724817725,
+        292.1416430508446,
+        24.67178760055152
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 2.324209,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A9A",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "512",
+      "display_text": "512",
+      "insertion_point": [
+        687.0184091729378,
+        289.3608569932424,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 3.650183,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A9B",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "511",
+      "display_text": "511",
+      "insertion_point": [
+        693.8352805176786,
+        289.9950222139863,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.466011,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A9C",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "510",
+      "display_text": "510",
+      "insertion_point": [
+        699.9332750744142,
+        289.2155632330799,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 3.795527,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A9D",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "509",
+      "display_text": "509",
+      "insertion_point": [
+        707.1153044467457,
+        289.3265291601468,
+        24.61462836568055
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 2.324208,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A9E",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "508",
+      "display_text": "508",
+      "insertion_point": [
+        715.5457498723716,
+        289.1022671548156,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 3.909169,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "A9F",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "507",
+      "display_text": "507",
+      "insertion_point": [
+        716.33441443646,
+        270.8619396517955,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 4.448937,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AA0",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "506",
+      "display_text": "506",
+      "insertion_point": [
+        705.567750073278,
+        270.8087495301527,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 4.435443,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AA1",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "505",
+      "display_text": "505",
+      "insertion_point": [
+        696.3281341172677,
+        270.8383065480251,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 3.225193,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AA2",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "504",
+      "display_text": "504",
+      "insertion_point": [
+        686.687080426137,
+        270.6889421026975,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 4.068969,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AA3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.90 x 11.85 m\n141.02 m²\n1517.32 Sq.ft",
+      "display_text": "11.90 x 11.85 m 141.02 m² 1517.32 Sq.ft",
+      "insertion_point": [
+        667.2793469107199,
+        290.2485807276192,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.710719,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AA5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "5.55 x 11.85 m\n65.77 m²\n707.66 Sq.ft",
+      "display_text": "5.55 x 11.85 m 65.77 m² 707.66 Sq.ft",
+      "insertion_point": [
+        676.2630945588197,
+        290.0246790668664,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.065317,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AA7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.90 x 11.84 m\n140.896 m²\n1516.04 Sq.ft",
+      "display_text": "11.90 x 11.84 m 140.896 m² 1516.04 Sq.ft",
+      "insertion_point": [
+        713.6590768608147,
+        269.1044390468153,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.911589,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AA9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.85 x 11.84\n140.30 m²\n1509.67 Sq.ft",
+      "display_text": "11.85 x 11.84 140.30 m² 1509.67 Sq.ft",
+      "insertion_point": [
+        703.0591994496134,
+        268.9428538106116,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.934003,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AAB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.90 x 11.84\n105.38 m²\n1133.85 Sq.ft",
+      "display_text": "8.90 x 11.84 105.38 m² 1133.85 Sq.ft",
+      "insertion_point": [
+        693.8212329702154,
+        268.3774775708055,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.727664,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AAD",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "Elective/Tutorial \nRoom/IDP Room",
+      "display_text": "Elective/Tutorial Room/IDP Room",
+      "insertion_point": [
+        694.0290420942991,
+        270.0248483919416,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.92921,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AAF",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.88 x 11.84\n141.36 m²\n1521.13 Sq.ft",
+      "display_text": "8.88 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "insertion_point": [
+        684.0906421984699,
+        268.1145376206098,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.476569,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AB1",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "Div. of CSE & \nAIDS Department",
+      "display_text": "Div. of CSE & AIDS Department",
+      "insertion_point": [
+        684.4398742065422,
+        269.8787113186648,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.824544,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AB3",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.85 x 11.84\n140.30 m²\n1509.67 Sq.ft",
+      "display_text": "11.85 x 11.84 140.30 m² 1509.67 Sq.ft",
+      "insertion_point": [
+        712.9609244586408,
+        287.4601281942144,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.629071,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AB5",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "5.95 x 11.84\n70.448 m²\n758.02 Sq.ft",
+      "display_text": "5.95 x 11.84 70.448 m² 758.02 Sq.ft",
+      "insertion_point": [
+        704.7910957890844,
+        287.5617991301663,
+        24.61841210865876
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.0,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AB7",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "8.92 x 11.84\n105.61 m²\n1136.39 Sq.ft",
+      "display_text": "8.92 x 11.84 105.61 m² 1136.39 Sq.ft",
+      "insertion_point": [
+        697.1949112255551,
+        287.2699241195081,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 1.184524,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "AB9",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "3.0 x 11.84\n35.52 m²\n382.195 Sq.ft",
+      "display_text": "3.0 x 11.84 35.52 m² 382.195 Sq.ft",
+      "insertion_point": [
+        693.5062490576105,
+        282.1740994564209,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 0.02823,
+      "outside_plan_window": false
+    },
+    {
+      "handle": "ABB",
+      "entity_type": "MTEXT",
+      "layer": "0",
+      "raw_text": "11.90 x 11.84\n140.896 m²\n1516.04 Sq.ft",
+      "display_text": "11.90 x 11.84 140.896 m² 1516.04 Sq.ft",
+      "insertion_point": [
+        684.7333522431626,
+        287.4601281942144,
+        0.0
+      ],
+      "rotation_degrees": 0.0,
+      "height": 0.4682349152515882,
+      "nearest_extracted_line_distance": 2.371386,
+      "outside_plan_window": false
+    }
+  ],
+  "semantic_entity_count": 21,
+  "category_counts": {
+    "laboratory": 3,
+    "classroom": 5,
+    "facility": 5,
+    "department": 1,
+    "toilet": 2,
+    "vertical_transport": 2,
+    "staircase": 3
+  },
+  "room_number_associations": [
+    {
+      "place_id": "room_501",
+      "name_handle": "A6A",
+      "room_number_handle": "A97",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_502",
+      "name_handle": "A6B",
+      "room_number_handle": "A98",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_503",
+      "name_handle": "A6C",
+      "room_number_handle": "A99",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_504",
+      "name_handle": "AB1",
+      "room_number_handle": "AA2",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_505",
+      "name_handle": "AAD",
+      "room_number_handle": "AA1",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_506",
+      "name_handle": "A91",
+      "room_number_handle": "AA0",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_507",
+      "name_handle": "A92",
+      "room_number_handle": "A9F",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_508",
+      "name_handle": "A90",
+      "room_number_handle": "A9E",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_509",
+      "name_handle": "A8F",
+      "room_number_handle": "A9D",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_511",
+      "name_handle": "A8E",
+      "room_number_handle": "A9B",
+      "association": "wall bounds and 3.0 x 11.84 m annotation place AIDS Dept.Library and room 511 in the narrow bay",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_510",
+      "name_handle": "A8D",
+      "room_number_handle": "A9C",
+      "association": "wall bounds place Van Rossum Lab and room 510 in the same bay",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "room_512",
+      "name_handle": "A8C",
+      "room_number_handle": "A9A",
+      "association": "visually associated within apparent room footprint",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "ladies_toilet",
+      "name_handle": "A54",
+      "room_number_handle": null,
+      "association": "label only",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "gents_toilet",
+      "name_handle": "A53",
+      "room_number_handle": null,
+      "association": "label only",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "electrical_room",
+      "name_handle": "A67",
+      "room_number_handle": null,
+      "association": "label only",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "lift_west",
+      "name_handle": "A4D",
+      "room_number_handle": null,
+      "association": "label only",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "engine_room",
+      "name_handle": "A51",
+      "room_number_handle": null,
+      "association": "label only",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "lift_east",
+      "name_handle": "A4F",
+      "room_number_handle": null,
+      "association": "label only",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "staircase_west",
+      "name_handle": "8A7",
+      "room_number_handle": null,
+      "association": "UP marker located on visible stair geometry",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "staircase_central",
+      "name_handle": "917",
+      "room_number_handle": null,
+      "association": "UP marker located on visible stair geometry",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    },
+    {
+      "place_id": "staircase_east",
+      "name_handle": "8CD",
+      "room_number_handle": null,
+      "association": "UP marker located on visible stair geometry",
+      "position_source": "midpoint of room/stair/facility enclosure identified in source geometry",
+      "position_estimated": true
+    }
+  ],
+  "unclassified_or_excluded_labels": [
+    {
+      "handle": "A66",
+      "text": "FOURTH FLOOR",
+      "reason": "floor title/drawing annotation"
+    },
+    {
+      "handle": "A95",
+      "text": "17.95 x 11.85 m 212.71 m² 2288.73 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AA3",
+      "text": "11.90 x 11.85 m 141.02 m² 1517.32 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AA5",
+      "text": "5.55 x 11.85 m 65.77 m² 707.66 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AA7",
+      "text": "11.90 x 11.84 m 140.896 m² 1516.04 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AA9",
+      "text": "11.85 x 11.84 140.30 m² 1509.67 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AAB",
+      "text": "8.90 x 11.84 105.38 m² 1133.85 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AAF",
+      "text": "8.88 x 11.84 141.36 m² 1521.13 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AB3",
+      "text": "11.85 x 11.84 140.30 m² 1509.67 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AB5",
+      "text": "5.95 x 11.84 70.448 m² 758.02 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AB7",
+      "text": "8.92 x 11.84 105.61 m² 1136.39 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "AB9",
+      "text": "3.0 x 11.84 35.52 m² 382.195 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    },
+    {
+      "handle": "ABB",
+      "text": "11.90 x 11.84 140.896 m² 1516.04 Sq.ft",
+      "reason": "room dimension/area annotation, not a place label"
+    }
+  ],
+  "possible_duplicate_labels": {
+    "up": [
+      "8A7",
+      "8CD",
+      "917"
+    ],
+    "lift": [
+      "A4D",
+      "A4F"
+    ],
+    "11.85 x 11.84 140.30 m² 1509.67 sq.ft": [
+      "AA9",
+      "AB3"
+    ]
+  },
+  "labels_near_extracted_lines_under_0_15_units": [
+    {
+      "handle": "A6C",
+      "text": "AI&DS STAFF ROOM",
+      "distance": 0.055472
+    },
+    {
+      "handle": "AA5",
+      "text": "5.55 x 11.85 m 65.77 m² 707.66 Sq.ft",
+      "distance": 0.065317
+    },
+    {
+      "handle": "AB5",
+      "text": "5.95 x 11.84 70.448 m² 758.02 Sq.ft",
+      "distance": 0.0
+    },
+    {
+      "handle": "AB9",
+      "text": "3.0 x 11.84 35.52 m² 382.195 Sq.ft",
+      "distance": 0.02823
+    }
+  ],
+  "labels_outside_main_plan_window": [],
+  "manual_position_estimates": [
+    {
+      "place_id": "room_501",
+      "display_xy": [
+        657.0,
+        290.38
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        653.9736880253107,
+        290.5099554290194
+      ]
+    },
+    {
+      "place_id": "room_502",
+      "display_xy": [
+        670.75,
+        290.38
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        666.6702635548821,
+        290.6681990724167
+      ]
+    },
+    {
+      "place_id": "room_503",
+      "display_xy": [
+        679.0,
+        290.38
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        676.4899879141177,
+        290.6062120288164
+      ]
+    },
+    {
+      "place_id": "room_504",
+      "display_xy": [
+        687.61,
+        269.445
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        684.4398742065422,
+        269.8787113186648
+      ]
+    },
+    {
+      "place_id": "room_505",
+      "display_xy": [
+        696.96,
+        269.43
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        694.0290420942991,
+        270.0248483919416
+      ]
+    },
+    {
+      "place_id": "room_506",
+      "display_xy": [
+        706.36,
+        269.41
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        702.8773358280076,
+        269.4530008697314
+      ]
+    },
+    {
+      "place_id": "room_507",
+      "display_xy": [
+        716.94,
+        269.41
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        715.3251521924161,
+        269.5870032074284
+      ]
+    },
+    {
+      "place_id": "room_508",
+      "display_xy": [
+        717.0,
+        287.57
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        712.815402832979,
+        287.8551225840832
+      ]
+    },
+    {
+      "place_id": "room_509",
+      "display_xy": [
+        708.25,
+        287.575
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        705.8185100361897,
+        288.0078514574555
+      ]
+    },
+    {
+      "place_id": "room_510",
+      "display_xy": [
+        700.5,
+        287.56
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        697.8776947306477,
+        287.779192034029
+      ]
+    },
+    {
+      "place_id": "room_511",
+      "display_xy": [
+        694.5,
+        287.625
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        695.245560191703,
+        288.0579560225918
+      ]
+    },
+    {
+      "place_id": "room_512",
+      "display_xy": [
+        687.75,
+        287.605
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        683.9792737888782,
+        287.9770430951988
+      ]
+    },
+    {
+      "place_id": "electrical_room",
+      "display_xy": [
+        670.75,
+        280.25
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        668.0592436717455,
+        280.2867160065774
+      ]
+    },
+    {
+      "place_id": "engine_room",
+      "display_xy": [
+        675.5,
+        274.8
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        674.2152780730274,
+        274.0512916596284
+      ]
+    },
+    {
+      "place_id": "gents_toilet",
+      "display_xy": [
+        725.0,
+        285.5
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        723.6908752053936,
+        285.1797388856508
+      ]
+    },
+    {
+      "place_id": "ladies_toilet",
+      "display_xy": [
+        647.0,
+        286.0
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        646.4571444430484,
+        288.2460600897335
+      ]
+    },
+    {
+      "place_id": "lift_east",
+      "display_xy": [
+        725.0,
+        277.75
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        725.7184140919927,
+        277.8779773632389
+      ]
+    },
+    {
+      "place_id": "lift_west",
+      "display_xy": [
+        675.5,
+        274.8
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        674.5410713799964,
+        274.3595568175809
+      ]
+    },
+    {
+      "place_id": "staircase_central",
+      "display_xy": [
+        669.0,
+        276.5
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        670.9409960150687,
+        275.4773864125912
+      ]
+    },
+    {
+      "place_id": "staircase_east",
+      "display_xy": [
+        724.7,
+        269.75
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        725.8714551016959,
+        272.2328850977877
+      ]
+    },
+    {
+      "place_id": "staircase_west",
+      "display_xy": [
+        644.0,
+        284.7
+      ],
+      "basis": "midpoint of enclosing wall interval or stair/facility footprint",
+      "source_insertion_xy": [
+        643.2514004110996,
+        283.0067062631272
+      ]
+    }
+  ],
+  "position_policy": "Original DXF insertion coordinates remain in text_entities. Semantic cadX/cadY now use the midpoint of the corresponding wall-bounded enclosure; room bounds and the two room 510/511 assignments were checked against the floor plan. No room polygons or navigation nodes were created.",
+  "limitations": [
+    "All modelspace entities use layer 0; layer cannot separate semantic text from drafting annotations.",
+    "Room outlines are not represented as reliable room polygons in the available schema; associations use text placement and visible partitions only.",
+    "Other room labels and room numbers fall within their apparent room footprints; this is not proof of physical access/connectivity.",
+    "Three UP labels coincide with stair symbols and are represented as staircase places; no doors, entrances, route graph, or navigation nodes were generated.",
+    "Nearest-line distances use extracted line segments that include non-wall symbol linework; they are warnings, not proof that a label lies on a wall.",
+    "Declared units and dimension text conflict, so renderer scale needs independent confirmation.",
+    "Central LIFT and Engine Room source labels occupy the same small core; the renderer stacks them as a combined two-line label. Their source records remain separate."
+  ],
+  "source_visual_validation": "Wall-bounded room intervals, source text positions, and adjusted label positions visually compared in floor4_semantics_preview.png. Automated line-clearance diagnostics are included. Actual browser 3D capture could not be completed: initial headless capture remained in loading state.",
+  "renderer_validation": "TypeScript/Vite production build passes. Browser validation was not completed in this run: headless Chrome previously could not create a WebGL context, and the current request to launch another viewer capture was declined. The top-down wall overlays validate room membership and number/name wrapping but are not an actual 3D viewer test.",
+  "output_file": "public/data/Ramanujan_F4/semantics.json",
+  "unassociated_room_numbers": [],
+  "unassociated_room_numbers_count": 0,
+  "unclassified_or_excluded_label_count": 13,
+  "room_510_511_resolution": "The wall at approximately X=696 separates the 3.0-unit-wide room 511 from room 510. The 3.0 x 11.84 m dimension note and room number 511 align with AIDS Dept.Library in the narrow bay; Van Rossum Lab and room 510 lie in the adjacent bay.",
+  "duplicate_semantic_positions": [
+    {
+      "places": [
+        "lift_west",
+        "engine_room"
+      ],
+      "cadXY": [
+        675.5,
+        274.8
+      ],
+      "handling": "intentional shared elevator/engine core; rendered as one stacked label"
+    }
+  ],
+  "position_clearance_checks": [
+    {
+      "id": "room_501",
+      "nearest_extracted_line_distance": 5.3889
+    },
+    {
+      "id": "room_502",
+      "nearest_extracted_line_distance": 5.1814
+    },
+    {
+      "id": "room_503",
+      "nearest_extracted_line_distance": 2.5655
+    },
+    {
+      "id": "room_504",
+      "nearest_extracted_line_distance": 4.9961
+    },
+    {
+      "id": "room_505",
+      "nearest_extracted_line_distance": 3.8624
+    },
+    {
+      "id": "room_506",
+      "nearest_extracted_line_distance": 5.1685
+    },
+    {
+      "id": "room_507",
+      "nearest_extracted_line_distance": 5.1913
+    },
+    {
+      "id": "room_508",
+      "nearest_extracted_line_distance": 5.1805
+    },
+    {
+      "id": "room_509",
+      "nearest_extracted_line_distance": 2.8451
+    },
+    {
+      "id": "room_510",
+      "nearest_extracted_line_distance": 4.0544
+    },
+    {
+      "id": "room_511",
+      "nearest_extracted_line_distance": 1.1307
+    },
+    {
+      "id": "room_512",
+      "nearest_extracted_line_distance": 4.9088
+    },
+    {
+      "id": "electrical_room",
+      "nearest_extracted_line_distance": 1.0764
+    },
+    {
+      "id": "engine_room",
+      "nearest_extracted_line_distance": 0.6044
+    },
+    {
+      "id": "gents_toilet",
+      "nearest_extracted_line_distance": 0.0574
+    },
+    {
+      "id": "ladies_toilet",
+      "nearest_extracted_line_distance": 1.0763
+    },
+    {
+      "id": "lift_east",
+      "nearest_extracted_line_distance": 0.0982
+    },
+    {
+      "id": "lift_west",
+      "nearest_extracted_line_distance": 0.6044
+    },
+    {
+      "id": "staircase_central",
+      "nearest_extracted_line_distance": 0.0517
+    },
+    {
+      "id": "staircase_east",
+      "nearest_extracted_line_distance": 0.2005
+    },
+    {
+      "id": "staircase_west",
+      "nearest_extracted_line_distance": 0.0235
+    }
+  ],
+  "renderer_adjustments": {
+    "floor4_font_size_rule": "max(0.34, min(0.44, roomWidth/12, roomHeight/24)); measured room bounds determine the adaptive size.",
+    "floor4_font_size_range": [
+      0.34,
+      0.44
+    ],
+    "non_room_floor4_font_size": 0.36,
+    "outline_width": 0.02,
+    "max_widths_by_place_id": {
+      "room_501": 16.2,
+      "room_502": 9.8,
+      "room_503": 5.2,
+      "room_504": 9.6,
+      "room_505": 7.4,
+      "room_506": 9.7,
+      "room_507": 9.6,
+      "room_508": 10,
+      "room_509": 5.8,
+      "room_510": 8.2,
+      "room_511": 2.5,
+      "room_512": 10
+    },
+    "wrapping": "Explicit line breaks for long classroom/department labels and library label; troika maxWidth remains a secondary wrap guard.",
+    "vertical_position": 3.1,
+    "sixth_floor_fallbacks": "fontSize 0.65, outlineWidth 0.035, maxWidth 8; unchanged.",
+    "room_number_format": "For Floor 4, append roomNumber as a separate first line unless the number already appears as a standalone token in the source name. Label block is raised to preserve the prior lower edge."
+  },
+  "room_number_display_audit": {
+    "source_numbers_recovered": [
+      "501",
+      "502",
+      "503",
+      "504",
+      "505",
+      "506",
+      "507",
+      "508",
+      "509",
+      "510",
+      "511",
+      "512"
+    ],
+    "source_handles": {
+      "501": "A97",
+      "502": "A98",
+      "503": "A99",
+      "504": "AA2",
+      "505": "AA1",
+      "506": "AA0",
+      "507": "A9F",
+      "508": "A9E",
+      "509": "A9D",
+      "510": "A9C",
+      "511": "A9B",
+      "512": "A9A"
+    },
+    "displayed_numbers": [
+      "501",
+      "502",
+      "503",
+      "504",
+      "505",
+      "506",
+      "507",
+      "508",
+      "509",
+      "510",
+      "511",
+      "512"
+    ],
+    "display_format": "room number on its own line above the full room name; explicit display line breaks do not alter semantic name",
+    "excluded_numeric_annotations": [
+      {
+        "handle": "A95",
+        "text": "17.95 x 11.85 m 212.71 m² 2288.73 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AA3",
+        "text": "11.90 x 11.85 m 141.02 m² 1517.32 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AA5",
+        "text": "5.55 x 11.85 m 65.77 m² 707.66 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AA7",
+        "text": "11.90 x 11.84 m 140.896 m² 1516.04 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AA9",
+        "text": "11.85 x 11.84 140.30 m² 1509.67 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AAB",
+        "text": "8.90 x 11.84 105.38 m² 1133.85 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AAF",
+        "text": "8.88 x 11.84 141.36 m² 1521.13 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AB3",
+        "text": "11.85 x 11.84 140.30 m² 1509.67 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AB5",
+        "text": "5.95 x 11.84 70.448 m² 758.02 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AB7",
+        "text": "8.92 x 11.84 105.61 m² 1136.39 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "AB9",
+        "text": "3.0 x 11.84 35.52 m² 382.195 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      },
+      {
+        "handle": "ABB",
+        "text": "11.90 x 11.84 140.896 m² 1516.04 Sq.ft",
+        "reason": "dimension/area/measurement annotation"
+      }
+    ],
+    "ambiguous_room_number_associations": [],
+    "association_note": "Numbers 501–512 are unique three-digit room labels in the floor plan. Room 511 is the narrow X≈693–696 bay with the 3.0 x 11.84 m annotation; room 510 is the adjacent X≈696–705 bay."
+  }
+}

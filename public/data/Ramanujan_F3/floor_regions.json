@@ -1,0 +1,8 @@
+{
+  "floor": "3",
+  "coordinate_system": "CAD XY",
+  "surface_elevation": 0.006,
+  "floor_inset": 0.18,
+  "regions": [],
+  "neutral_fallback_ids": []
+}

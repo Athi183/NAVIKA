@@ -4,8 +4,8 @@
   "coordinate_system": "CAD XY",
   "geometry_summary": {
     "reconstructed_line_walls": 182,
-    "structural_polylines": 14,
-    "total_wall_segments": 218
+    "structural_polylines": 12,
+    "total_wall_segments": 216
   },
   "walls": [
     {
@@ -1899,16 +1899,6 @@
       "source_polyline": 0
     },
     {
-      "id": "POLY_WALL_01_00",
-      "type": "structural_polyline",
-      "x1": 10690.8158,
-      "y1": 2041.7671,
-      "x2": 10690.8158,
-      "y2": 2041.7664,
-      "length": 0.0007,
-      "source_polyline": 1
-    },
-    {
       "id": "POLY_WALL_02_00",
       "type": "structural_polyline",
       "x1": 10690.8151,
@@ -2077,16 +2067,6 @@
       "y2": 2024.148,
       "length": 1.4663,
       "source_polyline": 9
-    },
-    {
-      "id": "POLY_WALL_10_00",
-      "type": "structural_polyline",
-      "x1": 10642.5463,
-      "y1": 2022.4466,
-      "x2": 10642.5466,
-      "y2": 2022.4466,
-      "length": 0.0003,
-      "source_polyline": 10
     },
     {
       "id": "POLY_WALL_10_01",
