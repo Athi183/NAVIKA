@@ -103,6 +103,12 @@ export default function MobileRoute() {
   const destination = places.find((item) => item.id === params.get('to'))
   const profile = ['fastest', 'shortest', 'step_free'].includes(params.get('profile')) ? params.get('profile') : 'fastest'
   const [selectedFloor, setSelectedFloor] = useState(null)
+  // Was read/written throughout the step-by-step directions section below
+  // (steps[currentStep], the Previous/Next buttons) but never declared --
+  // this page threw "currentStep is not defined" and crashed on render
+  // for every valid route, independent of whether the QR's URL was even
+  // reachable.
+  const [currentStep, setCurrentStep] = useState(0)
   const route = useMemo(() => source && destination ? getFloorRoute(source, destination, profile, params.get('connector') || 'auto') : null, [source, destination, profile])
   if (!source || !destination || !route) return <main className="mx-auto min-h-screen max-w-lg p-6"><h1 className="text-2xl font-bold">NAVIKA route unavailable</h1><p className="mt-3 text-slate-600">This QR link is missing a valid source or destination. Please create a new route QR from the navigation screen.</p></main>
 
