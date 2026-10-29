@@ -117,6 +117,37 @@ function detectLangCode(text) {
 // out loud as a literal symbol. This strips markdown syntax down to plain
 // words before anything is spoken, without touching what's displayed in
 // the chat bubble (that still shows the raw markdown text as-is).
+// Common designation abbreviations (pulled straight from the crawled
+// staff pages, e.g. "Asst. Professor", "Asst. HOD") read wrong by both
+// TTS paths if left as-is: the browser's English speechSynthesis reads
+// "Asst." as something that sounds like "ass" before stumbling on the
+// period, and the Malayalam voice has no Latin-letter coverage at all
+// (see interaction/tts.py) so it would just drop the word outright.
+// Expanding these before either engine sees the text fixes both at once,
+// since it's a plain word-level substitution with no language-specific
+// logic. Keyed on the exact abbreviation text (word-boundaried, case-
+// insensitive) rather than trying to guess every abbreviation that could
+// ever appear -- new ones can be added here as they come up.
+// \b after the core letters (before the optional period) matters: it's
+// what stops "prof" from also matching inside the whole word
+// "Professor" and mangling it into "Professoressor". With the \b placed
+// there, "prof" only matches when it's NOT immediately followed by more
+// letters -- i.e. "Prof." or "Prof " or "Prof" at a word's end, never as
+// a prefix of a longer word.
+const SPEECH_ABBREVIATIONS = [
+  [/\b(asst)\b\.?/gi, 'Assistant'],
+  [/\b(assoc)\b\.?/gi, 'Associate'],
+  [/\b(prof)\b\.?/gi, 'Professor'],
+  [/\b(dept)\b\.?/gi, 'Department'],
+]
+
+function expandAbbreviationsForSpeech(text) {
+  return SPEECH_ABBREVIATIONS.reduce(
+    (result, [pattern, replacement]) => result.replace(pattern, replacement),
+    text
+  )
+}
+
 function stripMarkdownForSpeech(text) {
   return text
     // bullet/numbered list markers at the start of a line
@@ -341,7 +372,7 @@ export const voiceControls = {
     window.speechSynthesis?.cancel()
     stopActiveAudio()
 
-    const speechText = stripMarkdownForSpeech(text || 'NAVIKA is ready to help.')
+    const speechText = expandAbbreviationsForSpeech(stripMarkdownForSpeech(text || 'NAVIKA is ready to help.'))
     // Detected from the answer text itself rather than passed in — the
     // RAG already answers in whatever language the question was asked in
     // (see rag/app.py), so the response text is the one reliable source
