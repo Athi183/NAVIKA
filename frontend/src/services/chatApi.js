@@ -502,3 +502,25 @@ export async function askNavika(query) {
 export async function getSuggestedQuestions() {
   return demoSuggestions
 }
+
+// Backed by /api/faculty, which parses the already-crawled department
+// staff pages directly (no LLM call) -- see rag/faculty_directory.py.
+// Demo mode has no real crawled data to serve, so it returns an empty
+// list rather than fabricating faculty entries; the dropdown just hides
+// itself in that case (see FacultySearch's empty-list guard).
+export async function getFacultyDirectory() {
+  if (demoMode) {
+    return []
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/faculty`)
+    if (!response.ok) {
+      return []
+    }
+    const data = await response.json()
+    return data.faculty ?? []
+  } catch {
+    return []
+  }
+}

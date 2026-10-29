@@ -10,11 +10,14 @@ from flask_cors import CORS
 # CWD) so this works regardless of where the server is launched from.
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INTERACTION_DIR = os.path.join(BASE_DIR, "..", "interaction")
+RAG_DIR = os.path.join(BASE_DIR, "..", "rag")
 sys.path.append(INTERACTION_DIR)
+sys.path.append(RAG_DIR)
 
 from context import ConversationContext  # noqa: E402
 import main as interaction_main  # noqa: E402
 import tts as interaction_tts  # noqa: E402
+from faculty_directory import build_faculty_directory  # noqa: E402
 
 
 app = Flask(__name__)
@@ -89,6 +92,19 @@ def tts_malayalam():
         return jsonify({"error": f"Malayalam TTS unavailable: {error}"}), 500
 
     return Response(wav_bytes, mimetype="audio/wav")
+
+
+# Built once at process startup, not per-request: it's a pure parse of
+# the already-crawled staff/faculty pages (no LLM call, no network
+# request), so there's nothing to gain from redoing it on every hit, and
+# the result only changes when the site is re-crawled and this process
+# is restarted anyway.
+FACULTY_DIRECTORY = build_faculty_directory()
+
+
+@app.route("/api/faculty", methods=["GET"])
+def faculty_directory():
+    return jsonify({"faculty": FACULTY_DIRECTORY})
 
 
 @app.route("/api/reset", methods=["POST"])

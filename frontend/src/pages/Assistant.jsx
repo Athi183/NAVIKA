@@ -1,12 +1,34 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUp } from 'lucide-react'
 import Button from '../components/common/Button'
 import Card from '../components/common/Card'
 import ChatMessage from '../components/ai/ChatMessage'
+import FacultySearch from '../components/ai/FacultySearch'
 import SuggestedQuestions from '../components/ai/SuggestedQuestions'
 import VoiceButton from '../components/ai/VoiceButton'
-import { askNavika, voiceControls } from '../services/chatApi'
+import { askNavika, getFacultyDirectory, voiceControls } from '../services/chatApi'
 import { demoSuggestions } from '../data/demoChat'
+
+// Faculty selected from the search dropdown are answered directly from
+// the structured directory data (name/designation/department/interests
+// parsed straight from the crawled staff pages -- see
+// rag/faculty_directory.py), not by round-tripping through NAVIKA's own
+// chat pipeline. That's deliberate, not just an optimization: this
+// project has repeatedly hit Groq's rate limits, and a dropdown pick
+// is exactly the kind of lookup that doesn't need an LLM call at all
+// when the structured answer is already sitting in memory.
+function formatFacultyDetails(person) {
+  const interests = person.interests.length > 0
+    ? person.interests.map((item) => `- ${item}`).join('\n')
+    : '_No research interests listed._'
+
+  return (
+    `**${person.name}**\n\n` +
+    `**Designation:** ${person.designation}\n\n` +
+    `**Department:** ${person.department}\n\n` +
+    `**Research Interests:**\n${interests}`
+  )
+}
 
 function createTimestamp() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -36,6 +58,7 @@ export default function Assistant() {
     { id: 0, speaker: 'NAVIKA', text: 'How can I help you?', timestamp: createTimestamp() },
   ])
   const [loading, setLoading] = useState(false)
+  const [facultyDirectory, setFacultyDirectory] = useState([])
   const [voiceStatus, setVoiceStatus] = useState('')
   const [isListening, setIsListening] = useState(false)
   // Which language the mic listens for — has to be chosen up front,
@@ -52,6 +75,14 @@ export default function Assistant() {
   const [speakingMessageId, setSpeakingMessageId] = useState(null)
   const lastVoiceTranscriptRef = useRef('')
   const suggestions = useMemo(() => demoSuggestions, [])
+
+  // Fetched once per page load, not per keystroke in FacultySearch --
+  // it's a stable list until the site is re-crawled and the backend
+  // restarted, so there's nothing to gain from re-fetching it on every
+  // search.
+  useEffect(() => {
+    getFacultyDirectory().then(setFacultyDirectory)
+  }, [])
 
   // Single toggle shared by the header "Voice response" button and every
   // per-message speaker button: pressing the control for whichever
@@ -93,6 +124,22 @@ export default function Assistant() {
     }
 
     speakMessage(responseId, response.text)
+  }
+
+  // Answers instantly from the already-fetched directory data (see
+  // formatFacultyDetails above) instead of calling handleAsk/askNavika --
+  // no backend round trip, no LLM call. Still posts a USER bubble first
+  // so the exchange reads the same as any other question in the chat.
+  const handleFacultySelect = (person) => {
+    setMessages((current) => [
+      ...current,
+      { id: nextMessageId.current++, speaker: 'USER', text: `Tell me about ${person.name}`, timestamp: createTimestamp() },
+    ])
+
+    const responseId = nextMessageId.current++
+    const text = formatFacultyDetails(person)
+    setMessages((current) => [...current, { id: responseId, speaker: 'NAVIKA', text, timestamp: createTimestamp() }])
+    speakMessage(responseId, text)
   }
 
   const handleVoiceInput = () => {
@@ -199,6 +246,8 @@ export default function Assistant() {
       </div>
 
       <Card className="p-4">
+        <FacultySearch faculty={facultyDirectory} onSelect={handleFacultySelect} />
+
         <div className="mb-4">
           <SuggestedQuestions suggestions={suggestions} onSelect={handleAsk} />
         </div>
