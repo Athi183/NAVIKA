@@ -276,37 +276,62 @@ _FACULTY_FULL_TEXT = "\n".join(FACULTY_DOCUMENTS)
 
 def _person_lookup_tokens(question_lower):
     words = re.findall(r"[a-z]+", question_lower)
-    # len > 2 deliberately excludes 2-letter fragments like name initials
-    # ("mt") -- those are common enough as substrings of unrelated words
-    # (e.g. "mt" inside "comment") to flood the snippet search with false
-    # positives, whereas a first name alone (4+ letters, as nearly every
-    # real one here is) is specific enough to find the right person on
-    # its own without needing the initials too.
-    return [w for w in words if w not in _PERSON_LOOKUP_STOPWORDS and len(w) > 2]
+    # Split into primary tokens (4+ letters -- a first/last name, specific
+    # enough on its own to anchor a search) and initial tokens (1-2
+    # letters, e.g. the "K", "V" in "Sheena K V"). Initials alone are too
+    # common as substrings of unrelated words to search on directly (e.g.
+    # "mt" inside "comment"), but dropping them entirely turned out to
+    # lose real information: this college has three different faculty
+    # members named Sheena ("Sheena K.V.", "Sheena Kurian K.", "Sheena
+    # Y."), so "who is Sheena K V" with only "sheena" as a search token
+    # can't tell them apart at all -- confirmed directly, it surfaced
+    # "Sheena Kurian K" (who happens to appear far more often across the
+    # crawled pages) instead of the person actually asked about. Initials
+    # are used below only to RANK matches of a primary token, never as a
+    # search basis by themselves.
+    primary = [w for w in words if w not in _PERSON_LOOKUP_STOPWORDS and len(w) > 2]
+    initials = [w for w in words if w not in _PERSON_LOOKUP_STOPWORDS and len(w) <= 2]
+    return primary, initials
 
 
 def _faculty_snippets_for(question_lower):
     if not any(trigger in question_lower for trigger in _PERSON_LOOKUP_TRIGGERS):
         return []
 
-    tokens = _person_lookup_tokens(question_lower)
-    if not tokens:
+    primary_tokens, initial_tokens = _person_lookup_tokens(question_lower)
+    if not primary_tokens:
         return []
 
-    snippets = []
+    # Score and rank every occurrence instead of taking the first few
+    # found: for each primary-token match, count how many of the
+    # question's initials appear as standalone words (word-boundaried, so
+    # "K" matches only the initial "K", never the "k" inside "Kurian")
+    # within a short window right around it. "Sheena K V" then scores
+    # higher near "Sheena K.V." (both initials present) than near "Sheena
+    # Kurian K" (only one), which is exactly the disambiguation that was
+    # missing.
+    candidates = []
     seen_spans = []
-    for token in tokens:
+    for token in primary_tokens:
         for match in re.finditer(re.escape(token), _FACULTY_FULL_TEXT, re.IGNORECASE):
             start = max(0, match.start() - 250)
             end = min(len(_FACULTY_FULL_TEXT), match.end() + 250)
             if any(start < e and s < end for s, e in seen_spans):
                 continue
             seen_spans.append((start, end))
-            snippets.append(_FACULTY_FULL_TEXT[start:end])
-            if len(snippets) >= 4:
-                return snippets
 
-    return snippets
+            nearby_start = max(0, match.start() - 40)
+            nearby_end = min(len(_FACULTY_FULL_TEXT), match.end() + 40)
+            nearby_text = _FACULTY_FULL_TEXT[nearby_start:nearby_end]
+            initials_matched = sum(
+                1 for initial in initial_tokens
+                if re.search(rf"\b{re.escape(initial)}\b", nearby_text, re.IGNORECASE)
+            )
+
+            candidates.append((initials_matched, start, end))
+
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    return [_FACULTY_FULL_TEXT[start:end] for _, start, end in candidates[:4]]
 
 
 def augment_documents_for(question):

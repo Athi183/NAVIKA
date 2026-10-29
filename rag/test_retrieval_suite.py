@@ -65,6 +65,12 @@ TEST_CASES = [
     ("faculty", "who is the HOD of civil engineering", "mary lissy", "department/ce"),
     ("faculty", "who is the HOD of mechanical engineering", "pramod kumar", "department/me"),
     ("faculty", "is Indu MT a faculty member at MITS", "indu m", "cs-staff"),
+    # Regression: three different faculty share the first name "Sheena"
+    # (Sheena K.V., Sheena Kurian K., Sheena Y.) -- initials must be used
+    # to disambiguate which one "Sheena K V" refers to, not just match on
+    # "sheena" and take whichever snippet is found first (see
+    # _person_lookup_tokens / _faculty_snippets_for's initials scoring).
+    ("faculty", "who is Sheena K V", "medical image processing", "cs-staff"),
     ("departments", "what departments are available at MITS", "computer science", None),
     ("departments", "where is the CSE department located", "cse", None),
     ("placement", "what is the total offers for the 2022-2026 batch", "2022-2026", "placement"),
