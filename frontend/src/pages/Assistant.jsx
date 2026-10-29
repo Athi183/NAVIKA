@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, ChevronDown } from 'lucide-react'
 import Button from '../components/common/Button'
 import Card from '../components/common/Card'
 import ChatMessage from '../components/ai/ChatMessage'
@@ -59,6 +59,10 @@ export default function Assistant() {
   ])
   const [loading, setLoading] = useState(false)
   const [facultyDirectory, setFacultyDirectory] = useState([])
+  // Collapsed by default -- six chips sitting open above every chat felt
+  // crowded; tucking them behind a toggle keeps the first screen mostly
+  // just the faculty search and the chat itself.
+  const [isSampleQuestionsOpen, setIsSampleQuestionsOpen] = useState(false)
   const [voiceStatus, setVoiceStatus] = useState('')
   const [isListening, setIsListening] = useState(false)
   // Which language the mic listens for — has to be chosen up front,
@@ -249,7 +253,22 @@ export default function Assistant() {
         <FacultySearch faculty={facultyDirectory} onSelect={handleFacultySelect} />
 
         <div className="mb-4">
-          <SuggestedQuestions suggestions={suggestions} onSelect={handleAsk} />
+          <button
+            type="button"
+            onClick={() => setIsSampleQuestionsOpen((open) => !open)}
+            aria-expanded={isSampleQuestionsOpen}
+            className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-brand-300"
+          >
+            <span>Sample Questions</span>
+            <ChevronDown
+              className={`h-4 w-4 text-slate-400 transition-transform ${isSampleQuestionsOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+          {isSampleQuestionsOpen && (
+            <div className="mt-2">
+              <SuggestedQuestions suggestions={suggestions} onSelect={handleAsk} />
+            </div>
+          )}
         </div>
 
         <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
