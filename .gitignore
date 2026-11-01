@@ -33,3 +33,10 @@ vectorstore/.DS_Store
 venv/
 backend/venv/
 *.pyc
+
+# Local-only CAD/BIM files: Revit backups, title-block templates, reference screenshots
+*.0[0-9][0-9][0-9].rfa
+*.0[0-9][0-9][0-9].rvt
+data/original_sources/m_george/Title_Blocks_A1_Metric*
+data/original_sources/m_george/A1 metric.rfa
+data/original_sources/m_george/*.jpg

@@ -1,9 +1,15 @@
-// Walkable-graph routing for the M. George kiosk floor.
-// Data comes from scripts/build_mgeorge_nav_graph.py (DXF -> walkable area ->
-// corridor centreline graph). Distances are metres; the kiosk is the fixed source.
+// Walkable-graph routing for the whole M. George Block.
+// Data comes from scripts/build_mgeorge_nav_graph.py: one corridor centreline
+// graph per floor (all in floor 1's frame, metres) plus building.json, which
+// joins the floors through stair and lift shafts. The kiosk is the fixed source.
 
 const DATA_BASE = '/data/MGeorge_nav'
 const WALK_SPEED_MPS = 1.2
+// Assumed vertical travel times; keep in step with building.json "assumptions".
+const STAIR_SECONDS_PER_FLOOR = 15
+const LIFT_WAIT_SECONDS = 30
+const LIFT_SECONDS_PER_FLOOR = 3
+const ORDINAL = ['Ground', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth']
 
 export const CATEGORY_LABELS = {
   lab: 'Labs',
@@ -19,27 +25,115 @@ export const CATEGORY_LABELS = {
   entrance: 'Entrance',
   circulation: 'Lobby',
   service: 'Service rooms',
+  facility: 'Facilities',
+  food: 'Food & dining',
+  building: 'Other buildings',
+  sports: 'Sports',
+  parking: 'Parking',
+  gate: 'Gates',
 }
 
 const LANDMARK_CATEGORIES = new Set(['stairs', 'lift', 'toilet', 'entrance', 'library'])
 
-export async function loadKioskFloor(floor = 1) {
-  const suffix = String(floor).padStart(2, '0')
-  const [graph, walls] = await Promise.all([
-    fetch(`${DATA_BASE}/floor_${suffix}_walkable_graph.json`).then((response) => {
-      if (!response.ok) throw new Error('Could not load the navigation graph.')
-      return response.json()
-    }),
-    fetch(`${DATA_BASE}/floor_${suffix}_walls.json`).then((response) => {
-      if (!response.ok) throw new Error('Could not load the floor walls.')
-      return response.json()
-    }),
-  ])
-  return prepareFloor(graph, walls)
+/** "Second Floor" for floor 2; "Outside" for the campus paths. */
+export function floorName(floor) {
+  if (floor === SITE) return 'Outside'
+  return `${ORDINAL[floor] ?? `Level ${floor}`} Floor`
 }
 
-export function prepareFloor(graph, walls = null) {
-  return { graph, walls, adjacency: buildAdjacency(graph), mask: decodeMask(graph.walkable_mask) }
+/** The campus paths are routed like one more "floor" with this key. */
+export const SITE = 'site'
+
+async function fetchJson(file) {
+  const response = await fetch(`${DATA_BASE}/${file}`)
+  if (!response.ok) throw new Error(`Could not load ${file}.`)
+  return response.json()
+}
+
+export async function loadBuilding() {
+  const building = await fetchJson('building.json')
+  const floors = await Promise.all(building.floors.map(async (spec) => {
+    const [graph, walls, rooms] = await Promise.all([
+      fetchJson(spec.graph),
+      fetchJson(spec.walls),
+      // Room colours for the 3D model; routing works without them.
+      fetchJson(spec.rooms).catch(() => null),
+    ])
+    return { ...spec, name: floorName(spec.floor_number), graph, walls, rooms }
+  }))
+  // Outdoor campus paths (scripts/build_campus_nav_graph.py); optional.
+  const site = await fetchJson('site_graph.json').catch(() => null)
+  return prepareBuilding(building, floors, site)
+}
+
+/**
+ * Combine the floors (and, when given, the outdoor campus paths) into one
+ * routable model. `floors` and `site` as loaded by loadBuilding().
+ */
+export function prepareBuilding(building, floors, site = null) {
+  const prepared = floors.map((floor) => ({ ...floor, name: floor.name ?? floorName(floor.floor_number), mask: decodeMask(floor.graph.walkable_mask) }))
+  const byFloor = new Map(prepared.map((floor) => [floor.floor_number, floor]))
+  const outside = site && {
+    floor_number: SITE, name: floorName(SITE), graph: site, walls: null, rooms: null,
+    mask: decodeMask(site.walkable_mask), level_floor: site.level_floor,
+  }
+  if (outside) byFloor.set(SITE, outside)
+  const nodes = new Map()
+  for (const floor of outside ? [...prepared, outside] : prepared) {
+    for (const node of floor.graph.nodes) nodes.set(node.id, { floor: floor.floor_number, xy: [node.x, node.y] })
+  }
+  // Doors between the building and the campus paths (the main entrance).
+  const linkEdge = new Map()
+  for (const entrance of site?.links ?? []) {
+    linkEdge.set(`${entrance.indoor_node}|${entrance.site_node}`, entrance)
+    linkEdge.set(`${entrance.site_node}|${entrance.indoor_node}`, entrance)
+  }
+  for (const node of building.vertical_nodes) nodes.set(node.id, { floor: node.floor, xy: [node.x, node.y], shaft: node.shaft })
+  const shafts = new Map(building.shafts.map((shaft) => [shaft.id, shaft]))
+  const verticalEdge = new Map()
+  for (const edge of building.vertical_edges) {
+    verticalEdge.set(`${edge.from}|${edge.to}`, edge)
+    verticalEdge.set(`${edge.to}|${edge.from}`, edge)
+  }
+
+  const link = (adjacency, from, to, weight) => {
+    adjacency.get(from).push({ to, weight })
+    adjacency.get(to).push({ to: from, weight })
+  }
+  const makeAdjacency = (stepFree) => {
+    const adjacency = new Map([...nodes.keys()].map((id) => [id, []]))
+    for (const floor of outside ? [...prepared, outside] : prepared) for (const edge of floor.graph.edges) link(adjacency, edge.from, edge.to, edge.weight_m)
+    for (const entrance of site?.links ?? []) link(adjacency, entrance.indoor_node, entrance.site_node, entrance.weight_m)
+    for (const edge of building.vertical_edges) {
+      const shaft = shafts.get(edge.shaft)
+      // Fire escape stairs are never used; stairs are skipped for step-free routes.
+      if (!shaft?.routable || (stepFree && shaft.kind !== 'lift')) continue
+      link(adjacency, edge.from, edge.to, edge.weight_m)
+    }
+    return adjacency
+  }
+
+  // Not offered: stairs/lifts not in normal use, and places the stairs/lifts
+  // in use cannot reach (both flagged by the build script).
+  const destinations = prepared.flatMap((floor) => floor.graph.destinations
+    .filter((place) => place.in_use !== false && place.reachable !== false)
+    .map((place) => ({ ...place, floor: floor.floor_number, floorName: floor.name })))
+  if (outside) destinations.push(...site.destinations.map((place) => ({ ...place, floor: SITE, floorName: 'Outside (campus)' })))
+  const kioskFloor = byFloor.get(building.kiosk_floor)
+  return {
+    building,
+    floors: prepared,
+    byFloor,
+    nodes,
+    shafts,
+    verticalEdge,
+    linkEdge,
+    site: outside,
+    destinations,
+    kiosk: { ...kioskFloor.graph.kiosk, floor: building.kiosk_floor },
+    adjacency: makeAdjacency(false),
+    stepFreeAdjacency: makeAdjacency(true),
+  }
 }
 
 function decodeMask(spec) {
@@ -95,15 +189,6 @@ export function routeBounds(points, minSize = 30, pad = 6) {
   const growY = Math.max(0, minSize * 0.6 - (maxY - minY)) / 2
   minX -= growX; maxX += growX; minY -= growY; maxY += growY
   return { minX, maxX, minY, maxY }
-}
-
-function buildAdjacency(graph) {
-  const adjacency = new Map(graph.nodes.map((node) => [node.id, []]))
-  for (const edge of graph.edges) {
-    adjacency.get(edge.from).push({ to: edge.to, weight: edge.weight_m })
-    adjacency.get(edge.to).push({ to: edge.from, weight: edge.weight_m })
-  }
-  return adjacency
 }
 
 class MinHeap {
@@ -211,10 +296,10 @@ function nearestLandmark(point, destinations, excludeId) {
   return best?.place || null
 }
 
-function buildSteps(points, destination, destinations) {
-  // The centreline wiggles around columns, so only announce a turn when the
-  // new direction differs from the current one by >= 50 degrees over a leg of
-  // at least 2 m; everything else is folded into "walk straight".
+// The centreline wiggles around columns, so only announce a turn when the new
+// direction differs from the current one by >= 50 degrees over a leg of at
+// least 2 m; everything else is folded into "walk straight".
+function walkInstructions(points) {
   const legs = simplify(points, 1.5)
   const instructions = []
   let current = null
@@ -230,19 +315,26 @@ function buildSteps(points, destination, destinations) {
       if (length > current.longest) { current.longest = length; current.direction = direction }
     }
   }
+  return { instructions, legs }
+}
+
+/** Steps for one floor's leg. `opening(metres)` words the first instruction. */
+function legSteps(points, floor, opening, landmarks, excludeId) {
+  const { instructions, legs } = walkInstructions(points)
   const steps = instructions.map((item, index) => {
     const metres = Math.max(1, Math.round(item.length))
-    if (index === 0) return { text: `From the kiosk, follow the red line for about ${metres} m`, point: item.start }
-    const landmark = nearestLandmark(item.start, destinations, destination.id)
-    return { text: `${turnText(item.angle)}${landmark ? ` at ${landmark.name}` : ''} and walk about ${metres} m`, point: item.start }
+    if (index === 0) return { text: opening(metres), point: item.start, floor }
+    const landmark = nearestLandmark(item.start, landmarks, excludeId)
+    return { text: `${turnText(item.angle)}${landmark ? ` at ${landmark.name}` : ''} and walk about ${metres} m`, point: item.start, floor }
   })
+  return { steps, legs }
+}
+
+function sideOf(legs, target) {
   const last = legs.at(-1)
   const before = legs.at(-2) || last
-  const target = destination.entrance_xy || destination.xy
   const cross = (last[0] - before[0]) * (target[1] - last[1]) - (last[1] - before[1]) * (target[0] - last[0])
-  const side = dist(last, target) < 1.5 ? 'ahead of you' : cross > 0 ? 'on your left' : 'on your right'
-  steps.push({ text: `${destination.name} is ${side}`, point: last })
-  return steps
+  return dist(last, target) < 1.5 ? 'ahead of you' : cross > 0 ? 'on your left' : 'on your right'
 }
 
 function project(point, a, b) {
@@ -264,27 +356,111 @@ function trimTail(path, point) {
   return [...path.slice(0, best.index + 1), best.at]
 }
 
-/** Route from the fixed kiosk to a destination from graph.destinations. */
-export function routeFromKiosk({ graph, adjacency, mask }, destination) {
-  const kiosk = graph.kiosk
-  const result = dijkstra(adjacency, kiosk.node, destination.node)
+/** Split a node path into per-floor legs joined by stair/lift transitions. */
+function splitByFloor(model, path) {
+  const legs = []
+  const transitions = []
+  let liftShaft = null
+  for (let i = 0; i < path.length; i += 1) {
+    const node = model.nodes.get(path[i])
+    if (node.shaft) { liftShaft = node.shaft; continue }  // inside a lift car
+    const leg = legs.at(-1)
+    if (leg && leg.floor === node.floor && !liftShaft) { leg.nodes.push(path[i]); continue }
+    if (leg) {
+      const entrance = model.linkEdge.get(`${path[i - 1]}|${path[i]}`)
+      const shaftId = liftShaft ?? model.verticalEdge.get(`${path[i - 1]}|${path[i]}`)?.shaft
+      const shaft = model.shafts.get(shaftId)
+      const previous = transitions.at(-1)
+      if (entrance) {
+        transitions.push({ kind: 'entrance', name: entrance.name, fromFloor: leg.floor, toFloor: node.floor })
+      // Climbing several storeys of the same stair passes intermediate floors
+      // with a one-node leg; fold those into a single transition.
+      } else if (shaftId && previous && previous.shaft === shaftId && leg.nodes.length === 1 && previous.toFloor === leg.floor) {
+        legs.pop()
+        previous.toFloor = node.floor
+      } else {
+        transitions.push({ shaft: shaftId, kind: shaft?.kind ?? 'stairs', name: shaft?.name ?? 'the stairs', fromFloor: leg.floor, toFloor: node.floor })
+      }
+    }
+    legs.push({ floor: node.floor, nodes: [path[i]] })
+    liftShaft = null
+  }
+  return { legs, transitions }
+}
+
+function transitionText(transition) {
+  if (transition.kind === 'entrance') {
+    const door = transition.name.toLowerCase()
+    return transition.toFloor === SITE ? `Go out through the ${door}` : `Go into the M. George Block through the ${door}`
+  }
+  const direction = transition.toFloor > transition.fromFloor ? 'up' : 'down'
+  // "Take the main lift (centre) up…", "Take Staircase 1 (central) up…"
+  const name = transition.name
+  const way = transition.kind !== 'lift' ? name : /lift/i.test(name) ? `the ${name.charAt(0).toLowerCase()}${name.slice(1)}` : `the lift (${name})`
+  return `Take ${way} ${direction} to the ${floorName(transition.toFloor)}`
+}
+
+function transitionSeconds(transition) {
+  if (transition.kind === 'entrance') return 0
+  const storeys = Math.abs(transition.toFloor - transition.fromFloor)
+  return transition.kind === 'lift' ? LIFT_WAIT_SECONDS + LIFT_SECONDS_PER_FLOOR * storeys : STAIR_SECONDS_PER_FLOOR * storeys
+}
+
+/**
+ * Route from the fixed kiosk to any destination in the building.
+ * `stepFree` uses lifts only. Returns per-floor legs (points in metres),
+ * the stair/lift transitions between them, steps, distance and time.
+ */
+export function routeFromKiosk(model, destination, { stepFree = false } = {}) {
+  const { kiosk } = model
+  const result = dijkstra(stepFree ? model.stepFreeAdjacency : model.adjacency, kiosk.node, destination.node)
   if (!result) return null
-  const nodeXY = new Map(graph.nodes.map((node) => [node.id, [node.x, node.y]]))
-  const tail = [destination.approach_xy]
-  // Only draw into the room when the label itself is reachable in a straight line.
-  if (!destination.entrance_xy && destination.anchor_walkable && destination.line_of_sight) tail.push(destination.xy)
-  let middle = result.path.map((id) => nodeXY.get(id))
-  middle = trimTail(middle.reverse(), kiosk.approach_xy).reverse()
-  middle = trimTail(middle, destination.approach_xy)
-  const points = smoothPath(mask, dedupe([kiosk.xy, kiosk.approach_xy, ...middle, ...tail]))
-  const distanceM = points.slice(1).reduce((sum, point, index) => sum + dist(points[index], point), 0)
+  const { legs: nodeLegs, transitions } = splitByFloor(model, result.path)
+
+  const legs = nodeLegs.map((leg, index) => {
+    const floor = model.byFloor.get(leg.floor)
+    let points = leg.nodes.map((id) => model.nodes.get(id).xy)
+    const first = index === 0
+    const last = index === nodeLegs.length - 1
+    if (first) points = [kiosk.xy, kiosk.approach_xy, ...trimTail([...points].reverse(), kiosk.approach_xy).reverse()]
+    if (last) {
+      points = [...trimTail(points, destination.approach_xy), destination.approach_xy]
+      // Only draw into the room when the label itself is reachable in a straight line.
+      if (!destination.entrance_xy && destination.anchor_walkable && destination.line_of_sight) points.push(destination.xy)
+    }
+    points = smoothPath(floor.mask, dedupe(points))
+    const distanceM = points.slice(1).reduce((sum, point, i) => sum + dist(points[i], point), 0)
+    return { floor: leg.floor, floorName: floor.name, points, distanceM }
+  })
+
+  const steps = []
+  legs.forEach((leg, index) => {
+    const floor = model.byFloor.get(leg.floor)
+    const arriving = transitions[index - 1]
+    const opening = index === 0
+      ? (m) => `From the kiosk, follow the line for about ${m} m`
+      : arriving.kind === 'entrance'
+        ? (m) => (leg.floor === SITE ? `Outside, follow the path for about ${m} m` : `Inside, follow the line for about ${m} m`)
+        : (m) => `On the ${leg.floorName}, leave the ${arriving.kind === 'lift' ? 'lift' : 'stairs'} and follow the line for about ${m} m`
+    const { steps: walk, legs: simplified } = legSteps(leg.points, leg.floor, opening, floor.graph.destinations, destination.id)
+    steps.push(...walk)
+    if (index < legs.length - 1) {
+      steps.push({ text: transitionText(transitions[index]), point: leg.points.at(-1), floor: leg.floor, transition: transitions[index] })
+    } else {
+      steps.push({ text: `${destination.name} is ${sideOf(simplified, destination.entrance_xy || destination.xy)}`, point: leg.points.at(-1), floor: leg.floor })
+    }
+  })
+
+  const distanceM = legs.reduce((sum, leg) => sum + leg.distanceM, 0)
   return {
     algorithm: 'dijkstra',
-    nodes: result.path,
-    points,
+    stepFree,
+    legs,
+    transitions,
+    floors: legs.map((leg) => leg.floor),
     distanceM,
-    durationS: distanceM / WALK_SPEED_MPS,
-    steps: buildSteps(points, destination, graph.destinations),
+    durationS: distanceM / WALK_SPEED_MPS + transitions.reduce((sum, t) => sum + transitionSeconds(t), 0),
+    steps,
   }
 }
 
@@ -293,7 +469,7 @@ export function searchDestinations(destinations, query) {
   const words = query.toLowerCase().split(/\s+/).filter(Boolean)
   if (!words.length) return destinations
   return destinations.filter((place) => {
-    const haystack = `${place.name} ${CATEGORY_LABELS[place.category] || place.category} ${place.pdf_no ?? ''}`.toLowerCase()
+    const haystack = `${place.name} ${CATEGORY_LABELS[place.category] || place.category} ${place.floorName ?? ''} ${place.pdf_no ?? ''}`.toLowerCase()
     return words.every((word) => haystack.includes(word))
   })
 }

@@ -58,20 +58,3 @@ select {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* Moving dashes along the kiosk route so the walking direction is obvious. */
-.navika-route-flow {
-  animation: navika-route-flow 1.2s linear infinite;
-}
-
-@keyframes navika-route-flow {
-  to {
-    stroke-dashoffset: -2.4;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .navika-route-flow {
-    animation: none;
-  }
-}

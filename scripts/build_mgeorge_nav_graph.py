@@ -38,6 +38,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE = ROOT / "data/original_sources/m_george/college plans 3 (1).dxf"
 DEFAULT_OUTPUT_DIR = ROOT / "frontend/public/data/MGeorge_nav"
 DEFAULT_DESTINATIONS = ROOT / "data/navigation/mgeorge_floor{floor:02d}_destinations.json"
+DEFAULT_IN_USE = ROOT / "data/navigation/mgeorge_connectors_in_use.json"
 
 CM_PER_UNIT = 1.0
 CELL_CM = 10.0
@@ -45,18 +46,50 @@ CLEARANCE_CM = 25.0  # passage must be >= 50 cm wide (toilet aisles, 75 cm doors
 FOOTPRINT_CLOSE_CM = 250.0  # closes entrances up to ~5 m when finding the footprint
 SPUR_PRUNE_M = 1.2
 SIMPLIFY_CM = 15.0
+MIN_AREA_M2 = 30.0  # floors without the kiosk: smaller walkable pockets are ignored
 
 # Origin shared with frontend/public/data/MGeorge_DXF so overlays line up.
 ORIGIN_XY = (64508.653, -126418.979)
 
-FLOORS = {
-    1: {
-        "floor_id": "MGEORGE_01",
-        "label": "First Floor (entrance / reception level)",
-        # x max reaches past the library semicircle (centre x 70640, r 1272).
-        "window": (57700.0, -131000.0, 72300.0, -121000.0),
-    },
+# Floor 1's plan window; x max reaches past the library semicircle (centre x 70640, r 1272).
+FLOOR_1_WINDOW = (57700.0, -131000.0, 72300.0, -121000.0)
+
+# Each floor is drawn elsewhere on the DXF sheet. Offsets (source units) move a
+# floor onto floor 1: measured from the repeated structural grid bubbles and
+# confirmed by correlating wall/column linework (agreement within 20 cm).
+# Floor 3 has no grid bubbles, so its offset comes from the linework alone.
+FLOOR_OFFSETS = {
+    0: (776.9, -13340.0),
+    1: (0.0, 0.0),
+    2: (956.2, 13116.8),
+    3: (1660.0, 27560.0),
+    4: (2240.1, 41563.7),
 }
+# Estimated: ~22 risers of 15 cm per main-stair run ("RISE - 15 C.M" on the plan).
+FLOOR_HEIGHT_M = 3.3
+FLOOR_LABELS = {
+    0: "Ground Floor",
+    1: "First Floor (entrance / reception level)",
+    2: "Second Floor",
+    3: "Third Floor",
+    4: "Fourth Floor",
+}
+FLOORS = {
+    n: {
+        "floor_id": f"MGEORGE_{n:02d}",
+        "label": FLOOR_LABELS[n],
+        "offset": (dx, dy),
+        "window": (FLOOR_1_WINDOW[0] + dx, FLOOR_1_WINDOW[1] + dy, FLOOR_1_WINDOW[2] + dx, FLOOR_1_WINDOW[3] + dy),
+        "elevation_m": round(n * FLOOR_HEIGHT_M, 2),
+    }
+    for n, (dx, dy) in FLOOR_OFFSETS.items()
+}
+
+
+def floor_origin(floor_number):
+    """Source point that maps to local (0, 0) on this floor, in floor 1's frame."""
+    dx, dy = FLOORS[floor_number]["offset"]
+    return ORIGIN_XY[0] + dx, ORIGIN_XY[1] + dy
 
 OBSTACLE_LAYERS = {"WALL", "WIN", "STAIR", "THIN", "THIN_HA", "LAYER4", "SANI", "STEEL"}
 DOOR_BLOCKS = {"A$C764D24B9", "A$C67844AE1"}
@@ -300,16 +333,136 @@ def line_of_sight(mask, a, b):
     return bool(mask[rr, cc].all())
 
 
-def local_to_source(xy):
-    return ORIGIN_XY[0] + xy[0] * 100, ORIGIN_XY[1] + xy[1] * 100
+def local_to_source(xy, origin=ORIGIN_XY):
+    return origin[0] + xy[0] * 100, origin[1] + xy[1] * 100
 
 
-def build(source: Path, floor_number: int, output_dir: Path, destinations_path: Path, preview: Path | None, debug_grid: Path | None = None):
-    config = json.loads(destinations_path.read_text())
-    kiosk_xy = local_to_source(config["kiosk"]["xy"])
+def collect_labels(doc, window):
+    """Top-level TEXT/MTEXT inside the plan window as (UPPER-CASE text, x, y)."""
+    labels = []
+    for entity in doc.modelspace().query("TEXT MTEXT"):
+        text = entity.plain_text() if entity.dxftype() == "MTEXT" else entity.dxf.text
+        text = " ".join(text.upper().split())
+        x, y = entity.dxf.insert.x, entity.dxf.insert.y
+        if text and in_window([(x, y)], window):
+            labels.append((text, x, y))
+    return labels
+
+
+# DXF design label -> (category, display name). Matched in order; first wins.
+DXF_DESTINATION_RULES = [
+    (r"^MAIN STAIR$|^STAIR$|^STAIR WELL$", "stairs", "Staircase"),
+    (r"^FIRE ESCAPE STAIR$", "exit", "Fire Exit"),
+    (r"^BED LIFT$", "lift", "Bed Lift"),
+    (r"^FIRE LIFT$", "lift", "Fire Lift"),
+    (r"^LIFT$", "lift", "Lift"),
+    (r"^H\.TOILET$", "toilet", "Accessible Toilet"),
+    (r"^GENTS$", "toilet", "Gents Toilet"),
+    (r"^LADIES$", "toilet", "Ladies Toilet"),
+    (r"^LIBRARY$", "library", "Library"),
+    (r"\bLAB\b", "lab", None),
+    (r"^CLASS ?ROOM$", "classroom", "Classroom"),
+    (r"^DRAWING HALL$", "hall", "Drawing Hall"),
+    (r"^SEMINAR( ROOM)?$", "hall", "Seminar Room"),
+    (r"^HALL$", "hall", "Hall"),
+    (r"DEPARTMENT$", "department", None),
+    (r"^H\.O\.D", "office", "HOD & Faculty Room"),
+    (r"STAFF$", "office", None),
+    (r"^OFFICE$", "office", "Office"),
+    (r"^(PRINCIPAL|DIRECTOR|CONFERENCE) ROOM$", "office", None),
+    (r"^SERVER ROOM$", "service", "Server Room"),
+    (r"^PANTRY$", "service", "Pantry"),
+    (r"^STORE$", "service", "Store"),
+]
+CONNECTOR_KINDS = {"stairs": "stairs", "exit": "fire_stairs", "lift": "lift"}
+KEEP_UPPER = {"CAD", "HOD", "IT", "CSE", "ECE", "EEE"}
+
+
+def wing_of(x):
+    return "west wing" if x < -27 else "east wing" if x > 27 else "centre"
+
+
+def destinations_from_labels(labels, floor_number, to_local, inside):
+    """First-pass destinations for a floor without a reviewed file."""
+    import re
+
+    found = []
+    for text, sx, sy in labels:
+        if not inside(sx, sy):
+            continue
+        for pattern, category, name in DXF_DESTINATION_RULES:
+            if re.search(pattern, text):
+                xy = to_local(sx, sy)
+                label = name or " ".join(w if w in KEEP_UPPER else w.title() for w in text.split())
+                if any(f["name"] == label and math.dist(f["xy"], xy) < 3 for f in found):
+                    break
+                found.append({"name": label, "category": category, "xy": xy, "dxf_label": text})
+                break
+    # Disambiguate repeated names: add the wing, then number them west -> east,
+    # e.g. "Classroom 2 (east wing)".
+    by_name = defaultdict(list)
+    for f in found:
+        by_name[f["name"]].append(f)
+    for name, items in by_name.items():
+        if len(items) == 1:
+            continue
+        by_wing = defaultdict(list)
+        for f in items:
+            by_wing[wing_of(f["xy"][0])].append(f)
+        for wing, group in by_wing.items():
+            ordered = sorted(group, key=lambda d: (d["xy"][0], -d["xy"][1]))
+            for i, f in enumerate(ordered, start=1):
+                f["name"] = f"{name} {i} ({wing})" if len(ordered) > 1 else f"{name} ({wing})"
+    destinations = []
+    for i, f in enumerate(sorted(found, key=lambda d: (d["category"], d["name"]))):
+        destinations.append({
+            "id": f"mg{floor_number}_{f['category']}_{i:02d}",
+            "pdf_no": None,
+            "name": f["name"],
+            "category": f["category"],
+            "xy": f["xy"],
+            "confidence": "low",
+            "note": f"DXF design label '{f['dxf_label']}'; current room use not yet confirmed.",
+        })
+    return {
+        "schema_version": "navika-destinations-0.1",
+        "building": "M. George Block",
+        "floor_number": floor_number,
+        "floor_label": FLOOR_LABELS[floor_number],
+        "coordinate_system": "metres in floor 1's frame (see FLOOR_OFFSETS in scripts/build_mgeorge_nav_graph.py); x east, y north",
+        "sources": {"names": "DXF design labels (generated); replace with the current room-use plan when available",
+                    "positions": "data/original_sources/m_george/college plans 3 (1).dxf"},
+        "kiosk": None,
+        "destinations": destinations,
+        "not_placed": [],
+    }
+
+
+def connectors_from_labels(labels, to_local, inside):
+    """Stairs and lifts on this floor, from the DXF labels, merged within 2.5 m."""
+    import re
+
+    connectors = []
+    for text, sx, sy in labels:
+        if not inside(sx, sy):
+            continue
+        for pattern, category, name in DXF_DESTINATION_RULES[:5]:
+            if re.search(pattern, text):
+                kind = CONNECTOR_KINDS[category]
+                xy = to_local(sx, sy)
+                # A stair well is ~5 x 8 m and labelled more than once; lifts stand in close pairs.
+                merge_m = 7.0 if kind != "lift" else 2.5
+                if not any(c["kind"] == kind and math.dist(c["xy"], xy) < merge_m for c in connectors):
+                    connectors.append({"kind": kind, "dxf_label": text, "xy": xy})
+                break
+    return connectors
+
+
+def build(source: Path, floor_number: int, output_dir: Path, destinations_path: Path, preview: Path | None, debug_grid: Path | None = None, doc=None):
     spec = FLOORS[floor_number]
+    origin = floor_origin(floor_number)
     window = spec["window"]
-    doc = ezdxf.readfile(source)
+    doc = doc or ezdxf.readfile(source)
     polylines, polygons, doors = collect_geometry(doc, window)
     grid = Grid(window)
 
@@ -319,22 +472,65 @@ def build(source: Path, floor_number: int, output_dir: Path, destinations_path: 
     for pts in polygons:
         grid.fill_polygon(obstacles, pts)
     obstacles = ndimage.binary_dilation(obstacles, iterations=1)
+    # Doors shut (a line across every door opening): used to split the floor into rooms.
+    closed_obstacles = obstacles.copy()
+    for door in doors:
+        grid.burn_segments(closed_obstacles, [door["a"], door["b"]])
     carve_doors(grid, obstacles, doors)
 
     close = int(FOOTPRINT_CLOSE_CM / CELL_CM)
     structure = ndimage.generate_binary_structure(2, 1)
     footprint = ndimage.binary_closing(np.pad(obstacles, close), structure, iterations=close)[close:-close, close:-close]
     footprint = ndimage.binary_fill_holes(footprint)
+    # Keep only the building itself; the DXF sheet also holds detail drawings.
+    parts, count = ndimage.label(footprint)
+    if count > 1:
+        footprint = parts == np.argmax(np.bincount(parts.ravel())[1:]) + 1
+
+    def to_local(x, y):
+        return [round((x - origin[0]) / 100, 3), round((y - origin[1]) / 100, 3)]
+
+    def inside(sx, sy):
+        r, c = (int(v) for v in grid.to_cell(sx, sy))
+        return 0 <= r < grid.h and 0 <= c < grid.w and bool(footprint[r, c])
+
+    dxf_labels = collect_labels(doc, window)
+    if not destinations_path.exists():
+        destinations_path.parent.mkdir(parents=True, exist_ok=True)
+        generated = destinations_from_labels(dxf_labels, floor_number, to_local, inside)
+        destinations_path.write_text(json.dumps(generated, indent=2, ensure_ascii=False) + "\n")
+        print(f"generated {destinations_path} with {len(generated['destinations'])} destinations from DXF labels")
+    config = json.loads(destinations_path.read_text())
+    connectors = connectors_from_labels(dxf_labels, to_local, inside)
 
     clearance = ndimage.distance_transform_edt(~obstacles) * CELL_CM
     walkable = (clearance >= CLEARANCE_CM) & footprint
     labels, _ = ndimage.label(walkable, structure=np.ones((3, 3)))
-    kr, kc = (int(v) for v in grid.to_cell(*kiosk_xy))
-    if not walkable[kr, kc]:
-        rr, cc = np.nonzero(walkable)
-        nearest = int(np.argmin((rr - kr) ** 2 + (cc - kc) ** 2))
-        kr, kc = int(rr[nearest]), int(cc[nearest])
-    reachable = labels == labels[kr, kc]
+    _, (wr, wc) = ndimage.distance_transform_edt(~walkable, return_indices=True)
+
+    def walkable_label(xy):
+        r, c = (int(v) for v in grid.to_cell(*local_to_source(xy, origin)))
+        r, c = min(max(r, 0), grid.h - 1), min(max(c, 0), grid.w - 1)
+        return labels[wr[r, c], wc[r, c]]
+
+    # The kiosk's floor keeps what the kiosk can reach; other floors keep what
+    # their stairs and lifts reach (anything else cannot be routed to anyway).
+    if config.get("kiosk"):
+        reachable = labels == walkable_label(config["kiosk"]["xy"])
+    else:
+        # Ignore small pockets (lift cars, stair-well gaps): a lift labelled
+        # inside its shaft must snap to the lobby outside, not the car.
+        sizes = np.bincount(labels.ravel())
+        big = sizes * (CELL_CM / 100) ** 2 >= MIN_AREA_M2
+        big[0] = False
+        _, (br, bc) = ndimage.distance_transform_edt(~big[labels], return_indices=True)
+
+        def big_label(xy):
+            r, c = (int(v) for v in grid.to_cell(*local_to_source(xy, origin)))
+            r, c = min(max(r, 0), grid.h - 1), min(max(c, 0), grid.w - 1)
+            return labels[br[r, c], bc[r, c]]
+
+        reachable = np.isin(labels, [big_label(c["xy"]) for c in connectors if c["kind"] != "fire_stairs"])
 
     skel = zhang_suen(reachable)
     centres, chains = skeleton_graph(skel)
@@ -348,7 +544,7 @@ def build(source: Path, floor_number: int, output_dir: Path, destinations_path: 
             node_ids[key] = f"MG{floor_number:02d}_N{len(nodes):04d}"
             nodes.append({
                 "id": node_ids[key], "floor": floor_number,
-                "x": round((sx - ORIGIN_XY[0]) / 100, 3), "y": round((sy - ORIGIN_XY[1]) / 100, 3),
+                "x": round((sx - origin[0]) / 100, 3), "y": round((sy - origin[1]) / 100, 3),
             })
         return node_ids[key]
 
@@ -366,16 +562,13 @@ def build(source: Path, floor_number: int, output_dir: Path, destinations_path: 
             seen_pairs.add(pair)
             edges.append({"from": ia, "to": ib, "weight_m": round(chain_length([pa, pb]), 3)})
 
-    def to_local(x, y):
-        return [round((x - ORIGIN_XY[0]) / 100, 3), round((y - ORIGIN_XY[1]) / 100, 3)]
-
     # Snap places to the graph: nearest walkable cell, then the closest node
     # visible from it without crossing an obstacle.
     _, (near_r, near_c) = ndimage.distance_transform_edt(~reachable, return_indices=True)
-    node_rc = np.array([grid.to_cell(*local_to_source((n["x"], n["y"]))) for n in nodes])
+    node_rc = np.array([grid.to_cell(*local_to_source((n["x"], n["y"]), origin)) for n in nodes])
 
     def snap(xy):
-        r, c = (int(v) for v in grid.to_cell(*local_to_source(xy)))
+        r, c = (int(v) for v in grid.to_cell(*local_to_source(xy, origin)))
         r, c = min(max(r, 0), grid.h - 1), min(max(c, 0), grid.w - 1)
         ar, ac = int(near_r[r, c]), int(near_c[r, c])
         order = np.argsort((node_rc[:, 0] - ar) ** 2 + (node_rc[:, 1] - ac) ** 2)
@@ -393,7 +586,8 @@ def build(source: Path, floor_number: int, output_dir: Path, destinations_path: 
             "line_of_sight": visible,
         }
 
-    kiosk = {**config["kiosk"], **snap(config["kiosk"]["xy"])}
+    kiosk = {**config["kiosk"], **snap(config["kiosk"]["xy"])} if config.get("kiosk") else None
+    connectors = [{"id": f"MG{floor_number:02d}_C{i:02d}", **c, **snap(c["xy"])} for i, c in enumerate(connectors)]
     # entrance_xy, when given, is a reviewed entrance used instead of the room label.
     destinations = [{**d, **snap(d.get("entrance_xy", d["xy"]))} for d in config["destinations"]]
 
@@ -403,10 +597,12 @@ def build(source: Path, floor_number: int, output_dir: Path, destinations_path: 
         "floor_number": floor_number,
         "floor_id": spec["floor_id"],
         "floor_label": spec["label"],
+        "elevation_m": spec["elevation_m"],
         "review_status": "auto_generated_requires_review",
         "coordinate_system": {
-            "units": "metres",
-            "origin_source_xy": list(ORIGIN_XY),
+            "units": "metres (shared by all floors: floor 1's frame)",
+            "origin_source_xy": list(origin),
+            "floor_offset_source": list(spec["offset"]),
             "source_units": "centimetres (inferred from door scales and dimension notes)",
             "x": "east = (dxf_x - origin_x) / 100", "y": "north = (dxf_y - origin_y) / 100",
         },
@@ -414,6 +610,7 @@ def build(source: Path, floor_number: int, output_dir: Path, destinations_path: 
         "source": str(source.relative_to(ROOT)),
         "kiosk": kiosk,
         "destinations": destinations,
+        "connectors": connectors,
         "not_placed": config.get("not_placed", []),
         "doors": [{"id": f"MG{floor_number:02d}_D{i:03d}", "a": to_local(*d["a"]), "b": to_local(*d["b"]), "width_cm": round(d["width_cm"]), "source": d["source"]} for i, d in enumerate(doors)],
         "nodes": nodes,
@@ -425,12 +622,19 @@ def build(source: Path, floor_number: int, output_dir: Path, destinations_path: 
     out.write_text(json.dumps(result, separators=(",", ":")))
     walls_out = output_dir / f"floor_{floor_number:02d}_walls.json"
     walls_out.write_text(json.dumps(export_walls(grid, footprint, polylines, to_local, floor_number, spec), separators=(",", ":")))
+    rooms, room_labels = segment_rooms(grid, closed_obstacles, footprint, reachable, destinations, to_local, origin)
+    texture_name = f"floor_{floor_number:02d}_rooms.png"
+    rooms["texture"]["file"] = texture_name
+    rooms.update({"floor_number": floor_number, "floor_label": spec["label"]})
+    write_room_texture(output_dir / texture_name, rooms, room_labels, footprint, closed_obstacles)
+    (output_dir / f"floor_{floor_number:02d}_rooms.json").write_text(json.dumps(rooms, separators=(",", ":")))
+    print(f"rooms: {len(rooms['regions'])} regions ({', '.join(f'{k} {v}' for k, v in sorted(rooms['summary'].items()))})")
     print(f"floor {floor_number}: {len(polylines)} polylines, {len(polygons)} hatch polygons, {len(doors)} doors")
     print(f"walkable cells {int(reachable.sum())} (~{reachable.sum() * CELL_CM ** 2 / 1e4:.0f} m²), nodes {len(nodes)}, edges {len(edges)}")
     print(f"wrote {out}")
 
     if preview:
-        render_preview(preview, grid, obstacles, reachable, doors, nodes, edges, kiosk, destinations)
+        render_preview(preview, grid, obstacles, reachable, doors, nodes, edges, kiosk, destinations, origin)
     if debug_grid:
         np.savez_compressed(debug_grid, reachable=reachable, obstacles=obstacles, window=np.array(window))
     return result
@@ -464,6 +668,160 @@ def export_mask(grid, reachable, to_local):
     }
 
 
+ROOM_SPLIT_CM = 120.0  # openings narrower than 2 x this separate rooms
+ROOM_MIN_M2 = 1.0
+
+# Floor colours follow the Ramanujan viewer (ramanujan-viewer/src/App.tsx).
+ROOM_COLOURS = {
+    "teaching": "#F6D878",   # classrooms, labs, halls
+    "office": "#8ED8D0",     # offices, departments, library
+    "connector": "#B9A1E8",  # stairs, lifts, fire exits
+    "toilet": "#9CCFE8",
+    "corridor": "#D9D9D9",
+    "unassigned": "#E5E5E5",
+}
+SLAB_COLOUR = "#BDBDBD"
+CONFIDENCE_WEIGHT = {"high": 3, "medium": 2, "low": 1}
+CATEGORY_GROUP = {
+    "lab": "teaching", "classroom": "teaching", "hall": "teaching",
+    "office": "office", "department": "office", "library": "office", "service": "office",
+    "facility": "office", "food": "office",
+    "stairs": "connector", "lift": "connector", "exit": "connector",
+    "toilet": "toilet",
+    "circulation": "corridor", "entrance": "corridor",
+}
+
+
+def segment_rooms(grid, closed, footprint, reachable, destinations, to_local, origin=ORIGIN_XY):
+    """Split the floor into rooms and colour them by the destinations inside.
+
+    With doors shut, free space is shrunk by ROOM_SPLIT_CM so doorways and
+    narrow openings separate; each remaining piece is a room, grown back to
+    fill its free space without crossing walls. Rooms holding no destination
+    are corridor when the kiosk can walk through them, a void (slab opening)
+    when enclosed by corridor alone, else unassigned.
+    """
+    structure4 = ndimage.generate_binary_structure(2, 1)
+    free = ~closed & footprint
+    core = free & (ndimage.distance_transform_edt(~closed) * CELL_CM >= ROOM_SPLIT_CM)
+    labels, count = ndimage.label(core, structure=structure4)
+    sizes = ndimage.sum(core, labels, index=np.arange(count + 1))
+    labels[sizes[labels] * (CELL_CM / 100) ** 2 < ROOM_MIN_M2] = 0
+
+    # Grow rooms back over the free cells they were shrunk away from, but only
+    # within the same free-space component so no room leaks through a wall.
+    free_cc, _ = ndimage.label(free, structure=structure4)
+    _, (ir, ic) = ndimage.distance_transform_edt(labels == 0, return_indices=True)
+    grown = labels[ir, ic]
+    same_space = free_cc == free_cc[ir, ic]
+    labels = np.where(free & (labels == 0) & same_space, grown, labels)
+    labels[~free] = 0
+
+    by_room = defaultdict(list)
+    for d in destinations:
+        r, c = (int(v) for v in grid.to_cell(*local_to_source(d["xy"], origin)))
+        if not (0 <= r < grid.h and 0 <= c < grid.w):
+            continue
+        room = labels[r, c]
+        if not room:
+            window = labels[max(0, r - 15):r + 16, max(0, c - 15):c + 16]
+            values = window[window > 0]
+            room = int(np.bincount(values).argmax()) if values.size else 0
+        if room:
+            by_room[int(room)].append(d)
+
+    ids = [i for i in np.unique(labels) if i]
+    areas = ndimage.sum(np.ones_like(labels), labels, index=ids)
+    walked = ndimage.sum(reachable, labels, index=ids)
+    group = {}
+    for room, area, walk in zip(ids, areas, walked):
+        places = by_room.get(int(room), [])
+        groups = [CATEGORY_GROUP.get(d["category"], "unassigned") for d in places]
+        # Weighted vote by confidence, ignoring stairs/lifts whose anchors
+        # sit just outside their shafts.
+        votes = defaultdict(int)
+        for d, g in zip(places, groups):
+            if g != "connector":
+                votes[g] += CONFIDENCE_WEIGHT.get(d["confidence"], 1)
+        if "corridor" in groups:
+            group[room] = "corridor"
+        elif votes:
+            group[room] = max(votes, key=votes.get)
+        elif groups:
+            group[room] = "connector"
+        elif walk >= 0.5 * area:
+            group[room] = "corridor"
+        else:
+            group[room] = None
+
+    # Enclosed by corridor only and never touching the outside: a slab opening.
+    for room in ids:
+        if group[room] is not None:
+            continue
+        ring = ndimage.binary_dilation(labels == room, iterations=8) & (labels != room)
+        touches_outside = bool((ring & ~footprint).any())
+        neighbours = {int(v) for v in np.unique(labels[ring]) if v}
+        enclosed = neighbours and all(group.get(n) == "corridor" for n in neighbours)
+        group[room] = "void" if enclosed and not touches_outside else "unassigned"
+
+    regions = []
+    room_index = {}
+    for room, area in zip(ids, areas):
+        rows, cols = np.nonzero(labels == room)
+        (x0, y0), (x1, y1) = to_local(*grid.to_source(rows.min(), cols.min())), to_local(*grid.to_source(rows.max(), cols.max()))
+        room_index[room] = len(regions)
+        regions.append({
+            "id": f"room_{len(regions):03d}",
+            "group": group[room],
+            "colour": ROOM_COLOURS.get(group[room]),
+            "area_m2": round(float(area) * (CELL_CM / 100) ** 2, 1),
+            "bbox": [x0, y0, x1, y1],
+            "destinations": [d["id"] for d in by_room.get(int(room), [])],
+        })
+
+    rows, cols = np.nonzero(footprint)
+    r0, r1, c0, c1 = rows.min(), rows.max() + 1, cols.min(), cols.max() + 1
+    corner = to_local(grid.x0 + c0 * CELL_CM, grid.y0 + r0 * CELL_CM)
+    summary = defaultdict(int)
+    for region in regions:
+        summary[region["group"]] += 1
+    room_labels = np.zeros_like(labels)
+    for room, index in room_index.items():
+        room_labels[labels == room] = index + 1
+    return {
+        "schema_version": "navika-floor-rooms-0.1",
+        "building": "M. George Block",
+        "review_status": "auto_generated_requires_review",
+        "method": f"doors closed, free space shrunk by {ROOM_SPLIT_CM:.0f} cm to split rooms, regrown within walls",
+        "colours": ROOM_COLOURS,
+        "texture": {"origin_xy": corner, "width_m": round((c1 - c0) * CELL_CM / 100, 2),
+                    "height_m": round((r1 - r0) * CELL_CM / 100, 2), "crop_cells": [int(r0), int(r1), int(c0), int(c1)]},
+        "regions": regions,
+        "summary": dict(summary),
+    }, room_labels
+
+
+def hex_rgba(colour, alpha=255):
+    colour = colour.lstrip("#")
+    return [int(colour[i:i + 2], 16) for i in (0, 2, 4)] + [alpha]
+
+
+def write_room_texture(path, rooms, room_labels, footprint, closed):
+    """Top-down floor texture: room colours, slab grey under walls, voids and
+    the outside transparent. Row 0 of the PNG is the north edge."""
+    import matplotlib.image as mpimg
+
+    palette = np.zeros((len(rooms["regions"]) + 1, 4), dtype=np.uint8)
+    palette[0] = hex_rgba(ROOM_COLOURS["unassigned"])
+    for index, region in enumerate(rooms["regions"], start=1):
+        palette[index] = [0, 0, 0, 0] if region["group"] == "void" else hex_rgba(region["colour"])
+    image = palette[room_labels]
+    image[closed & footprint & (room_labels == 0)] = hex_rgba(SLAB_COLOUR)
+    image[~footprint] = 0
+    r0, r1, c0, c1 = rooms["texture"].pop("crop_cells")
+    mpimg.imsave(path, image[r0:r1, c0:c1][::-1])
+
+
 WALL_EXPORT_LAYERS = {"WALL": "wall", "WIN": "window", "STAIR": "stair"}
 
 
@@ -493,13 +851,13 @@ def export_walls(grid, footprint, polylines, to_local, floor_number, spec):
     }
 
 
-def render_preview(path, grid, obstacles, reachable, doors, nodes, edges, kiosk, destinations):
+def render_preview(path, grid, obstacles, reachable, doors, nodes, edges, kiosk, destinations, origin=ORIGIN_XY):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
     def loc(sx, sy):
-        return (sx - ORIGIN_XY[0]) / 100, (sy - ORIGIN_XY[1]) / 100
+        return (sx - origin[0]) / 100, (sy - origin[1]) / 100
 
     x0, y0 = loc(grid.x0, grid.y0)
     x1, y1 = x0 + grid.w * CELL_CM / 100, y0 + grid.h * CELL_CM / 100
@@ -522,7 +880,8 @@ def render_preview(path, grid, obstacles, reachable, doors, nodes, edges, kiosk,
                     bbox={"boxstyle": "round,pad=0.15", "fc": "white", "ec": colours[d["confidence"]], "alpha": 0.85})
         if not d["line_of_sight"]:
             ax.plot(*d["xy"], "x", color="black", ms=14, mew=2)
-    ax.plot(*kiosk["xy"], marker="*", color="#f59e0b", ms=24, mec="black")
+    if kiosk:
+        ax.plot(*kiosk["xy"], marker="*", color="#f59e0b", ms=24, mec="black")
     ax.set_xlim(-66, 76); ax.set_ylim(-38, 42); ax.set_aspect("equal")
     ax.grid(True, alpha=0.25)
     ax.set_title("Walkable area (green), obstacles (black), doors (red), centreline graph (blue), kiosk (star) — metres\n"
@@ -531,17 +890,228 @@ def render_preview(path, grid, obstacles, reachable, doors, nodes, edges, kiosk,
     plt.close(fig)
 
 
+# Vertical travel, as "metres of walking" so Dijkstra can mix it with corridors.
+# Assumptions, to be confirmed on site: walking 1.2 m/s, one storey of stairs
+# ~15 s, a lift ~30 s waiting plus ~3 s per storey.
+STAIR_WEIGHT_M = 18.0
+LIFT_BOARD_M = 18.0   # charged when boarding and again when leaving: ~30 s wait in total
+LIFT_FLOOR_M = 4.0
+# How far apart the same stair/lift may be labelled on adjacent floors.
+CONNECTOR_MATCH_M = {"stairs": 8.0, "fire_stairs": 8.0, "lift": 3.0}
+KIND_LABEL = {"stairs": "Staircase", "lift": "Lift", "fire_stairs": "Fire exit stair"}
+
+
+def build_building(results, output_dir, in_use_path=DEFAULT_IN_USE):
+    """Join the floors: pair stairs/lifts across adjacent floors into shafts."""
+    floors = sorted(results)
+    parent = {}
+
+    def find(a):
+        while parent.setdefault(a, a) != a:
+            a = parent[a]
+        return a
+
+    links = []
+    for lower, upper in zip(floors, floors[1:]):
+        if upper != lower + 1:
+            continue
+        pairs = sorted(
+            (math.dist(a["xy"], b["xy"]), a["id"], b["id"], a["kind"])
+            for a in results[lower]["connectors"] for b in results[upper]["connectors"]
+            if a["kind"] == b["kind"] and math.dist(a["xy"], b["xy"]) <= CONNECTOR_MATCH_M[a["kind"]]
+        )
+        used = set()
+        for d, a, b, kind in pairs:
+            if a in used or b in used:
+                continue
+            used.update((a, b))
+            parent[find(a)] = find(b)
+            links.append((a, b, kind, round(d, 2)))
+
+    connectors = {c["id"]: {**c, "floor": f} for f in floors for c in results[f]["connectors"]}
+    # Name each shaft after the kiosk floor's place name when one is close by.
+    kiosk_floor = next((f for f in floors if results[f].get("kiosk")), floors[0])
+    named = {}
+    for c in results[kiosk_floor]["connectors"]:
+        near = [d for d in results[kiosk_floor]["destinations"]
+                if CONNECTOR_KINDS.get(d["category"]) == c["kind"] and math.dist(d["xy"], c["xy"]) < 7]
+        if near:
+            named[find(c["id"])] = min(near, key=lambda d: math.dist(d["xy"], c["xy"]))["name"]
+    shafts = defaultdict(list)
+    for cid in connectors:
+        shafts[find(cid)].append(cid)
+    shaft_list, shaft_of = [], {}
+    for root, members in shafts.items():
+        if len({connectors[m]["floor"] for m in members}) < 2:
+            continue  # only on one floor: nothing to travel through
+        first = connectors[members[0]]
+        name = named.get(root) or f"{KIND_LABEL[first['kind']]} ({wing_of(first['xy'][0])})"
+        shaft_id = f"shaft_{len(shaft_list):02d}"
+        for m in members:
+            shaft_of[m] = shaft_id
+        shaft_list.append({
+            "id": shaft_id, "name": name, "kind": first["kind"],
+            "routable": first["kind"] != "fire_stairs",
+            "floors": sorted(connectors[m]["floor"] for m in members),
+            "connectors": {str(connectors[m]["floor"]): m for m in members},
+        })
+    # Unnamed shafts of the same name get numbered.
+    counts = defaultdict(int)
+    for shaft in shaft_list:
+        counts[shaft["name"]] += 1
+    seen = defaultdict(int)
+    for shaft in shaft_list:
+        if counts[shaft["name"]] > 1:
+            seen[shaft["name"]] += 1
+            shaft["name"] = f"{shaft['name']} {seen[shaft['name']]}"
+
+    # Reviewed list of the stairs/lifts in normal use: only those are routable,
+    # under their reviewed names. Without the file every non-fire shaft routes.
+    in_use = json.loads(in_use_path.read_text())["in_use"] if in_use_path.exists() else None
+    if in_use is not None:
+        def gap(entry, shaft):
+            return min(math.dist(entry["xy"], connectors[cid]["xy"]) for cid in shaft["connectors"].values())
+
+        # Each reviewed entry claims the single nearest shaft of its kind
+        # (lifts stand ~2 m apart, so "any within 3 m" would claim neighbours).
+        claimed = {}
+        for entry in in_use:
+            candidates = [sh for sh in shaft_list if sh["kind"] == entry["kind"] and sh["id"] not in claimed and gap(entry, sh) <= 3]
+            if candidates:
+                claimed[min(candidates, key=lambda sh: gap(entry, sh))["id"]] = entry
+            else:
+                print(f"WARNING: in-use {entry['kind']} '{entry['name']}' not found in the drawing near {entry['xy']}")
+        for shaft in shaft_list:
+            entry = claimed.get(shaft["id"])
+            shaft["in_normal_use"] = entry is not None
+            shaft["routable"] = entry is not None and shaft["kind"] != "fire_stairs"
+            if entry:
+                shaft["name"] = entry["name"]
+
+    # Stair/lift destinations follow their shaft: ones not in normal use are
+    # flagged so the kiosk does not offer them.
+    for floor, result in results.items():
+        for place in result["destinations"]:
+            kind = CONNECTOR_KINDS.get(place["category"])
+            if kind not in ("stairs", "lift"):
+                continue
+            shaft_of_connector = {cid: sh for sh in shaft_list for cid in sh["connectors"].values()}
+            same_kind = [c for c in result["connectors"] if c["kind"] == kind]
+            # PDF positions are +/-2 m and rounded lifts stand close together:
+            # prefer the nearest stair/lift that is actually in use.
+            in_use_near = [c for c in same_kind if math.dist(c["xy"], place["xy"]) <= 7
+                           and shaft_of_connector.get(c["id"], {}).get("routable")]
+            near = in_use_near or [c for c in same_kind if math.dist(c["xy"], place["xy"]) <= 4]
+            nearest = min(near, key=lambda c: math.dist(c["xy"], place["xy"])) if near else None
+            shaft = shaft_of_connector.get(nearest["id"]) if nearest else None
+            place["in_use"] = bool(shaft and shaft["routable"])
+            # The PDFs number staircases differently per floor; use the reviewed shaft name.
+            if place["in_use"]:
+                place.setdefault("pdf_name", place["name"])
+                place["name"] = shaft["name"]
+
+    virtual_nodes, edges = [], []
+    for a, b, kind, _ in links:
+        ca, cb = connectors[a], connectors[b]
+        shaft = shaft_of.get(a)
+        if not shaft:
+            continue
+        if kind == "lift":
+            for c in (ca, cb):
+                vid = f"{shaft}_F{c['floor']}"
+                if not any(v["id"] == vid for v in virtual_nodes):
+                    virtual_nodes.append({"id": vid, "floor": c["floor"], "x": c["xy"][0], "y": c["xy"][1], "shaft": shaft})
+                    edges.append({"from": c["node"], "to": vid, "weight_m": LIFT_BOARD_M, "kind": "lift_board", "shaft": shaft})
+            edges.append({"from": f"{shaft}_F{ca['floor']}", "to": f"{shaft}_F{cb['floor']}", "weight_m": LIFT_FLOOR_M, "kind": "lift", "shaft": shaft})
+        else:
+            edges.append({"from": ca["node"], "to": cb["node"], "weight_m": STAIR_WEIGHT_M, "kind": kind, "shaft": shaft})
+
+    # Which destinations the kiosk can actually reach, by any route and lifts-only.
+    routable = {sh["id"]: sh for sh in shaft_list if sh["routable"]}
+
+    def reach(step_free):
+        adjacency = defaultdict(list)
+        for result in results.values():
+            for e in result["edges"]:
+                adjacency[e["from"]].append(e["to"])
+                adjacency[e["to"]].append(e["from"])
+        for e in edges:
+            shaft = routable.get(e["shaft"])
+            if shaft and not (step_free and shaft["kind"] != "lift"):
+                adjacency[e["from"]].append(e["to"])
+                adjacency[e["to"]].append(e["from"])
+        start = results[kiosk_floor]["kiosk"]["node"]
+        seen, stack = {start}, [start]
+        while stack:
+            for nxt in adjacency[stack.pop()]:
+                if nxt not in seen:
+                    seen.add(nxt)
+                    stack.append(nxt)
+        return seen
+
+    any_route, lifts_only = reach(False), reach(True)
+    hidden = []
+    for floor, result in results.items():
+        for place in result["destinations"]:
+            place["reachable"] = place["node"] in any_route
+            place["step_free"] = place["node"] in lifts_only
+            if not place["reachable"] and place.get("in_use", True):
+                hidden.append(f"{place['name']} ({FLOORS[floor]['label'].split(' (')[0]})")
+        (output_dir / f"floor_{floor:02d}_walkable_graph.json").write_text(json.dumps(result, separators=(",", ":")))
+    if hidden:
+        print(f"not reachable with the stairs/lifts in use (hidden in the kiosk): {', '.join(hidden)}")
+
+    building = {
+        "schema_version": "navika-building-0.1",
+        "building": "M. George Block",
+        "review_status": "auto_generated_requires_review",
+        "kiosk_floor": kiosk_floor,
+        "floors": [{
+            "floor_number": f, "label": FLOORS[f]["label"], "elevation_m": FLOORS[f]["elevation_m"],
+            "graph": f"floor_{f:02d}_walkable_graph.json", "walls": f"floor_{f:02d}_walls.json", "rooms": f"floor_{f:02d}_rooms.json",
+        } for f in floors],
+        "shafts": shaft_list,
+        "vertical_nodes": virtual_nodes,
+        "vertical_edges": edges,
+        "assumptions": {
+            "floor_height_m": FLOOR_HEIGHT_M,
+            "stairs_weight_m_per_floor": STAIR_WEIGHT_M,
+            "lift_board_weight_m": LIFT_BOARD_M,
+            "lift_weight_m_per_floor": LIFT_FLOOR_M,
+            "fire_escape_stairs": "recorded but not used for routing",
+            "note": "Stairs (within 8 m) and lifts (within 3 m) are paired across floors by position. Confirm on site which ones are in normal use.",
+        },
+    }
+    (output_dir / "building.json").write_text(json.dumps(building, indent=1))
+    print(f"building: {len(shaft_list)} stair/lift shafts across floors {floors}, {len(edges)} vertical edges")
+    for shaft in shaft_list:
+        print(f"  {shaft['name']:<34} {shaft['kind']:<12} floors {shaft['floors']}  {'ROUTED' if shaft['routable'] else 'not used'}")
+    return building
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
-    parser.add_argument("--floor", type=int, default=1, choices=sorted(FLOORS))
+    parser.add_argument("--floor", default="all", help="floor number (0-4) or 'all' (default) to build every floor and building.json")
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
-    parser.add_argument("--destinations", type=Path, help="destinations/kiosk config (default: data/navigation/mgeorge_floorNN_destinations.json)")
-    parser.add_argument("--preview", type=Path, help="write a review PNG (walkable area, doors, graph, destinations)")
-    parser.add_argument("--debug-grid", type=Path, help="write the occupancy/walkable grids as .npz for inspection")
+    parser.add_argument("--destinations", type=Path, help="destinations/kiosk config for a single --floor (default: data/navigation/mgeorge_floorNN_destinations.json)")
+    parser.add_argument("--preview", type=Path, help="single floor: write a review PNG (walkable area, doors, graph, destinations)")
+    parser.add_argument("--preview-dir", type=Path, help="all floors: write mgeorge_floorNN_walkable_preview.png review PNGs here")
+    parser.add_argument("--debug-grid", type=Path, help="single floor: write the occupancy/walkable grids as .npz for inspection")
     args = parser.parse_args()
-    destinations = args.destinations or Path(str(DEFAULT_DESTINATIONS).format(floor=args.floor))
-    build(args.source, args.floor, args.output_dir, destinations, args.preview, args.debug_grid)
+    if args.floor != "all":
+        floor = int(args.floor)
+        destinations = args.destinations or Path(str(DEFAULT_DESTINATIONS).format(floor=floor))
+        build(args.source, floor, args.output_dir, destinations, args.preview, args.debug_grid)
+        return
+    doc = ezdxf.readfile(args.source)
+    results = {}
+    for floor in sorted(FLOORS):
+        print(f"--- {FLOORS[floor]['label']}")
+        preview = args.preview_dir / f"mgeorge_floor{floor:02d}_walkable_preview.png" if args.preview_dir else None
+        destinations = Path(str(DEFAULT_DESTINATIONS).format(floor=floor))
+        results[floor] = build(args.source, floor, args.output_dir, destinations, preview, doc=doc)
+    build_building(results, args.output_dir)
 
 
 if __name__ == "__main__":

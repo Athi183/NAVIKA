@@ -2,8 +2,8 @@
 
 The kiosk stands at reception on the M. George Block entrance level and is the
 fixed start of every route. Visitors pick a destination by typing or by
-category; the app draws the shortest walking route (Dijkstra) on a 2D plan or
-in 3D, with step-by-step directions.
+category; the app shows the shortest walking route (Dijkstra) in 3D, with a
+person walking it, and step-by-step directions.
 
 ## Which floor is this?
 
@@ -40,6 +40,26 @@ data/navigation/          │                                      ├─ fronte
 6. **Destinations.** Each one is snapped to the nearest graph node it can see
    without crossing a wall.
 
+7. **Rooms (for the 3D model).** All 93 doors are shut by drawing a line across
+   each opening. Free space is then shrunk by 1.2 m, so any opening narrower
+   than 2.4 m separates two rooms, and each room is grown back inside its own
+   walls. Each room is coloured by the destinations inside it, using the
+   Ramanujan viewer's palette: yellow for labs, classrooms and halls; teal for
+   offices, departments and the library; purple for stairs, lifts and fire
+   exits; blue for toilets. A room with no destination is grey corridor if the
+   kiosk can walk through it, or a slab opening (hole) if only corridor
+   surrounds it, like the lobby atrium. The output is `floor_01_rooms.png`,
+   a top-down floor texture, plus `floor_01_rooms.json`, which lists each
+   room's type, area, bounding box and destinations.
+
+The 3D model, [MGeorgeFloorModel3D.jsx](../frontend/src/components/navigation/MGeorgeFloorModel3D.jsx),
+follows the Ramanujan viewer's style: dark scene, 2.8 m brick walls, coloured
+room floors and floating labels. Labels use the bundled
+`frontend/public/fonts/NotoSans-Bold.ttf` (SIL OFL), so they also work offline.
+Open it with **Explore the floor in 3D** on the destination screen, or at
+`/navigation?explore=1`. Tapping a room name opens the route to that room. The
+route's own 3D tab uses the same model.
+
 In the browser, [mgeorgeRoute.js](../frontend/src/services/mgeorgeRoute.js)
 runs Dijkstra. It then straightens the route by line-of-sight checks against
 the exported walkable mask, and turns the result into directions that only
@@ -64,17 +84,113 @@ It is used where the DXF has no walkable entrance, for example the Gents Toilet.
 `xy` / `entrance_xy`. Also confirm the kiosk's exact standing position
 (`kiosk.xy`). Then rebuild.
 
+## All floors
+
+The DXF sheet holds all five floors (Ground to Fourth), each drawn at a
+different spot on the sheet. `FLOOR_OFFSETS` in the build script moves every
+floor onto floor 1. The offsets come from the structural grid bubbles that
+repeat on each floor, and were checked by sliding each floor's walls and
+columns over floor 1; both methods agree within 20 cm. Floor 3 has no grid
+bubbles, so its offset comes from the walls alone. All floors share floor 1's
+coordinates in metres, so they stack exactly in 3D.
+
+- **Destinations.** Floor 1 uses the reviewed names from `MG FIRST.pdf`.
+  Floors 0, 2, 3 and 4 use names generated from the DXF labels, for example
+  Chemistry Lab, Principal Room, CAD Lab and Classroom 2 (east wing). They are
+  saved to `data/navigation/mgeorge_floorNN_destinations.json` the first time
+  the script runs, all marked `low` confidence. **Edit those files** when the
+  current room-use plans arrive; the script never overwrites them.
+- **Stairs and lifts.** These come from the DXF labels (`MAIN STAIR`,
+  `STAIR WELL`, `LIFT`, `FIRE LIFT`, `BED LIFT`, `FIRE ESCAPE STAIR`).
+  `building.json` pairs them across adjacent floors by position, within 8 m for
+  stairs and 3 m for lifts. Each staircase or lift is named after the floor-1
+  place nearby. Fire escape stairs are recorded but never used for routes.
+- **Stairs and lifts in normal use** are listed in
+  [`data/navigation/mgeorge_connectors_in_use.json`](../data/navigation/mgeorge_connectors_in_use.json).
+  These are the three main staircases, the main lift (corridor) and the west wing
+  lift, confirmed by the project team. Routes use only these, under the names
+  in that file. Every other stair or lift in the drawing stays in
+  `building.json` with `routable: false`, and the kiosk does not offer them.
+- **Reachability flags.** The build marks each destination `reachable` and
+  `step_free` (lifts only). The kiosk hides places the stairs and lifts in use
+  cannot reach (currently only the Ground Floor Staff room). For places with no
+  lift access it says "only by stairs".
+- **Travel cost** is measured as metres of walking, so Dijkstra can mix it with
+  corridors:
+  - one storey of stairs = 18 m (about 15 s);
+  - a lift = 18 m to board + 18 m to leave (about 30 s waiting in total), plus
+    4 m per storey.
+
+  **"Lifts only"** in the kiosk drops the stairs. The display spacing between
+  stacked floors is not the real storey height; the real height is taken as
+  3.3 m (22 risers × 15 cm).
+- **Floors without the kiosk** keep the walkable area connected to their stairs
+  and lifts. Pockets smaller than 30 m², such as lift cars, are ignored, so each
+  lift attaches to its lobby.
+
+The kiosk lists every floor's places with a floor filter. Routes are shown in
+3D only:
+- all the floors the route passes through are stacked, and the blue route line
+  climbs at the stairs or lift;
+- a walking figure follows the route, and the walked part turns grey behind it;
+- steps read like "Take Staircase 1 (central) up to the Third Floor".
+
+**Explore the building in 3D** shows one floor at a time, or **All floors**
+stacked (`/navigation?explore=1&floor=all`).
+
+## Campus (outdoor paths)
+
+`scripts/build_campus_nav_graph.py` builds the outdoor network from
+`data/original_sources/campus/COLLEGE PLAN VARNAM.dxf` and writes
+`frontend/public/data/MGeorge_nav/site_graph.json`.
+
+- **Same coordinates as indoors.** The campus plan was converted from a PDF, so
+  its units can't be trusted. It also draws an outline of the M. George Block,
+  rotated about 180°. The script fits that outline onto the floor-1 walls
+  (iterative closest point: scale, rotation and shift; median fit about 1.3 m),
+  which puts the whole campus in the indoor frame.
+- **Walkable outdoors** is a band around the plan's roads, driveways, footpaths
+  and paving. Each road's two edge lines are merged into one band, and the
+  result is thinned to its centreline like the indoor floors. The plan draws
+  paths in pieces, so pieces closer than 40 m are joined by short walkways.
+  M. George's footprint is kept out.
+- **Outdoor places** come from the plan's labels: Ramanujan Block, Canteen,
+  Workshop, hostels, Auditorium, the courts and parking. A label marks the
+  building, not its door, so routes end on the nearest path (confidence `low`).
+- **Joining indoors and outdoors:** the main entrance is linked to the nearest
+  outdoor path. A route can leave the building ("Go out through the main
+  entrance") and continue outside, at the entrance floor's level in 3D.
+
+## What visitors see
+
+- **Popular places** come first, as big buttons: Reception, Admissions,
+  Principal, Library, **Nearest toilet** (the shortest walk), Canteen,
+  Auditorium, Ramanujan Block, Parking, and the way out. Search is always there.
+  The full list with floor and category filters is behind **Browse all places**.
+- **Every route starts with one plain sentence**, e.g. *"Take the main lift
+  (corridor) up to the Second Floor. Principal is about 2 min away."* Below it
+  are the distance and time, then the step-by-step directions, which can be
+  folded away.
+- **Look around in 3D** shows the whole campus, one floor, or all floors
+  stacked. Tapping any name opens its route.
+
 ## Commands
 
 ```bash
-# rebuild graph, walls and review image after editing the destinations file
-.venv/bin/python scripts/build_mgeorge_nav_graph.py --preview inspection_navigation/mgeorge_floor01_walkable_preview.png
+# rebuild every floor, building.json and the review images
+.venv/bin/python scripts/build_mgeorge_nav_graph.py --preview-dir inspection_navigation
 
-# check every destination is reachable with a sane distance
-cd backend/navigation && ../../.venv/bin/python test_mgeorge_graph.py
+# outdoor campus paths (run after the floors; needs floor 1's walls and rooms)
+PYTHONPATH=scripts .venv/bin/python scripts/build_campus_nav_graph.py --preview inspection_navigation/campus_walkable_preview.png
+
+# one floor only (no building.json)
+.venv/bin/python scripts/build_mgeorge_nav_graph.py --floor 1 --preview inspection_navigation/mgeorge_floor01_walkable_preview.png
+
+# check every destination on every floor is reachable, normally and lifts-only
+cd backend/navigation && ../../.venv/bin/python test_mgeorge_building.py && ../../.venv/bin/python test_mgeorge_graph.py
 
 # open a route directly (also usable from the assistant or a QR code)
-http://localhost:5173/navigation?to=mg1_tagore_library        # add &map=3d for the 3D view
+http://localhost:5173/navigation?to=mg1_tagore_library
 ```
 
 The earlier Ramanujan, M. George and campus visualisations are still available
@@ -82,8 +198,12 @@ at `/navigation?view=indoor|mgeorge|campus`.
 
 ## Not done yet
 
-- Only the entrance level is routed. Upper floors and stair/lift transitions
-  come next.
+- **Room names on floors 0, 2, 3 and 4** are DXF design labels. Replace them
+  with the current room-use plans (like `MG FIRST.pdf`) when available.
+- **On-site checks still needed:**
+  - which stairs and lifts are in normal use;
+  - the real storey height;
+  - the Ground Floor's connection to the reception level.
 - Students Activity Center (PDF no. 12) is not placed; its entrance is unknown.
 - An IFC export with rooms (`IfcSpace`) and doors would let the room outlines
   and doors come from the model instead of the DXF.

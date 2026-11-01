@@ -3,7 +3,7 @@
 NAVIKA is a smart campus assistant and indoor-navigation kiosk for MITS. It is
 installed at reception in the M. George Block. Visitors can either **ask about
 the campus** (a RAG assistant with voice) or **find a place** (shortest walking
-route from the kiosk, shown on a 2D map or in 3D).
+route from the kiosk, shown in 3D with a person walking it).
 
 ## Repository map
 
@@ -67,7 +67,7 @@ npm run dev            # http://localhost:5173 (also reachable on the LAN)
 ```
 
 - `/navigation` is the kiosk route finder. The kiosk is the fixed start point.
-- `/navigation?to=mg1_tagore_library` opens a route directly; add `&map=3d` for the 3D view.
+- `/navigation?to=mg1_tagore_library` opens a route directly.
 - `/navigation?view=indoor|mgeorge|campus` shows the earlier Ramanujan, M. George and campus visualisations.
 - `npm run build` builds for production and `npm run lint` checks the code.
 
@@ -157,7 +157,8 @@ VITE_ENABLE_CHAT_DEMO_MODE=true             # force demo answers even with a bac
   `frontend/.env.local` as described above.
 - **Voice input unavailable:** use Chrome or Edge, allow the microphone, and
   open the app on `localhost` or HTTPS. Typed input always works.
-- **3D view blank:** the browser or GPU has WebGL disabled. The 2D map still works.
+- **3D view blank:** the browser or GPU has WebGL disabled. Enable hardware
+  acceleration; the route steps still show as text.
 - **QR code does not open on a phone:** use the LAN URL, keep the phone on the
   same network, and allow the port through the firewall.
 
