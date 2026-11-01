@@ -142,7 +142,7 @@ def inset_polygon(bounds: tuple[float, float, float, float]) -> list[list[float]
 def main() -> None:
     report = {"wall_support_tolerance": WALL_TOLERANCE, "floor_inset": OUTPUT_INSET, "floors": {}}
     for floor in range(3, 7):
-        directory = ROOT / "public" / "data" / f"Ramanujan_F{floor}"
+        directory = ROOT / "ramanujan-viewer" / "public" / "data" / f"Ramanujan_F{floor}"
         walls = json.loads((directory / "walls.json").read_text())
         semantics_text = (directory / "semantics.json").read_text()
         semantics = json.loads(semantics_text) if semantics_text.strip() else {"places": []}

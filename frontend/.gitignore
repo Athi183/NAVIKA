@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Copied from ../ramanujan-viewer/public/data by scripts/sync-ramanujan-data.mjs
+public/data/Ramanujan_F*/
+public/data/floor_slab_footprints.json

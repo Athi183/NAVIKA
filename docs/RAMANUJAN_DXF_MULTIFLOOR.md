@@ -13,11 +13,11 @@ Repeated `UP` labels yield three candidate stair links across floors 2–6. The 
 The processor accepts an explicit source path and output paths, and leaves the input unchanged:
 
 ```bash
-backend/navigation/venv/bin/python backend/navigation/tools/process_multifloor_dxf.py \
+.venv/bin/python backend/navigation/tools/process_multifloor_dxf.py \
   "/path/to/floors.dxf" \
   --building-id EXAMPLE_BLOCK \
   --output frontend/src/data/ramanujan_floors_2_6.json \
-  --preview NAVIKA_FLOOR_05_GOLD/diagnostics/ramanujan_dxf_floors_2_6_preview.png
+  --preview inspection_navigation/ramanujan_dxf_floors_2_6_preview.png
 ```
 
 For another DXF with floor titles using the same ordinal naming convention and separated plan bands, pass its path, set `--building-id`, and choose an output file. The processor currently expects titles for floors 2–6; adapt the floor-title selection when the floor range or title scheme differs. Review the generated preview and connector alignment before using the data. This workflow does not create or certify cross-floor route graphs.
@@ -25,7 +25,7 @@ For another DXF with floor titles using the same ordinal naming convention and s
 ## Review artifacts
 
 - Generated data: `frontend/src/data/ramanujan_floors_2_6.json`
-- Static extraction preview: `NAVIKA_FLOOR_05_GOLD/diagnostics/ramanujan_dxf_floors_2_6_preview.png`
+- Static extraction preview: `inspection_navigation/ramanujan_dxf_floors_2_6_preview.png`
 - Processor: `backend/navigation/tools/process_multifloor_dxf.py`
 
 The visualization intentionally labels connectors as candidates and keeps floor stack spacing and plan registration assumptions visible in the UI.

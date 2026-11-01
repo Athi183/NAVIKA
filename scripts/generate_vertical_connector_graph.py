@@ -19,7 +19,7 @@ def slug(name: str) -> str:
 
 
 def load_floor(floor: int) -> tuple[dict, dict]:
-    directory = ROOT / "public" / "data" / f"Ramanujan_F{floor}"
+    directory = ROOT / "ramanujan-viewer" / "public" / "data" / f"Ramanujan_F{floor}"
     walls = json.loads((directory / "walls.json").read_text())
     semantics = json.loads((directory / "semantics.json").read_text())
     return walls, semantics
@@ -134,7 +134,7 @@ def build() -> dict:
 
 def main() -> None:
     graph = build()
-    output = ROOT / "public" / "data" / "campus_vertical_connections.json"
+    output = ROOT / "ramanujan-viewer" / "public" / "data" / "campus_vertical_connections.json"
     output.write_text(json.dumps(graph, indent=2) + "\n")
     print(f"Wrote {len(graph['nodes'])} connector nodes and {len(graph['edges'])} vertical edges to {output.relative_to(ROOT)}")
     print(f"Unmatched connector pairs: {len(graph['unmatched_connectors'])}")

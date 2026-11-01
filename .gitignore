@@ -28,3 +28,8 @@ __pycache__/
 rag/vectorstore/
 vectorstore/.DS_Store
 .DS_Store
+
+# Python virtual environments (never commit; recreate from requirements.txt)
+venv/
+backend/venv/
+*.pyc

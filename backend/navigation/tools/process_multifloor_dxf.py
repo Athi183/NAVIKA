@@ -19,7 +19,7 @@ from ezdxf.path import make_path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_OUTPUT = REPOSITORY_ROOT / "frontend/src/data/ramanujan_floors_2_6.json"
-DEFAULT_PREVIEW = REPOSITORY_ROOT / "NAVIKA_FLOOR_05_GOLD/diagnostics/ramanujan_dxf_floors_2_6_preview.png"
+DEFAULT_PREVIEW = REPOSITORY_ROOT / "inspection_navigation/ramanujan_dxf_floors_2_6_preview.png"
 FLOOR_NAMES = {2: "SECOND", 3: "THIRD", 4: "FOURTH", 5: "FIFTH", 6: "SIXTH"}
 FLOOR_WINDOW_BELOW_M = 22.5
 FLOOR_WINDOW_ABOVE_M = 46.5
