@@ -1,15 +1,21 @@
 import { lazy, Suspense, useState } from 'react'
 import { Building2, Layers3 } from 'lucide-react'
 import MultiFloorNavigation3D from '../components/navigation/MultiFloorNavigation3D'
+import MGeorgeKioskNavigation from '../components/navigation/MGeorgeKioskNavigation'
 
 const CampusSite3D = lazy(() => import('../components/navigation/CampusSite3D'))
 const MGeorgeBlock3D = lazy(() => import('../components/navigation/MGeorgeBlock3D'))
 
+// The kiosk route finder is the default. The earlier visualisations stay
+// reachable for development with ?view=indoor|mgeorge|campus.
+const DEV_VIEWS = ['indoor', 'mgeorge', 'campus']
+
 export default function NavigationPage() {
   const [view, setView] = useState(() => {
     const requested = new URLSearchParams(window.location.search).get('view')
-    return ['campus', 'mgeorge'].includes(requested) ? requested : 'indoor'
+    return DEV_VIEWS.includes(requested) ? requested : 'kiosk'
   })
+  if (view === 'kiosk') return <MGeorgeKioskNavigation />
   return <div className="space-y-4">
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
       <div><p className="text-sm font-bold text-slate-900">Navigation map</p><p className="text-xs text-slate-500">Switch between Ramanujan, M. George Block, and the campus site plan.</p></div>
