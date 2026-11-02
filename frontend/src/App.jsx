@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Assistant from './pages/Assistant'
 import NavigationPage from './pages/Navigation'
 import MobileRoute from './pages/MobileRoute'
+import PhoneRoute from './pages/PhoneRoute'
 
 function AppShell() {
   const navigate = useNavigate()
@@ -26,6 +27,8 @@ function AppShell() {
   }
 
   if (location.pathname === '/mobile-route') return <MobileRoute />
+  // QR hand-off from the kiosk: phone-only page, no header or other tabs.
+  if (location.pathname === '/route') return <PhoneRoute />
 
   return (
     <div className="min-h-screen bg-white text-slate-900">

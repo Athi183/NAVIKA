@@ -1,10 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Accessibility, ArrowDown, ArrowLeft, ArrowUp, BookOpen, Box, Building2, Car, ClipboardList, Clock, Coffee, DoorOpen,
-  Footprints, GraduationCap, Landmark, Layers, List, MapPin, Search, Toilet, UserRound, X,
+  Footprints, GraduationCap, QrCode, Landmark, Layers, List, MapPin, Search, Toilet, UserRound, X,
 } from 'lucide-react'
 import MGeorgeBuilding3D from './MGeorgeBuilding3D'
-import { CATEGORY_LABELS, SITE, floorName, formatDuration, loadBuilding, routeBounds, routeFromKiosk, searchDestinations } from '../../services/mgeorgeRoute'
+import { QRCodeSVG } from 'qrcode.react'
+import {
+  CATEGORY_LABELS, PHONE_LINK_MINUTES, SITE, floorName, formatDuration, loadBuilding, phoneRouteUrl, routeFromKiosk, routeScene, routeSummary,
+  searchDestinations,
+} from '../../services/mgeorgeRoute'
 
 const IDLE_RESET_MS = 90_000
 // Individual stairs, lifts and exits are listed under their own categories
@@ -147,21 +151,30 @@ function DestinationPicker({ model, onPick, onExplore }) {
   </div>
 }
 
-/** One plain sentence: how to get there and how long it takes. */
-function routeSummary(route, destination) {
-  const parts = route.transitions.map((t) => {
-    if (t.kind === 'entrance') return t.toFloor === SITE ? 'go out through the main entrance' : 'go back in through the main entrance'
-    const way = t.kind === 'lift' ? `take the ${t.name.toLowerCase()}` : `take ${t.name}`
-    return `${way} ${t.toFloor > t.fromFloor ? 'up' : 'down'} to the ${floorName(t.toFloor)}`
-  })
-  const time = formatDuration(route.durationS)
-  if (!parts.length) return `${destination.name} is on this floor, about ${time} away. Follow the walking person.`
-  const first = parts[0].charAt(0).toUpperCase() + parts[0].slice(1)
-  return `${[first, ...parts.slice(1)].join(', then ')}. ${destination.name} is about ${time} away.`
+/** Full-screen QR code that opens this one route on a visitor's phone, valid for a limited time. */
+function PhoneQrDialog({ destination, stepFree, openedAt, onClose }) {
+  const url = phoneRouteUrl(destination, { stepFree, now: openedAt })
+  useEffect(() => {
+    const close = (event) => event.key === 'Escape' && onClose()
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  }, [onClose])
+  return <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4" onClick={onClose} role="presentation">
+    <div role="dialog" aria-modal="true" aria-label="Scan to take this route on your phone" onClick={(event) => event.stopPropagation()}
+      className="flex w-full max-w-md flex-col items-center gap-4 rounded-3xl bg-white p-8 text-center shadow-2xl">
+      <p className="text-2xl font-black text-slate-900">Scan with your phone camera</p>
+      <div className="rounded-2xl border border-slate-200 bg-white p-3"><QRCodeSVG value={url} size={280} marginSize={1} title={`Route to ${destination.name}`} /></div>
+      <p className="text-lg leading-7 text-slate-600">Your phone will show the route from here to <span className="font-bold text-slate-900">{destination.name}</span>. It works for {PHONE_LINK_MINUTES} minutes.</p>
+      {/^(localhost|127\.)/.test(new URL(url).hostname) && <p className="text-sm font-semibold text-amber-700">Setup: phones cannot open “localhost”. Set VITE_NAVIKA_BASE_URL to this computer's network address.</p>}
+      <button type="button" onClick={onClose} className="w-full rounded-2xl bg-slate-900 px-5 py-4 text-xl font-bold text-white">Done</button>
+    </div>
+  </div>
 }
 
 function RouteView({ model, destination, onBack }) {
   const [stepFree, setStepFree] = useState(false)
+  // When the QR dialog was opened; the phone link's time limit starts then.
+  const [qrOpenedAt, setQrOpenedAt] = useState(null)
   const route = useMemo(() => routeFromKiosk(model, destination, { stepFree }), [model, destination, stepFree])
   if (!route && stepFree) return <div className="space-y-4 rounded-3xl border border-amber-200 bg-amber-50 p-6">
     <p className="text-xl font-bold text-amber-900">No lift goes to {destination.name}.</p>
@@ -173,14 +186,10 @@ function RouteView({ model, destination, onBack }) {
   </div>
   if (!route) return <div className="space-y-4"><button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl bg-slate-100 px-5 py-3 text-lg font-semibold"><ArrowLeft className="h-5 w-5" />Choose another place</button><p className="text-lg">Sorry, no walking route to {destination.name} was found.</p></div>
 
-  const indoor = route.floors.filter((floor) => floor !== SITE)
-  const outside = route.floors.includes(SITE)
-  if (outside && model.site) indoor.push(model.site.level_floor)
-  const low = Math.min(...indoor)
-  const high = Math.max(...indoor)
-  const stackedFloors = model.floors.map((floor) => floor.floor_number).filter((n) => n >= low && n <= high)
+  const scene = routeScene(model, route, destination)
 
-  return <div className="space-y-4">
+  // Sized to the screen so the kiosk never needs scrolling: only the step list scrolls.
+  return <div className="flex h-[calc(100dvh-10rem)] min-h-[520px] flex-col gap-3">
     <div className="flex flex-wrap items-center justify-between gap-3">
       <button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl bg-slate-100 px-5 py-3 text-lg font-semibold text-slate-800 hover:bg-slate-200"><ArrowLeft className="h-5 w-5" />Choose another place</button>
       <button type="button" onClick={() => setStepFree((value) => !value)} aria-pressed={stepFree}
@@ -188,42 +197,44 @@ function RouteView({ model, destination, onBack }) {
         <Accessibility className="h-5 w-5" />Lifts only
       </button>
     </div>
-    <div className="grid gap-4 lg:grid-cols-[minmax(300px,1fr)_2fr]">
-      <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[minmax(320px,1fr)_2fr]">
+      <section className="flex min-h-0 flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-slate-500">Going to</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-slate-500">From reception to</p>
           <h2 className="text-3xl font-black leading-tight text-slate-900">{destination.name}</h2>
-          <p className="mt-1 text-lg font-semibold text-slate-600">{destination.floorName}</p>
+          <p className="mt-1 flex flex-wrap items-center gap-x-4 text-lg font-semibold text-slate-600">
+            <span>{destination.floorName}</span>
+            <span className="flex items-center gap-1 whitespace-nowrap"><Footprints className="h-5 w-5 text-brand-500" />{Math.round(route.distanceM)} m</span>
+            <span className="flex items-center gap-1 whitespace-nowrap"><Clock className="h-5 w-5 text-brand-500" />{formatDuration(route.durationS)}</span>
+          </p>
         </div>
-        <p className="rounded-2xl bg-blue-50 p-4 text-xl font-semibold leading-8 text-blue-950">{routeSummary(route, destination)}</p>
-        <div className="flex gap-3">
-          <div className="flex flex-1 items-center gap-2 rounded-2xl bg-brand-100/70 px-4 py-3"><Footprints className="h-6 w-6 text-brand-500" /><span className="text-xl font-bold">{Math.round(route.distanceM)} m</span></div>
-          <div className="flex flex-1 items-center gap-2 rounded-2xl bg-brand-100/70 px-4 py-3"><Clock className="h-6 w-6 text-brand-500" /><span className="text-xl font-bold">{formatDuration(route.durationS)}</span></div>
-        </div>
-        <details className="group" open>
-          <summary className="cursor-pointer text-base font-semibold text-slate-600">Step-by-step directions</summary>
-          <ol className="mt-3 space-y-3">
-            {route.steps.map((step, index) => {
-              const newFloor = index === 0 || step.floor !== route.steps[index - 1].floor
-              const last = index === route.steps.length - 1
-              return <li key={index}>
-                {newFloor && route.legs.length > 1 && <p className="mb-2 mt-1 text-sm font-bold uppercase tracking-widest text-slate-500">{floorName(step.floor)}</p>}
-                <div className="flex gap-3 text-lg leading-7">
-                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base font-bold text-white ${last ? 'bg-brand-500' : step.transition ? 'bg-violet-600' : 'bg-slate-900'}`}>
-                    {step.transition?.kind === 'entrance' ? <DoorOpen className="h-5 w-5" /> : step.transition ? (step.transition.toFloor > step.transition.fromFloor ? <ArrowUp className="h-5 w-5" /> : <ArrowDown className="h-5 w-5" />) : index + 1}
-                  </span>
-                  <span className={step.transition ? 'font-semibold text-violet-800' : ''}>{step.text}</span>
-                </div>
-              </li>
-            })}
-          </ol>
-        </details>
+        <p className="rounded-2xl bg-blue-50 p-4 text-lg font-semibold leading-7 text-blue-950">{routeSummary(route, destination)}</p>
+        <ol className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-1" aria-label="Step-by-step directions">
+          {route.steps.map((step, index) => {
+            const newFloor = index === 0 || step.floor !== route.steps[index - 1].floor
+            const last = index === route.steps.length - 1
+            return <li key={index}>
+              {newFloor && route.legs.length > 1 && <p className="mb-2 mt-1 text-sm font-bold uppercase tracking-widest text-slate-500">{floorName(step.floor)}</p>}
+              <div className="flex gap-3 text-lg leading-7">
+                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base font-bold text-white ${last ? 'bg-brand-500' : step.transition ? 'bg-violet-600' : 'bg-slate-900'}`}>
+                  {step.transition?.kind === 'entrance' ? <DoorOpen className="h-5 w-5" /> : step.transition ? (step.transition.toFloor > step.transition.fromFloor ? <ArrowUp className="h-5 w-5" /> : <ArrowDown className="h-5 w-5" />) : index + 1}
+                </span>
+                <span className={step.transition ? 'font-semibold text-violet-800' : ''}>{step.text}</span>
+              </div>
+            </li>
+          })}
+        </ol>
+        <button type="button" onClick={() => setQrOpenedAt(Date.now())}
+          className="flex items-center justify-center gap-3 rounded-2xl bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-sm hover:brightness-95">
+          <QrCode className="h-7 w-7" />Send to my phone
+        </button>
       </section>
-      <section className="h-[62vh] min-h-[420px] overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
-        <MGeorgeBuilding3D model={model} floors={stackedFloors} labelFloors={destination.floor === SITE ? [] : [destination.floor]} route={route} destination={destination}
-          showSite={outside} focus={routeBounds([...route.legs.flatMap((item) => item.points), destination.entrance_xy || destination.xy], 30, outside ? 15 : 4)} />
+      <section className="min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
+        <MGeorgeBuilding3D model={model} floors={scene.floors} labelFloors={destination.floor === SITE ? [] : [destination.floor]} route={route} destination={destination}
+          showSite={scene.outside} focus={scene.focus} />
       </section>
     </div>
+    {qrOpenedAt !== null && <PhoneQrDialog destination={destination} stepFree={stepFree} openedAt={qrOpenedAt} onClose={() => setQrOpenedAt(null)} />}
   </div>
 }
 
@@ -294,10 +305,10 @@ export default function MGeorgeKioskNavigation() {
 
   const pick = (place) => setDestination(place.id === NEAREST_TOILET ? nearestToilet(model) : place)
   return <div className="space-y-5">
-    <div className="flex items-center gap-3 rounded-2xl bg-blue-50 px-5 py-4 text-blue-900">
+    {!destination && <div className="flex items-center gap-3 rounded-2xl bg-blue-50 px-5 py-4 text-blue-900">
       <MapPin className="h-7 w-7 shrink-0 text-blue-700" />
       <p className="text-lg"><span className="font-bold">You are here:</span> Reception, M. George Block, {floorName(model.kiosk.floor)}</p>
-    </div>
+    </div>}
     {destination
       ? <RouteView key={destination.id} model={model} destination={destination} onBack={() => setDestination(null)} />
       : exploring

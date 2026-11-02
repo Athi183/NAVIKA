@@ -478,3 +478,56 @@ export function formatDuration(seconds) {
   const minutes = Math.max(1, Math.round(seconds / 60))
   return seconds < 45 ? 'under 1 min' : `${minutes} min`
 }
+
+/** One plain sentence: how to get there and how long it takes. */
+export function routeSummary(route, destination) {
+  const parts = route.transitions.map((t) => {
+    if (t.kind === 'entrance') return t.toFloor === SITE ? 'go out through the main entrance' : 'go back in through the main entrance'
+    const way = t.kind === 'lift' ? `take the ${t.name.toLowerCase()}` : `take ${t.name}`
+    return `${way} ${t.toFloor > t.fromFloor ? 'up' : 'down'} to the ${floorName(t.toFloor)}`
+  })
+  const time = formatDuration(route.durationS)
+  if (!parts.length) return `${destination.name} is on this floor, about ${time} away. Follow the walking person.`
+  const first = parts[0].charAt(0).toUpperCase() + parts[0].slice(1)
+  return `${[first, ...parts.slice(1)].join(', then ')}. ${destination.name} is about ${time} away.`
+}
+
+/** Floors to stack, camera focus and campus flag for showing a route in 3D. */
+export function routeScene(model, route, destination) {
+  const outside = route.floors.includes(SITE)
+  const indoor = route.floors.filter((floor) => floor !== SITE)
+  if (outside && model.site) indoor.push(model.site.level_floor)
+  const low = Math.min(...indoor)
+  const high = Math.max(...indoor)
+  return {
+    outside,
+    floors: model.floors.map((floor) => floor.floor_number).filter((n) => n >= low && n <= high),
+    focus: routeBounds([...route.legs.flatMap((leg) => leg.points), destination.entrance_xy || destination.xy], 30, outside ? 15 : 4),
+  }
+}
+
+// Phone hand-off: the kiosk shows a QR code for one route. The link carries
+// only the destination, the lifts-only choice and an expiry time; the source
+// is always the kiosk.
+export const PHONE_LINK_MINUTES = 45
+export const PHONE_ROUTE_PATH = '/route'
+
+export function phoneRouteUrl(destination, { stepFree = false, now = Date.now() } = {}) {
+  const base = import.meta.env.VITE_NAVIKA_BASE_URL?.trim() || window.location.origin
+  const url = new URL(PHONE_ROUTE_PATH, base)
+  url.search = new URLSearchParams({
+    to: destination.id,
+    ...(stepFree ? { lifts: '1' } : {}),
+    until: String(Math.floor(now / 1000) + PHONE_LINK_MINUTES * 60),
+  }).toString()
+  return url.toString()
+}
+
+/** `{ to, stepFree, expiresAt }` from a phone link, or null when it is malformed. */
+export function readPhoneLink(search) {
+  const params = new URLSearchParams(search)
+  const to = params.get('to')
+  const until = Number(params.get('until'))
+  if (!to || !Number.isFinite(until) || until <= 0) return null
+  return { to, stepFree: params.get('lifts') === '1', expiresAt: until * 1000 }
+}

@@ -1,6 +1,6 @@
 import { Suspense, useCallback, useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Billboard, Html, Line, OrbitControls, Text, useTexture } from '@react-three/drei'
 import { NAV_BLUE, NAV_BLUE_EDGE, NAV_WALKED, cumulativeLengths, routeProgress } from './navigationStyle'
 
@@ -266,6 +266,29 @@ export function MapPinIcon({ size = 44 }) {
   </svg>
 }
 
+// The framing below is tuned for a landscape view about this wide.
+const DESIGN_ASPECT = 1.6
+
+/**
+ * On narrower screens (phones in portrait) move the camera back along its
+ * view line so the whole width of the framed area still fits. Runs once on
+ * mount so it never fights the visitor's own zooming.
+ */
+function FitToScreen({ centre, width, depth }) {
+  const { camera, size } = useThree()
+  useEffect(() => {
+    const aspect = size.width / size.height
+    if (aspect >= DESIGN_ASPECT) return
+    const designed = Math.max(width, depth * DESIGN_ASPECT)
+    const factor = Math.min(3, Math.max(width * DESIGN_ASPECT / aspect, depth * DESIGN_ASPECT) / designed)
+    const target = new THREE.Vector3(...centre)
+    camera.position.sub(target).multiplyScalar(factor).add(target)
+    camera.updateProjectionMatrix()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  return null
+}
+
 /**
  * 3D model of the M. George Block. Shows `floors` (floor numbers) stacked;
  * room labels on `labelFloors`. Pass `route` and `destination` to draw a
@@ -328,6 +351,7 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
       <div style={{ transform: 'translateY(-50%)' }}><MapPinIcon /></div>
     </Html>}
 
+    <FitToScreen centre={centre} width={area.maxX - area.minX + height * 0.8} depth={area.maxY - area.minY} />
     <OrbitControls makeDefault target={centre} enableDamping maxPolarAngle={Math.PI / 2.1} minDistance={8} maxDistance={showSite ? 700 : 260} />
   </Canvas>
 }

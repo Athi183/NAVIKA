@@ -169,10 +169,34 @@ stacked (`/navigation?explore=1&floor=all`).
   The full list with floor and category filters is behind **Browse all places**.
 - **Every route starts with one plain sentence**, e.g. *"Take the main lift
   (corridor) up to the Second Floor. Principal is about 2 min away."* Below it
-  are the distance and time, then the step-by-step directions, which can be
-  folded away.
+  are the distance and time, then the step-by-step directions, which
+  scroll inside their panel. The route screen fits the kiosk screen without
+  scrolling the page.
 - **Look around in 3D** shows the whole campus, one floor, or all floors
   stacked. Tapping any name opens its route.
+
+## On the phone (QR code)
+
+Every route screen on the kiosk has a **Send to my phone** button that opens a
+large QR code. Scanning it opens
+`/route?to=<id>&until=<unix time>` (plus `lifts=1` for a lifts-only route) on
+the visitor's phone:
+
+- **Only that route**, always from the kiosk. There is no place picker and no
+  other source on the phone.
+- The visitor sees the overview first (3D, summary, steps), taps **Start**,
+  then goes through the steps with **Next step**. On the last step the button
+  becomes **I have arrived · Stop**. After stopping, the link shows "You have
+  arrived" even if reopened on that phone.
+- **The link expires 45 minutes** after the QR code was opened on the kiosk
+  (`PHONE_LINK_MINUTES` in `mgeorgeRoute.js`). The screen stays awake while
+  walking.
+- The phone must be able to reach the kiosk's web address. If the kiosk opens
+  the app as `localhost`, set `VITE_NAVIKA_BASE_URL` in `frontend/.env.local`
+  to the kiosk's network address (for example `http://192.168.1.20:5173`) or
+  the deployed site; the kiosk shows a setup warning until then.
+- The expiry is checked on the phone from the link, so it stops casual reuse
+  but is not a security control: someone could edit the time in the URL.
 
 ## Commands
 
@@ -198,12 +222,14 @@ at `/navigation?view=indoor|mgeorge|campus`.
 
 ## Not done yet
 
-- **Room names on floors 0, 2, 3 and 4** are DXF design labels. Replace them
-  with the current room-use plans (like `MG FIRST.pdf`) when available.
-- **On-site checks still needed:**
-  - which stairs and lifts are in normal use;
-  - the real storey height;
-  - the Ground Floor's connection to the reception level.
-- Students Activity Center (PDF no. 12) is not placed; its entrance is unknown.
-- An IFC export with rooms (`IfcSpace`) and doors would let the room outlines
-  and doors come from the model instead of the DXF.
+- **Ground Floor:** the DXF is out of date (parking where the PDF shows rooms),
+  so its room names are not imported and the Staff room is hidden. Needs a DXF
+  or IFC export of `GROUND FLOOR.rvt`.
+- **On-site checks:** the exact kiosk position; the First Floor Gents Toilet
+  entrance, Admission Cell and Students Activity Center; PDF room positions
+  (expected within about 2 m); the real storey height (3.3 m assumed).
+- **Campus:** Ramanujan Block and the Auditorium are only labels on the campus
+  plan, so their routes end on the nearest path. Gates and the security cabin
+  are not labelled. Outdoor routes only leave through the main entrance.
+- **Ask NAVIKA hand-off:** a "Show me the way" button in the assistant that
+  opens `/navigation?to=<id>`.
