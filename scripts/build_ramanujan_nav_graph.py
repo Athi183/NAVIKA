@@ -6,8 +6,9 @@ Floors 4, 5 and 6 come from Fathima Mehrin's Ramanujan viewer data
 positions), aligned with each other by her stackedFloorConfig.ts offsets. That
 data is read only, never changed.
 
-Visitors reach those floors over the bridge on the Second Floor: from the west
-end of the M. George Second Floor corridor across to Ramanujan's Second Floor,
+Visitors reach those floors over the bridge: from the west end of the
+M. George Third Floor corridor (the floor above Visvesvaraya Hall) across to
+Ramanujan's Second Floor, which stands at the same height,
 where a 3.08 m opening between Turing Lab and Caeser Lab is labelled
 "CONNECTION BRIDGE" in the multi-floor Ramanujan DXF. The Second Floor comes
 from that DXF (frontend/src/data/ramanujan_floors_2_6.json) and is used only to
@@ -19,7 +20,7 @@ bridge alone: its door faces M. George's west-end door across BRIDGE_LENGTH_M.
 That placement is approximate until the bridge is measured.
 
 Run after scripts/build_mgeorge_nav_graph.py (the bridge joins a M. George
-Second Floor node by id):
+Third Floor node by id):
 
     PYTHONPATH=scripts .venv/bin/python scripts/build_ramanujan_nav_graph.py --preview-dir inspection_navigation
 """
@@ -47,11 +48,15 @@ DEFAULT_OUTPUT_DIR = ROOT / "frontend/public/data/Ramanujan_nav"
 MEHRIN_OFFSETS = {4: (0.0, 0.0), 5: (-0.024855, 0.002161), 6: (-0.572493, -1.527466)}
 ORDINAL = {2: "Second", 4: "Fourth", 5: "Fifth", 6: "Sixth"}
 
-# The bridge. M. George side: the west-end opening of the Second Floor main
-# corridor. Ramanujan side: the bridge opening on its Second Floor, in the
+# The bridge. M. George side: the west-end opening of the Third Floor main
+# corridor, above Visvesvaraya Hall (project team, 2026-11-03). Ramanujan side:
+# the bridge opening on its Second Floor, in the
 # multi-floor DXF's coordinates. The length has not been measured.
-BRIDGE_MG_FLOOR = 2
-BRIDGE_MG_DOOR = (-61.9, 9.0)
+BRIDGE_MG_FLOOR = 3
+BRIDGE_MG_DOOR = (-61.9, 9.1)
+BRIDGE_RAMANUJAN_FLOOR = 2
+# Ramanujan stands lower: its floor N is level with M. George's floor N + 1.
+STOREY_OFFSET = BRIDGE_MG_FLOOR - BRIDGE_RAMANUJAN_FLOOR
 BRIDGE_RAMANUJAN_DOOR_DXF = (93.1, 27.4)
 BRIDGE_LENGTH_M = 15.0
 
@@ -251,7 +256,8 @@ def build_floor(level, segments, places, connectors, output_dir, extra_destinati
         "floor_number": key,
         "level": level,
         "floor_label": f"{ORDINAL[level]} Floor",
-        "elevation_m": round(level * mg.FLOOR_HEIGHT_M, 2),
+        "stack_level": level + STOREY_OFFSET,
+        "elevation_m": round((level + STOREY_OFFSET) * mg.FLOOR_HEIGHT_M, 2),
         "review_status": "auto_generated_requires_review",
         "coordinate_system": {"units": "metres, M. George's frame (floor 1); Ramanujan placed by the bridge, approximate"},
         "parameters": {"cell_cm": mg.CELL_CM, "clearance_cm": mg.CLEARANCE_CM},
@@ -397,7 +403,7 @@ def connect(results):
 
 
 def bridge_link(r2):
-    """The bridge as one walkable edge between M. George's and Ramanujan's Second Floor graphs."""
+    """The bridge as one walkable edge between M. George's Third Floor and Ramanujan's Second Floor graphs."""
     mg_floor = json.loads((MGEORGE_DIR / f"floor_{BRIDGE_MG_FLOOR:02d}_walkable_graph.json").read_text())
     mg_node = min(mg_floor["nodes"], key=lambda n: math.dist((n["x"], n["y"]), BRIDGE_MG_DOOR))
     door = next(d for d in r2["destinations"] if d["category"] == "building")
@@ -521,6 +527,8 @@ def main():
         "review_status": "auto_generated_requires_review",
         "floors": [{
             "floor_number": floor_key(level), "level": level, "label": result["floor_label"], "elevation_m": result["elevation_m"],
+            # The storey of M. George this floor is level with, for stacking the 3D view.
+            "stack_level": result["stack_level"],
             "graph": f"floor_{floor_key(level)}_walkable_graph.json", "walls": f"floor_{floor_key(level)}_walls.json",
             "rooms": f"floor_{floor_key(level)}_rooms.json",
             # The Second Floor is only walked through, from the bridge to the stairs/lifts.

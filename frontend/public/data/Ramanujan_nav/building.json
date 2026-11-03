@@ -7,7 +7,8 @@
    "floor_number": "R2",
    "level": 2,
    "label": "Second Floor",
-   "elevation_m": 6.6,
+   "elevation_m": 9.9,
+   "stack_level": 3,
    "graph": "floor_R2_walkable_graph.json",
    "walls": "floor_R2_walls.json",
    "rooms": "floor_R2_rooms.json",
@@ -17,7 +18,8 @@
    "floor_number": "R4",
    "level": 4,
    "label": "Fourth Floor",
-   "elevation_m": 13.2,
+   "elevation_m": 16.5,
+   "stack_level": 5,
    "graph": "floor_R4_walkable_graph.json",
    "walls": "floor_R4_walls.json",
    "rooms": "floor_R4_rooms.json",
@@ -27,7 +29,8 @@
    "floor_number": "R5",
    "level": 5,
    "label": "Fifth Floor",
-   "elevation_m": 16.5,
+   "elevation_m": 19.8,
+   "stack_level": 6,
    "graph": "floor_R5_walkable_graph.json",
    "walls": "floor_R5_walls.json",
    "rooms": "floor_R5_rooms.json",
@@ -37,7 +40,8 @@
    "floor_number": "R6",
    "level": 6,
    "label": "Sixth Floor",
-   "elevation_m": 19.8,
+   "elevation_m": 23.1,
+   "stack_level": 7,
    "graph": "floor_R6_walkable_graph.json",
    "walls": "floor_R6_walls.json",
    "rooms": "floor_R6_rooms.json",
@@ -146,56 +150,56 @@
    "id": "rb_shaft_lift_b_R2",
    "floor": "R2",
    "x": -91.427,
-   "y": 31.393,
+   "y": 31.493,
    "shaft": "rb_shaft_lift_b"
   },
   {
    "id": "rb_shaft_lift_b_R4",
    "floor": "R4",
    "x": -91.721,
-   "y": 28.947,
+   "y": 29.047,
    "shaft": "rb_shaft_lift_b"
   },
   {
    "id": "rb_shaft_lift_b_R5",
    "floor": "R5",
    "x": -91.338,
-   "y": 29.533,
+   "y": 29.633,
    "shaft": "rb_shaft_lift_b"
   },
   {
    "id": "rb_shaft_lift_b_R6",
    "floor": "R6",
    "x": -91.533,
-   "y": 29.088,
+   "y": 29.188,
    "shaft": "rb_shaft_lift_b"
   },
   {
    "id": "rb_shaft_lift_a_R2",
    "floor": "R2",
    "x": -87.871,
-   "y": -21.785,
+   "y": -21.685,
    "shaft": "rb_shaft_lift_a"
   },
   {
    "id": "rb_shaft_lift_a_R4",
    "floor": "R4",
    "x": -88.771,
-   "y": -20.553,
+   "y": -20.453,
    "shaft": "rb_shaft_lift_a"
   },
   {
    "id": "rb_shaft_lift_a_R5",
    "floor": "R5",
    "x": -88.151,
-   "y": -20.796,
+   "y": -20.696,
    "shaft": "rb_shaft_lift_a"
   },
   {
    "id": "rb_shaft_lift_a_R6",
    "floor": "R6",
    "x": -88.408,
-   "y": -21.34,
+   "y": -21.24,
    "shaft": "rb_shaft_lift_a"
   }
  ],
@@ -366,30 +370,30 @@
   {
    "kind": "bridge",
    "name": "bridge to Ramanujan Block",
-   "from_floor": 2,
-   "from_node": "MG02_N0228",
+   "from_floor": 3,
+   "from_node": "MG03_N0281",
    "to_floor": "R2",
    "to_node": "RB02_N0015",
    "points": [
     [
-     -59.937,
+     -60.037,
      9.04
     ],
     [
      -61.9,
-     9.0
+     9.1
     ],
     [
      -78.394,
-     9.033
+     9.133
     ],
     [
      -78.294,
-     9.233
+     9.333
     ]
    ],
    "length_m": 15.0,
-   "weight_m": 17.19,
+   "weight_m": 17.09,
    "step_free": true,
    "note": "Bridge length not measured; Ramanujan's position follows from it."
   }
@@ -398,7 +402,7 @@
   "method": "Mehrin's frame turned +90 degrees so the bridge door faces M. George's west-end door",
   "bridge_mg_door": [
    -61.9,
-   9.0
+   9.1
   ],
   "bridge_length_m": 15.0,
   "multifloor_dxf_shift_m": [

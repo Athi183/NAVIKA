@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CircleCheck, Clock, DoorOpen, Footprints, MapPin, Navigation, TimerOff } from 'lucide-react'
 import MGeorgeBuilding3D from '../components/navigation/MGeorgeBuilding3D'
-import { SITE, floorName, formatDuration, goesUp, loadBuilding, readPhoneLink, routeFromKiosk, routeScene, routeSummary } from '../services/mgeorgeRoute'
+import { SITE, floorName, formatDuration, goesUp, loadBuilding, readPhoneLink, routeBounds, routeFromKiosk, routeScene, routeSummary, stepStretch } from '../services/mgeorgeRoute'
 
 // Phone view of one route handed off from the kiosk by QR code. There is no
 // place picker and no other source: only the scanned route, until it expires
@@ -67,6 +67,16 @@ function StepIcon({ step, last }) {
   return <Footprints className="h-6 w-6" />
 }
 
+/** What the 3D view shows for one step: its floors and the stretch to follow. */
+function stepScene(model, route, index) {
+  const follow = stepStretch(route, index)
+  const outside = follow.some((point) => point.floor === SITE)
+  const indoor = [...new Set(follow.map((point) => point.floor).filter((floor) => floor !== SITE))]
+  // Outside, the campus paths sit at the entrance floor's level.
+  if (outside && !indoor.length) indoor.push(model.site.level_floor)
+  return { floors: indoor, outside, follow, focus: routeBounds(follow.map((point) => point.xy), 20, 4) }
+}
+
 export default function PhoneRoute() {
   const link = useMemo(() => readPhoneLink(window.location.search), [])
   const now = useNow()
@@ -93,7 +103,8 @@ export default function PhoneRoute() {
   if (!model) return <Notice icon={Navigation} title="Loading your route…" />
   if (!destination || !route) return <Notice icon={TimerOff} title="Route not found">This place is no longer on the map. Please ask at reception.</Notice>
 
-  const scene = routeScene(model, route, destination)
+  // Overview: the whole route. Walking: only the floors of the current step, the camera following it.
+  const scene = walking ? stepScene(model, route, stepIndex) : routeScene(model, route, destination)
   const minutesLeft = Math.max(1, Math.ceil((link.expiresAt - now) / 60_000))
   const step = walking ? route.steps[stepIndex] : null
   const lastStep = walking && stepIndex === route.steps.length - 1
@@ -114,8 +125,8 @@ export default function PhoneRoute() {
     </header>
 
     <section className="h-[46vh] min-h-[300px] border-b border-slate-200">
-      <MGeorgeBuilding3D model={model} floors={scene.floors} labelFloors={destination.floor === SITE ? [] : [destination.floor]} route={route} destination={destination}
-        showSite={scene.outside} focus={scene.focus} />
+      <MGeorgeBuilding3D model={model} floors={scene.floors} labelFloors={walking ? scene.floors : destination.floor === SITE ? [] : [destination.floor]} route={route}
+        destination={destination} showSite={scene.outside} focus={scene.focus} follow={scene.follow} />
     </section>
 
     <main className="flex flex-1 flex-col gap-4 px-4 py-4">

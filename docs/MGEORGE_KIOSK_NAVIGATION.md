@@ -168,13 +168,15 @@ floor data in `ramanujan-viewer/public/data/Ramanujan_F4..F6` (walls, room
 names and positions, room outlines), aligned by her `stackedFloorConfig.ts`.
 `scripts/build_ramanujan_nav_graph.py` only reads that folder.
 
-- **How visitors get there:** the bridge on the Second Floor. It starts at the
-  west end of the M. George Second Floor corridor (past Visvesvaraya Hall) and
-  lands in the 3.08 m opening between Turing Lab and Caeser Lab on Ramanujan's
-  Second Floor, which the multi-floor Ramanujan DXF labels "CONNECTION BRIDGE".
-  A route reads, for example: *"Take Staircase 2 (west wing) up to the Second
-  Floor, then cross the bridge into Ramanujan Block, then take Lift A up to the
-  Fifth Floor."*
+- **How visitors get there:** the bridge from the M. George **Third Floor**
+  (the floor above Visvesvaraya Hall, west end of the main corridor) to
+  Ramanujan's **Second Floor**, where the multi-floor Ramanujan DXF labels a
+  3.08 m opening between Turing Lab and Caeser Lab "CONNECTION BRIDGE".
+  Ramanujan stands lower, so its floor N is level with M. George's floor N + 1
+  (`STOREY_OFFSET`; `stack_level` in its building.json keeps the bridge flat
+  in 3D). A route reads, for example: *"Take Staircase 2 (west wing) up to the
+  Third Floor, then cross the bridge into Ramanujan Block (its Second Floor),
+  then take Lift A up to the Fifth Floor."*
 - **Ramanujan's Second Floor** comes from the multi-floor DXF and is only
   walked through, from the bridge to the stairs and lifts. Its rooms are not
   offered. The Third Floor is not drawn; stairs and lifts pass through it.
@@ -213,7 +215,12 @@ the visitor's phone:
 - **Only that route**, always from the kiosk. There is no place picker and no
   other source on the phone.
 - The visitor sees the overview first (3D, summary, steps), taps **Start**,
-  then goes through the steps with **Next step**. On the last step the button
+  then goes through the steps with **Next step**. While walking, the 3D view
+  follows the current step like a phone map: only that step's floors, the
+  camera behind the walker looking along the step, the person walking just
+  that stretch, the rest of the route faint (`follow` in `MGeorgeBuilding3D`,
+  `stepStretch` in `mgeorgeRoute.js`). There is no indoor positioning, so the
+  visitor moves on with **Next step**. On the last step the button
   becomes **I have arrived · Stop**. After stopping, the link shows "You have
   arrived" even if reopened on that phone.
 - **The link expires 45 minutes** after the QR code was opened on the kiosk

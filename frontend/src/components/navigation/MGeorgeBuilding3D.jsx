@@ -128,6 +128,7 @@ function FloorModel({ floor, wallHeight, showLabels, highlightId, onPick, labelS
 const onTop = { depthTest: false, depthWrite: false, transparent: true }
 
 const PERSON_SCALE = 3.2 // about twice life size so the walker reads at whole-route zoom
+const FOLLOW_PERSON_SCALE = 1.8 // closer in, while following one step
 const STRIDE_M = 1.4 // one full walk cycle, in scene metres
 const SKIN = '#c68863'
 const TROUSERS = '#1f2937'
@@ -143,9 +144,9 @@ function Limb({ limbRef, at, length, radius, color, order }) {
 }
 
 /** Simple walking figure, facing -Z; `limbRef(name)` hands each limb group to the owner. */
-function WalkingPerson({ personRef, limbRef }) {
+function WalkingPerson({ personRef, limbRef, scale = PERSON_SCALE }) {
   return <group ref={personRef}>
-    <group scale={PERSON_SCALE}>
+    <group scale={scale}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]} renderOrder={20}>
         <circleGeometry args={[0.45, 32]} />
         <meshBasicMaterial color="#000000" {...onTop} opacity={0.35} />
@@ -167,7 +168,7 @@ function WalkingPerson({ personRef, limbRef }) {
 }
 
 /** Route through the stacked floors with a person walking it; `points` are 3D scene points. */
-function WalkingRoute({ points }) {
+function WalkingRoute({ points, personScale }) {
   const walkedRef = useRef()
   const personRef = useRef()
   const limbs = useRef({})
@@ -210,8 +211,48 @@ function WalkingRoute({ points }) {
     <Line points={edge} color={NAV_BLUE_EDGE} lineWidth={14} depthTest={false} transparent renderOrder={10} />
     <Line points={main} color={NAV_BLUE} lineWidth={8} depthTest={false} transparent renderOrder={11} />
     <Line ref={walkedRef} points={walked} color={NAV_WALKED} lineWidth={8} dashed dashSize={0.001} gapSize={1e6} depthTest={false} transparent renderOrder={12} />
-    <WalkingPerson personRef={personRef} limbRef={limbRef} />
+    <WalkingPerson personRef={personRef} limbRef={limbRef} scale={personScale} />
   </>
+}
+
+/** The whole route, faint, under the step being walked (follow mode). */
+function RouteOutline({ legs }) {
+  return legs.map((points, index) => <Line key={index} points={points} color={NAV_BLUE} lineWidth={5} opacity={0.4} depthTest={false} transparent renderOrder={9} />)
+}
+
+/**
+ * Follow mode: glide the camera to just behind the start of the current step,
+ * looking along it, the way a phone map follows the walker. Moves for about a
+ * second after each step change, then leaves the camera to the visitor.
+ */
+function FollowCamera({ points }) {
+  const camera = useThree((state) => state.camera)
+  const controls = useThree((state) => state.controls)
+  const goal = useMemo(() => {
+    const [sx, sy, sz] = points[0]
+    const [ex, ey, ez] = points.at(-1)
+    const length = Math.hypot(ex - sx, ez - sz)
+    // Facing north (-z) when the step goes nowhere sideways (stairs, a lift, the last step).
+    const [dx, dz] = length > 0.5 ? [(ex - sx) / length, (ez - sz) / length] : [0, -1]
+    const back = Math.max(24, length * 0.75)
+    return {
+      target: new THREE.Vector3((sx + ex) / 2, (sy + ey) / 2, (sz + ez) / 2),
+      position: new THREE.Vector3(sx - dx * back, Math.max(sy, ey) + back * 1.1, sz - dz * back),
+    }
+  }, [points])
+  const remaining = useRef(0)
+  useEffect(() => {
+    remaining.current = 1.2
+  }, [goal])
+  useFrame((_, delta) => {
+    if (remaining.current <= 0 || !controls) return
+    remaining.current -= delta
+    const k = 1 - Math.exp(-delta * 5)
+    camera.position.lerp(goal.position, k)
+    controls.target.lerp(goal.target, k)
+    controls.update()
+  })
+  return null
 }
 
 /** Campus paths as a texture: walkable cells light grey on a green ground. */
@@ -307,14 +348,17 @@ function FitToScreen({ centre, width, depth }) {
  * room labels on `labelFloors`. Pass `route` and `destination` to draw a
  * kiosk route through the floors, `onPick` to make labels tappable, and
  * `focus` ({ minX, maxX, minY, maxY } in metres) to frame the camera.
+ * `follow` ([{ floor, xy }], from stepStretch) turns on follow mode: the
+ * walker walks only that stretch and the camera follows it.
  */
-export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, focus = null, showSite = false }) {
-  // Floors of both buildings, stacked by storey: M. George's Second Floor and
-  // Ramanujan's ('R2') share a level, so the bridge between them is flat.
+export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, focus = null, showSite = false, follow = null }) {
+  // Floors of both buildings, stacked by height: Ramanujan stands lower, so its
+  // Second Floor ('R2', stack_level 3) is level with M. George's Third Floor
+  // and the bridge between them is flat.
   const siteLevel = model.site?.level_floor ?? model.kiosk.floor
-  const storey = (floor) => (floor === 'site' ? siteLevel : levelOfFloor(floor))
-  const shown = useMemo(() => [...floors].sort((a, b) => levelOfFloor(a) - levelOfFloor(b)), [floors])
-  const levels = useMemo(() => [...new Set(shown.map(levelOfFloor))], [shown])
+  const storey = useCallback((floor) => (floor === 'site' ? siteLevel : model.byFloor.get(floor)?.stack_level ?? levelOfFloor(floor)), [model, siteLevel])
+  const shown = useMemo(() => [...floors].sort((a, b) => storey(a) - storey(b)), [floors, storey])
+  const levels = useMemo(() => [...new Set(shown.map(storey))], [shown, storey])
   const levelY = (floor) => Math.max(0, levels.indexOf(storey(floor))) * FLOOR_GAP
   const { kiosk } = model
   const area = focus || (() => {
@@ -329,9 +373,20 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
   const centre = [(area.minX + area.maxX) / 2, height / 2, -(area.minY + area.maxY) / 2]
   const span = Math.max(area.maxX - area.minX, (area.maxY - area.minY) * 1.6) + height * 0.8
   const wallHeight = route ? ROUTE_WALL_HEIGHT : WALL_HEIGHT
-  const routePoints = useMemo(() => route
-    ? route.legs.flatMap((leg) => leg.points.map(([x, y]) => [x, Math.max(0, levels.indexOf(leg.floor === 'site' ? siteLevel : levelOfFloor(leg.floor))) * FLOOR_GAP + 0.2, -y]))
-    : null, [route, levels, siteLevel])
+  const lift = useCallback((floor, [x, y]) => [x, Math.max(0, levels.indexOf(storey(floor))) * FLOOR_GAP + 0.2, -y], [levels, storey])
+  const routePoints = useMemo(() => route && !follow
+    ? route.legs.flatMap((leg) => leg.points.map((point) => lift(leg.floor, point)))
+    : null, [route, follow, lift])
+  // Follow mode: the legs on the floors in view, and the stretch being walked.
+  const outline = useMemo(() => route && follow
+    ? route.legs.filter((leg) => shown.includes(leg.floor) || (leg.floor === 'site' && showSite)).map((leg) => leg.points.map((point) => lift(leg.floor, point)))
+    : null, [route, follow, shown, showSite, lift])
+  const stretch = useMemo(() => {
+    if (!follow) return null
+    const points = follow.map(({ floor, xy }) => lift(floor, xy))
+    // A single point (the last step) still needs two for the walker to stand on.
+    return points.length > 1 ? points : [points[0], points[0]]
+  }, [follow, lift])
   const pin = destination ? destination.entrance_xy || destination.xy : null
   // Whole building: an angled overview like the Ramanujan viewer. Route: straight on, centred.
   // The campus overview looks down more steeply so the paths fill the view.
@@ -368,6 +423,9 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
     </>}
 
     {routePoints && routePoints.length > 1 && <WalkingRoute points={routePoints} />}
+    {outline && <RouteOutline legs={outline} />}
+    {stretch && <WalkingRoute points={stretch} personScale={FOLLOW_PERSON_SCALE} />}
+    {stretch && <FollowCamera points={stretch} />}
     {pin && (shown.includes(destination.floor) || destination.floor === 'site') && <Html position={xz(pin, levelY(destination.floor) + 0.3)} center zIndexRange={[30, 0]}>
       {/* Lift the pin so its tip, not its middle, sits on the destination. */}
       <div style={{ transform: 'translateY(-50%)' }}><MapPinIcon /></div>

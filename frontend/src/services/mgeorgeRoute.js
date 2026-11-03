@@ -447,7 +447,10 @@ function transitionText(transition) {
     return transition.toFloor === SITE ? `Go out through the ${door}` : `Go into the M. George Block through the ${door}`
   }
   if (transition.kind === 'bridge') {
-    return isRamanujan(transition.toFloor) ? 'Cross the bridge into Ramanujan Block' : 'Cross the bridge back into the M. George Block'
+    // The buildings' floor numbers differ across the bridge, so say where you arrive.
+    return isRamanujan(transition.toFloor)
+      ? `Cross the bridge into Ramanujan Block; you arrive on its ${storeyName(transition.toFloor)}`
+      : `Cross the bridge back into the M. George Block; you arrive on its ${storeyName(transition.toFloor)}`
   }
   // "Take the main lift (corridor) up…", "Take Lift A up…", "Take Staircase 1 (central) up…"
   return `Take ${shaftPhrase(transition)} ${goesUp(transition) ? 'up' : 'down'} to the ${storeyName(transition.toFloor)}`
@@ -499,11 +502,12 @@ export function routeFromKiosk(model, destination, { stepFree = false } = {}) {
           ? (m) => `After the bridge, follow the line for about ${m} m`
         : (m) => `On the ${leg.floorName}, leave the ${arriving.kind === 'lift' ? 'lift' : 'stairs'} and follow the line for about ${m} m`
     const { steps: walk, legs: simplified } = legSteps(leg.points, leg.floor, opening, floor.graph.destinations, destination.id)
-    steps.push(...walk)
+    // `leg` ties each step to the stretch of route it covers (see stepStretch).
+    steps.push(...walk.map((step) => ({ ...step, leg: index })))
     if (index < legs.length - 1) {
-      steps.push({ text: transitionText(transitions[index]), point: leg.points.at(-1), floor: leg.floor, transition: transitions[index] })
+      steps.push({ text: transitionText(transitions[index]), point: leg.points.at(-1), floor: leg.floor, transition: transitions[index], leg: index })
     } else {
-      steps.push({ text: `${destination.name} is ${sideOf(simplified, destination.entrance_xy || destination.xy)}`, point: leg.points.at(-1), floor: leg.floor })
+      steps.push({ text: `${destination.name} is ${sideOf(simplified, destination.entrance_xy || destination.xy)}`, point: leg.points.at(-1), floor: leg.floor, leg: index })
     }
   })
 
@@ -518,6 +522,30 @@ export function routeFromKiosk(model, destination, { stepFree = false } = {}) {
     durationS: distanceM / WALK_SPEED_MPS + transitions.reduce((sum, t) => sum + transitionSeconds(t), 0),
     steps,
   }
+}
+
+function nearestIndex(points, point) {
+  let best = 0
+  for (let i = 1; i < points.length; i += 1) if (dist(points[i], point) < dist(points[best], point)) best = i
+  return best
+}
+
+/**
+ * The stretch of route one step covers, as [{ floor, xy }]: a walk from the
+ * step's point to the next step's, or for stairs/lifts/doors the hop from the
+ * end of one floor's leg to the start of the next.
+ */
+export function stepStretch(route, index) {
+  const step = route.steps[index]
+  const points = route.legs[step.leg].points
+  if (step.transition) {
+    const next = route.legs[step.leg + 1]
+    return [{ floor: step.floor, xy: points.at(-1) }, { floor: next.floor, xy: next.points[0] }]
+  }
+  const following = route.steps[index + 1]
+  const from = nearestIndex(points, step.point)
+  const to = following && following.leg === step.leg && !following.transition ? nearestIndex(points, following.point) : points.length - 1
+  return points.slice(from, Math.max(from, to) + 1).map((xy) => ({ floor: step.floor, xy }))
 }
 
 /** Case-insensitive match on every typed word, against name, category and room number. */
@@ -539,7 +567,7 @@ export function formatDuration(seconds) {
 export function routeSummary(route, destination) {
   const parts = route.transitions.map((t) => {
     if (t.kind === 'entrance') return t.toFloor === SITE ? 'go out through the main entrance' : 'go back in through the main entrance'
-    if (t.kind === 'bridge') return isRamanujan(t.toFloor) ? 'cross the bridge into Ramanujan Block' : 'cross the bridge back into the M. George Block'
+    if (t.kind === 'bridge') return `cross the bridge into ${isRamanujan(t.toFloor) ? 'Ramanujan Block' : 'the M. George Block'} (its ${storeyName(t.toFloor)})`
     return `take ${shaftPhrase(t)} ${goesUp(t) ? 'up' : 'down'} to the ${storeyName(t.toFloor)}`
   })
   const time = formatDuration(route.durationS)
