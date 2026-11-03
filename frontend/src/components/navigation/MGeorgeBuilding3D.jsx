@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Billboard, Html, Line, OrbitControls, Text, useTexture } from '@react-three/drei'
 import { NAV_BLUE, NAV_BLUE_EDGE, NAV_WALKED, cumulativeLengths, routeProgress } from './navigationStyle'
+import { levelOf as levelOfFloor } from '../../services/mgeorgeRoute'
 
 // Same look as the Ramanujan viewer (ramanujan-viewer/src/App.tsx): dark scene,
 // extruded brick walls, room floors coloured by type, floating labels.
@@ -49,8 +50,8 @@ function WallMeshes({ segments, color, height, thickness, opacity = 1 }) {
   </instancedMesh>
 }
 
-function RoomFloor({ rooms }) {
-  const texture = useTexture(`/data/MGeorge_nav/${rooms.texture.file}`, (loaded) => {
+function RoomFloor({ rooms, base }) {
+  const texture = useTexture(`${base}/${rooms.texture.file}`, (loaded) => {
     loaded.colorSpace = THREE.SRGBColorSpace
     loaded.anisotropy = 8
   })
@@ -93,12 +94,24 @@ function RoomLabels({ destinations, rooms, highlightId, onPick, scale = 1 }) {
   })
 }
 
+const BRIDGE_WIDTH_M = 3.08
+
+/** Walkway deck between two buildings' doors (link.points[1] to link.points[2]). */
+function BridgeDeck({ link }) {
+  const [, [x1, y1], [x2, y2]] = link.points
+  const length = Math.hypot(x2 - x1, y2 - y1)
+  return <mesh position={[(x1 + x2) / 2, -0.05, -(y1 + y2) / 2]} rotation={[0, Math.atan2(y2 - y1, x2 - x1), 0]}>
+    <boxGeometry args={[length, 0.1, BRIDGE_WIDTH_M]} />
+    <meshStandardMaterial color="#BDBDBD" roughness={1} />
+  </mesh>
+}
+
 function FloorModel({ floor, wallHeight, showLabels, highlightId, onPick, labelScale }) {
   const { walls, rooms, graph } = floor
   // Floor name at the north-west corner, where it stays in view.
   const tag = rooms ? [rooms.texture.origin_xy[0] + 2, rooms.texture.origin_xy[1] + rooms.texture.height_m + 2] : [-60, 40]
   return <group>
-    {rooms && <Suspense fallback={null}><RoomFloor rooms={rooms} /></Suspense>}
+    {rooms && <Suspense fallback={null}><RoomFloor rooms={rooms} base={floor.base ?? '/data/MGeorge_nav'} /></Suspense>}
     <WallMeshes segments={walls.segments.wall} color={WALL_COLOUR} height={wallHeight} thickness={0.14} />
     <WallMeshes segments={walls.segments.window} color={WINDOW_COLOUR} height={wallHeight} thickness={0.08} opacity={0.55} />
     <WallMeshes segments={walls.segments.stair} color={STAIR_COLOUR} height={0.3} thickness={0.06} />
@@ -296,11 +309,13 @@ function FitToScreen({ centre, width, depth }) {
  * `focus` ({ minX, maxX, minY, maxY } in metres) to frame the camera.
  */
 export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, focus = null, showSite = false }) {
-  const shown = useMemo(() => [...floors].sort((a, b) => a - b), [floors])
-  // The campus paths sit at the entrance floor's level.
+  // Floors of both buildings, stacked by storey: M. George's Second Floor and
+  // Ramanujan's ('R2') share a level, so the bridge between them is flat.
   const siteLevel = model.site?.level_floor ?? model.kiosk.floor
-  const levelOf = (floor) => Math.max(0, shown.indexOf(floor === 'site' ? siteLevel : floor)) * FLOOR_GAP
-  const levelY = levelOf
+  const storey = (floor) => (floor === 'site' ? siteLevel : levelOfFloor(floor))
+  const shown = useMemo(() => [...floors].sort((a, b) => levelOfFloor(a) - levelOfFloor(b)), [floors])
+  const levels = useMemo(() => [...new Set(shown.map(levelOfFloor))], [shown])
+  const levelY = (floor) => Math.max(0, levels.indexOf(storey(floor))) * FLOOR_GAP
   const { kiosk } = model
   const area = focus || (() => {
     const textures = shown.map((n) => model.byFloor.get(n).rooms?.texture).filter(Boolean)
@@ -310,21 +325,25 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
       minY: Math.min(...textures.map((t) => t.origin_xy[1])), maxY: Math.max(...textures.map((t) => t.origin_xy[1] + t.height_m)),
     }
   })()
-  const height = (shown.length - 1) * FLOOR_GAP
+  const height = (levels.length - 1) * FLOOR_GAP
   const centre = [(area.minX + area.maxX) / 2, height / 2, -(area.minY + area.maxY) / 2]
   const span = Math.max(area.maxX - area.minX, (area.maxY - area.minY) * 1.6) + height * 0.8
   const wallHeight = route ? ROUTE_WALL_HEIGHT : WALL_HEIGHT
   const routePoints = useMemo(() => route
-    ? route.legs.flatMap((leg) => leg.points.map(([x, y]) => [x, Math.max(0, shown.indexOf(leg.floor === 'site' ? siteLevel : leg.floor)) * FLOOR_GAP + 0.2, -y]))
-    : null, [route, shown, siteLevel])
+    ? route.legs.flatMap((leg) => leg.points.map(([x, y]) => [x, Math.max(0, levels.indexOf(leg.floor === 'site' ? siteLevel : levelOfFloor(leg.floor))) * FLOOR_GAP + 0.2, -y]))
+    : null, [route, levels, siteLevel])
   const pin = destination ? destination.entrance_xy || destination.xy : null
   // Whole building: an angled overview like the Ramanujan viewer. Route: straight on, centred.
   // The campus overview looks down more steeply so the paths fill the view.
+  // A plan much deeper than wide (Ramanujan Block runs north-south) is viewed from the east instead.
+  const deep = !route && !showSite && area.maxY - area.minY > (area.maxX - area.minX) * 1.3
   const camera = route
     ? [centre[0], centre[1] + span * 0.62, centre[2] + span * 0.72]
     : showSite
       ? [centre[0], centre[1] + span * 0.5, centre[2] + span * 0.3]
-      : [centre[0], centre[1] + span * 0.42, centre[2] + span * 0.55]
+      : deep
+        ? [centre[0] + span * 0.42, centre[1] + span * 0.42, centre[2]]
+        : [centre[0], centre[1] + span * 0.42, centre[2] + span * 0.55]
 
   return <Canvas camera={{ position: camera, fov: 50 }} gl={{ antialias: true }}>
     <color attach="background" args={[BACKGROUND]} />
@@ -337,6 +356,9 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
       <FloorModel floor={model.byFloor.get(number)} wallHeight={wallHeight} showLabels={labelFloors.includes(number)}
         highlightId={destination?.floor === number ? destination.id : null} onPick={onPick} labelScale={route ? 1 : 1.6} />
     </group>)}
+
+    {(model.bridges ?? []).filter((link) => shown.includes(link.from_floor) && shown.includes(link.to_floor)).map((link) =>
+      <group key={link.from} position={[0, levelY(link.from_floor), 0]}><BridgeDeck link={link} /></group>)}
 
     {shown.includes(kiosk.floor) && <>
       <LocationDot position={xz(kiosk.xy, levelY(kiosk.floor) + 0.4)} />

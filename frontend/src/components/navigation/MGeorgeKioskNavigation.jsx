@@ -6,8 +6,8 @@ import {
 import MGeorgeBuilding3D from './MGeorgeBuilding3D'
 import { QRCodeSVG } from 'qrcode.react'
 import {
-  CATEGORY_LABELS, PHONE_LINK_MINUTES, SITE, floorName, formatDuration, loadBuilding, phoneRouteUrl, routeFromKiosk, routeScene, routeSummary,
-  searchDestinations,
+  CATEGORY_LABELS, PHONE_LINK_MINUTES, SITE, floorName, formatDuration, goesUp, levelOf, loadBuilding, phoneRouteUrl, routeFromKiosk, routeScene,
+  routeSummary, searchDestinations,
 } from '../../services/mgeorgeRoute'
 
 const IDLE_RESET_MS = 90_000
@@ -28,12 +28,15 @@ const POPULAR = [
   { id: NEAREST_TOILET, label: 'Nearest toilet', icon: Toilet },
   { names: ['Canteen'], label: 'Canteen', icon: Coffee },
   { names: ['Vikram Sarabhai Auditorium'], label: 'Auditorium', icon: Landmark },
-  { names: ['Ramanujan Block'], label: 'Ramanujan Block', icon: Building2 },
+  { names: ['Ramanujan Block (bridge entrance)', 'Ramanujan Block'], label: 'Ramanujan Block', icon: Building2 },
   { names: ['Parking Ground'], label: 'Parking', icon: Car },
   { names: ['Main Entrance'], label: 'Way out', icon: DoorOpen },
 ]
 
-const floorSortKey = (floor, kioskFloor) => (floor === kioskFloor ? -1 : floor === SITE ? 99 : floor)
+// Kiosk floor first, then the rest of M. George, Ramanujan Block, outside.
+const floorSortKey = (floor, kioskFloor) => (floor === kioskFloor ? -1 : floor === SITE ? 99 : typeof floor === 'string' ? 50 + levelOf(floor) : floor)
+// Floors walked through but with no places of their own (the Ramanujan bridge floor) get no chip.
+const floorsWithPlaces = (model) => model.floors.filter((floor) => !floor.transit_only)
 
 function useIdleReset(onReset) {
   const callback = useRef(onReset)
@@ -87,7 +90,7 @@ function BrowseAll({ model, onPick }) {
   return <div className="space-y-4">
     <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by floor">
       <Chip active={floor === 'all'} onClick={() => setFloor('all')}><Layers className="mr-1 inline h-4 w-4" />Everywhere</Chip>
-      {model.floors.map((item) => <Chip key={item.floor_number} active={floor === item.floor_number} onClick={() => setFloor(item.floor_number)}>
+      {floorsWithPlaces(model).map((item) => <Chip key={item.floor_number} active={floor === item.floor_number} onClick={() => setFloor(item.floor_number)}>
         {item.name}{item.floor_number === model.kiosk.floor ? ' · You are here' : ''}
       </Chip>)}
       {model.site && <Chip active={floor === SITE} onClick={() => setFloor(SITE)}>Outside (campus)</Chip>}
@@ -217,7 +220,7 @@ function RouteView({ model, destination, onBack }) {
               {newFloor && route.legs.length > 1 && <p className="mb-2 mt-1 text-sm font-bold uppercase tracking-widest text-slate-500">{floorName(step.floor)}</p>}
               <div className="flex gap-3 text-lg leading-7">
                 <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base font-bold text-white ${last ? 'bg-brand-500' : step.transition ? 'bg-violet-600' : 'bg-slate-900'}`}>
-                  {step.transition?.kind === 'entrance' ? <DoorOpen className="h-5 w-5" /> : step.transition ? (step.transition.toFloor > step.transition.fromFloor ? <ArrowUp className="h-5 w-5" /> : <ArrowDown className="h-5 w-5" />) : index + 1}
+                  {step.transition?.kind === 'entrance' || step.transition?.kind === 'bridge' ? <DoorOpen className="h-5 w-5" /> : step.transition ? (goesUp(step.transition) ? <ArrowUp className="h-5 w-5" /> : <ArrowDown className="h-5 w-5" />) : index + 1}
                 </span>
                 <span className={step.transition ? 'font-semibold text-violet-800' : ''}>{step.text}</span>
               </div>
@@ -240,14 +243,15 @@ function RouteView({ model, destination, onBack }) {
 
 function BuildingExplorer({ model, onPick, onBack }) {
   const [floor, setFloor] = useState(() => {
-    // ?floor=all, ?floor=site or ?floor=<n> picks the starting view.
+    // ?floor=all, ?floor=site, ?floor=R5 (Ramanujan) or ?floor=<n> picks the starting view.
     const requested = new URLSearchParams(window.location.search).get('floor')
-    if (requested === 'all' || (requested === SITE && model.site)) return requested
+    if (requested === 'all' || (requested === SITE && model.site) || model.byFloor.has(requested)) return requested
     return requested !== null && model.byFloor.has(Number(requested)) ? Number(requested) : model.kiosk.floor
   })
   const all = floor === 'all'
   const campus = floor === SITE
-  const floors = all ? model.floors.map((item) => item.floor_number) : campus ? [model.site.level_floor] : [floor]
+  // "All floors" stacks M. George; a Ramanujan floor is shown on its own.
+  const floors = all ? model.floors.filter((item) => typeof item.floor_number === 'number').map((item) => item.floor_number) : campus ? [model.site.level_floor] : [floor]
   return <div className="space-y-4">
     <div className="flex flex-wrap items-center justify-between gap-3">
       <button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl bg-slate-100 px-5 py-3 text-lg font-semibold text-slate-800 hover:bg-slate-200"><ArrowLeft className="h-5 w-5" />Back</button>
@@ -255,7 +259,7 @@ function BuildingExplorer({ model, onPick, onBack }) {
     </div>
     <div className="flex flex-wrap gap-2" role="group" aria-label="What to show">
       {model.site && <Chip active={campus} onClick={() => setFloor(SITE)}>Whole campus</Chip>}
-      {model.floors.map((item) => <Chip key={item.floor_number} active={floor === item.floor_number} onClick={() => setFloor(item.floor_number)}>
+      {floorsWithPlaces(model).map((item) => <Chip key={item.floor_number} active={floor === item.floor_number} onClick={() => setFloor(item.floor_number)}>
         {item.name}{item.floor_number === model.kiosk.floor ? ' · You are here' : ''}
       </Chip>)}
       <Chip active={all} onClick={() => setFloor('all')}><Layers className="mr-1 inline h-4 w-4" />All floors</Chip>

@@ -1,0 +1,416 @@
+{
+ "schema_version": "navika-building-0.1",
+ "building": "Ramanujan Block",
+ "review_status": "auto_generated_requires_review",
+ "floors": [
+  {
+   "floor_number": "R2",
+   "level": 2,
+   "label": "Second Floor",
+   "elevation_m": 6.6,
+   "graph": "floor_R2_walkable_graph.json",
+   "walls": "floor_R2_walls.json",
+   "rooms": "floor_R2_rooms.json",
+   "transit_only": true
+  },
+  {
+   "floor_number": "R4",
+   "level": 4,
+   "label": "Fourth Floor",
+   "elevation_m": 13.2,
+   "graph": "floor_R4_walkable_graph.json",
+   "walls": "floor_R4_walls.json",
+   "rooms": "floor_R4_rooms.json",
+   "transit_only": false
+  },
+  {
+   "floor_number": "R5",
+   "level": 5,
+   "label": "Fifth Floor",
+   "elevation_m": 16.5,
+   "graph": "floor_R5_walkable_graph.json",
+   "walls": "floor_R5_walls.json",
+   "rooms": "floor_R5_rooms.json",
+   "transit_only": false
+  },
+  {
+   "floor_number": "R6",
+   "level": 6,
+   "label": "Sixth Floor",
+   "elevation_m": 19.8,
+   "graph": "floor_R6_walkable_graph.json",
+   "walls": "floor_R6_walls.json",
+   "rooms": "floor_R6_rooms.json",
+   "transit_only": false
+  }
+ ],
+ "shafts": [
+  {
+   "id": "rb_shaft_lift_b",
+   "name": "Lift B",
+   "kind": "lift",
+   "routable": true,
+   "in_normal_use": true,
+   "floors": [
+    "R2",
+    "R4",
+    "R5",
+    "R6"
+   ],
+   "connectors": {
+    "R2": "RB02_C01",
+    "R4": "RB04_C00",
+    "R5": "RB05_C00",
+    "R6": "RB06_C00"
+   }
+  },
+  {
+   "id": "rb_shaft_lift_a",
+   "name": "Lift A",
+   "kind": "lift",
+   "routable": true,
+   "in_normal_use": true,
+   "floors": [
+    "R2",
+    "R4",
+    "R5",
+    "R6"
+   ],
+   "connectors": {
+    "R2": "RB02_C00",
+    "R4": "RB04_C01",
+    "R5": "RB05_C01",
+    "R6": "RB06_C01"
+   }
+  },
+  {
+   "id": "rb_shaft_staircase_b",
+   "name": "Staircase B",
+   "kind": "stairs",
+   "routable": true,
+   "in_normal_use": true,
+   "floors": [
+    "R2",
+    "R4",
+    "R5",
+    "R6"
+   ],
+   "connectors": {
+    "R2": "RB02_C03",
+    "R4": "RB04_C02",
+    "R5": "RB05_C03",
+    "R6": "RB06_C03"
+   }
+  },
+  {
+   "id": "rb_shaft_staircase_c",
+   "name": "Staircase C",
+   "kind": "stairs",
+   "routable": true,
+   "in_normal_use": true,
+   "floors": [
+    "R2",
+    "R4",
+    "R5",
+    "R6"
+   ],
+   "connectors": {
+    "R2": "RB02_C04",
+    "R4": "RB04_C03",
+    "R5": "RB05_C04",
+    "R6": "RB06_C04"
+   }
+  },
+  {
+   "id": "rb_shaft_staircase_a",
+   "name": "Staircase A",
+   "kind": "stairs",
+   "routable": true,
+   "in_normal_use": true,
+   "floors": [
+    "R2",
+    "R4",
+    "R5",
+    "R6"
+   ],
+   "connectors": {
+    "R2": "RB02_C02",
+    "R4": "RB04_C04",
+    "R5": "RB05_C02",
+    "R6": "RB06_C02"
+   }
+  }
+ ],
+ "vertical_nodes": [
+  {
+   "id": "rb_shaft_lift_b_R2",
+   "floor": "R2",
+   "x": -91.427,
+   "y": 31.393,
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "id": "rb_shaft_lift_b_R4",
+   "floor": "R4",
+   "x": -91.721,
+   "y": 28.947,
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "id": "rb_shaft_lift_b_R5",
+   "floor": "R5",
+   "x": -91.338,
+   "y": 29.533,
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "id": "rb_shaft_lift_b_R6",
+   "floor": "R6",
+   "x": -91.533,
+   "y": 29.088,
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "id": "rb_shaft_lift_a_R2",
+   "floor": "R2",
+   "x": -87.871,
+   "y": -21.785,
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "id": "rb_shaft_lift_a_R4",
+   "floor": "R4",
+   "x": -88.771,
+   "y": -20.553,
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "id": "rb_shaft_lift_a_R5",
+   "floor": "R5",
+   "x": -88.151,
+   "y": -20.796,
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "id": "rb_shaft_lift_a_R6",
+   "floor": "R6",
+   "x": -88.408,
+   "y": -21.34,
+   "shaft": "rb_shaft_lift_a"
+  }
+ ],
+ "vertical_edges": [
+  {
+   "from": "RB02_N0007",
+   "to": "rb_shaft_lift_b_R2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "RB04_N0038",
+   "to": "rb_shaft_lift_b_R4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "rb_shaft_lift_b_R2",
+   "to": "rb_shaft_lift_b_R4",
+   "weight_m": 8.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "RB05_N0033",
+   "to": "rb_shaft_lift_b_R5",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "rb_shaft_lift_b_R4",
+   "to": "rb_shaft_lift_b_R5",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "RB06_N0016",
+   "to": "rb_shaft_lift_b_R6",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "rb_shaft_lift_b_R5",
+   "to": "rb_shaft_lift_b_R6",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "RB02_N0002",
+   "to": "rb_shaft_lift_a_R2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "RB04_N0071",
+   "to": "rb_shaft_lift_a_R4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "rb_shaft_lift_a_R2",
+   "to": "rb_shaft_lift_a_R4",
+   "weight_m": 8.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "RB05_N0044",
+   "to": "rb_shaft_lift_a_R5",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "rb_shaft_lift_a_R4",
+   "to": "rb_shaft_lift_a_R5",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "RB06_N0042",
+   "to": "rb_shaft_lift_a_R6",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "rb_shaft_lift_a_R5",
+   "to": "rb_shaft_lift_a_R6",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "RB02_N0001",
+   "to": "RB04_N0059",
+   "weight_m": 36.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_b"
+  },
+  {
+   "from": "RB04_N0059",
+   "to": "RB05_N0043",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_b"
+  },
+  {
+   "from": "RB05_N0043",
+   "to": "RB06_N0045",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_b"
+  },
+  {
+   "from": "RB02_N0017",
+   "to": "RB04_N0076",
+   "weight_m": 36.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_c"
+  },
+  {
+   "from": "RB04_N0076",
+   "to": "RB05_N0069",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_c"
+  },
+  {
+   "from": "RB05_N0069",
+   "to": "RB06_N0019",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_c"
+  },
+  {
+   "from": "RB02_N0026",
+   "to": "RB04_N0051",
+   "weight_m": 36.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_a"
+  },
+  {
+   "from": "RB04_N0051",
+   "to": "RB05_N0068",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_a"
+  },
+  {
+   "from": "RB05_N0068",
+   "to": "RB06_N0066",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_a"
+  }
+ ],
+ "links": [
+  {
+   "kind": "bridge",
+   "name": "bridge to Ramanujan Block",
+   "from_floor": 2,
+   "from_node": "MG02_N0228",
+   "to_floor": "R2",
+   "to_node": "RB02_N0015",
+   "points": [
+    [
+     -59.937,
+     9.04
+    ],
+    [
+     -61.9,
+     9.0
+    ],
+    [
+     -78.394,
+     9.033
+    ],
+    [
+     -78.294,
+     9.233
+    ]
+   ],
+   "length_m": 15.0,
+   "weight_m": 17.19,
+   "step_free": true,
+   "note": "Bridge length not measured; Ramanujan's position follows from it."
+  }
+ ],
+ "placement": {
+  "method": "Mehrin's frame turned +90 degrees so the bridge door faces M. George's west-end door",
+  "bridge_mg_door": [
+   -61.9,
+   9.0
+  ],
+  "bridge_length_m": 15.0,
+  "multifloor_dxf_shift_m": [
+   -30.583,
+   -26.438
+  ]
+ },
+ "assumptions": {
+  "floor_height_m": 3.3,
+  "stairs_weight_m_per_floor": 18.0,
+  "lift_board_weight_m": 18.0,
+  "lift_weight_m_per_floor": 4.0,
+  "note": "All Ramanujan stairs and lifts are in normal use (project team, 2026-11-02). The Third Floor is not drawn; stairs and lifts pass through it."
+ }
+}

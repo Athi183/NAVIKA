@@ -2,8 +2,11 @@
 // Data comes from scripts/build_mgeorge_nav_graph.py: one corridor centreline
 // graph per floor (all in floor 1's frame, metres) plus building.json, which
 // joins the floors through stair and lift shafts. The kiosk is the fixed source.
+// Ramanujan Block floors (scripts/build_ramanujan_nav_graph.py) join over the
+// Second Floor bridge; their floors are keyed 'R2', 'R4', 'R5', 'R6'.
 
 const DATA_BASE = '/data/MGeorge_nav'
+const RAMANUJAN_BASE = '/data/Ramanujan_nav'
 const WALK_SPEED_MPS = 1.2
 // Assumed vertical travel times; keep in step with building.json "assumptions".
 const STAIR_SECONDS_PER_FLOOR = 15
@@ -35,43 +38,72 @@ export const CATEGORY_LABELS = {
 
 const LANDMARK_CATEGORIES = new Set(['stairs', 'lift', 'toilet', 'entrance', 'library'])
 
-/** "Second Floor" for floor 2; "Outside" for the campus paths. */
+/** "Second Floor" for floor 2; "Fifth Floor (Ramanujan)" for 'R5'; "Outside" for the campus paths. */
 export function floorName(floor) {
   if (floor === SITE) return 'Outside'
-  return `${ORDINAL[floor] ?? `Level ${floor}`} Floor`
+  if (isRamanujan(floor)) return `${storeyName(floor)} (Ramanujan)`
+  return storeyName(floor)
 }
+
+/** "Fifth Floor" for floor 5 or 'R5', without the building. */
+export function storeyName(floor) {
+  const level = levelOf(floor)
+  return `${ORDINAL[level] ?? `Level ${level}`} Floor`
+}
+
+const isRamanujan = (floor) => typeof floor === 'string' && floor.startsWith('R')
+
+/** Storey number of a floor key (2 for 2 and 'R2'); null outside. */
+export function levelOf(floor) {
+  if (floor === SITE) return null
+  return isRamanujan(floor) ? Number(floor.slice(1)) : floor
+}
+
+/** True when a stair/lift transition goes up. */
+export const goesUp = (transition) => levelOf(transition.toFloor) > levelOf(transition.fromFloor)
 
 /** The campus paths are routed like one more "floor" with this key. */
 export const SITE = 'site'
 
-async function fetchJson(file) {
-  const response = await fetch(`${DATA_BASE}/${file}`)
+async function fetchJson(file, base = DATA_BASE) {
+  const response = await fetch(`${base}/${file}`)
   if (!response.ok) throw new Error(`Could not load ${file}.`)
   return response.json()
 }
 
+async function loadFloors(building, base) {
+  return Promise.all(building.floors.map(async (spec) => {
+    const [graph, walls, rooms] = await Promise.all([
+      fetchJson(spec.graph, base),
+      fetchJson(spec.walls, base),
+      // Room colours for the 3D model; routing works without them.
+      fetchJson(spec.rooms, base).catch(() => null),
+    ])
+    return { ...spec, name: floorName(spec.floor_number), graph, walls, rooms, base }
+  }))
+}
+
 export async function loadBuilding() {
   const building = await fetchJson('building.json')
-  const floors = await Promise.all(building.floors.map(async (spec) => {
-    const [graph, walls, rooms] = await Promise.all([
-      fetchJson(spec.graph),
-      fetchJson(spec.walls),
-      // Room colours for the 3D model; routing works without them.
-      fetchJson(spec.rooms).catch(() => null),
-    ])
-    return { ...spec, name: floorName(spec.floor_number), graph, walls, rooms }
-  }))
+  const floors = await loadFloors(building, DATA_BASE)
   // Outdoor campus paths (scripts/build_campus_nav_graph.py); optional.
   const site = await fetchJson('site_graph.json').catch(() => null)
-  return prepareBuilding(building, floors, site)
+  // Ramanujan Block over the bridge; optional.
+  const ramanujan = await fetchJson('building.json', RAMANUJAN_BASE)
+    .then(async (annex) => ({ building: annex, floors: await loadFloors(annex, RAMANUJAN_BASE) }))
+    .catch(() => null)
+  return prepareBuilding(building, floors, site, ramanujan ? [ramanujan] : [])
 }
 
 /**
- * Combine the floors (and, when given, the outdoor campus paths) into one
- * routable model. `floors` and `site` as loaded by loadBuilding().
+ * Combine the floors (and, when given, the outdoor campus paths and other
+ * buildings joined by links such as the bridge) into one routable model.
+ * `floors`, `site` and `annexes` ({ building, floors }) as loaded by loadBuilding().
  */
-export function prepareBuilding(building, floors, site = null) {
-  const prepared = floors.map((floor) => ({ ...floor, name: floor.name ?? floorName(floor.floor_number), mask: decodeMask(floor.graph.walkable_mask) }))
+export function prepareBuilding(building, floors, site = null, annexes = []) {
+  const allFloors = [...floors, ...annexes.flatMap((annex) => annex.floors)]
+  const prepared = allFloors.map((floor) => ({ ...floor, name: floor.name ?? floorName(floor.floor_number), mask: decodeMask(floor.graph.walkable_mask) }))
+  const buildings = [building, ...annexes.map((annex) => annex.building)]
   const byFloor = new Map(prepared.map((floor) => [floor.floor_number, floor]))
   const outside = site && {
     floor_number: SITE, name: floorName(SITE), graph: site, walls: null, rooms: null,
@@ -84,14 +116,21 @@ export function prepareBuilding(building, floors, site = null) {
   }
   // Doors between the building and the campus paths (the main entrance).
   const linkEdge = new Map()
-  for (const entrance of site?.links ?? []) {
-    linkEdge.set(`${entrance.indoor_node}|${entrance.site_node}`, entrance)
-    linkEdge.set(`${entrance.site_node}|${entrance.indoor_node}`, entrance)
+  // ...and walkways between buildings (the Ramanujan bridge), as { kind, name, from, to, weight }.
+  const links = [
+    ...(site?.links ?? []).map((link) => ({ kind: 'entrance', name: link.name, from: link.indoor_node, to: link.site_node, weight: link.weight_m })),
+    ...buildings.flatMap((item) => item.links ?? []).map((link) => ({ ...link, from: link.from_node, to: link.to_node, weight: link.weight_m })),
+  ]
+  for (const link of links) {
+    linkEdge.set(`${link.from}|${link.to}`, link)
+    linkEdge.set(`${link.to}|${link.from}`, link)
   }
-  for (const node of building.vertical_nodes) nodes.set(node.id, { floor: node.floor, xy: [node.x, node.y], shaft: node.shaft })
-  const shafts = new Map(building.shafts.map((shaft) => [shaft.id, shaft]))
+  const verticalNodes = buildings.flatMap((item) => item.vertical_nodes)
+  const verticalEdges = buildings.flatMap((item) => item.vertical_edges)
+  for (const node of verticalNodes) nodes.set(node.id, { floor: node.floor, xy: [node.x, node.y], shaft: node.shaft })
+  const shafts = new Map(buildings.flatMap((item) => item.shafts).map((shaft) => [shaft.id, shaft]))
   const verticalEdge = new Map()
-  for (const edge of building.vertical_edges) {
+  for (const edge of verticalEdges) {
     verticalEdge.set(`${edge.from}|${edge.to}`, edge)
     verticalEdge.set(`${edge.to}|${edge.from}`, edge)
   }
@@ -103,8 +142,8 @@ export function prepareBuilding(building, floors, site = null) {
   const makeAdjacency = (stepFree) => {
     const adjacency = new Map([...nodes.keys()].map((id) => [id, []]))
     for (const floor of outside ? [...prepared, outside] : prepared) for (const edge of floor.graph.edges) link(adjacency, edge.from, edge.to, edge.weight_m)
-    for (const entrance of site?.links ?? []) link(adjacency, entrance.indoor_node, entrance.site_node, entrance.weight_m)
-    for (const edge of building.vertical_edges) {
+    for (const item of links) link(adjacency, item.from, item.to, item.weight)
+    for (const edge of verticalEdges) {
       const shaft = shafts.get(edge.shaft)
       // Fire escape stairs are never used; stairs are skipped for step-free routes.
       if (!shaft?.routable || (stepFree && shaft.kind !== 'lift')) continue
@@ -118,7 +157,13 @@ export function prepareBuilding(building, floors, site = null) {
   const destinations = prepared.flatMap((floor) => floor.graph.destinations
     .filter((place) => place.in_use !== false && place.reachable !== false)
     .map((place) => ({ ...place, floor: floor.floor_number, floorName: floor.name })))
-  if (outside) destinations.push(...site.destinations.map((place) => ({ ...place, floor: SITE, floorName: 'Outside (campus)' })))
+  // With the Ramanujan floors loaded, its campus label (an outdoor guess) gives way to the bridge entrance.
+  const indoorNames = new Set(annexes.map((annex) => annex.building.building))
+  if (outside) {
+    destinations.push(...site.destinations
+      .filter((place) => !indoorNames.has(place.name))
+      .map((place) => ({ ...place, floor: SITE, floorName: 'Outside (campus)' })))
+  }
   const kioskFloor = byFloor.get(building.kiosk_floor)
   return {
     building,
@@ -128,6 +173,7 @@ export function prepareBuilding(building, floors, site = null) {
     shafts,
     verticalEdge,
     linkEdge,
+    bridges: links.filter((item) => item.kind === 'bridge'),
     site: outside,
     destinations,
     kiosk: { ...kioskFloor.graph.kiosk, floor: building.kiosk_floor },
@@ -372,7 +418,7 @@ function splitByFloor(model, path) {
       const shaft = model.shafts.get(shaftId)
       const previous = transitions.at(-1)
       if (entrance) {
-        transitions.push({ kind: 'entrance', name: entrance.name, fromFloor: leg.floor, toFloor: node.floor })
+        transitions.push({ kind: entrance.kind, name: entrance.name, fromFloor: leg.floor, toFloor: node.floor, lengthM: entrance.weight })
       // Climbing several storeys of the same stair passes intermediate floors
       // with a one-node leg; fold those into a single transition.
       } else if (shaftId && previous && previous.shaft === shaftId && leg.nodes.length === 1 && previous.toFloor === leg.floor) {
@@ -388,21 +434,29 @@ function splitByFloor(model, path) {
   return { legs, transitions }
 }
 
+/** "the main lift (corridor)", "Lift A", "Staircase 1 (central)": how a stair/lift is named in a sentence. */
+function shaftPhrase(transition) {
+  const name = transition.name
+  if (transition.kind !== 'lift' || /^Lift [A-Z]$/.test(name)) return name
+  return /lift/i.test(name) ? `the ${name.charAt(0).toLowerCase()}${name.slice(1)}` : `the lift (${name})`
+}
+
 function transitionText(transition) {
   if (transition.kind === 'entrance') {
     const door = transition.name.toLowerCase()
     return transition.toFloor === SITE ? `Go out through the ${door}` : `Go into the M. George Block through the ${door}`
   }
-  const direction = transition.toFloor > transition.fromFloor ? 'up' : 'down'
-  // "Take the main lift (centre) up…", "Take Staircase 1 (central) up…"
-  const name = transition.name
-  const way = transition.kind !== 'lift' ? name : /lift/i.test(name) ? `the ${name.charAt(0).toLowerCase()}${name.slice(1)}` : `the lift (${name})`
-  return `Take ${way} ${direction} to the ${floorName(transition.toFloor)}`
+  if (transition.kind === 'bridge') {
+    return isRamanujan(transition.toFloor) ? 'Cross the bridge into Ramanujan Block' : 'Cross the bridge back into the M. George Block'
+  }
+  // "Take the main lift (corridor) up…", "Take Lift A up…", "Take Staircase 1 (central) up…"
+  return `Take ${shaftPhrase(transition)} ${goesUp(transition) ? 'up' : 'down'} to the ${storeyName(transition.toFloor)}`
 }
 
+// Walkways between graphs (entrance, bridge) are walked at normal speed; see lengthM.
 function transitionSeconds(transition) {
-  if (transition.kind === 'entrance') return 0
-  const storeys = Math.abs(transition.toFloor - transition.fromFloor)
+  if (transition.kind === 'entrance' || transition.kind === 'bridge') return 0
+  const storeys = Math.abs(levelOf(transition.toFloor) - levelOf(transition.fromFloor))
   return transition.kind === 'lift' ? LIFT_WAIT_SECONDS + LIFT_SECONDS_PER_FLOOR * storeys : STAIR_SECONDS_PER_FLOOR * storeys
 }
 
@@ -441,6 +495,8 @@ export function routeFromKiosk(model, destination, { stepFree = false } = {}) {
       ? (m) => `From the kiosk, follow the line for about ${m} m`
       : arriving.kind === 'entrance'
         ? (m) => (leg.floor === SITE ? `Outside, follow the path for about ${m} m` : `Inside, follow the line for about ${m} m`)
+        : arriving.kind === 'bridge'
+          ? (m) => `After the bridge, follow the line for about ${m} m`
         : (m) => `On the ${leg.floorName}, leave the ${arriving.kind === 'lift' ? 'lift' : 'stairs'} and follow the line for about ${m} m`
     const { steps: walk, legs: simplified } = legSteps(leg.points, leg.floor, opening, floor.graph.destinations, destination.id)
     steps.push(...walk)
@@ -451,7 +507,7 @@ export function routeFromKiosk(model, destination, { stepFree = false } = {}) {
     }
   })
 
-  const distanceM = legs.reduce((sum, leg) => sum + leg.distanceM, 0)
+  const distanceM = legs.reduce((sum, leg) => sum + leg.distanceM, 0) + transitions.reduce((sum, t) => sum + (t.lengthM ?? 0), 0)
   return {
     algorithm: 'dijkstra',
     stepFree,
@@ -483,8 +539,8 @@ export function formatDuration(seconds) {
 export function routeSummary(route, destination) {
   const parts = route.transitions.map((t) => {
     if (t.kind === 'entrance') return t.toFloor === SITE ? 'go out through the main entrance' : 'go back in through the main entrance'
-    const way = t.kind === 'lift' ? `take the ${t.name.toLowerCase()}` : `take ${t.name}`
-    return `${way} ${t.toFloor > t.fromFloor ? 'up' : 'down'} to the ${floorName(t.toFloor)}`
+    if (t.kind === 'bridge') return isRamanujan(t.toFloor) ? 'cross the bridge into Ramanujan Block' : 'cross the bridge back into the M. George Block'
+    return `take ${shaftPhrase(t)} ${goesUp(t) ? 'up' : 'down'} to the ${storeyName(t.toFloor)}`
   })
   const time = formatDuration(route.durationS)
   if (!parts.length) return `${destination.name} is on this floor, about ${time} away. Follow the walking person.`
@@ -492,16 +548,26 @@ export function routeSummary(route, destination) {
   return `${[first, ...parts.slice(1)].join(', then ')}. ${destination.name} is about ${time} away.`
 }
 
+/** Which building a floor key belongs to, for grouping floors in the 3D view. */
+const buildingOf = (floor) => (isRamanujan(floor) ? 'ramanujan' : 'mgeorge')
+
 /** Floors to stack, camera focus and campus flag for showing a route in 3D. */
 export function routeScene(model, route, destination) {
   const outside = route.floors.includes(SITE)
   const indoor = route.floors.filter((floor) => floor !== SITE)
   if (outside && model.site) indoor.push(model.site.level_floor)
-  const low = Math.min(...indoor)
-  const high = Math.max(...indoor)
+  // In each building the route passes through, show every floor between its lowest and highest.
+  const span = new Map()
+  for (const floor of indoor) {
+    const [low, high] = span.get(buildingOf(floor)) ?? [Infinity, -Infinity]
+    span.set(buildingOf(floor), [Math.min(low, levelOf(floor)), Math.max(high, levelOf(floor))])
+  }
   return {
     outside,
-    floors: model.floors.map((floor) => floor.floor_number).filter((n) => n >= low && n <= high),
+    floors: model.floors.map((floor) => floor.floor_number).filter((key) => {
+      const range = span.get(buildingOf(key))
+      return range && levelOf(key) >= range[0] && levelOf(key) <= range[1]
+    }),
     focus: routeBounds([...route.legs.flatMap((leg) => leg.points), destination.entrance_xy || destination.xy], 30, outside ? 15 : 4),
   }
 }

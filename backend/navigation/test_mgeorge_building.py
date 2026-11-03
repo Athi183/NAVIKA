@@ -85,3 +85,29 @@ if site_file.exists():
         assert result, f"no outdoor route to {place['name']}"
         assert result["distance"] < 800, (place["name"], result["distance"])
     print("Outdoor    - all", len(site["destinations"]), "campus places reachable through the main entrance")
+
+# Ramanujan Block floors 4-6 over the Second Floor bridge (scripts/build_ramanujan_nav_graph.py).
+RAMANUJAN_DIR = DATA_DIR.parent / "Ramanujan_nav"
+if (RAMANUJAN_DIR / "building.json").exists():
+    annex = json.loads((RAMANUJAN_DIR / "building.json").read_text())
+    annex_floors = {spec["floor_number"]: json.loads((RAMANUJAN_DIR / spec["graph"]).read_text()) for spec in annex["floors"]}
+    for step_free in (False, True):
+        graph = make_graph(step_free)
+        for number, floor in annex_floors.items():
+            for node in floor["nodes"]:
+                graph.add_node(node["id"], node["x"], node["y"], number)
+        for node in annex["vertical_nodes"]:
+            graph.add_node(node["id"], node["x"], node["y"], node["floor"])
+        edges = [edge for floor in annex_floors.values() for edge in floor["edges"]]
+        edges += [edge for edge in annex["vertical_edges"] if not (step_free and edge["kind"] == "stairs")]
+        edges += [{"from": link["from_node"], "to": link["to_node"], "weight_m": link["weight_m"]} for link in annex["links"]]
+        for edge in edges:
+            graph.add_edge(edge["from"], edge["to"], edge["weight_m"])
+            graph.add_edge(edge["to"], edge["from"], edge["weight_m"])
+        places = [(n, p) for n, f in annex_floors.items() for p in f["destinations"]]
+        assert all(p["reachable"] and p["step_free"] for _, p in places), [p["name"] for _, p in places if not p["reachable"]]
+        for number, place in places:
+            result = dijkstra(graph, kiosk_node, place["node"])
+            assert result, f"no {'step-free ' if step_free else ''}route to {place['name']} ({number})"
+            assert result["distance"] < 500, (place["name"], result["distance"])
+        print(("Step-free" if step_free else "Any route").ljust(10), "- all", len(places), "Ramanujan places reachable over the bridge")

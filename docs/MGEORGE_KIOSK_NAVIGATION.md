@@ -161,6 +161,34 @@ stacked (`/navigation?explore=1&floor=all`).
   outdoor path. A route can leave the building ("Go out through the main
   entrance") and continue outside, at the entrance floor's level in 3D.
 
+## Ramanujan Block (over the bridge)
+
+Floors 4, 5 and 6 of Ramanujan Block are routed too, using Fathima Mehrin's
+floor data in `ramanujan-viewer/public/data/Ramanujan_F4..F6` (walls, room
+names and positions, room outlines), aligned by her `stackedFloorConfig.ts`.
+`scripts/build_ramanujan_nav_graph.py` only reads that folder.
+
+- **How visitors get there:** the bridge on the Second Floor. It starts at the
+  west end of the M. George Second Floor corridor (past Visvesvaraya Hall) and
+  lands in the 3.08 m opening between Turing Lab and Caeser Lab on Ramanujan's
+  Second Floor, which the multi-floor Ramanujan DXF labels "CONNECTION BRIDGE".
+  A route reads, for example: *"Take Staircase 2 (west wing) up to the Second
+  Floor, then cross the bridge into Ramanujan Block, then take Lift A up to the
+  Fifth Floor."*
+- **Ramanujan's Second Floor** comes from the multi-floor DXF and is only
+  walked through, from the bridge to the stairs and lifts. Its rooms are not
+  offered. The Third Floor is not drawn; stairs and lifts pass through it.
+- **Stairs and lifts:** Lift A, Lift B and Staircases A, B and C, all in
+  normal use (project team).
+- **Places:** 59 on floors 4-6, named as in Mehrin's data with the room number
+  added, e.g. *S5/S6 CSE-A Class Room (601)*, so searching "601" works.
+  Rooms are coloured from her room outlines.
+- **Position:** Ramanujan is placed by the bridge alone (its door 15 m west of
+  M. George's, turned to face it). **The bridge length is a guess (15 m);
+  measure it on site** and set `BRIDGE_LENGTH_M`.
+- Room numbers run one ahead of the floor (5xx on the Fourth Floor, 6xx on
+  the Fifth), as in the drawings. Floor names follow the drawings.
+
 ## What visitors see
 
 - **Popular places** come first, as big buttons: Reception, Admissions,
@@ -207,6 +235,9 @@ the visitor's phone:
 # outdoor campus paths (run after the floors; needs floor 1's walls and rooms)
 PYTHONPATH=scripts .venv/bin/python scripts/build_campus_nav_graph.py --preview inspection_navigation/campus_walkable_preview.png
 
+# Ramanujan Block floors 4-6 and the bridge (run after the M. George floors)
+PYTHONPATH=scripts .venv/bin/python scripts/build_ramanujan_nav_graph.py --preview-dir inspection_navigation
+
 # one floor only (no building.json)
 .venv/bin/python scripts/build_mgeorge_nav_graph.py --floor 1 --preview inspection_navigation/mgeorge_floor01_walkable_preview.png
 
@@ -228,8 +259,10 @@ at `/navigation?view=indoor|mgeorge|campus`.
 - **On-site checks:** the exact kiosk position; the First Floor Gents Toilet
   entrance, Admission Cell and Students Activity Center; PDF room positions
   (expected within about 2 m); the real storey height (3.3 m assumed).
-- **Campus:** Ramanujan Block and the Auditorium are only labels on the campus
-  plan, so their routes end on the nearest path. Gates and the security cabin
+- **Ramanujan Block:** measure the bridge (15 m assumed) and confirm both
+  bridge doors on site.
+- **Campus:** the Auditorium is only a label on the campus plan, so its route
+  ends on the nearest path. Gates and the security cabin
   are not labelled. Outdoor routes only leave through the main entrance.
 - **Ask NAVIKA hand-off:** a "Show me the way" button in the assistant that
   opens `/navigation?to=<id>`.

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CircleCheck, Clock, DoorOpen, Footprints, MapPin, Navigation, TimerOff } from 'lucide-react'
 import MGeorgeBuilding3D from '../components/navigation/MGeorgeBuilding3D'
-import { SITE, floorName, formatDuration, loadBuilding, readPhoneLink, routeFromKiosk, routeScene, routeSummary } from '../services/mgeorgeRoute'
+import { SITE, floorName, formatDuration, goesUp, loadBuilding, readPhoneLink, routeFromKiosk, routeScene, routeSummary } from '../services/mgeorgeRoute'
 
 // Phone view of one route handed off from the kiosk by QR code. There is no
 // place picker and no other source: only the scanned route, until it expires
@@ -62,8 +62,8 @@ function Notice({ icon: Icon, title, children }) {
 
 function StepIcon({ step, last }) {
   if (last) return <MapPin className="h-6 w-6" />
-  if (step.transition?.kind === 'entrance') return <DoorOpen className="h-6 w-6" />
-  if (step.transition) return step.transition.toFloor > step.transition.fromFloor ? <ArrowUp className="h-6 w-6" /> : <ArrowDown className="h-6 w-6" />
+  if (step.transition?.kind === 'entrance' || step.transition?.kind === 'bridge') return <DoorOpen className="h-6 w-6" />
+  if (step.transition) return goesUp(step.transition) ? <ArrowUp className="h-6 w-6" /> : <ArrowDown className="h-6 w-6" />
   return <Footprints className="h-6 w-6" />
 }
 

@@ -458,6 +458,69 @@ def connectors_from_labels(labels, to_local, inside):
     return connectors
 
 
+def centreline_graph(grid, reachable, origin, id_prefix, floor_number):
+    """Corridor centreline graph of a walkable mask: skeleton chains simplified
+    into nodes (metres in the shared frame) and edges weighted by length."""
+    skel = zhang_suen(reachable)
+    centres, chains = skeleton_graph(skel)
+    chains = prune_spurs(chains)
+
+    node_ids, nodes, edges = {}, [], []
+
+    def node_for(key, rc):
+        if key not in node_ids:
+            sx, sy = grid.to_source(*rc)
+            node_ids[key] = f"{id_prefix}_N{len(nodes):04d}"
+            nodes.append({
+                "id": node_ids[key], "floor": floor_number,
+                "x": round((sx - origin[0]) / 100, 3), "y": round((sy - origin[1]) / 100, 3),
+            })
+        return node_ids[key]
+
+    seen_pairs = set()
+    for a, b, points in chains:
+        simplified = rdp(points, SIMPLIFY_CM / CELL_CM)
+        if a == b and len(simplified) < 3:
+            continue
+        keys = [("c", a)] + [("p", pt) for pt in simplified[1:-1]] + [("c", b)]
+        ids = [node_for(k, pt) for k, pt in zip(keys, simplified)]
+        for (ia, pa), (ib, pb) in zip(zip(ids, simplified), zip(ids[1:], simplified[1:])):
+            pair = tuple(sorted((ia, ib)))
+            if ia == ib or pair in seen_pairs:
+                continue
+            seen_pairs.add(pair)
+            edges.append({"from": ia, "to": ib, "weight_m": round(chain_length([pa, pb]), 3)})
+    return nodes, edges
+
+
+def make_snapper(grid, reachable, nodes, origin, to_local):
+    """snap(xy) joins a place to the graph: the nearest walkable cell, then the
+    closest node visible from it without crossing an obstacle."""
+    _, (near_r, near_c) = ndimage.distance_transform_edt(~reachable, return_indices=True)
+    node_rc = np.array([grid.to_cell(*local_to_source((n["x"], n["y"]), origin)) for n in nodes])
+
+    def snap(xy):
+        r, c = (int(v) for v in grid.to_cell(*local_to_source(xy, origin)))
+        r, c = min(max(r, 0), grid.h - 1), min(max(c, 0), grid.w - 1)
+        ar, ac = int(near_r[r, c]), int(near_c[r, c])
+        order = np.argsort((node_rc[:, 0] - ar) ** 2 + (node_rc[:, 1] - ac) ** 2)
+        choice, visible = int(order[0]), False
+        for idx in order[:40]:
+            if line_of_sight(reachable, (ar, ac), node_rc[idx]):
+                choice, visible = int(idx), True
+                break
+        approach = to_local(*grid.to_source(ar, ac))
+        return {
+            "node": nodes[choice]["id"],
+            "approach_xy": approach,
+            "anchor_walkable": bool(reachable[r, c]),
+            "snap_m": round(math.dist(approach, (nodes[choice]["x"], nodes[choice]["y"])), 2),
+            "line_of_sight": visible,
+        }
+
+    return snap
+
+
 def build(source: Path, floor_number: int, output_dir: Path, destinations_path: Path, preview: Path | None, debug_grid: Path | None = None, doc=None):
     spec = FLOORS[floor_number]
     origin = floor_origin(floor_number)
@@ -532,59 +595,8 @@ def build(source: Path, floor_number: int, output_dir: Path, destinations_path: 
 
         reachable = np.isin(labels, [big_label(c["xy"]) for c in connectors if c["kind"] != "fire_stairs"])
 
-    skel = zhang_suen(reachable)
-    centres, chains = skeleton_graph(skel)
-    chains = prune_spurs(chains)
-
-    node_ids, nodes, edges = {}, [], []
-
-    def node_for(key, rc):
-        if key not in node_ids:
-            sx, sy = grid.to_source(*rc)
-            node_ids[key] = f"MG{floor_number:02d}_N{len(nodes):04d}"
-            nodes.append({
-                "id": node_ids[key], "floor": floor_number,
-                "x": round((sx - origin[0]) / 100, 3), "y": round((sy - origin[1]) / 100, 3),
-            })
-        return node_ids[key]
-
-    seen_pairs = set()
-    for a, b, points in chains:
-        simplified = rdp(points, SIMPLIFY_CM / CELL_CM)
-        if a == b and len(simplified) < 3:
-            continue
-        keys = [("c", a)] + [("p", pt) for pt in simplified[1:-1]] + [("c", b)]
-        ids = [node_for(k, pt) for k, pt in zip(keys, simplified)]
-        for (ia, pa), (ib, pb) in zip(zip(ids, simplified), zip(ids[1:], simplified[1:])):
-            pair = tuple(sorted((ia, ib)))
-            if ia == ib or pair in seen_pairs:
-                continue
-            seen_pairs.add(pair)
-            edges.append({"from": ia, "to": ib, "weight_m": round(chain_length([pa, pb]), 3)})
-
-    # Snap places to the graph: nearest walkable cell, then the closest node
-    # visible from it without crossing an obstacle.
-    _, (near_r, near_c) = ndimage.distance_transform_edt(~reachable, return_indices=True)
-    node_rc = np.array([grid.to_cell(*local_to_source((n["x"], n["y"]), origin)) for n in nodes])
-
-    def snap(xy):
-        r, c = (int(v) for v in grid.to_cell(*local_to_source(xy, origin)))
-        r, c = min(max(r, 0), grid.h - 1), min(max(c, 0), grid.w - 1)
-        ar, ac = int(near_r[r, c]), int(near_c[r, c])
-        order = np.argsort((node_rc[:, 0] - ar) ** 2 + (node_rc[:, 1] - ac) ** 2)
-        choice, visible = int(order[0]), False
-        for idx in order[:40]:
-            if line_of_sight(reachable, (ar, ac), node_rc[idx]):
-                choice, visible = int(idx), True
-                break
-        approach = to_local(*grid.to_source(ar, ac))
-        return {
-            "node": nodes[choice]["id"],
-            "approach_xy": approach,
-            "anchor_walkable": bool(reachable[r, c]),
-            "snap_m": round(math.dist(approach, (nodes[choice]["x"], nodes[choice]["y"])), 2),
-            "line_of_sight": visible,
-        }
+    nodes, edges = centreline_graph(grid, reachable, origin, f"MG{floor_number:02d}", floor_number)
+    snap = make_snapper(grid, reachable, nodes, origin, to_local)
 
     kiosk = {**config["kiosk"], **snap(config["kiosk"]["xy"])} if config.get("kiosk") else None
     connectors = [{"id": f"MG{floor_number:02d}_C{i:02d}", **c, **snap(c["xy"])} for i, c in enumerate(connectors)]
