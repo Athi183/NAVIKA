@@ -92,7 +92,9 @@ export async function loadBuilding() {
   const ramanujan = await fetchJson('building.json', RAMANUJAN_BASE)
     .then(async (annex) => ({ building: annex, floors: await loadFloors(annex, RAMANUJAN_BASE) }))
     .catch(() => null)
-  return prepareBuilding(building, floors, site, ramanujan ? [ramanujan] : [])
+  // Storey outlines for the 3D campus view (scripts/build_campus_massing.py); optional.
+  const massing = await fetchJson('campus_massing.json', '/data').catch(() => null)
+  return { ...prepareBuilding(building, floors, site, ramanujan ? [ramanujan] : []), massing }
 }
 
 /**
@@ -546,6 +548,25 @@ export function stepStretch(route, index) {
   const from = nearestIndex(points, step.point)
   const to = following && following.leg === step.leg && !following.transition ? nearestIndex(points, following.point) : points.length - 1
   return points.slice(from, Math.max(from, to) + 1).map((xy) => ({ floor: step.floor, xy }))
+}
+
+const PICK_NEAR_M = { indoor: 4, site: 12 }
+
+/**
+ * The place a tap on the 3D map means: on a floor, the place whose room
+ * contains the point (the smallest room, then the nearest label in it); else
+ * the nearest offered place within a few metres. Null when nothing is close.
+ */
+export function placeAt(model, floor, xy) {
+  const offered = model.destinations.filter((place) => place.floor === floor && !['stairs', 'lift', 'exit'].includes(place.category))
+  const byId = new Map(offered.map((place) => [place.id, place]))
+  const near = (place) => dist(place.entrance_xy || place.xy, xy)
+  const rooms = (model.byFloor.get(floor)?.rooms?.regions ?? []).filter(({ bbox: [x0, y0, x1, y1], destinations }) =>
+    xy[0] >= x0 && xy[0] <= x1 && xy[1] >= y0 && xy[1] <= y1 && destinations.some((id) => byId.has(id)))
+  const area = ({ bbox: [x0, y0, x1, y1] }) => (x1 - x0) * (y1 - y0)
+  const room = rooms.sort((a, b) => area(a) - area(b))[0]
+  const candidates = room ? room.destinations.map((id) => byId.get(id)).filter(Boolean) : offered.filter((place) => near(place) <= PICK_NEAR_M[floor === SITE ? 'site' : 'indoor'])
+  return candidates.sort((a, b) => near(a) - near(b))[0] ?? null
 }
 
 /** Case-insensitive match on every typed word, against name, category and room number. */

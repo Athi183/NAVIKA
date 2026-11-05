@@ -193,17 +193,39 @@ names and positions, room outlines), aligned by her `stackedFloorConfig.ts`.
 
 ## What visitors see
 
-- **Popular places** come first, as big buttons: Reception, Admissions,
-  Principal, Library, **Nearest toilet** (the shortest walk), Canteen,
-  Auditorium, Ramanujan Block, Parking, and the way out. Search is always there.
-  The full list with floor and category filters is behind **Browse all places**.
-- **Every route starts with one plain sentence**, e.g. *"Take the main lift
-  (corridor) up to the Second Floor. Principal is about 2 min away."* Below it
-  are the distance and time, then the step-by-step directions, which
-  scroll inside their panel. The route screen fits the kiosk screen without
-  scrolling the page.
-- **Look around in 3D** shows the whole campus, one floor, or all floors
-  stacked. Tapping any name opens its route.
+The kiosk is a wide (landscape) touch screen at reception, used by one visitor
+at a time.
+
+- **It opens on the map.** The 3D view starts on the visitor's own floor (M.
+  George First Floor) with "You are here". Search and popular places sit above
+  the map; on the right, building tabs (**Whole campus**, **M. George Block**,
+  **Ramanujan Block**) and lift-style floor buttons (4, 3, 2, 1 · You, G, All).
+- **Whole campus** shows M. George and Ramanujan as 3D buildings at real
+  height (one block per storey, with a darker band at each floor level), the
+  bridge between them, the campus paths and the outdoor places. Tapping a
+  building opens it. Outlines come from `scripts/build_campus_massing.py`
+  (`frontend/public/data/campus_massing.json`). Ramanujan's Ground, First and
+  Third Floors are not drawn, so they borrow the outline of the floor above.
+  Other campus buildings are only labels on the campus plan, so they appear as
+  labels, not blocks.
+- **Stacked floors** (the **All** button, and routes that change floor) show
+  the lifts and stairs in use the way Mehrin's Ramanujan viewer draws them:
+  see-through shafts with doors at each floor, and switchback stairs with
+  handrails. The ones on the route turn blue. Sizes are typical, not measured
+  (`frontend/src/components/navigation/VerticalCores.jsx`).
+- **Tap any room** on the map (the room itself, not only its name), or pick a
+  place from search or the popular list: the map switches to its building and
+  floor, drops a pin, and a card shows the time, distance and **Show me the
+  way**. A tap never jumps straight to a route.
+- **Zoom in / out** and **Back to me** buttons sit on the map for visitors who
+  do not drag or pinch.
+- **The route screen:** one plain sentence (e.g. *"Take the main lift
+  (corridor) up to the Second Floor. Principal is about 2 min away."*), the
+  distance and time, the steps, the 3D walker, and **Send to my phone**.
+- **Thank you** (top right on every screen) ends the visitor's turn: a short
+  thank-you message, then everything resets for the next person. The kiosk
+  also resets after 90 seconds without a touch. A presence sensor can later
+  trigger the same reset.
 
 ## On the phone (QR code)
 
@@ -245,6 +267,9 @@ PYTHONPATH=scripts .venv/bin/python scripts/build_campus_nav_graph.py --preview 
 # Ramanujan Block floors 4-6 and the bridge (run after the M. George floors)
 PYTHONPATH=scripts .venv/bin/python scripts/build_ramanujan_nav_graph.py --preview-dir inspection_navigation
 
+# storey outlines for the 3D campus view (run after both buildings)
+PYTHONPATH=scripts .venv/bin/python scripts/build_campus_massing.py
+
 # one floor only (no building.json)
 .venv/bin/python scripts/build_mgeorge_nav_graph.py --floor 1 --preview inspection_navigation/mgeorge_floor01_walkable_preview.png
 
@@ -271,5 +296,8 @@ at `/navigation?view=indoor|mgeorge|campus`.
 - **Campus:** the Auditorium is only a label on the campus plan, so its route
   ends on the nearest path. Gates and the security cabin
   are not labelled. Outdoor routes only leave through the main entrance.
+  The 3D campus view has blocks for M. George and Ramanujan only; it places
+  the campus ground at the main entrance (First Floor) level, so M. George's
+  Ground Floor sits below it.
 - **Ask NAVIKA hand-off:** a "Show me the way" button in the assistant that
   opens `/navigation?to=<id>`.

@@ -4,6 +4,8 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Billboard, Html, Line, OrbitControls, Text, useTexture } from '@react-three/drei'
 import { NAV_BLUE, NAV_BLUE_EDGE, NAV_WALKED, cumulativeLengths, routeProgress } from './navigationStyle'
 import { levelOf as levelOfFloor } from '../../services/mgeorgeRoute'
+import VerticalCores from './VerticalCores'
+import CampusBlocks from './CampusBlocks'
 
 // Same look as the Ramanujan viewer (ramanujan-viewer/src/App.tsx): dark scene,
 // extruded brick walls, room floors coloured by type, floating labels.
@@ -50,13 +52,23 @@ function WallMeshes({ segments, color, height, thickness, opacity = 1 }) {
   </instancedMesh>
 }
 
-function RoomFloor({ rooms, base }) {
+// A tap that moved further than this (in pixels) was a drag to turn the map, not a pick.
+const TAP_SLOP_PX = 8
+
+/** onClick handler giving `onPickPoint(floor, [x, y])` for a tap (not a drag) on a floor. */
+const pointPicker = (onPickPoint, floor) => (onPickPoint ? (event) => {
+  if (event.delta > TAP_SLOP_PX) return
+  event.stopPropagation()
+  onPickPoint(floor, [event.point.x, -event.point.z])
+} : undefined)
+
+function RoomFloor({ rooms, base, onClick }) {
   const texture = useTexture(`${base}/${rooms.texture.file}`, (loaded) => {
     loaded.colorSpace = THREE.SRGBColorSpace
     loaded.anisotropy = 8
   })
   const { origin_xy: [x0, y0], width_m: width, height_m: height } = rooms.texture
-  return <mesh rotation={[-Math.PI / 2, 0, 0]} position={[x0 + width / 2, 0.01, -(y0 + height / 2)]}>
+  return <mesh rotation={[-Math.PI / 2, 0, 0]} position={[x0 + width / 2, 0.01, -(y0 + height / 2)]} onClick={onClick}>
     <planeGeometry args={[width, height]} />
     <meshStandardMaterial map={texture} transparent alphaTest={0.5} roughness={1} metalness={0} side={THREE.DoubleSide} />
   </mesh>
@@ -106,19 +118,19 @@ function BridgeDeck({ link }) {
   </mesh>
 }
 
-function FloorModel({ floor, wallHeight, showLabels, highlightId, onPick, labelScale }) {
+function FloorModel({ floor, wallHeight, showLabels, highlightId, onPick, onPickPoint, labelScale, showTag = true }) {
   const { walls, rooms, graph } = floor
   // Floor name at the north-west corner, where it stays in view.
   const tag = rooms ? [rooms.texture.origin_xy[0] + 2, rooms.texture.origin_xy[1] + rooms.texture.height_m + 2] : [-60, 40]
   return <group>
-    {rooms && <Suspense fallback={null}><RoomFloor rooms={rooms} base={floor.base ?? '/data/MGeorge_nav'} /></Suspense>}
+    {rooms && <Suspense fallback={null}><RoomFloor rooms={rooms} base={floor.base ?? '/data/MGeorge_nav'} onClick={pointPicker(onPickPoint, floor.floor_number)} /></Suspense>}
     <WallMeshes segments={walls.segments.wall} color={WALL_COLOUR} height={wallHeight} thickness={0.14} />
     <WallMeshes segments={walls.segments.window} color={WINDOW_COLOUR} height={wallHeight} thickness={0.08} opacity={0.55} />
     <WallMeshes segments={walls.segments.stair} color={STAIR_COLOUR} height={0.3} thickness={0.06} />
     <Suspense fallback={null}>
-      <Billboard position={xz(tag, 1.5)}>
+      {showTag && <Billboard position={xz(tag, 1.5)}>
         <Text font={LABEL_FONT} fontSize={2.2} color="#ffffff" outlineWidth={0.1} outlineColor={BACKGROUND} anchorX="left" anchorY="middle">{floor.name.toUpperCase()}</Text>
-      </Billboard>
+      </Billboard>}
       {showLabels && <RoomLabels destinations={graph.destinations} rooms={rooms} highlightId={highlightId} onPick={onPick} scale={labelScale} />}
     </Suspense>
   </group>
@@ -256,7 +268,7 @@ function FollowCamera({ points }) {
 }
 
 /** Campus paths as a texture: walkable cells light grey on a green ground. */
-function SiteGround({ site, onPick, labelSize = 2.4 }) {
+function SiteGround({ site, onPick, onPickPoint, labelSize = 2.4, labelLift = 0, hidden = new Set() }) {
   const mask = site.mask
   const texture = useMemo(() => {
     const data = new Uint8Array(mask.rows * mask.cols * 4)
@@ -279,14 +291,14 @@ function SiteGround({ site, onPick, labelSize = 2.4 }) {
       <meshStandardMaterial color="#2f4a36" roughness={1} />
     </mesh>
     {/* DataTexture rows run south to north, matching the plane's +Y = north. */}
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(centre, -0.04)}>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(centre, -0.04)} onClick={pointPicker(onPickPoint, 'site')}>
       <planeGeometry args={[width, depth]} />
       <meshStandardMaterial map={texture} transparent alphaTest={0.5} roughness={1} />
     </mesh>
     <Suspense fallback={null}>
-      {site.graph.destinations.map((place) => <group key={place.id}>
+      {site.graph.destinations.filter((place) => !hidden.has(place.name)).map((place) => <group key={place.id}>
         <mesh position={xz(place.xy, 1.5)}><cylinderGeometry args={[0.8, 0.8, 3, 16]} /><meshStandardMaterial color="#F6D878" /></mesh>
-        <Billboard position={xz(place.xy, 4 + labelSize * 1.5)}>
+        <Billboard position={xz(place.xy, 4 + labelSize * 1.5 + labelLift)}>
           <Text font={LABEL_FONT} fontSize={labelSize} color="#ffffff" outlineWidth={labelSize * 0.06} outlineColor={BACKGROUND} maxWidth={labelSize * 12} textAlign="center" anchorX="center" anchorY="middle"
             onClick={onPick ? (event) => { event.stopPropagation(); onPick({ ...place, floor: 'site', floorName: 'Outside (campus)' }) } : undefined}>
             {/* Short form on the map: "Basketball Court", not the full arena name. */}
@@ -320,6 +332,19 @@ export function MapPinIcon({ size = 44 }) {
   </svg>
 }
 
+/** Zoom buttons outside the canvas: each new `command` ({ kind: 'in' | 'out' }) moves the camera once. */
+function ZoomCommands({ command }) {
+  const camera = useThree((state) => state.camera)
+  const controls = useThree((state) => state.controls)
+  useEffect(() => {
+    if (!command || !controls) return
+    const factor = command.kind === 'in' ? 0.7 : 1.4
+    camera.position.sub(controls.target).multiplyScalar(factor).add(controls.target)
+    controls.update() // also clamps to the min/max distance
+  }, [command, camera, controls])
+  return null
+}
+
 // The framing below is tuned for a landscape view about this wide.
 const DESIGN_ASPECT = 1.6
 
@@ -350,8 +375,12 @@ function FitToScreen({ centre, width, depth }) {
  * `focus` ({ minX, maxX, minY, maxY } in metres) to frame the camera.
  * `follow` ([{ floor, xy }], from stepStretch) turns on follow mode: the
  * walker walks only that stretch and the camera follows it.
+ * `onPickPoint(floor, [x, y])` reports taps on a floor or the campus ground;
+ * `zoom` ({ kind: 'in' | 'out' }, a new object per press) zooms the camera.
+ * `massing` draws the campus overview: every building as solid storeys at
+ * real height (pass no `floors`); `onPickBuilding(name)` reports a tap on one.
  */
-export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, focus = null, showSite = false, follow = null }) {
+export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, onPickPoint = null, focus = null, showSite = false, follow = null, zoom = null, massing = false, onPickBuilding = null }) {
   // Floors of both buildings, stacked by height: Ramanujan stands lower, so its
   // Second Floor ('R2', stack_level 3) is level with M. George's Third Floor
   // and the bridge between them is flat.
@@ -359,7 +388,8 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
   const storey = useCallback((floor) => (floor === 'site' ? siteLevel : model.byFloor.get(floor)?.stack_level ?? levelOfFloor(floor)), [model, siteLevel])
   const shown = useMemo(() => [...floors].sort((a, b) => storey(a) - storey(b)), [floors, storey])
   const levels = useMemo(() => [...new Set(shown.map(storey))], [shown, storey])
-  const levelY = (floor) => Math.max(0, levels.indexOf(storey(floor))) * FLOOR_GAP
+  const levelY = useCallback((floor) => Math.max(0, levels.indexOf(storey(floor))) * FLOOR_GAP, [levels, storey])
+  const usedShafts = useMemo(() => new Set((route?.transitions ?? []).map((item) => item.shaft).filter(Boolean)), [route])
   const { kiosk } = model
   const area = focus || (() => {
     const textures = shown.map((n) => model.byFloor.get(n).rooms?.texture).filter(Boolean)
@@ -369,7 +399,7 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
       minY: Math.min(...textures.map((t) => t.origin_xy[1])), maxY: Math.max(...textures.map((t) => t.origin_xy[1] + t.height_m)),
     }
   })()
-  const height = (levels.length - 1) * FLOOR_GAP
+  const height = Math.max(0, levels.length - 1) * FLOOR_GAP
   const centre = [(area.minX + area.maxX) / 2, height / 2, -(area.minY + area.maxY) / 2]
   const span = Math.max(area.maxX - area.minX, (area.maxY - area.minY) * 1.6) + height * 0.8
   const wallHeight = route ? ROUTE_WALL_HEIGHT : WALL_HEIGHT
@@ -388,34 +418,41 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
     return points.length > 1 ? points : [points[0], points[0]]
   }, [follow, lift])
   const pin = destination ? destination.entrance_xy || destination.xy : null
+  // Campus labels for buildings that are drawn in full (Ramanujan) would only duplicate them.
+  const hiddenSiteLabels = useMemo(() => new Set(model.floors.filter((floor) => floor.graph.building !== 'M. George Block').map((floor) => floor.graph.building)), [model])
   // Whole building: an angled overview like the Ramanujan viewer. Route: straight on, centred.
   // The campus overview looks down more steeply so the paths fill the view.
   // A plan much deeper than wide (Ramanujan Block runs north-south) is viewed from the east instead.
   const deep = !route && !showSite && area.maxY - area.minY > (area.maxX - area.minX) * 1.3
   const camera = route
     ? [centre[0], centre[1] + span * 0.62, centre[2] + span * 0.72]
-    : showSite
-      ? [centre[0], centre[1] + span * 0.5, centre[2] + span * 0.3]
-      : deep
-        ? [centre[0] + span * 0.42, centre[1] + span * 0.42, centre[2]]
-        : [centre[0], centre[1] + span * 0.42, centre[2] + span * 0.55]
+    : massing
+      ? [centre[0], centre[1] + span * 0.36, centre[2] + span * 0.48]
+      : showSite
+        ? [centre[0], centre[1] + span * 0.5, centre[2] + span * 0.3]
+        : deep
+          ? [centre[0] + span * 0.42, centre[1] + span * 0.42, centre[2]]
+          : [centre[0], centre[1] + span * 0.42, centre[2] + span * 0.55]
 
   return <Canvas camera={{ position: camera, fov: 50 }} gl={{ antialias: true }}>
     <color attach="background" args={[BACKGROUND]} />
     <ambientLight intensity={0.9} />
     <directionalLight position={[centre[0] + 20, 80, centre[2] + 30]} intensity={1.25} />
     {!showSite && <gridHelper args={[180, 90, '#3b3b44', '#2c2c33']} position={[centre[0], -0.3, centre[2]]} />}
-    {showSite && model.site && <group position={[0, levelY(siteLevel), 0]}><SiteGround site={model.site} onPick={onPick} labelSize={route ? 2.4 : 6} /></group>}
+    {showSite && model.site && <group position={[0, levelY(siteLevel), 0]}><SiteGround site={model.site} onPick={onPick} onPickPoint={onPickPoint} labelSize={route ? 2.4 : massing ? 3.4 : 6} labelLift={massing ? 8 : 0} hidden={hiddenSiteLabels} /></group>}
 
     {shown.map((number) => <group key={number} position={[0, levelY(number), 0]}>
       <FloorModel floor={model.byFloor.get(number)} wallHeight={wallHeight} showLabels={labelFloors.includes(number)}
-        highlightId={destination?.floor === number ? destination.id : null} onPick={onPick} labelScale={route ? 1 : 1.6} />
+        highlightId={destination?.floor === number ? destination.id : null} onPick={onPick} onPickPoint={onPickPoint} labelScale={route ? 1 : 1.6} />
     </group>)}
+    {massing && model.massing && <CampusBlocks massing={model.massing} siteLevel={siteLevel} bridges={model.bridges} onPickBuilding={onPickBuilding} />}
+
+    {shown.length > 1 && <VerticalCores model={model} floors={shown} levelY={levelY} highlight={usedShafts} />}
 
     {(model.bridges ?? []).filter((link) => shown.includes(link.from_floor) && shown.includes(link.to_floor)).map((link) =>
       <group key={link.from} position={[0, levelY(link.from_floor), 0]}><BridgeDeck link={link} /></group>)}
 
-    {shown.includes(kiosk.floor) && <>
+    {(shown.includes(kiosk.floor) || massing) && <>
       <LocationDot position={xz(kiosk.xy, levelY(kiosk.floor) + 0.4)} />
       <Html position={xz(kiosk.xy, levelY(kiosk.floor) + 0.4)} center zIndexRange={[20, 0]}>
         <div className="mt-12 whitespace-nowrap rounded-full bg-white px-3 py-1 text-sm font-bold text-[#1A57B8] shadow-md">You are here</div>
@@ -431,6 +468,7 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
       <div style={{ transform: 'translateY(-50%)' }}><MapPinIcon /></div>
     </Html>}
 
+    <ZoomCommands command={zoom} />
     <FitToScreen centre={centre} width={area.maxX - area.minX + height * 0.8} depth={area.maxY - area.minY} />
     <OrbitControls makeDefault target={centre} enableDamping maxPolarAngle={Math.PI / 2.1} minDistance={8} maxDistance={showSite ? 700 : 260} />
   </Canvas>

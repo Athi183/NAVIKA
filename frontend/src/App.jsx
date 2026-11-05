@@ -33,7 +33,8 @@ function AppShell() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <Header activeTab={activeTab} onSelect={handleSelect} />
-      <main className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+      {/* The kiosk's navigation map uses the whole width of the wide screen. */}
+      <main className={`mx-auto px-4 py-8 md:px-8 ${location.pathname === '/navigation' ? 'max-w-[1880px]' : 'max-w-7xl'}`}>
         <Routes>
           <Route path="/" element={<Home onNavigate={handleSelect} />} />
           <Route path="/assistant" element={<Assistant />} />

@@ -48,10 +48,13 @@ body {
   box-sizing: border-box;
 }
 
-button,
-input,
-select {
-  font: inherit;
+/* In the base layer so Tailwind's text-* / font-* classes on buttons still apply. */
+@layer base {
+  button,
+  input,
+  select {
+    font: inherit;
+  }
 }
 
 @keyframes fadeIn {
