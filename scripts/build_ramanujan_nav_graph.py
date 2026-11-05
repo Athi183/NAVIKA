@@ -533,6 +533,8 @@ def main():
             "rooms": f"floor_{floor_key(level)}_rooms.json",
             # The Second Floor is only walked through, from the bridge to the stairs/lifts.
             "transit_only": level == 2,
+            # 3D model from the floor's IFC, when scripts/pilot_ifc_floor.py has made one.
+            **({"ifc_model": f"floor_{floor_key(level)}_ifc.glb"} if (args.output_dir / f"floor_{floor_key(level)}_ifc.glb").exists() else {}),
         } for level, result in sorted(results.items())],
         "shafts": shafts,
         "vertical_nodes": vertical_nodes,

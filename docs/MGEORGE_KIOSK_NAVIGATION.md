@@ -191,6 +191,31 @@ names and positions, room outlines), aligned by her `stackedFloorConfig.ts`.
 - Room numbers run one ahead of the floor (5xx on the Fourth Floor, 6xx on
   the Fifth), as in the drawings. Floor names follow the drawings.
 
+## IFC pilot (Ramanujan Fifth Floor)
+
+`scripts/pilot_ifc_floor.py` tests whether the IFC models can improve the map.
+On `ram_5th.ifc` (66 walls, 19 doors, 1 slab; no rooms, stairs or lifts):
+
+- **The IFC was modelled about 19% too small.** It fits our Fifth Floor
+  (Mehrin's CAD) only when scaled by 1.232; then it is a quarter turn off,
+  with IFC walls a median 0.10 m from ours (90% within 0.28 m), covering 89%
+  of our wall lines. The CAD stays the reference for sizes.
+- **Door check:** the route into 10 rooms crosses their boundary at a real IFC
+  door. Rooms 611/612 and 613 are entered 1.5-2.7 m away from their doors
+  (probably a gap in the CAD walls, not a door); the Electrical Room has no
+  IFC door. Toilets, stairs and lifts have no room outline to check.
+- **3D model:** the IFC walls, doors and slab, fitted into our frame, are
+  written as `Ramanujan_nav/floor_R5_ifc.glb` (63 KB) and linked from
+  `building.json` (`ifc_model`). Open `/navigation?floor=R5&walls=ifc` to see it
+  in place of the CAD walls; the kiosk default is unchanged.
+- Report: `Ramanujan_nav/floor_R5_ifc.json`; picture:
+  `inspection_navigation/ifc_pilot_R5.png`.
+
+```bash
+PYTHONPATH=scripts .venv/bin/python scripts/pilot_ifc_floor.py \
+  data/original_sources/ramanujan_floor5/ram_5th.ifc R5 --preview inspection_navigation/ifc_pilot_R5.png
+```
+
 ## What visitors see
 
 The kiosk is a wide (landscape) touch screen at reception, used by one visitor

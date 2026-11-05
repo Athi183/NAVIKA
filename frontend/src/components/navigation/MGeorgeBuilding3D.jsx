@@ -1,7 +1,7 @@
 import { Suspense, useCallback, useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Billboard, Html, Line, OrbitControls, Text, useTexture } from '@react-three/drei'
+import { Billboard, Html, Line, OrbitControls, Text, useGLTF, useTexture } from '@react-three/drei'
 import { NAV_BLUE, NAV_BLUE_EDGE, NAV_WALKED, cumulativeLengths, routeProgress } from './navigationStyle'
 import { levelOf as levelOfFloor } from '../../services/mgeorgeRoute'
 import VerticalCores from './VerticalCores'
@@ -118,14 +118,26 @@ function BridgeDeck({ link }) {
   </mesh>
 }
 
+// Pilot: `?walls=ifc` draws a floor's IFC model (scripts/pilot_ifc_floor.py) in place of its CAD walls.
+const USE_IFC = new URLSearchParams(window.location.search).get('walls') === 'ifc'
+
+function IfcModel({ url }) {
+  const { scene } = useGLTF(url)
+  return <primitive object={scene} />
+}
+
 function FloorModel({ floor, wallHeight, showLabels, highlightId, onPick, onPickPoint, labelScale, showTag = true }) {
   const { walls, rooms, graph } = floor
   // Floor name at the north-west corner, where it stays in view.
   const tag = rooms ? [rooms.texture.origin_xy[0] + 2, rooms.texture.origin_xy[1] + rooms.texture.height_m + 2] : [-60, 40]
   return <group>
     {rooms && <Suspense fallback={null}><RoomFloor rooms={rooms} base={floor.base ?? '/data/MGeorge_nav'} onClick={pointPicker(onPickPoint, floor.floor_number)} /></Suspense>}
-    <WallMeshes segments={walls.segments.wall} color={WALL_COLOUR} height={wallHeight} thickness={0.14} />
-    <WallMeshes segments={walls.segments.window} color={WINDOW_COLOUR} height={wallHeight} thickness={0.08} opacity={0.55} />
+    {USE_IFC && floor.ifc_model
+      ? <Suspense fallback={null}><IfcModel url={`${floor.base}/${floor.ifc_model}`} /></Suspense>
+      : <>
+        <WallMeshes segments={walls.segments.wall} color={WALL_COLOUR} height={wallHeight} thickness={0.14} />
+        <WallMeshes segments={walls.segments.window} color={WINDOW_COLOUR} height={wallHeight} thickness={0.08} opacity={0.55} />
+      </>}
     <WallMeshes segments={walls.segments.stair} color={STAIR_COLOUR} height={0.3} thickness={0.06} />
     <Suspense fallback={null}>
       {showTag && <Billboard position={xz(tag, 1.5)}>

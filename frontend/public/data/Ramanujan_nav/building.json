@@ -34,7 +34,8 @@
    "graph": "floor_R5_walkable_graph.json",
    "walls": "floor_R5_walls.json",
    "rooms": "floor_R5_rooms.json",
-   "transit_only": false
+   "transit_only": false,
+   "ifc_model": "floor_R5_ifc.glb"
   },
   {
    "floor_number": "R6",
