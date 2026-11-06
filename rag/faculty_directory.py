@@ -1,33 +1,66 @@
 """
 Builds a structured faculty directory (name, designation, department,
-research interests) straight from the crawled department staff/faculty
-pages, for the frontend's faculty search dropdown.
+research interests, photo, and location where known) for the frontend's
+faculty search dropdown.
 
-Deliberately does NOT go through the LLM or the RAG retrieval pipeline --
-every department staff page already states each person's name and
-designation as plain, structured text ("Name\\nDesignation\\ninterests...
-\\nview\\nprofile", repeated per person; confirmed consistent across all
-18 staff/faculty pages crawled). Parsing that directly is both free
-(no Groq tokens spent, which matters a lot given how often this
-project has hit Groq's rate limits) and more reliable than asking a
-model to reproduce a list it could paraphrase or drop entries from.
+Parses each department staff/faculty page's LIVE HTML directly via
+BeautifulSoup rather than the already-crawled, text-only
+crawl_cache.pkl: the site renders each person as a clean, consistent
+`<a class="profileBx"><div class="imageBx"><img>...<div class="txtBx">
+<h5>Name</h5><h6>Designation</h6><ul><li>interest</li>...` block
+(confirmed identical across multiple different department pages), which
+pairs a person's name, designation, interests, and PHOTO together
+reliably by DOM structure. The old approach -- reconstructing this from
+flattened, HTML-stripped text via line-position heuristics -- had no way
+to recover a photo at all (extract_text() in ingest.py discards every
+<img> tag), and was inherently more fragile for everything else too.
+
+Still deliberately does NOT go through the LLM or RAG pipeline -- this
+is a live but plain, structured fetch-and-parse, no model call, no
+tokens spent, consistent with the rest of this app's directory-style
+endpoints (see placement_directory.py for the same reasoning in more
+detail).
 """
 
-import pickle
 import re
-from pathlib import Path
 
-CACHE_FILE = Path(__file__).resolve().parent / "crawl_cache.pkl"
+import requests
+from bs4 import BeautifulSoup
 
-_DESIGNATION_HINT = re.compile(
-    r"professor|lecturer|instructor|principal|chairperson|hod|h\.?o\.?d|"
-    r"librarian|assistant\s+head|asst\.?\s*head",
-    re.IGNORECASE,
-)
+_SESSION = requests.Session()
+_SESSION.headers.update({"User-Agent": "Mozilla/5.0 (compatible; NAVIKACollegeAssistant/1.0)"})
+_REQUEST_TIMEOUT = 15
 
-# Keyed by the URL prefix each department's staff/faculty pages use
-# (e.g. "cs-staff", "cs-faculty" both belong to "cs"). Taken from the
-# department directory this site itself links under /department/<code>.
+# One (or two, for departments split into "-faculty"/"-staff" and a
+# "technical staff" page) URL per department, confirmed directly against
+# the live site. Naming is inconsistent across departments (CSE's own
+# teaching-faculty page is "cs-staff", not "cs-faculty", unlike every
+# other department) -- found the hard way earlier in this project, so
+# every known page is listed explicitly here rather than guessed from a
+# naming pattern.
+_STAFF_PAGE_URLS = [
+    "https://mgmits.ac.in/cs-staff",
+    "https://mgmits.ac.in/cstechnicalstaff",
+    "https://mgmits.ac.in/ad-faculty",
+    "https://mgmits.ac.in/ad-staff",
+    "https://mgmits.ac.in/ca-faculty",
+    "https://mgmits.ac.in/ca-staff",
+    "https://mgmits.ac.in/cc-faculty",
+    "https://mgmits.ac.in/cc-staff",
+    "https://mgmits.ac.in/ce-faculty",
+    "https://mgmits.ac.in/ce-staff",
+    "https://mgmits.ac.in/ec-faculty",
+    "https://mgmits.ac.in/ec-technical-staff",
+    "https://mgmits.ac.in/ee-faculty",
+    "https://mgmits.ac.in/ee-technical-staff",
+    "https://mgmits.ac.in/me-faculty",
+    "https://mgmits.ac.in/bsh-faculty",
+    "https://mgmits.ac.in/bsh-technical-staff",
+]
+
+# Keyed by the URL prefix each department's pages use (e.g. "cs-staff",
+# "cs-faculty" both belong to "cs"). Taken from the department directory
+# this site itself links under /department/<code>.
 _DEPARTMENT_NAMES = {
     "ad": "Artificial Intelligence & Data Science",
     "bsh": "Basic Science and Humanities",
@@ -41,93 +74,82 @@ _DEPARTMENT_NAMES = {
     "me": "Mechanical Engineering",
 }
 
+# Only departments actually present in the reviewed Ramanujan Block DXF
+# floor-plan data (data/spatial/ramanujan_block/places.csv -- confirmed
+# directly, see spatial_lookup.py) get a location. The other departments
+# aren't covered by any DXF data this app has at all; returning a guess
+# for them would be worse than admitting it isn't known.
+_DEPARTMENT_LOCATIONS = {
+    "Computer Science & Engineering": "Ramanujan Block, Floors 2-5",
+    "Electrical & Electronics Engineering": "Ramanujan Block, Floor 2",
+    "Artificial Intelligence & Data Science": "Ramanujan Block, Floors 4-5",
+    "Cyber Security": "Ramanujan Block, Floor 6",
+}
 
-def _department_for_source(source_url):
-    path = source_url.rsplit("/", 1)[-1]
+
+def _department_for_url(url):
+    path = url.rsplit("/", 1)[-1]
     prefix = re.match(r"[a-z]+", path.lower())
     code = prefix.group(0) if prefix else ""
-    # Longest-prefix match first ("cstechnicalstaff" -> "cst" before "cs")
     for candidate in sorted(_DEPARTMENT_NAMES, key=len, reverse=True):
         if code.startswith(candidate):
             return _DEPARTMENT_NAMES[candidate]
     return "Unknown Department"
 
 
-def _parse_staff_page(text):
-    # Strip the "Page title: ...\nSource URL: ...\n\n" preamble this
-    # crawler prepends to every page.
-    body = text.split("\n\n", 1)[1] if "\n\n" in text else text
-    blocks = re.split(r"\n[Vv]iew\n[Pp]rofile\n?", body)
-
+def _parse_staff_page(html):
+    soup = BeautifulSoup(html, "html.parser")
     people = []
-    for index, block in enumerate(blocks):
-        if index == len(blocks) - 1:
-            # Trailing junk after the final real entry ("No Content" or
-            # nothing) -- every genuine entry is immediately followed by
-            # "view\nprofile", so the segment after the LAST one never is.
+
+    for block in soup.select("a.profileBx"):
+        name_tag = block.select_one(".txtBx h5")
+        designation_tag = block.select_one(".txtBx h6")
+        if not name_tag or not designation_tag:
             continue
 
-        lines = [line.strip() for line in block.split("\n") if line.strip()]
-        if index == 0:
-            # The first block also contains page-header/nav text before
-            # the first real name ("CSE Faculty\nCSE\nFaculty\n...") --
-            # find the designation line and take the name right before
-            # it, discarding everything earlier.
-            designation_index = next(
-                (i for i, line in enumerate(lines) if _DESIGNATION_HINT.search(line)),
-                None,
-            )
-            if designation_index is None or designation_index == 0:
-                continue
-            lines = lines[designation_index - 1:]
+        img_tag = block.select_one(".imageBx img")
+        # Lazy-loaded images here carry the real URL in data-src, with
+        # src left as a placeholder/duplicate -- data-src first, src as
+        # the fallback if a page doesn't use lazy-loading.
+        photo = None
+        if img_tag:
+            photo = img_tag.get("data-src") or img_tag.get("src")
 
-        if len(lines) < 2:
-            continue
+        interests = [li.get_text(strip=True) for li in block.select(".contLstWraP li")]
 
-        name, designation, *interests = lines
         people.append({
-            "name": name,
-            "designation": designation,
-            "interests": interests,
+            "name": name_tag.get_text(strip=True),
+            "designation": designation_tag.get_text(strip=True),
+            "interests": [i for i in interests if i],
+            "photo": photo,
         })
 
     return people
 
 
-def _is_staff_or_faculty_page(source_url):
-    if "storage" in source_url:
-        return False
-    return (
-        source_url.endswith("-staff")
-        or source_url.endswith("-faculty")
-        or source_url.endswith("cstechnicalstaff")
-    )
-
-
 def build_faculty_directory():
     """
     Returns a deduplicated, alphabetically-sorted list of
-    {name, designation, department, interests} across every crawled
-    department staff/faculty page. Safe to call once at process startup
-    and cache the result -- the underlying data only changes when
-    crawl_cache.pkl is regenerated by a fresh crawl.
+    {name, designation, department, interests, photo, location} by
+    fetching and parsing every known department staff/faculty page live.
+    Safe to call once at process startup and cache the result. A page
+    that fails to fetch (network issue, site down) is skipped rather than
+    failing the whole directory -- a partial directory is better than
+    none.
     """
 
-    if not CACHE_FILE.exists():
-        return []
-
-    with CACHE_FILE.open("rb") as f:
-        cached = pickle.load(f)
-    documents = cached["documents"] if isinstance(cached, dict) and "documents" in cached else cached
-
     directory = {}
-    for doc in documents:
-        source = doc.metadata.get("source", "")
-        if not _is_staff_or_faculty_page(source):
+    for url in _STAFF_PAGE_URLS:
+        try:
+            response = _SESSION.get(url, timeout=_REQUEST_TIMEOUT)
+            response.raise_for_status()
+        except requests.RequestException:
             continue
 
-        department = _department_for_source(source)
-        for person in _parse_staff_page(doc.page_content):
+        department = _department_for_url(url)
+        location = _DEPARTMENT_LOCATIONS.get(department)
+
+        for person in _parse_staff_page(response.text):
             key = person["name"].lower().strip()
             if key in directory:
                 continue
@@ -136,6 +158,8 @@ def build_faculty_directory():
                 "designation": person["designation"],
                 "department": department,
                 "interests": person["interests"],
+                "photo": person["photo"],
+                "location": location,
             }
 
     return sorted(directory.values(), key=lambda p: p["name"].lower())

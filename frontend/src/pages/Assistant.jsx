@@ -23,10 +23,18 @@ function formatFacultyDetails(person) {
     ? person.interests.map((item) => `- ${item}`).join('\n')
     : '_No research interests listed._'
 
+  const photo = person.photo ? `![${person.name}](${person.photo})\n\n` : ''
+  // Only the departments covered by the reviewed DXF floor-plan data
+  // (see rag/faculty_directory.py's _DEPARTMENT_LOCATIONS) have a real
+  // location -- for the rest, person.location is null, and saying
+  // nothing here is more honest than guessing a building.
+  const location = person.location ? `**Where to find them:** ${person.location}\n\n` : ''
+
   return (
-    `**${person.name}**\n\n` +
+    `${photo}**${person.name}**\n\n` +
     `**Designation:** ${person.designation}\n\n` +
     `**Department:** ${person.department}\n\n` +
+    `${location}` +
     `**Research Interests:**\n${interests}`
   )
 }

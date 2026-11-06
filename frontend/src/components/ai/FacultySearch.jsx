@@ -102,12 +102,24 @@ export default function FacultySearch({ faculty = [], onSelect, autoFocus = fals
                 // closes the list, so the click still lands on this row.
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => handlePick(person)}
-                className="flex w-full flex-col items-start gap-0.5 border-b border-slate-100 px-3 py-2 text-left last:border-b-0 hover:bg-brand-50"
+                className="flex w-full items-center gap-3 border-b border-slate-100 px-3 py-2 text-left last:border-b-0 hover:bg-brand-50"
               >
-                <span className="text-sm font-medium text-slate-800">{person.name}</span>
-                <span className="text-xs text-slate-500">
-                  {person.designation} · {person.department}
-                </span>
+                {person.photo ? (
+                  <img
+                    src={person.photo}
+                    alt={person.name}
+                    loading="lazy"
+                    className="h-10 w-10 shrink-0 rounded-full border border-slate-200 object-cover"
+                  />
+                ) : (
+                  <div className="h-10 w-10 shrink-0 rounded-full bg-slate-100" />
+                )}
+                <div className="flex flex-col items-start gap-0.5">
+                  <span className="text-sm font-medium text-slate-800">{person.name}</span>
+                  <span className="text-xs text-slate-500">
+                    {person.designation} · {person.department}
+                  </span>
+                </div>
               </button>
             ))
           )}

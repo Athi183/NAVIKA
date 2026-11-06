@@ -35,6 +35,18 @@ const MARKDOWN_COMPONENTS = {
     <th className="border-b border-slate-200 px-3 py-2 font-semibold text-slate-700">{children}</th>
   ),
   td: ({ children }) => <td className="border-b border-slate-100 px-3 py-2 align-top">{children}</td>,
+  // Used by the faculty-search result card (see formatFacultyDetails in
+  // Assistant.jsx) -- a bare markdown image with no size rule here would
+  // render at the photo's native resolution, which can be huge inside a
+  // chat bubble.
+  img: ({ src, alt }) => (
+    <img
+      src={src}
+      alt={alt || 'Photo'}
+      className="mb-3 h-28 w-28 rounded-2xl border border-slate-200 object-cover"
+      loading="lazy"
+    />
+  ),
 }
 
 export default function ChatMessage({ speaker, text, timestamp, isLoading = false, isSpeaking = false, onToggleSpeak }) {
