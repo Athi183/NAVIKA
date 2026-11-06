@@ -27,9 +27,12 @@ const TILES = [
   },
   {
     title: 'Admissions',
-    subtitle: 'How to join MITS',
+    subtitle: 'Check if you’re eligible to apply',
     icon: GraduationCap,
-    action: (navigate) => navigate('/assistant', { state: { presetQuery: 'What are the admission requirements?' } }),
+    // The dedicated page lets a visitor enter their own marks and get an
+    // honest, instant eligibility check -- no LLM round trip, and no
+    // risk of the model phrasing a real eligibility question loosely.
+    action: (navigate) => navigate('/admissions'),
   },
   {
     title: 'Departments',
