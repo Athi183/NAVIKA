@@ -19,6 +19,7 @@ import main as interaction_main  # noqa: E402
 import tts as interaction_tts  # noqa: E402
 from faculty_directory import build_faculty_directory  # noqa: E402
 from placement_directory import build_placement_directory  # noqa: E402
+from department_directory import build_department_directory  # noqa: E402
 
 
 app = Flask(__name__)
@@ -102,6 +103,12 @@ def tts_malayalam():
 # is restarted anyway.
 FACULTY_DIRECTORY = build_faculty_directory()
 PLACEMENT_DIRECTORY = build_placement_directory()
+# Passed the already-built faculty list rather than building its own --
+# department_directory.py cross-references it for each department's HOD
+# photo, and faculty_directory.build_faculty_directory() does a ~10s live
+# fetch per staff/faculty page; redoing that here would double startup
+# time for no benefit.
+DEPARTMENT_DIRECTORY = build_department_directory(FACULTY_DIRECTORY)
 
 
 @app.route("/api/faculty", methods=["GET"])
@@ -112,6 +119,11 @@ def faculty_directory():
 @app.route("/api/placements", methods=["GET"])
 def placement_directory():
     return jsonify({"batches": PLACEMENT_DIRECTORY})
+
+
+@app.route("/api/departments", methods=["GET"])
+def department_directory():
+    return jsonify({"departments": DEPARTMENT_DIRECTORY})
 
 
 @app.route("/api/reset", methods=["POST"])

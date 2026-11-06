@@ -38,7 +38,7 @@ const TILES = [
     title: 'Departments',
     subtitle: 'See what we teach here',
     icon: Building2,
-    action: (navigate) => navigate('/assistant', { state: { presetQuery: 'What departments are available?' } }),
+    action: (navigate) => navigate('/departments'),
   },
   {
     title: 'Placements',

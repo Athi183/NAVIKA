@@ -578,3 +578,21 @@ export async function getPlacementDirectory() {
     return []
   }
 }
+
+// Backed by /api/departments -- rag/department_directory.py (no LLM call).
+export async function getDepartmentDirectory() {
+  if (demoMode) {
+    return []
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/departments`)
+    if (!response.ok) {
+      return []
+    }
+    const data = await response.json()
+    return data.departments ?? []
+  } catch {
+    return []
+  }
+}

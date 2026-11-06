@@ -7,6 +7,7 @@ import NavigationPage from './pages/Navigation'
 import MobileRoute from './pages/MobileRoute'
 import Placements from './pages/Placements'
 import Admissions from './pages/Admissions'
+import Departments from './pages/Departments'
 
 function AppShell() {
   const navigate = useNavigate()
@@ -40,6 +41,7 @@ function AppShell() {
           <Route path="/mobile-route" element={<MobileRoute />} />
           <Route path="/placements" element={<Placements />} />
           <Route path="/admissions" element={<Admissions />} />
+          <Route path="/departments" element={<Departments />} />
           <Route
             path="/about"
             element={
