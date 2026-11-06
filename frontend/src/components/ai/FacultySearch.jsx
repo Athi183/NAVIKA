@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronDown, Search, X } from 'lucide-react'
 
 const MAX_RESULTS = 8
@@ -7,10 +7,22 @@ const MAX_RESULTS = 8
 // departments, scrolling a native dropdown to find one name is exactly
 // the friction this feature exists to remove. Typing "sheena" or
 // "cyber security" narrows it instantly instead.
-export default function FacultySearch({ faculty = [], onSelect }) {
+export default function FacultySearch({ faculty = [], onSelect, autoFocus = false }) {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const inputRef = useRef(null)
+
+  // autoFocus can't just run once on mount: `faculty` arrives async (see
+  // Assistant.jsx's own fetch effect) and this component renders nothing
+  // at all until it does (the `faculty.length === 0` guard below), so an
+  // on-mount focus would fire before the input element even exists. Wait
+  // for the directory to actually be there instead.
+  useEffect(() => {
+    if (autoFocus && faculty.length > 0) {
+      inputRef.current?.focus()
+      setIsOpen(true)
+    }
+  }, [autoFocus, faculty.length])
 
   const results = useMemo(() => {
     const needle = query.trim().toLowerCase()

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ArrowUp, ChevronDown } from 'lucide-react'
 import Button from '../components/common/Button'
 import Card from '../components/common/Card'
@@ -80,6 +81,16 @@ export default function Assistant() {
   const lastVoiceTranscriptRef = useRef('')
   const suggestions = useMemo(() => demoSuggestions, [])
 
+  // A kiosk home-screen button (Home.jsx) can deep-link straight into an
+  // answer instead of landing on an empty chat -- navigate('/assistant',
+  // { state: { presetQuery: '...' } }) for a one-tap question, or
+  // { state: { focusFacultySearch: true } } to land with the faculty
+  // search box already open. location.state is read once on mount only
+  // (see the two effects below); it's not meant to react to later
+  // in-page navigation.
+  const location = useLocation()
+  const [focusFacultySearch] = useState(() => Boolean(location.state?.focusFacultySearch))
+
   // Fetched once per page load, not per keystroke in FacultySearch --
   // it's a stable list until the site is re-crawled and the backend
   // restarted, so there's nothing to gain from re-fetching it on every
@@ -129,6 +140,20 @@ export default function Assistant() {
 
     speakMessage(responseId, response.text)
   }
+
+  // Fires once on page load when a kiosk home-screen button sent a
+  // preset question (see the location.state comment above) -- the
+  // empty dependency array plus the ref guard means this can never
+  // re-fire on a later re-render, only on the initial mount.
+  const hasAskedPreset = useRef(false)
+  useEffect(() => {
+    const presetQuery = location.state?.presetQuery
+    if (presetQuery && !hasAskedPreset.current) {
+      hasAskedPreset.current = true
+      handleAsk(presetQuery)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Answers instantly from the already-fetched directory data (see
   // formatFacultyDetails above) instead of calling handleAsk/askNavika --
@@ -250,7 +275,7 @@ export default function Assistant() {
       </div>
 
       <Card className="p-4">
-        <FacultySearch faculty={facultyDirectory} onSelect={handleFacultySelect} />
+        <FacultySearch faculty={facultyDirectory} onSelect={handleFacultySelect} autoFocus={focusFacultySearch} />
 
         <div className="mb-4">
           <button
