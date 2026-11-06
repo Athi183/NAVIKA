@@ -561,19 +561,32 @@ Response:
     else:
         retrieval_query = question
         if history:
-            retrieval_query = f"{history[-1]['question']} {question}"
+            previous_turn = history[-1]
+            previous_question = previous_turn.get("question", "")
+            # Truncated, not the full previous answer -- a past merge
+            # introduced an unbounded fold-in here (a second, unconditional
+            # "if history" block right after this one, overwriting it
+            # regardless of language and dropping in the entire previous
+            # answer). Confirmed live: after a long "tell me about the
+            # college" answer, the very next question's retrieval_query
+            # inherited its whole vocabulary, which both FAISS retrieval
+            # and -- worse -- the keyword-based augment_documents_for()
+            # trigger matching and the lexical-match loop below then took
+            # literally, over-triggering several unrelated
+            # GATED_AUGMENT_GROUPS and ballooning a normal ~7k-char prompt
+            # to 21,678 chars. The resulting noise was enough to make the
+            # LLM answer "I couldn't find that information" to a plainly
+            # answerable follow-up, and took 40+ seconds besides. A short
+            # snippet still carries forward whatever entity the previous
+            # answer named (for "where is it"-style follow-ups) without
+            # dragging in an entire long answer's unrelated vocabulary.
+            previous_answer = previous_turn.get("answer", "")[:300]
+            retrieval_query = (
+                f"{previous_question}\n"
+                f"{previous_answer}\n"
+                f"Current question: {question}"
+            )
 
-    if history:
-        previous_turn = history[-1]
-
-        previous_question = previous_turn.get("question", "")
-        previous_answer = previous_turn.get("answer", "")
-
-        retrieval_query = (
-            f"{previous_question}\n"
-            f"{previous_answer}\n"
-            f"Current question: {question}"
-        )
     # 1. Retrieve semantically relevant documents.
     documents = retriever.invoke(retrieval_query)
 
