@@ -1,0 +1,17 @@
+# One Python environment for the whole project:
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+# Each part keeps its own requirements file; this just combines them.
+
+-r backend/requirements.txt
+-r rag/requirements.txt
+-r interaction/requirements.txt
+
+# DXF / IFC data pipelines (scripts/, backend/navigation/tools/)
+ezdxf==1.4.4
+ifcopenshell==0.9.0
+matplotlib==3.11.2
+numpy==2.5.2
+scipy==1.18.1
+shapely==2.1.2
+trimesh==5.2.0

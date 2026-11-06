@@ -1,0 +1,243 @@
+{
+  "schema_version": "navika-destinations-0.1",
+  "building": "M. George Block",
+  "floor_number": 0,
+  "floor_label": "Ground Floor",
+  "coordinate_system": "metres in floor 1's frame (see FLOOR_OFFSETS in scripts/build_mgeorge_nav_graph.py); x east, y north",
+  "sources": {
+    "names": "DXF design labels (generated); replace with the current room-use plan when available",
+    "positions": "data/original_sources/m_george/college plans 3 (1).dxf"
+  },
+  "kiosk": null,
+  "destinations": [
+    {
+      "id": "mg0_exit_00",
+      "pdf_no": null,
+      "name": "Fire Exit",
+      "category": "exit",
+      "xy": [
+        -24.653,
+        -7.484
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'FIRE ESCAPE STAIR'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_01",
+      "pdf_no": null,
+      "name": "Fire Lift (east wing)",
+      "category": "lift",
+      "xy": [
+        47.195,
+        -6.8
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'FIRE LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_02",
+      "pdf_no": null,
+      "name": "Fire Lift 1 (centre)",
+      "category": "lift",
+      "xy": [
+        7.833,
+        9.09
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'FIRE LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_03",
+      "pdf_no": null,
+      "name": "Fire Lift 2 (centre)",
+      "category": "lift",
+      "xy": [
+        8.424,
+        19.531
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'FIRE LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_04",
+      "pdf_no": null,
+      "name": "Fire Lift 3 (centre)",
+      "category": "lift",
+      "xy": [
+        18.45,
+        22.251
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'FIRE LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_05",
+      "pdf_no": null,
+      "name": "Lift 1 (centre)",
+      "category": "lift",
+      "xy": [
+        8.828,
+        22.229
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_06",
+      "pdf_no": null,
+      "name": "Lift 1 (east wing)",
+      "category": "lift",
+      "xy": [
+        47.458,
+        -4.025
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_07",
+      "pdf_no": null,
+      "name": "Lift 2 (centre)",
+      "category": "lift",
+      "xy": [
+        18.712,
+        19.47
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_08",
+      "pdf_no": null,
+      "name": "Lift 2 (east wing)",
+      "category": "lift",
+      "xy": [
+        51.575,
+        -4.498
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_lift_09",
+      "pdf_no": null,
+      "name": "Lift 3 (centre)",
+      "category": "lift",
+      "xy": [
+        19.098,
+        8.964
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'LIFT'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_office_10",
+      "pdf_no": null,
+      "name": "Staff",
+      "category": "office",
+      "xy": [
+        51.749,
+        -10.835
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'STAFF'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_service_11",
+      "pdf_no": null,
+      "name": "Store",
+      "category": "service",
+      "xy": [
+        18.49,
+        26.601
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'STORE'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_stairs_12",
+      "pdf_no": null,
+      "name": "Staircase 1 (centre)",
+      "category": "stairs",
+      "xy": [
+        11.933,
+        23.079
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'MAIN STAIR'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_stairs_13",
+      "pdf_no": null,
+      "name": "Staircase 1 (east wing)",
+      "category": "stairs",
+      "xy": [
+        41.873,
+        2.215
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'MAIN STAIR'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_stairs_14",
+      "pdf_no": null,
+      "name": "Staircase 2 (centre)",
+      "category": "stairs",
+      "xy": [
+        12.609,
+        26.46
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'STAIR WELL'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_stairs_15",
+      "pdf_no": null,
+      "name": "Staircase 2 (east wing)",
+      "category": "stairs",
+      "xy": [
+        61.907,
+        8.206
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'STAIR'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_toilet_16",
+      "pdf_no": null,
+      "name": "Accessible Toilet",
+      "category": "toilet",
+      "xy": [
+        18.202,
+        28.107
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'H.TOILET'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_toilet_17",
+      "pdf_no": null,
+      "name": "Gents Toilet",
+      "category": "toilet",
+      "xy": [
+        -18.961,
+        26.816
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'GENTS'; current room use not yet confirmed."
+    },
+    {
+      "id": "mg0_toilet_18",
+      "pdf_no": null,
+      "name": "Ladies Toilet",
+      "category": "toilet",
+      "xy": [
+        -21.184,
+        27.705
+      ],
+      "confidence": "low",
+      "note": "DXF design label 'LADIES'; current room use not yet confirmed."
+    }
+  ],
+  "not_placed": []
+}

@@ -15,7 +15,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "public/data/MITS_Main_Block"
+OUT = ROOT / "ramanujan-viewer/public/data/MITS_Main_Block"
 MAIN_DXF = Path("/home/athira-v/Downloads/MAIN BLOCK FLOOR PLANS (1)_recover (1).dxf")
 BASEMENT_DXF = Path("/home/athira-v/Downloads/basement.dxf")
 

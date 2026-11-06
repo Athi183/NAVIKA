@@ -1,3 +1,4 @@
+import importlib.util
 import os
 import sys
 import uuid
@@ -10,9 +11,8 @@ from flask_cors import CORS
 # CWD) so this works regardless of where the server is launched from.
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INTERACTION_DIR = os.path.join(BASE_DIR, "..", "interaction")
-RAG_DIR = os.path.join(BASE_DIR, "..", "rag")
+RAG_APP_FILE = os.path.join(BASE_DIR, "..", "rag", "app.py")
 sys.path.append(INTERACTION_DIR)
-sys.path.append(RAG_DIR)
 
 from context import ConversationContext  # noqa: E402
 import main as interaction_main  # noqa: E402
@@ -25,17 +25,48 @@ from department_directory import build_department_directory  # noqa: E402
 app = Flask(__name__)
 CORS(app)
 
-# One ConversationContext per browser session, kept in memory. Fine for
+MAX_HISTORY = 5
+
+# One ConversationContext (NLU follow-ups) plus the recent question/answer
+# pairs (RAG follow-ups) per browser session, kept in memory. Fine for
 # a single-process demo deployment; a multi-worker/production setup
 # would need a shared store (Redis, a DB) instead, since each worker
 # process would otherwise have its own separate SESSIONS dict.
 SESSIONS = {}
 
+_rag = None
 
-def get_context(session_id):
+
+def get_session(session_id):
     if session_id not in SESSIONS:
-        SESSIONS[session_id] = ConversationContext()
+        SESSIONS[session_id] = {"context": ConversationContext(), "exchanges": []}
     return SESSIONS[session_id]
+
+
+def get_rag():
+    """Load rag/app.py once, by path. Importing it as `app` would pick up
+    this file instead, since both modules share that name."""
+    global _rag
+    if _rag is None:
+        # rag/app.py imports its sibling modules (spatial_lookup, ...).
+        sys.path.append(os.path.dirname(RAG_APP_FILE))
+        spec = importlib.util.spec_from_file_location("navika_rag_app", RAG_APP_FILE)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        _rag = module
+    return _rag
+
+
+def answer_from_rag(structured_query, exchanges):
+    try:
+        return get_rag().ask_question(
+            structured_query["clean_text"],
+            history=exchanges,
+            intent=structured_query["intent"],
+        )
+    except Exception as error:
+        app.logger.exception("RAG unavailable: %s", error)
+        return "Sorry, I can't reach the campus knowledge base right now. Please try again in a moment."
 
 
 @app.route("/api/health", methods=["GET"])
@@ -52,14 +83,12 @@ def chat():
     if not message:
         return jsonify({"error": "message is required"}), 400
 
-    context = get_context(session_id)
+    session = get_session(session_id)
 
-    structured_query = interaction_main.process_query(message, context)
+    structured_query = interaction_main.process_query(message, session["context"])
 
-    answer = interaction_main.get_answer_from_rag(
-        structured_query, history=context.recent_exchanges()
-    )
-    context.record_exchange(message, answer)
+    answer = answer_from_rag(structured_query, session["exchanges"])
+    session["exchanges"] = (session["exchanges"] + [{"question": message, "answer": answer}])[-MAX_HISTORY:]
 
     return jsonify({
         "session_id": session_id,
@@ -132,7 +161,8 @@ def reset():
     session_id = data.get("session_id")
 
     if session_id in SESSIONS:
-        SESSIONS[session_id].reset()
+        SESSIONS[session_id]["context"].reset()
+        SESSIONS[session_id]["exchanges"] = []
 
     return jsonify({"status": "ok"})
 

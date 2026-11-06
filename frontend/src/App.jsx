@@ -8,6 +8,7 @@ import MobileRoute from './pages/MobileRoute'
 import Placements from './pages/Placements'
 import Admissions from './pages/Admissions'
 import Departments from './pages/Departments'
+import PhoneRoute from './pages/PhoneRoute'
 
 function AppShell() {
   const navigate = useNavigate()
@@ -29,11 +30,14 @@ function AppShell() {
   }
 
   if (location.pathname === '/mobile-route') return <MobileRoute />
+  // QR hand-off from the kiosk: phone-only page, no header or other tabs.
+  if (location.pathname === '/route') return <PhoneRoute />
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <Header activeTab={activeTab} onSelect={handleSelect} />
-      <main className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+      {/* The kiosk's navigation map uses the whole width of the wide screen. */}
+      <main className={`mx-auto px-4 py-8 md:px-8 ${location.pathname === '/navigation' ? 'max-w-[1880px]' : 'max-w-7xl'}`}>
         <Routes>
           <Route path="/" element={<Home onNavigate={handleSelect} />} />
           <Route path="/assistant" element={<Assistant />} />

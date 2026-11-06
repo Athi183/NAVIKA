@@ -15,7 +15,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "public/data/MGeorge_IFC"
+OUT = ROOT / "ramanujan-viewer/public/data/MGeorge_IFC"
 INPUTS = [
     (Path("/home/athira-v/Downloads/MG SECOND FLOOR_rvt.ifc"), "mgeorge_second", "Second Floor", "main_f2"),
     (Path("/home/athira-v/Downloads/MG 3RD FLOOR_rvt.ifc"), "mgeorge_third", "Third Floor", None),
@@ -167,7 +167,7 @@ def enum_names(entities, entity_type):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    dxf_path = ROOT / "public/data/MITS_Main_Block/main_f2.json"
+    dxf_path = ROOT / "ramanujan-viewer/public/data/MITS_Main_Block/main_f2.json"
     dxf = json.loads(dxf_path.read_text(encoding="utf-8"))
     dxf_bounds = dxf.get("registration_bounds_xy", dxf["plan_bounds_xy"])
     dxf_x0, dxf_y0, dxf_x1, dxf_y1 = dxf_bounds

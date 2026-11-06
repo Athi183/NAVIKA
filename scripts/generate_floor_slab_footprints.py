@@ -9,7 +9,7 @@ Semantic floor-region polygons for staircase/lift records are retained as slab
 holes only where the source already supplies such a polygon.
 
 Requires Pillow, already used by the repository's inspection environment.
-This writes only public/data/floor_slab_footprints.json; it does not modify the
+This writes only ramanujan-viewer/public/data/floor_slab_footprints.json; it does not modify the
 source walls, semantics, or floor-region files.
 """
 
@@ -103,7 +103,7 @@ def boundary_loops(mask: Image.Image) -> list[list[tuple[int, int]]]:
 
 
 def recover_floor(floor: int) -> dict:
-    data_dir = ROOT / "public" / "data" / f"Ramanujan_F{floor}"
+    data_dir = ROOT / "ramanujan-viewer" / "public" / "data" / f"Ramanujan_F{floor}"
     walls_data = json.loads((data_dir / "walls.json").read_text())
     wall_segments = walls_data["walls"]
     xs = [wall[key] for wall in wall_segments for key in ("x1", "x2")]
@@ -181,7 +181,7 @@ def recover_floor(floor: int) -> dict:
 
 
 def main() -> None:
-    output = ROOT / "public" / "data" / "floor_slab_footprints.json"
+    output = ROOT / "ramanujan-viewer" / "public" / "data" / "floor_slab_footprints.json"
     result = {
         "schema_version": 1,
         "coordinate_system": "Source CAD XY; render with localX = cadX - floorMinX and localZ = -(cadY - floorMinY)",
