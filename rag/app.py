@@ -492,10 +492,38 @@ def translate_to_english(malayalam_text):
     gets both good retrieval AND an answer in the question's own language.
     Raises on failure — the caller falls back to retrieving on the
     untranslated text rather than failing the whole question.
+
+    The extra instructions below (beyond a bare translation) exist to
+    fix a confirmed, reproduced failure: a voice-transcribed "2022-2026
+    batch placement status" question came through the browser's
+    Malayalam speech recognizer with "batch" misheard as "watch" and
+    "placement" as "plus one" (both genuine, plausible mishearings of
+    those English loanwords), and the years spoken out as words
+    ("twenty twenty two...") rather than digits. A bare translation
+    preserved all of that literally -- "Watch Plus One" contains none of
+    _placement_docs_for's trigger words, and _YEAR_PATTERN only matches
+    digits, so the batch's actual recruiter table never got retrieved at
+    all; the answer fell back to a generic, wrong summary instead.
+    Giving the translator domain context (so it prefers a plausible
+    campus/placement term over a literal nonsense one) and an explicit
+    instruction to write spoken numbers as digits fixes both at once --
+    confirmed against this exact transcript, which now translates to
+    "...the 2022-2026 batch...placements..." and correctly matches the
+    right table.
     """
 
     prompt = (
-        "Translate the following Malayalam text to English. "
+        "Translate the following Malayalam text to English. This text is "
+        "a voice-transcribed question to a college campus assistant "
+        "(admissions, placements, departments, facilities) -- the speech "
+        "recognizer sometimes mishears an English loanword as an "
+        "unrelated but similar-sounding Malayalam word (for example, "
+        "hearing \"batch\" as \"watch\", or \"placement\" as \"plus one\"); "
+        "where a word doesn't make sense in a campus/placement context "
+        "but a similar-sounding campus term would, translate it as that "
+        "campus term instead. Spoken-out numbers (e.g. \"twenty twenty "
+        "two\") must be written as digits (e.g. \"2022\"), and a spoken "
+        "year range must be written with a hyphen (e.g. \"2022-2026\"). "
         "Respond with ONLY the translation, no other text.\n\n"
         f"{malayalam_text}"
     )
