@@ -67,10 +67,10 @@ export default function Home() {
   return (
     <div className="space-y-10">
       <div className="text-center">
-        <h1 className="text-4xl font-black tracking-tight text-slate-900 md:text-6xl">
+        <h1 className="text-4xl font-black tracking-tight text-ink-900 md:text-6xl">
           How can we help you today?
         </h1>
-        <p className="mt-4 text-lg text-slate-600">Tap a button below to get started.</p>
+        <p className="mt-4 text-lg font-semibold text-slate-600">Tap a button below to get started.</p>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -79,14 +79,14 @@ export default function Home() {
             key={title}
             type="button"
             onClick={() => action(navigate)}
-            className="group flex flex-col items-center gap-4 rounded-[28px] border-2 border-slate-200 bg-white px-6 py-10 text-center shadow-[0_12px_30px_rgba(216,21,28,0.08)] transition-all duration-200 hover:-translate-y-1 hover:border-brand-400 hover:shadow-[0_18px_40px_rgba(216,21,28,0.16)] focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-300 active:translate-y-0"
+            className="group flex flex-col items-center gap-4 rounded-2xl border-[3px] border-ink-900 bg-white px-6 py-10 text-center shadow-[6px_6px_0_0_#160f0f] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-[9px_9px_0_0_#160f0f] focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-300 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[3px_3px_0_0_#160f0f]"
           >
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-brand-100 text-brand-500 transition-colors group-hover:bg-brand-500 group-hover:text-white">
+            <div className="flex h-20 w-20 items-center justify-center rounded-xl border-[3px] border-ink-900 bg-accent-300 text-ink-900 transition-colors group-hover:bg-brand-500 group-hover:text-white">
               <Icon className="h-10 w-10" strokeWidth={2} />
             </div>
             <div>
-              <div className="text-2xl font-bold text-slate-900">{title}</div>
-              <p className="mt-2 text-base text-slate-500">{subtitle}</p>
+              <div className="text-2xl font-black text-ink-900">{title}</div>
+              <p className="mt-2 text-base font-semibold text-slate-500">{subtitle}</p>
             </div>
           </button>
         ))}

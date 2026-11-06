@@ -53,9 +53,9 @@ function useWakeLock(active) {
 }
 
 function Notice({ icon: Icon, title, children }) {
-  return <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50 px-6 text-center">
+  return <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-cream-50 px-6 text-center">
     <Icon className="h-14 w-14 text-brand-500" />
-    <h1 className="text-2xl font-black text-slate-900">{title}</h1>
+    <h1 className="text-2xl font-black text-ink-900">{title}</h1>
     <div className="max-w-sm text-lg leading-7 text-slate-600">{children}</div>
   </div>
 }
@@ -113,8 +113,8 @@ export default function PhoneRoute() {
     setEnded(true)
   }
 
-  return <div className="flex min-h-screen flex-col bg-white text-slate-900">
-    <header className="space-y-1 border-b border-slate-200 px-4 pb-3 pt-4">
+  return <div className="flex min-h-screen flex-col bg-cream-50 text-ink-900">
+    <header className="space-y-1 border-b-[3px] border-ink-900 bg-white px-4 pb-3 pt-4">
       <p className="text-sm text-slate-500">From <span className="font-semibold text-slate-700">Reception kiosk, M. George Block</span></p>
       <h1 className="text-2xl font-black leading-tight">{destination.name}</h1>
       <p className="flex flex-wrap items-center gap-x-3 text-base text-slate-600">
@@ -124,7 +124,7 @@ export default function PhoneRoute() {
       </p>
     </header>
 
-    <section className="h-[46vh] min-h-[300px] border-b border-slate-200">
+    <section className="h-[46vh] min-h-[300px] border-b-[3px] border-ink-900">
       <MGeorgeBuilding3D model={model} floors={scene.floors} labelFloors={walking ? scene.floors : destination.floor === SITE ? [] : [destination.floor]} route={route}
         destination={destination} showSite={scene.outside} focus={scene.focus} follow={scene.follow} />
     </section>
@@ -132,34 +132,34 @@ export default function PhoneRoute() {
     <main className="flex flex-1 flex-col gap-4 px-4 py-4">
       {!walking
         ? <>
-          <p className="rounded-2xl bg-blue-50 p-4 text-lg font-semibold leading-7 text-blue-950">{routeSummary(route, destination)}</p>
+          <p className="rounded-xl border-[3px] border-ink-900 bg-blue-50 p-4 text-lg font-semibold leading-7 text-blue-950">{routeSummary(route, destination)}</p>
           <ol className="space-y-2 text-base leading-6">
             {route.steps.map((item, index) => <li key={index} className="flex gap-3">
               <span className="w-6 shrink-0 text-right font-bold text-slate-400">{index + 1}</span>
               <span className={item.transition ? 'font-semibold text-violet-800' : ''}>{item.text}</span>
             </li>)}
           </ol>
-          <button type="button" onClick={() => setStepIndex(0)} className="mt-auto flex items-center justify-center gap-2 rounded-2xl bg-brand-500 px-5 py-4 text-xl font-bold text-white">
+          <button type="button" onClick={() => setStepIndex(0)} className="mt-auto flex items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
             <Navigation className="h-6 w-6" />Start
           </button>
         </>
         : <>
           <p className="text-sm font-bold uppercase tracking-widest text-slate-500">Step {stepIndex + 1} of {route.steps.length} · {floorName(step.floor)}</p>
-          <div className="flex gap-4 rounded-2xl bg-slate-50 p-4">
-            <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white ${lastStep ? 'bg-brand-500' : step.transition ? 'bg-violet-600' : 'bg-slate-900'}`}>
+          <div className="flex gap-4 rounded-xl border-[3px] border-ink-900 bg-white p-4">
+            <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white ${lastStep ? 'bg-brand-500' : step.transition ? 'bg-violet-600' : 'bg-ink-900'}`}>
               <StepIcon step={step} last={lastStep} />
             </span>
             <p className="text-xl font-semibold leading-8">{step.text}</p>
           </div>
           <div className="mt-auto space-y-3">
             {lastStep
-              ? <button type="button" onClick={stop} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-red-600 px-5 py-4 text-xl font-bold text-white">
+              ? <button type="button" onClick={stop} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-red-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
                 <CircleCheck className="h-6 w-6" />I have arrived · Stop
               </button>
-              : <button type="button" onClick={() => setStepIndex(stepIndex + 1)} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-900 px-5 py-4 text-xl font-bold text-white">
+              : <button type="button" onClick={() => setStepIndex(stepIndex + 1)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-ink-900 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
                 Next step<ArrowRight className="h-6 w-6" />
               </button>}
-            <button type="button" onClick={() => setStepIndex(stepIndex === 0 ? null : stepIndex - 1)} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-100 px-5 py-3 text-lg font-semibold text-slate-700">
+            <button type="button" onClick={() => setStepIndex(stepIndex === 0 ? null : stepIndex - 1)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold text-ink-900">
               <ArrowLeft className="h-5 w-5" />{stepIndex === 0 ? 'Back to overview' : 'Previous step'}
             </button>
           </div>

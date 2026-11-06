@@ -62,14 +62,14 @@ function useIdleReset(onReset) {
 
 function Chip({ active, onClick, children }) {
   return <button type="button" onClick={onClick}
-    className={`rounded-full px-5 py-3 text-base font-semibold ${active ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}>
+    className={`rounded-full border-[3px] border-ink-900 px-5 py-3 text-base font-bold ${active ? 'bg-ink-900 text-white' : 'bg-white text-ink-900 hover:bg-brand-100'}`}>
     {children}
   </button>
 }
 
 function PlaceButton({ place, onPick }) {
   return <button type="button" onClick={() => onPick(place)}
-    className="flex min-h-[76px] items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-left shadow-sm hover:border-brand-400 hover:shadow">
+    className="flex min-h-[76px] items-center justify-between gap-3 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-4 text-left shadow-[3px_3px_0_0_#160f0f] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_#160f0f]">
     <span>
       <span className="block text-lg font-bold leading-6 text-slate-900">{place.name}</span>
       <span className="text-sm text-slate-500">{place.floorName} · {CATEGORY_LABELS[place.category] || place.category}</span>
@@ -145,7 +145,7 @@ function mapScene(model, { building, floor }) {
 
 function PlaceCard({ model, place, onRoute, onClose }) {
   const route = useMemo(() => routeFromKiosk(model, place), [model, place])
-  return <div className="space-y-3 rounded-2xl border-2 border-brand-400 bg-white p-4 shadow-md">
+  return <div className="space-y-3 rounded-xl border-[3px] border-ink-900 bg-white p-4 shadow-[4px_4px_0_0_#d8151c]">
     <div className="flex items-start justify-between gap-2">
       <div>
         <p className="text-2xl font-black leading-tight text-slate-900">{place.name}</p>
@@ -158,7 +158,7 @@ function PlaceCard({ model, place, onRoute, onClose }) {
       <span className="flex items-center gap-1"><Footprints className="h-5 w-5 text-brand-500" />{Math.round(route.distanceM)} m</span>
       {place.floor === model.kiosk.floor && <span className="text-blue-700">Same floor as you</span>}
     </p>}
-    <button type="button" onClick={() => onRoute(place)} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-sm hover:brightness-95">
+    <button type="button" onClick={() => onRoute(place)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#160f0f] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
       <Navigation className="h-6 w-6" />Show me the way
     </button>
   </div>
@@ -207,13 +207,13 @@ function KioskHome({ model, lastPlace, onRoute, onThanks }) {
 
   return <div className="flex h-[calc(100dvh-10rem)] min-h-[560px] flex-col gap-3">
     <div className="relative flex gap-3">
-      <label className="flex flex-1 items-center gap-3 rounded-2xl border-2 border-slate-300 bg-white px-5 py-3 focus-within:border-brand-500">
+      <label className="flex flex-1 items-center gap-3 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 shadow-[3px_3px_0_0_#160f0f] focus-within:shadow-[5px_5px_0_0_#160f0f]">
         <Search className="h-7 w-7 text-slate-400" />
         <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Where do you want to go? e.g. library, principal, canteen…" className="w-full bg-transparent text-xl outline-none" aria-label="Search places" />
         {query && <button type="button" onClick={() => setQuery('')} className="rounded-full p-2 text-slate-500 hover:bg-slate-100" aria-label="Clear search"><X className="h-6 w-6" /></button>}
       </label>
       <ThankYouButton onClick={onThanks} />
-      {query && <div className="absolute inset-x-0 top-full z-20 mt-2 max-h-[55vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-3 shadow-xl">
+      {query && <div className="absolute inset-x-0 top-full z-20 mt-2 max-h-[55vh] overflow-y-auto rounded-xl border-[3px] border-ink-900 bg-white p-3 shadow-[5px_5px_0_0_#160f0f]">
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((place) => <PlaceButton key={place.id} place={place} onPick={choose} />)}
         </div>
@@ -222,59 +222,59 @@ function KioskHome({ model, lastPlace, onRoute, onThanks }) {
     </div>
     <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Popular places">
       {popular.map(({ label, icon: Icon, place }) => <button key={label} type="button" onClick={() => choose(place)}
-        className="flex shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-base font-semibold text-slate-800 shadow-sm hover:border-brand-400">
+        className="flex shrink-0 items-center gap-2 rounded-full border-[3px] border-ink-900 bg-white px-4 py-2.5 text-base font-bold text-ink-900 hover:bg-brand-100">
         <Icon className="h-5 w-5 text-brand-500" />{label}
       </button>)}
-      <button type="button" onClick={() => setBrowsing(true)} className="flex shrink-0 items-center gap-2 rounded-full bg-slate-900 px-4 py-2.5 text-base font-semibold text-white">
+      <button type="button" onClick={() => setBrowsing(true)} className="flex shrink-0 items-center gap-2 rounded-full border-[3px] border-ink-900 bg-ink-900 px-4 py-2.5 text-base font-bold text-white">
         <List className="h-5 w-5" />All places
       </button>
     </div>
 
     <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[1fr_340px]">
-      <section className="relative min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
+      <section className="relative min-h-[360px] overflow-hidden rounded-2xl border-[3px] border-ink-900 shadow-[5px_5px_0_0_#160f0f]">
         <MGeorgeBuilding3D key={`${view.building}-${view.floor}-${mapKey}`} model={model} floors={scene.floors} labelFloors={scene.labelFloors}
           showSite={scene.showSite} focus={scene.focus} massing={scene.massing} destination={selected && scene.floors.concat(scene.showSite ? [SITE] : []).includes(selected.floor) ? selected : null}
           onPick={choose} onPickPoint={(floor, xy) => { const place = placeAt(model, floor, xy); if (place) choose(place) }} zoom={zoom}
           onPickBuilding={(name) => showBuilding(name === 'Ramanujan Block' ? 'ramanujan' : 'mgeorge')} />
         <div className="absolute bottom-3 left-3 flex gap-2">
-          <button type="button" onClick={() => setZoom({ kind: 'in' })} className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/95 text-slate-900 shadow-md" aria-label="Zoom in"><Plus className="h-7 w-7" /></button>
-          <button type="button" onClick={() => setZoom({ kind: 'out' })} className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/95 text-slate-900 shadow-md" aria-label="Zoom out"><Minus className="h-7 w-7" /></button>
-          <button type="button" onClick={backToMe} className="flex h-14 items-center gap-2 rounded-2xl bg-white/95 px-4 text-base font-bold text-blue-800 shadow-md"><LocateFixed className="h-6 w-6" />Back to me</button>
+          <button type="button" onClick={() => setZoom({ kind: 'in' })} className="flex h-14 w-14 items-center justify-center rounded-xl border-[3px] border-ink-900 bg-white text-ink-900 shadow-[3px_3px_0_0_#160f0f]" aria-label="Zoom in"><Plus className="h-7 w-7" /></button>
+          <button type="button" onClick={() => setZoom({ kind: 'out' })} className="flex h-14 w-14 items-center justify-center rounded-xl border-[3px] border-ink-900 bg-white text-ink-900 shadow-[3px_3px_0_0_#160f0f]" aria-label="Zoom out"><Minus className="h-7 w-7" /></button>
+          <button type="button" onClick={backToMe} className="flex h-14 items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 text-base font-bold text-ink-900 shadow-[3px_3px_0_0_#160f0f]"><LocateFixed className="h-6 w-6" />Back to me</button>
         </div>
         <p className="pointer-events-none absolute right-3 top-3 rounded-full bg-black/55 px-3 py-1.5 text-sm font-medium text-white">Drag to turn · pinch to zoom</p>
       </section>
 
       <aside className="flex min-h-0 flex-col gap-3 overflow-y-auto">
-        <div className="flex items-center gap-2 rounded-2xl bg-blue-50 px-4 py-3 text-blue-900">
+        <div className="flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-blue-50 px-4 py-3 text-blue-900">
           <MapPin className="h-6 w-6 shrink-0 text-blue-700" />
           <p className="text-base leading-5"><span className="font-bold">You are here:</span> Reception, M. George Block, {floorName(model.kiosk.floor)}</p>
         </div>
         <div className="grid grid-cols-3 gap-2" role="group" aria-label="Building">
           {BUILDINGS.filter((item) => item.id !== 'campus' || model.site).filter((item) => item.id === 'campus' || liftPanelFloors(model, item.id).length).map((item) =>
             <button key={item.id} type="button" onClick={() => showBuilding(item.id)} aria-pressed={view.building === item.id}
-              className={`rounded-2xl px-2 py-3 text-sm font-bold leading-4 ${view.building === item.id ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-800 hover:bg-slate-200'}`}>{item.label}</button>)}
+              className={`rounded-xl border-[3px] border-ink-900 px-2 py-3 text-sm font-bold leading-4 ${view.building === item.id ? 'bg-ink-900 text-white' : 'bg-white text-ink-900 hover:bg-brand-100'}`}>{item.label}</button>)}
         </div>
-        {panel.length > 0 && <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3" role="group" aria-label="Floor">
+        {panel.length > 0 && <div className="rounded-xl border-[3px] border-ink-900 bg-cream-50 p-3" role="group" aria-label="Floor">
           <p className="mb-2 text-xs font-bold uppercase tracking-widest text-slate-500">Floor</p>
           <div className="grid grid-cols-3 gap-2">
             {panel.map((item) => {
               const active = view.floor === item.floor_number
               const here = item.floor_number === model.kiosk.floor
               return <button key={item.floor_number} type="button" onClick={() => setView({ building: view.building, floor: item.floor_number })} aria-pressed={active}
-                className={`flex h-16 flex-col items-center justify-center rounded-xl border-2 text-3xl font-black leading-8 ${active ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 bg-white text-slate-800'}`}>
+                className={`flex h-16 flex-col items-center justify-center rounded-xl border-[3px] border-ink-900 text-3xl font-black leading-8 ${active ? 'bg-ink-900 text-white' : 'bg-white text-ink-900'}`}>
                 {levelOf(item.floor_number) === 0 ? 'G' : levelOf(item.floor_number)}
                 {here && <span className={`text-[11px] font-bold leading-3 ${active ? 'text-blue-200' : 'text-blue-700'}`}>● You</span>}
               </button>
             })}
             <button type="button" onClick={() => setView({ building: view.building, floor: ALL_FLOORS })} aria-pressed={view.floor === ALL_FLOORS}
-              className={`flex h-16 flex-col items-center justify-center rounded-xl border-2 text-sm font-bold ${view.floor === ALL_FLOORS ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 bg-white text-slate-800'}`}>
+              className={`flex h-16 flex-col items-center justify-center rounded-xl border-[3px] border-ink-900 text-sm font-bold ${view.floor === ALL_FLOORS ? 'bg-ink-900 text-white' : 'bg-white text-ink-900'}`}>
               <Layers className="h-5 w-5" />All
             </button>
           </div>
         </div>}
         {selected
           ? <PlaceCard model={model} place={selected} onRoute={onRoute} onClose={() => setSelected(null)} />
-          : <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 p-5 text-center">
+          : <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-xl border-[3px] border-dashed border-ink-900/40 p-5 text-center">
             <Pointer className="h-10 w-10 text-brand-500" />
             <p className="text-lg font-bold text-slate-800">Tap any room on the map</p>
             <p className="text-base text-slate-600">or search above, to see how to get there.</p>
@@ -283,10 +283,10 @@ function KioskHome({ model, lastPlace, onRoute, onThanks }) {
     </div>
 
     {browsing && <div className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-slate-900/60 p-6" onClick={() => setBrowsing(false)} role="presentation">
-      <div role="dialog" aria-modal="true" aria-label="All places" onClick={(event) => event.stopPropagation()} className="w-full max-w-6xl space-y-4 rounded-3xl bg-white p-6 shadow-2xl">
+      <div role="dialog" aria-modal="true" aria-label="All places" onClick={(event) => event.stopPropagation()} className="w-full max-w-6xl space-y-4 rounded-2xl border-[3px] border-ink-900 bg-white p-6 shadow-[8px_8px_0_0_#160f0f]">
         <div className="flex items-center justify-between">
-          <h2 className="text-3xl font-black text-slate-900">All places</h2>
-          <button type="button" onClick={() => setBrowsing(false)} className="rounded-xl bg-slate-100 px-5 py-3 text-lg font-semibold">Close</button>
+          <h2 className="text-3xl font-black text-ink-900">All places</h2>
+          <button type="button" onClick={() => setBrowsing(false)} className="rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold">Close</button>
         </div>
         <BrowseAll model={model} onPick={choose} />
       </div>
@@ -304,12 +304,12 @@ function PhoneQrDialog({ destination, stepFree, openedAt, onClose }) {
   }, [onClose])
   return <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4" onClick={onClose} role="presentation">
     <div role="dialog" aria-modal="true" aria-label="Scan to take this route on your phone" onClick={(event) => event.stopPropagation()}
-      className="flex w-full max-w-md flex-col items-center gap-4 rounded-3xl bg-white p-8 text-center shadow-2xl">
-      <p className="text-2xl font-black text-slate-900">Scan with your phone camera</p>
-      <div className="rounded-2xl border border-slate-200 bg-white p-3"><QRCodeSVG value={url} size={280} marginSize={1} title={`Route to ${destination.name}`} /></div>
-      <p className="text-lg leading-7 text-slate-600">Your phone will show the route from here to <span className="font-bold text-slate-900">{destination.name}</span>. It works for {PHONE_LINK_MINUTES} minutes.</p>
+      className="flex w-full max-w-md flex-col items-center gap-4 rounded-2xl border-[3px] border-ink-900 bg-white p-8 text-center shadow-[8px_8px_0_0_#160f0f]">
+      <p className="text-2xl font-black text-ink-900">Scan with your phone camera</p>
+      <div className="rounded-xl border-[3px] border-ink-900 bg-white p-3"><QRCodeSVG value={url} size={280} marginSize={1} title={`Route to ${destination.name}`} /></div>
+      <p className="text-lg leading-7 text-slate-600">Your phone will show the route from here to <span className="font-bold text-ink-900">{destination.name}</span>. It works for {PHONE_LINK_MINUTES} minutes.</p>
       {/^(localhost|127\.)/.test(new URL(url).hostname) && <p className="text-sm font-semibold text-amber-700">Setup: phones cannot open “localhost”. Set VITE_NAVIKA_BASE_URL to this computer's network address.</p>}
-      <button type="button" onClick={onClose} className="w-full rounded-2xl bg-slate-900 px-5 py-4 text-xl font-bold text-white">Done</button>
+      <button type="button" onClick={onClose} className="w-full rounded-xl border-[3px] border-ink-900 bg-ink-900 px-5 py-4 text-xl font-bold text-white">Done</button>
     </div>
   </div>
 }
@@ -319,40 +319,40 @@ function RouteView({ model, destination, onBack, onThanks }) {
   // When the QR dialog was opened; the phone link's time limit starts then.
   const [qrOpenedAt, setQrOpenedAt] = useState(null)
   const route = useMemo(() => routeFromKiosk(model, destination, { stepFree }), [model, destination, stepFree])
-  if (!route && stepFree) return <div className="space-y-4 rounded-3xl border border-amber-200 bg-amber-50 p-6">
+  if (!route && stepFree) return <div className="space-y-4 rounded-2xl border-[3px] border-ink-900 bg-amber-50 p-6">
     <p className="text-xl font-bold text-amber-900">No lift goes to {destination.name}.</p>
     <p className="text-lg text-amber-900">It can only be reached by stairs. Please ask at reception for help.</p>
     <div className="flex flex-wrap gap-2">
-      <button type="button" onClick={() => setStepFree(false)} className="rounded-xl bg-slate-900 px-5 py-3 text-lg font-semibold text-white">Show the route with stairs</button>
-      <button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-lg font-semibold"><ArrowLeft className="h-5 w-5" />Choose another place</button>
+      <button type="button" onClick={() => setStepFree(false)} className="rounded-xl border-[3px] border-ink-900 bg-ink-900 px-5 py-3 text-lg font-bold text-white">Show the route with stairs</button>
+      <button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold"><ArrowLeft className="h-5 w-5" />Choose another place</button>
     </div>
   </div>
-  if (!route) return <div className="space-y-4"><button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl bg-slate-100 px-5 py-3 text-lg font-semibold"><ArrowLeft className="h-5 w-5" />Choose another place</button><p className="text-lg">Sorry, no walking route to {destination.name} was found.</p></div>
+  if (!route) return <div className="space-y-4"><button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold"><ArrowLeft className="h-5 w-5" />Choose another place</button><p className="text-lg">Sorry, no walking route to {destination.name} was found.</p></div>
 
   const scene = routeScene(model, route, destination)
 
   // Sized to the screen so the kiosk never needs scrolling: only the step list scrolls.
   return <div className="flex h-[calc(100dvh-10rem)] min-h-[520px] flex-col gap-3">
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <button type="button" onClick={onBack} className="mr-auto flex items-center gap-2 rounded-xl bg-slate-100 px-5 py-3 text-lg font-semibold text-slate-800 hover:bg-slate-200"><ArrowLeft className="h-5 w-5" />Choose another place</button>
+      <button type="button" onClick={onBack} className="mr-auto flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold text-ink-900 hover:bg-brand-100"><ArrowLeft className="h-5 w-5" />Choose another place</button>
       <button type="button" onClick={() => setStepFree((value) => !value)} aria-pressed={stepFree}
-        className={`flex items-center gap-2 rounded-xl px-5 py-3 text-base font-semibold ${stepFree ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}>
+        className={`flex items-center gap-2 rounded-xl border-[3px] border-ink-900 px-5 py-3 text-base font-bold ${stepFree ? 'bg-blue-600 text-white' : 'bg-white text-ink-900 hover:bg-brand-100'}`}>
         <Accessibility className="h-5 w-5" />Lifts only
       </button>
       <ThankYouButton onClick={onThanks} />
     </div>
     <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[minmax(320px,1fr)_2fr]">
-      <section className="flex min-h-0 flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+      <section className="flex min-h-0 flex-col gap-3 rounded-2xl border-[3px] border-ink-900 bg-white p-5 shadow-[5px_5px_0_0_#160f0f]">
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-slate-500">From reception to</p>
-          <h2 className="text-3xl font-black leading-tight text-slate-900">{destination.name}</h2>
+          <h2 className="text-3xl font-black leading-tight text-ink-900">{destination.name}</h2>
           <p className="mt-1 flex flex-wrap items-center gap-x-4 text-lg font-semibold text-slate-600">
             <span>{destination.floorName}</span>
             <span className="flex items-center gap-1 whitespace-nowrap"><Footprints className="h-5 w-5 text-brand-500" />{Math.round(route.distanceM)} m</span>
             <span className="flex items-center gap-1 whitespace-nowrap"><Clock className="h-5 w-5 text-brand-500" />{formatDuration(route.durationS)}</span>
           </p>
         </div>
-        <p className="rounded-2xl bg-blue-50 p-4 text-lg font-semibold leading-7 text-blue-950">{routeSummary(route, destination)}</p>
+        <p className="rounded-xl border-[3px] border-ink-900 bg-blue-50 p-4 text-lg font-semibold leading-7 text-blue-950">{routeSummary(route, destination)}</p>
         <ol className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-1" aria-label="Step-by-step directions">
           {route.steps.map((step, index) => {
             const newFloor = index === 0 || step.floor !== route.steps[index - 1].floor
@@ -360,7 +360,7 @@ function RouteView({ model, destination, onBack, onThanks }) {
             return <li key={index}>
               {newFloor && route.legs.length > 1 && <p className="mb-2 mt-1 text-sm font-bold uppercase tracking-widest text-slate-500">{floorName(step.floor)}</p>}
               <div className="flex gap-3 text-lg leading-7">
-                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base font-bold text-white ${last ? 'bg-brand-500' : step.transition ? 'bg-violet-600' : 'bg-slate-900'}`}>
+                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base font-bold text-white ${last ? 'bg-brand-500' : step.transition ? 'bg-violet-600' : 'bg-ink-900'}`}>
                   {step.transition?.kind === 'entrance' || step.transition?.kind === 'bridge' ? <DoorOpen className="h-5 w-5" /> : step.transition ? (goesUp(step.transition) ? <ArrowUp className="h-5 w-5" /> : <ArrowDown className="h-5 w-5" />) : index + 1}
                 </span>
                 <span className={step.transition ? 'font-semibold text-violet-800' : ''}>{step.text}</span>
@@ -369,11 +369,11 @@ function RouteView({ model, destination, onBack, onThanks }) {
           })}
         </ol>
         <button type="button" onClick={() => setQrOpenedAt(Date.now())}
-          className="flex items-center justify-center gap-3 rounded-2xl bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-sm hover:brightness-95">
+          className="flex items-center justify-center gap-3 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#160f0f] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
           <QrCode className="h-7 w-7" />Send to my phone
         </button>
       </section>
-      <section className="min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
+      <section className="min-h-[360px] overflow-hidden rounded-2xl border-[3px] border-ink-900 shadow-[5px_5px_0_0_#160f0f]">
         <MGeorgeBuilding3D model={model} floors={scene.floors} labelFloors={destination.floor === SITE ? [] : [destination.floor]} route={route} destination={destination}
           showSite={scene.outside} focus={scene.focus} />
       </section>
@@ -413,7 +413,7 @@ const THANKS_MS = 2500
 /** Ends this visitor's turn: the kiosk thanks them and resets for the next person. */
 function ThankYouButton({ onClick }) {
   return <button type="button" onClick={onClick}
-    className="flex shrink-0 items-center gap-2 rounded-2xl bg-emerald-600 px-6 py-3 text-xl font-bold text-white shadow-sm hover:bg-emerald-700">
+    className="flex shrink-0 items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-emerald-500 px-6 py-3 text-xl font-bold text-white shadow-[3px_3px_0_0_#160f0f] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_#160f0f]">
     <Smile className="h-7 w-7" />Thank you
   </button>
 }
@@ -452,8 +452,8 @@ export default function MGeorgeKioskNavigation() {
     }).catch((reason) => setError(reason.message))
   }, [])
 
-  if (error) return <div className="rounded-3xl border border-red-200 bg-red-50 p-8 text-lg text-red-800">{error}</div>
-  if (!model) return <div className="rounded-3xl border border-slate-200 bg-white p-8 text-lg text-slate-600">Loading the campus map…</div>
+  if (error) return <div className="rounded-2xl border-[3px] border-ink-900 bg-red-50 p-8 text-lg text-red-800">{error}</div>
+  if (!model) return <div className="rounded-2xl border-[3px] border-ink-900 bg-white p-8 text-lg text-slate-600">Loading the campus map…</div>
 
   const route = (place) => {
     setLastPlace(place)
@@ -465,7 +465,7 @@ export default function MGeorgeKioskNavigation() {
       : <KioskHome key={session} model={model} lastPlace={lastPlace} onRoute={route} onThanks={() => setThanks(true)} />}
     {thanks && <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-white/95 text-center">
       <Smile className="h-20 w-20 text-emerald-600" />
-      <p className="text-5xl font-black text-slate-900">Thank you for visiting MITS!</p>
+      <p className="text-5xl font-black text-ink-900">Thank you for visiting MITS!</p>
       <p className="text-2xl text-slate-600">Have a wonderful day.</p>
     </div>}
   </div>

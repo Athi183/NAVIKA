@@ -31,7 +31,7 @@ function checkEligibility({ physics, chemistry, maths }) {
 function MarkInput({ label, value, onChange }) {
   return (
     <label className="block">
-      <span className="text-sm font-semibold text-slate-700">{label}</span>
+      <span className="text-sm font-bold text-ink-900">{label}</span>
       <input
         type="number"
         inputMode="decimal"
@@ -40,7 +40,7 @@ function MarkInput({ label, value, onChange }) {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="0-100"
-        className="mt-2 w-full rounded-xl border-2 border-slate-200 px-4 py-3 text-lg focus:border-brand-400 focus:outline-none"
+        className="mt-2 w-full rounded-xl border-[3px] border-ink-900 px-4 py-3 text-lg shadow-[3px_3px_0_0_#160f0f] outline-none focus:shadow-[5px_5px_0_0_#160f0f]"
       />
     </label>
   )
@@ -55,12 +55,12 @@ export default function Admissions() {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-black tracking-tight text-slate-900 md:text-5xl">Admissions</h1>
-        <p className="mt-3 text-lg text-slate-600">How to join MITS</p>
+        <h1 className="text-4xl font-black tracking-tight text-ink-900 md:text-5xl">Admissions</h1>
+        <p className="mt-3 text-lg font-semibold text-slate-600">How to join MITS</p>
       </div>
 
-      <div className="rounded-3xl border-2 border-slate-200 bg-white p-6 md:p-8">
-        <h2 className="text-2xl font-bold text-slate-900">Eligibility Criteria</h2>
+      <div className="rounded-2xl border-[3px] border-ink-900 bg-white p-6 shadow-[6px_6px_0_0_#160f0f] md:p-8">
+        <h2 className="text-2xl font-black text-ink-900">Eligibility Criteria</h2>
         <ul className="mt-4 space-y-3 text-lg text-slate-700">
           <li>• Completed 10+2 (or equivalent) from a recognized board</li>
           <li>• Physics, Chemistry, and Mathematics (PCM) as core subjects</li>
@@ -73,10 +73,10 @@ export default function Admissions() {
         </ul>
       </div>
 
-      <div className="rounded-3xl border-2 border-brand-200 bg-brand-50/40 p-6 md:p-8">
+      <div className="rounded-2xl border-[3px] border-ink-900 bg-brand-50 p-6 shadow-[6px_6px_0_0_#d8151c] md:p-8">
         <div className="mb-5 flex items-center gap-3">
           <GraduationCap className="h-8 w-8 text-brand-500" />
-          <h2 className="text-2xl font-bold text-slate-900">Check Your Eligibility</h2>
+          <h2 className="text-2xl font-black text-ink-900">Check Your Eligibility</h2>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-3">
@@ -87,18 +87,18 @@ export default function Admissions() {
 
         {result && (
           <div
-            className={`mt-6 rounded-2xl border-2 p-6 ${
-              result.eligible ? 'border-green-300 bg-green-50' : 'border-amber-300 bg-amber-50'
+            className={`mt-6 rounded-xl border-[3px] border-ink-900 p-6 shadow-[4px_4px_0_0_#160f0f] ${
+              result.eligible ? 'bg-green-100' : 'bg-amber-100'
             }`}
           >
             <div className="flex items-start gap-3">
               {result.eligible ? (
-                <CheckCircle2 className="mt-1 h-8 w-8 shrink-0 text-green-600" />
+                <CheckCircle2 className="mt-1 h-8 w-8 shrink-0 text-green-700" />
               ) : (
-                <XCircle className="mt-1 h-8 w-8 shrink-0 text-amber-600" />
+                <XCircle className="mt-1 h-8 w-8 shrink-0 text-amber-700" />
               )}
               <div>
-                <p className="text-xl font-bold text-slate-900">
+                <p className="text-xl font-black text-ink-900">
                   {result.eligible
                     ? 'You meet the minimum eligibility criteria to apply.'
                     : 'You do not currently meet the minimum eligibility criteria.'}

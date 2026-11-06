@@ -1,4 +1,4 @@
-import { MessageSquareText, Mic, Square, User, Volume2 } from 'lucide-react'
+import { Square, User, Volume2 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -16,34 +16,35 @@ import remarkGfm from 'remark-gfm'
 // needs.
 const MARKDOWN_COMPONENTS = {
   p: ({ children }) => <p className="mb-2 last:mb-0 text-sm leading-6">{children}</p>,
-  strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+  strong: ({ children }) => <strong className="font-extrabold text-brand-600">{children}</strong>,
   ul: ({ children }) => <ul className="mb-2 list-disc space-y-1 pl-5 text-sm leading-6">{children}</ul>,
   ol: ({ children }) => <ol className="mb-2 list-decimal space-y-1 pl-5 text-sm leading-6">{children}</ol>,
   li: ({ children }) => <li>{children}</li>,
   a: ({ children, href }) => (
-    <a href={href} target="_blank" rel="noreferrer" className="text-brand-600 underline">
+    <a href={href} target="_blank" rel="noreferrer" className="font-bold text-brand-600 underline decoration-2 underline-offset-2 hover:text-brand-500">
       {children}
     </a>
   ),
   table: ({ children }) => (
-    <div className="mb-2 overflow-x-auto rounded-lg border border-slate-200">
+    <div className="mb-2 overflow-x-auto rounded-lg border-[3px] border-ink-900">
       <table className="w-full border-collapse text-left text-xs">{children}</table>
     </div>
   ),
-  thead: ({ children }) => <thead className="bg-slate-50">{children}</thead>,
+  thead: ({ children }) => <thead className="bg-accent-300">{children}</thead>,
   th: ({ children }) => (
-    <th className="border-b border-slate-200 px-3 py-2 font-semibold text-slate-700">{children}</th>
+    <th className="border-b-[3px] border-ink-900 px-3 py-2 font-extrabold text-ink-900">{children}</th>
   ),
-  td: ({ children }) => <td className="border-b border-slate-100 px-3 py-2 align-top">{children}</td>,
-  // Used by the faculty-search result card (see formatFacultyDetails in
-  // Assistant.jsx) -- a bare markdown image with no size rule here would
-  // render at the photo's native resolution, which can be huge inside a
-  // chat bubble.
+  td: ({ children }) => <td className="border-b border-slate-200 px-3 py-2 align-top">{children}</td>,
+  // Covers any image a RAG answer's markdown embeds directly in the chat
+  // (the faculty lookup itself now renders its photo in its own
+  // FacultyFlashcard, not a chat bubble) -- a bare markdown image with no
+  // size rule here would render at its native resolution, which can be
+  // huge inside a chat bubble.
   img: ({ src, alt }) => (
     <img
       src={src}
       alt={alt || 'Photo'}
-      className="mb-3 h-28 w-28 rounded-2xl border border-slate-200 object-cover"
+      className="mb-3 h-28 w-28 rounded-xl border-[3px] border-ink-900 object-cover"
       loading="lazy"
     />
   ),
@@ -55,25 +56,29 @@ export default function ChatMessage({ speaker, text, timestamp, isLoading = fals
   return (
     <div className={`mb-4 flex ${isUser ? 'justify-end' : 'justify-start'}`}>
       {!isUser && (
-        <div className="mr-3 mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-white shadow-lg shadow-brand-500/20">
-          <MessageSquareText className="h-4 w-4" />
+        <div className="mr-3 mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-[3px] border-ink-900 bg-accent-400 text-sm font-black text-ink-900">
+          N
         </div>
       )}
 
-      <div className={`max-w-[80%] rounded-2xl border px-4 py-3 ${isUser ? 'border-brand-200 bg-brand-100 text-slate-900' : 'border-slate-200 bg-white text-slate-900'}`}>
-        <div className="mb-1 flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.2em] text-slate-400">
+      <div
+        className={`max-w-[80%] rounded-xl border-[3px] border-ink-900 px-4 py-3 ${
+          isUser
+            ? 'rounded-tr-sm bg-brand-500 text-white shadow-[3px_3px_0_0_#160f0f]'
+            : 'rounded-tl-sm bg-white text-ink-900 shadow-[3px_3px_0_0_#160f0f]'
+        }`}
+      >
+        <div className={`mb-1 flex items-center justify-between gap-2 text-[10px] font-extrabold uppercase tracking-[0.2em] ${isUser ? 'text-white/70' : 'text-brand-500'}`}>
           <span>{isUser ? 'You' : 'NAVIKA'}</span>
-          <div className="flex items-center gap-2">
-            {isLoading ? <span className="h-2 w-2 animate-pulse rounded-full bg-brand-500" /> : <Mic className="h-3 w-3" />}
-            <span>{timestamp}</span>
-          </div>
+          <span>{timestamp}</span>
         </div>
 
         {isLoading ? (
-          <div className="flex items-center gap-2 py-1 text-sm text-slate-500">
-            <span className="h-2 w-2 animate-bounce rounded-full bg-brand-500 [animation-delay:0ms]" />
-            <span className="h-2 w-2 animate-bounce rounded-full bg-brand-500 [animation-delay:120ms]" />
-            <span className="h-2 w-2 animate-bounce rounded-full bg-brand-500 [animation-delay:240ms]" />
+          <div className="flex items-center gap-2 py-1 text-sm font-bold text-ink-900">
+            <span className="h-2.5 w-2.5 animate-bounce rounded-sm border-2 border-ink-900 bg-accent-400 [animation-delay:0ms]" />
+            <span className="h-2.5 w-2.5 animate-bounce rounded-sm border-2 border-ink-900 bg-accent-400 [animation-delay:120ms]" />
+            <span className="h-2.5 w-2.5 animate-bounce rounded-sm border-2 border-ink-900 bg-accent-400 [animation-delay:240ms]" />
+            <span className="ml-1">thinking...</span>
           </div>
         ) : isUser ? (
           <p className="text-sm leading-6 text-inherit">{text}</p>
@@ -96,10 +101,10 @@ export default function ChatMessage({ speaker, text, timestamp, isLoading = fals
           onClick={onToggleSpeak}
           aria-label={isSpeaking ? 'Stop speaking this message' : 'Speak this message'}
           title={isSpeaking ? 'Stop speaking this message' : 'Speak this message'}
-          className={`ml-3 mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition ${
+          className={`ml-3 mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-[3px] border-ink-900 transition-all duration-150 ${
             isSpeaking
-              ? 'border-brand-500 bg-brand-500 text-white'
-              : 'border-slate-200 bg-white text-slate-500 hover:border-brand-300 hover:text-brand-500'
+              ? 'translate-x-0.5 translate-y-0.5 bg-accent-400 text-ink-900 shadow-none'
+              : 'bg-white text-ink-900 shadow-[3px_3px_0_0_#160f0f] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#160f0f]'
           }`}
         >
           {isSpeaking ? <Square className="h-3.5 w-3.5 fill-current" /> : <Volume2 className="h-4 w-4" />}
@@ -107,7 +112,7 @@ export default function ChatMessage({ speaker, text, timestamp, isLoading = fals
       )}
 
       {isUser && (
-        <div className="ml-3 mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500">
+        <div className="ml-3 mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-[3px] border-ink-900 bg-ink-900 text-white">
           <User className="h-4 w-4" />
         </div>
       )}

@@ -50,8 +50,8 @@ export default function FacultySearch({ faculty = [], onSelect, autoFocus = fals
 
   return (
     <div className="relative mb-4">
-      <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 focus-within:border-brand-300">
-        <Search className="h-4 w-4 shrink-0 text-slate-400" />
+      <div className="flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-3.5 py-2.5 shadow-[3px_3px_0_0_#160f0f] transition-shadow focus-within:shadow-[5px_5px_0_0_#160f0f]">
+        <Search className="h-4 w-4 shrink-0 text-ink-900" />
         <input
           ref={inputRef}
           type="text"
@@ -90,7 +90,7 @@ export default function FacultySearch({ faculty = [], onSelect, autoFocus = fals
       </div>
 
       {isOpen && (
-        <div className="absolute z-10 mt-1 max-h-72 w-full overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-lg">
+        <div className="absolute z-10 mt-2 max-h-72 w-full overflow-y-auto rounded-xl border-[3px] border-ink-900 bg-white shadow-[4px_4px_0_0_#160f0f]">
           {results.length === 0 ? (
             <p className="px-3 py-3 text-sm text-slate-400">No faculty match "{query}".</p>
           ) : (
@@ -102,17 +102,17 @@ export default function FacultySearch({ faculty = [], onSelect, autoFocus = fals
                 // closes the list, so the click still lands on this row.
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => handlePick(person)}
-                className="flex w-full items-center gap-3 border-b border-slate-100 px-3 py-2 text-left last:border-b-0 hover:bg-brand-50"
+                className="flex w-full items-center gap-3 border-b-2 border-ink-900/10 px-3 py-2.5 text-left last:border-b-0 hover:bg-accent-300"
               >
                 {person.photo ? (
                   <img
                     src={person.photo}
                     alt={person.name}
                     loading="lazy"
-                    className="h-10 w-10 shrink-0 rounded-full border border-slate-200 object-cover"
+                    className="h-10 w-10 shrink-0 rounded-lg border-[2px] border-ink-900 object-cover"
                   />
                 ) : (
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-slate-100" />
+                  <div className="h-10 w-10 shrink-0 rounded-lg border-[2px] border-ink-900 bg-brand-100" />
                 )}
                 <div className="flex flex-col items-start gap-0.5">
                   <span className="text-sm font-medium text-slate-800">{person.name}</span>

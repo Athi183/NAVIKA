@@ -6,13 +6,13 @@ const TOP_RECRUITERS_SHOWN = 10
 
 function StatTile({ icon: Icon, label, value, muted = false }) {
   return (
-    <div className="flex items-center gap-4 rounded-3xl border-2 border-slate-200 bg-white p-6">
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-100 text-brand-500">
+    <div className="flex items-center gap-4 rounded-2xl border-[3px] border-ink-900 bg-white p-6 shadow-[5px_5px_0_0_#160f0f]">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border-[3px] border-ink-900 bg-accent-300 text-ink-900">
         <Icon className="h-7 w-7" />
       </div>
       <div>
-        <div className="text-sm font-semibold uppercase tracking-wide text-slate-500">{label}</div>
-        <div className={`mt-1 text-3xl font-black ${muted ? 'text-slate-400' : 'text-slate-900'}`}>{value}</div>
+        <div className="text-sm font-bold uppercase tracking-wide text-slate-500">{label}</div>
+        <div className={`mt-1 text-3xl font-black ${muted ? 'text-slate-400' : 'text-ink-900'}`}>{value}</div>
       </div>
     </div>
   )
@@ -27,11 +27,11 @@ function RecruiterBar({ name, offers, maxOffers }) {
   return (
     <div>
       <div className="mb-1 flex items-baseline justify-between text-sm">
-        <span className="truncate pr-2 font-semibold text-slate-700">{name}</span>
-        <span className="shrink-0 font-bold text-brand-500">{offers}</span>
+        <span className="truncate pr-2 font-bold text-ink-900">{name}</span>
+        <span className="shrink-0 font-black text-brand-600">{offers}</span>
       </div>
-      <div className="h-4 w-full overflow-hidden rounded-full bg-slate-100">
-        <div className="h-full rounded-full bg-brand-400" style={{ width: `${widthPercent}%` }} />
+      <div className="h-4 w-full overflow-hidden rounded-full border-[2px] border-ink-900 bg-white">
+        <div className="h-full rounded-full bg-brand-500" style={{ width: `${widthPercent}%` }} />
       </div>
     </div>
   )
@@ -65,13 +65,13 @@ export default function Placements() {
   const maxOffers = topRecruiters[0]?.offers ?? 1
 
   if (loading) {
-    return <p className="text-center text-lg text-slate-500">Loading placement statistics...</p>
+    return <p className="text-center text-lg font-semibold text-slate-500">Loading placement statistics...</p>
   }
 
   if (batches.length === 0) {
     return (
-      <div className="rounded-3xl border-2 border-slate-200 bg-white p-10 text-center">
-        <h1 className="text-3xl font-black text-slate-900">Placement statistics unavailable</h1>
+      <div className="rounded-2xl border-[3px] border-ink-900 bg-white p-10 text-center shadow-[6px_6px_0_0_#160f0f]">
+        <h1 className="text-3xl font-black text-ink-900">Placement statistics unavailable</h1>
         <p className="mt-3 text-lg text-slate-500">Please check back later or ask NAVIKA directly.</p>
       </div>
     )
@@ -79,7 +79,7 @@ export default function Placements() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-center text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
+      <h1 className="text-center text-4xl font-black tracking-tight text-ink-900 md:text-5xl">
         Placement Statistics
       </h1>
 
@@ -89,10 +89,10 @@ export default function Placements() {
             key={batch.batchRange}
             type="button"
             onClick={() => setSelectedBatch(batch.batchRange)}
-            className={`rounded-2xl border-2 px-6 py-4 text-xl font-bold transition-colors ${
+            className={`rounded-xl border-[3px] border-ink-900 px-6 py-4 text-xl font-bold transition-all duration-150 ${
               selectedBatch === batch.batchRange
-                ? 'border-brand-500 bg-brand-500 text-white'
-                : 'border-slate-200 bg-white text-slate-700 hover:border-brand-300'
+                ? 'bg-brand-500 text-white shadow-[4px_4px_0_0_#160f0f]'
+                : 'bg-white text-ink-900 shadow-[3px_3px_0_0_#160f0f] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-[5px_5px_0_0_#160f0f]'
             }`}
           >
             {batch.batchRange.replace('-', ' – ')}
@@ -113,8 +113,8 @@ export default function Placements() {
             <StatTile icon={Building2} label="Companies" value={activeBatch.recruiters.length} />
           </div>
 
-          <div className="rounded-3xl border-2 border-slate-200 bg-white p-6 md:p-8">
-            <h2 className="mb-5 text-2xl font-bold text-slate-900">Top Recruiters</h2>
+          <div className="rounded-2xl border-[3px] border-ink-900 bg-white p-6 shadow-[5px_5px_0_0_#160f0f] md:p-8">
+            <h2 className="mb-5 text-2xl font-black text-ink-900">Top Recruiters</h2>
             <div className="space-y-4">
               {topRecruiters.map((recruiter) => (
                 <RecruiterBar
@@ -127,26 +127,26 @@ export default function Placements() {
             </div>
           </div>
 
-          <div className="rounded-3xl border-2 border-slate-200 bg-white p-6 md:p-8">
-            <h2 className="mb-5 text-2xl font-bold text-slate-900">
+          <div className="rounded-2xl border-[3px] border-ink-900 bg-white p-6 shadow-[5px_5px_0_0_#160f0f] md:p-8">
+            <h2 className="mb-5 text-2xl font-black text-ink-900">
               All Recruiters ({activeBatch.recruiters.length})
             </h2>
-            <div className="max-h-[480px] overflow-y-auto rounded-xl border border-slate-100">
+            <div className="max-h-[480px] overflow-y-auto rounded-xl border-[3px] border-ink-900">
               <table className="w-full text-left">
-                <thead className="sticky top-0 bg-slate-50 text-sm uppercase tracking-wide text-slate-500">
+                <thead className="sticky top-0 bg-accent-300 text-sm font-bold uppercase tracking-wide text-ink-900">
                   <tr>
-                    <th className="px-4 py-3">Recruiter</th>
-                    <th className="px-4 py-3">Offers</th>
-                    <th className="px-4 py-3">CTC</th>
+                    <th className="border-b-[3px] border-ink-900 px-4 py-3">Recruiter</th>
+                    <th className="border-b-[3px] border-ink-900 px-4 py-3">Offers</th>
+                    <th className="border-b-[3px] border-ink-900 px-4 py-3">CTC</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[...activeBatch.recruiters]
                     .sort((a, b) => b.offers - a.offers)
                     .map((recruiter) => (
-                      <tr key={recruiter.recruiter} className="border-t border-slate-100">
+                      <tr key={recruiter.recruiter} className="border-t border-ink-900/15">
                         <td className="px-4 py-3 font-semibold text-slate-800">{recruiter.recruiter}</td>
-                        <td className="px-4 py-3 font-bold text-brand-500">{recruiter.offers}</td>
+                        <td className="px-4 py-3 font-black text-brand-600">{recruiter.offers}</td>
                         <td className="px-4 py-3 text-slate-600">{recruiter.ctc}</td>
                       </tr>
                     ))}

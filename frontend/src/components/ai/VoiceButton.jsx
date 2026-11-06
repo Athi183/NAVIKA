@@ -5,12 +5,13 @@ export default function VoiceButton({ label, onClick, active = false, variant = 
     <button
       type="button"
       onClick={onClick}
-      className={`flex h-12 w-12 items-center justify-center rounded-xl border transition ${
+      style={active ? { animation: 'wiggle 0.5s ease-in-out infinite' } : undefined}
+      className={`flex h-12 w-12 items-center justify-center rounded-xl border-[3px] border-ink-900 transition-all duration-150 ${
         active
-          ? 'border-brand-500 bg-brand-500 text-white'
+          ? 'translate-x-0.5 translate-y-0.5 bg-accent-400 text-ink-900 shadow-none'
           : variant === 'output'
-            ? 'border-brand-200 bg-brand-100 text-brand-500 hover:border-brand-300 hover:bg-brand-200'
-            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+            ? 'bg-brand-100 text-brand-600 shadow-[3px_3px_0_0_#160f0f] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_#160f0f]'
+            : 'bg-white text-ink-900 shadow-[3px_3px_0_0_#160f0f] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_#160f0f]'
       }`}
       aria-label={label}
       title={label}

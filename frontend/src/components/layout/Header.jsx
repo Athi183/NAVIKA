@@ -9,29 +9,29 @@ const navItems = [
 
 export default function Header({ activeTab, onSelect }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b-[3px] border-ink-900 bg-cream-50">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500 text-white">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg border-[3px] border-ink-900 bg-brand-500 text-white shadow-[3px_3px_0_0_#160f0f]">
             <Compass className="h-5 w-5" />
           </div>
           <div>
-            <div className="text-2xl font-bold tracking-tight text-slate-900">NAVIKA</div>
-            <div className="text-xs uppercase tracking-[0.24em] text-slate-500">
+            <div className="text-2xl font-black tracking-tight text-ink-900">NAVIKA</div>
+            <div className="text-xs font-bold uppercase tracking-[0.24em] text-brand-600">
               Smart Campus Assistance System
             </div>
           </div>
         </div>
 
-        <nav className="hidden items-center gap-2 rounded-full border border-slate-200 bg-slate-50 p-1 md:flex">
+        <nav className="hidden items-center gap-1.5 rounded-xl border-[3px] border-ink-900 bg-white p-1.5 md:flex">
           {navItems.map(({ label, icon: Icon }) => {
             const isActive = activeTab === label
             return (
               <button
                 key={label}
                 type="button"
-                className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition ${
-                  isActive ? 'bg-brand-500 text-white' : 'text-slate-600 hover:bg-white hover:text-slate-900'
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold transition ${
+                  isActive ? 'bg-ink-900 text-white' : 'text-ink-900 hover:bg-brand-100'
                 }`}
                 onClick={() => onSelect(label)}
               >
