@@ -338,14 +338,42 @@ def _faculty_snippets_for(question_lower):
 
 def augment_documents_for(question):
     question_lower = question.lower()
-    chunks = list(ALWAYS_INCLUDE_DOCUMENTS)
+
+    placement_docs = _placement_docs_for(question_lower)
+    faculty_docs = _faculty_snippets_for(question_lower)
+
+    # The always-include departments-directory/contact-info chunks are
+    # genuinely useful as default context for a question with no other
+    # obvious topic, but they're pure noise on top of an already large,
+    # self-sufficient batch-placement section -- and noise has a real
+    # cost: this is what pushed a placement question from 6,900 input
+    # tokens to 7,361, just over qwen's 7,000 ITPM cap, confirmed live
+    # (a 413 on a question that otherwise answers fine). Skipping them
+    # whenever a bigger, more specific augmentation already fired keeps
+    # genuinely topic-less questions covered while trimming the one case
+    # that was actually tipping over the limit.
+    chunks = [] if placement_docs or faculty_docs else list(ALWAYS_INCLUDE_DOCUMENTS)
 
     for triggers, docs in GATED_AUGMENT_GROUPS:
-        if any(trigger in question_lower for trigger in triggers):
-            chunks.extend(docs)
+        if not any(trigger in question_lower for trigger in triggers):
+            continue
+        # The generic CSE-department placement blurb (one of these gated
+        # groups) shares its trigger words with _placement_docs_for's own
+        # batch-specific extraction, so both fire together on any
+        # placement question and duplicate content -- confirmed live:
+        # this was the last piece pushing a batch question from 7,054 to
+        # 7,165+ input tokens, just over qwen's 7,000 ITPM cap. Once a
+        # specific batch section is already matched, that section is the
+        # authoritative, correctly-scoped source and the generic blurb
+        # adds nothing but redundant tokens; only skip it in that case --
+        # a department-level question with no specific batch (where
+        # placement_docs is empty) still needs it.
+        if placement_docs and "placement" in triggers:
+            continue
+        chunks.extend(docs)
 
-    chunks.extend(_placement_docs_for(question_lower))
-    chunks.extend(_faculty_snippets_for(question_lower))
+    chunks.extend(placement_docs)
+    chunks.extend(faculty_docs)
 
     return chunks
 
@@ -398,11 +426,18 @@ def augment_documents_for(question):
 # with 5 real queries covering faculty lookup, two different placement
 # batches (confirming no cross-batch contamination), and spatial lookup,
 # all correct with zero errors.
+# Back on qwen/qwen3.8-27b as of 2026-11-06. gpt-oss-20b was a last-resort
+# emergency fallback on 2026-10-29 when every other model on the account
+# was quota-exhausted the same day; it's less reliable (directly caught
+# hallucinating a placement figure) and was never meant to be the
+# permanent default. A week later, quota has reset and recovered on all
+# three models -- re-verified qwen specifically with 3 consecutive
+# real-sized calls (not just a single ping, which previously gave a false
+# "it's fine" reading) before reverting back to it as the normal choice.
 llm = ChatGroq(
-    model="openai/gpt-oss-20b",
+    model="qwen/qwen3.8-27b",
     temperature=0,
-    max_tokens=4000,
-    reasoning_effort="medium",
+    max_tokens=900,
 )
 
 # ==========================================

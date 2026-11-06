@@ -254,27 +254,21 @@ def extract_entities(clean_text, cutoff=0.75):
 
 VALID_INTENTS = set(INTENT_KEYWORDS) | {"unknown"}
 
-# TEMPORARY (demo, 2026-10-29): qwen's quota ran out again today -- back
-# on openai/gpt-oss-120b to match rag/app.py's own model, which was
-# already switched for the same reason. This call degrades gracefully on
-# failure (falls back to keyword classification, English-only -- see
-# extract_entities), which is exactly why leaving this on an exhausted
-# model is worse for Malayalam specifically than for English: every
-# Malayalam question was silently landing on the English-only keyword
-# fallback instead of real classification. Revert alongside rag/app.py
-# once qwen's quota is reliably back.
+# Back on qwen/qwen3.8-27b as of 2026-11-06 -- see the matching comment
+# in rag/app.py for the full story of the 2026-10-29 quota crisis that
+# pushed this through gpt-oss-120b then gpt-oss-20b as successive last
+# resorts. This call degrades gracefully on failure (falls back to
+# keyword classification, English-only -- see extract_entities), which
+# is exactly why leaving it on an exhausted/unreliable model hurts
+# Malayalam specifically more than English: a failed or low-quality
+# classification call silently lands Malayalam questions on an
+# English-only fallback. Quota re-verified recovered with 3 consecutive
+# real-sized calls before reverting.
 _llm = ChatGroq(
-    model="openai/gpt-oss-20b",
+    model="qwen/qwen3.8-27b",
     temperature=0,
-    max_tokens=800,
-    reasoning_effort="low",
-    # 10s (qwen's old timeout) was too tight for this model: it spends
-    # hidden reasoning tokens before the actual short JSON answer, which
-    # takes longer than qwen's direct response -- a timeout here isn't a
-    # quota error, it degrades to the same English-only keyword fallback,
-    # so a too-tight timeout was silently causing the same Malayalam
-    # degradation as the wrong model would.
-    request_timeout=20,
+    max_tokens=300,
+    request_timeout=10,
 )
 
 _INTENT_DESCRIPTIONS = """- find_location: wants to know WHERE something is
