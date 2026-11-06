@@ -11,8 +11,10 @@ from flask_cors import CORS
 # CWD) so this works regardless of where the server is launched from.
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INTERACTION_DIR = os.path.join(BASE_DIR, "..", "interaction")
+RAG_DIR = os.path.join(BASE_DIR, "..", "rag")
 RAG_APP_FILE = os.path.join(BASE_DIR, "..", "rag", "app.py")
 sys.path.append(INTERACTION_DIR)
+sys.path.append(RAG_DIR)
 
 from context import ConversationContext  # noqa: E402
 import main as interaction_main  # noqa: E402
