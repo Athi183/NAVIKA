@@ -41,7 +41,14 @@ const TILES = [
     title: 'Placements',
     subtitle: 'See where our students work',
     icon: Briefcase,
-    action: (navigate) => navigate('/assistant', { state: { presetQuery: 'What are the placement statistics?' } }),
+    // Goes straight to the dedicated placements screen instead of
+    // asking NAVIKA through the chat/LLM pipeline -- a batch-placement
+    // answer was the single heaviest prompt in the app (a full recruiter
+    // table) and the slowest, most failure-prone preset button as a
+    // result. The structured page is both faster (no LLM round trip at
+    // all) and the better format for this data anyway (tables and bars,
+    // not prose).
+    action: (navigate) => navigate('/placements'),
   },
   {
     title: 'Ask Anything',

@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Assistant from './pages/Assistant'
 import NavigationPage from './pages/Navigation'
 import MobileRoute from './pages/MobileRoute'
+import Placements from './pages/Placements'
 
 function AppShell() {
   const navigate = useNavigate()
@@ -36,6 +37,7 @@ function AppShell() {
           <Route path="/assistant" element={<Assistant />} />
           <Route path="/navigation" element={<NavigationPage />} />
           <Route path="/mobile-route" element={<MobileRoute />} />
+          <Route path="/placements" element={<Placements />} />
           <Route
             path="/about"
             element={

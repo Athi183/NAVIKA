@@ -18,6 +18,7 @@ from context import ConversationContext  # noqa: E402
 import main as interaction_main  # noqa: E402
 import tts as interaction_tts  # noqa: E402
 from faculty_directory import build_faculty_directory  # noqa: E402
+from placement_directory import build_placement_directory  # noqa: E402
 
 
 app = Flask(__name__)
@@ -100,11 +101,17 @@ def tts_malayalam():
 # the result only changes when the site is re-crawled and this process
 # is restarted anyway.
 FACULTY_DIRECTORY = build_faculty_directory()
+PLACEMENT_DIRECTORY = build_placement_directory()
 
 
 @app.route("/api/faculty", methods=["GET"])
 def faculty_directory():
     return jsonify({"faculty": FACULTY_DIRECTORY})
+
+
+@app.route("/api/placements", methods=["GET"])
+def placement_directory():
+    return jsonify({"batches": PLACEMENT_DIRECTORY})
 
 
 @app.route("/api/reset", methods=["POST"])

@@ -555,3 +555,26 @@ export async function getFacultyDirectory() {
     return []
   }
 }
+
+// Backed by /api/placements, which parses the recruiter-wise table
+// straight out of the crawled placement page (no LLM call) -- see
+// rag/placement_directory.py. Going through the chat/LLM pipeline for
+// this was both slow (it's the single heaviest prompt in the whole app,
+// a full recruiter table) and a recurring point of failure (the repeated
+// cause of hitting Groq's per-minute token caps); this removes both.
+export async function getPlacementDirectory() {
+  if (demoMode) {
+    return []
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/placements`)
+    if (!response.ok) {
+      return []
+    }
+    const data = await response.json()
+    return data.batches ?? []
+  } catch {
+    return []
+  }
+}
