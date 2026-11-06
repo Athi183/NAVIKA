@@ -150,6 +150,17 @@ function expandAbbreviationsForSpeech(text) {
 
 function stripMarkdownForSpeech(text) {
   return text
+    // images: "![alt](url)" -> removed entirely, not just unwrapped. The
+    // faculty-card answer (formatFacultyDetails in Assistant.jsx) embeds
+    // a photo this way, and with no rule for it at all, the raw image
+    // URL was being read aloud character by character ("https colon
+    // slash slash mgmits dot ac dot in storage..."). Unlike bold/italic,
+    // there's nothing here worth keeping for speech -- not even the alt
+    // text, which just repeats the person's name already stated
+    // separately in the message.
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    // links: "[text](url)" -> "text", dropping the URL the same way.
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
     // bullet/numbered list markers at the start of a line
     .replace(/^[ \t]*(?:[-*+]|\d+\.)[ \t]+/gm, '')
     // headings: "## Heading" -> "Heading"
