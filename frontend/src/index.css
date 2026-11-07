@@ -8,12 +8,31 @@
    tint the official site itself uses — this app's light theme uses
    that same tint (brand-100) for section backgrounds rather than
    guessing a different one. */
+/* brand-600/700 (darker reds for gradients/hover depth), accent-*
+   (a warm amber/orange that pairs with the red without fighting it),
+   ink-* (a warm near-black, not cool slate, so dark surfaces stay in
+   the same temperature as the red) and cream-50 (a warm off-white)
+   round out the single accent color above into a small complementary
+   set for the chat UI's gradients and dark surfaces. */
 @theme {
+  --color-brand-50: #fff1f1;
   --color-brand-100: #fde4e4;
   --color-brand-200: #f9c6c8;
   --color-brand-300: #f28e92;
   --color-brand-400: #e34a4f;
   --color-brand-500: #d8151c;
+  --color-brand-600: #ab0f15;
+  --color-brand-700: #7d0a0e;
+
+  --color-accent-100: #fff2d9;
+  --color-accent-300: #ffd166;
+  --color-accent-400: #ffb703;
+  --color-accent-500: #fb8500;
+
+  --color-ink-800: #241616;
+  --color-ink-900: #160f0f;
+
+  --color-cream-50: #fffaf5;
 }
 
 :root {
@@ -21,7 +40,7 @@
   line-height: 1.5;
   font-weight: 400;
   color: #1e1b1b;
-  background: #ffffff;
+  background: #fffaf5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -37,7 +56,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #ffffff;
+  background: #fffaf5;
 }
 
 #root {
@@ -48,13 +67,25 @@ body {
   box-sizing: border-box;
 }
 
-button,
-input,
-select {
-  font: inherit;
+/* In the base layer so Tailwind's text-* / font-* classes on buttons still apply. */
+@layer base {
+  button,
+  input,
+  select {
+    font: inherit;
+  }
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* A small flat-footed shake for the mic button while actively listening --
+   paired with a hard offset shadow (no blur/glow) to keep the sticker-ish,
+   flat-color look rather than a soft "AI glow" pulse. */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
 }

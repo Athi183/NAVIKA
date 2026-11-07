@@ -1,0 +1,6105 @@
+{
+  "floor": "3rd Floor",
+  "source": "3rdfloor.dxf",
+  "coordinate_system": "DXF/CAD local XY coordinates",
+  "geometry_summary": {
+    "reconstructed_line_walls": 438,
+    "structural_polylines": 13,
+    "total_wall_segments": 470
+  },
+  "walls": [
+    {
+      "id": "WALL_001",
+      "type": "line_wall",
+      "x1": 33.15761,
+      "y1": 204.620339,
+      "x2": 36.189021,
+      "y2": 204.620339,
+      "length": 3.031411,
+      "source_segments": 1,
+      "source_entities": [
+        6
+      ]
+    },
+    {
+      "id": "WALL_002",
+      "type": "line_wall",
+      "x1": 33.404285,
+      "y1": 204.374459,
+      "x2": 36.189551,
+      "y2": 204.374459,
+      "length": 2.785266,
+      "source_segments": 2,
+      "source_entities": [
+        7,
+        151
+      ]
+    },
+    {
+      "id": "WALL_003",
+      "type": "line_wall",
+      "x1": 36.185103,
+      "y1": 206.442945,
+      "x2": 71.60038,
+      "y2": 206.442945,
+      "length": 35.415276,
+      "source_segments": 1,
+      "source_entities": [
+        8
+      ]
+    },
+    {
+      "id": "WALL_004",
+      "type": "line_wall",
+      "x1": 36.43178,
+      "y1": 206.196678,
+      "x2": 71.354237,
+      "y2": 206.196678,
+      "length": 34.922458,
+      "source_segments": 6,
+      "source_entities": [
+        10,
+        265,
+        175,
+        182,
+        229,
+        176
+      ]
+    },
+    {
+      "id": "WALL_005",
+      "type": "line_wall",
+      "x1": 71.600419,
+      "y1": 203.575532,
+      "x2": 113.255293,
+      "y2": 203.575532,
+      "length": 41.654873,
+      "source_segments": 1,
+      "source_entities": [
+        15
+      ]
+    },
+    {
+      "id": "WALL_006",
+      "type": "line_wall",
+      "x1": 71.600423,
+      "y1": 203.329385,
+      "x2": 113.008398,
+      "y2": 203.329385,
+      "length": 41.407975,
+      "source_segments": 5,
+      "source_entities": [
+        16,
+        257,
+        270,
+        287,
+        266
+      ]
+    },
+    {
+      "id": "WALL_007",
+      "type": "line_wall",
+      "x1": 30.190054,
+      "y1": 199.051658,
+      "x2": 33.16959,
+      "y2": 199.051658,
+      "length": 2.979536,
+      "source_segments": 1,
+      "source_entities": [
+        18
+      ]
+    },
+    {
+      "id": "WALL_008",
+      "type": "line_wall",
+      "x1": 30.43673,
+      "y1": 198.805778,
+      "x2": 33.17012,
+      "y2": 198.805778,
+      "length": 2.733391,
+      "source_segments": 1,
+      "source_entities": [
+        19
+      ]
+    },
+    {
+      "id": "WALL_009",
+      "type": "line_wall",
+      "x1": 52.71017,
+      "y1": 188.690961,
+      "x2": 53.861433,
+      "y2": 188.690961,
+      "length": 1.151262,
+      "source_segments": 2,
+      "source_entities": [
+        514,
+        34
+      ]
+    },
+    {
+      "id": "WALL_010",
+      "type": "line_wall",
+      "x1": 62.556426,
+      "y1": 188.723938,
+      "x2": 62.80257,
+      "y2": 188.723938,
+      "length": 0.246144,
+      "source_segments": 1,
+      "source_entities": [
+        117
+      ]
+    },
+    {
+      "id": "WALL_011",
+      "type": "line_wall",
+      "x1": 42.028247,
+      "y1": 190.758087,
+      "x2": 48.265004,
+      "y2": 190.758087,
+      "length": 6.236757,
+      "source_segments": 1,
+      "source_entities": [
+        39
+      ]
+    },
+    {
+      "id": "WALL_012",
+      "type": "line_wall",
+      "x1": 42.274139,
+      "y1": 191.004233,
+      "x2": 48.018605,
+      "y2": 191.004233,
+      "length": 5.744466,
+      "source_segments": 1,
+      "source_entities": [
+        40
+      ]
+    },
+    {
+      "id": "WALL_013",
+      "type": "line_wall",
+      "x1": 33.428878,
+      "y1": 191.384639,
+      "x2": 35.473474,
+      "y2": 191.384639,
+      "length": 2.044596,
+      "source_segments": 1,
+      "source_entities": [
+        73
+      ]
+    },
+    {
+      "id": "WALL_014",
+      "type": "line_wall",
+      "x1": 36.211749,
+      "y1": 191.388696,
+      "x2": 42.027587,
+      "y2": 191.388696,
+      "length": 5.815838,
+      "source_segments": 2,
+      "source_entities": [
+        72,
+        43
+      ]
+    },
+    {
+      "id": "WALL_015",
+      "type": "line_wall",
+      "x1": 33.182299,
+      "y1": 191.635107,
+      "x2": 35.473474,
+      "y2": 191.635107,
+      "length": 2.291175,
+      "source_segments": 2,
+      "source_entities": [
+        521,
+        105
+      ]
+    },
+    {
+      "id": "WALL_016",
+      "type": "line_wall",
+      "x1": 36.211912,
+      "y1": 191.635107,
+      "x2": 42.273733,
+      "y2": 191.635107,
+      "length": 6.061821,
+      "source_segments": 3,
+      "source_entities": [
+        104,
+        44,
+        125
+      ]
+    },
+    {
+      "id": "WALL_017",
+      "type": "line_wall",
+      "x1": 48.018199,
+      "y1": 191.647266,
+      "x2": 48.267013,
+      "y2": 191.647266,
+      "length": 0.248815,
+      "source_segments": 1,
+      "source_entities": [
+        126
+      ]
+    },
+    {
+      "id": "WALL_018",
+      "type": "line_wall",
+      "x1": 33.188323,
+      "y1": 189.63675,
+      "x2": 36.432576,
+      "y2": 189.63675,
+      "length": 3.244253,
+      "source_segments": 1,
+      "source_entities": [
+        45
+      ]
+    },
+    {
+      "id": "WALL_019",
+      "type": "line_wall",
+      "x1": 33.433243,
+      "y1": 189.882894,
+      "x2": 36.186044,
+      "y2": 189.882894,
+      "length": 2.752801,
+      "source_segments": 1,
+      "source_entities": [
+        46
+      ]
+    },
+    {
+      "id": "WALL_020",
+      "type": "line_wall",
+      "x1": 71.5935,
+      "y1": 172.518828,
+      "x2": 75.138155,
+      "y2": 172.518828,
+      "length": 3.544655,
+      "source_segments": 2,
+      "source_entities": [
+        57,
+        54
+      ]
+    },
+    {
+      "id": "WALL_021",
+      "type": "line_wall",
+      "x1": 75.384301,
+      "y1": 172.508879,
+      "x2": 76.582211,
+      "y2": 172.508879,
+      "length": 1.19791,
+      "source_segments": 2,
+      "source_entities": [
+        53,
+        58
+      ]
+    },
+    {
+      "id": "WALL_022",
+      "type": "line_wall",
+      "x1": 76.664259,
+      "y1": 172.505846,
+      "x2": 76.898382,
+      "y2": 172.505846,
+      "length": 0.234122,
+      "source_segments": 2,
+      "source_entities": [
+        52,
+        59
+      ]
+    },
+    {
+      "id": "WALL_023",
+      "type": "line_wall",
+      "x1": 77.718828,
+      "y1": 172.50017,
+      "x2": 78.830336,
+      "y2": 172.50017,
+      "length": 1.111509,
+      "source_segments": 2,
+      "source_entities": [
+        50,
+        61
+      ]
+    },
+    {
+      "id": "WALL_024",
+      "type": "line_wall",
+      "x1": 98.36204,
+      "y1": 172.53978,
+      "x2": 100.232747,
+      "y2": 172.53978,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        466
+      ]
+    },
+    {
+      "id": "WALL_025",
+      "type": "line_wall",
+      "x1": 101.915518,
+      "y1": 172.526273,
+      "x2": 103.786225,
+      "y2": 172.526273,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        469
+      ]
+    },
+    {
+      "id": "WALL_026",
+      "type": "line_wall",
+      "x1": 104.925234,
+      "y1": 172.514833,
+      "x2": 106.795941,
+      "y2": 172.514833,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        472
+      ]
+    },
+    {
+      "id": "WALL_027",
+      "type": "line_wall",
+      "x1": 108.120712,
+      "y1": 172.502687,
+      "x2": 109.991419,
+      "y2": 172.502687,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        475
+      ]
+    },
+    {
+      "id": "WALL_028",
+      "type": "line_wall",
+      "x1": 110.72415,
+      "y1": 172.502687,
+      "x2": 112.594857,
+      "y2": 172.502687,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        478
+      ]
+    },
+    {
+      "id": "WALL_029",
+      "type": "line_wall",
+      "x1": 71.841627,
+      "y1": 172.761159,
+      "x2": 76.898382,
+      "y2": 172.761159,
+      "length": 5.056754,
+      "source_segments": 2,
+      "source_entities": [
+        64,
+        279
+      ]
+    },
+    {
+      "id": "WALL_030",
+      "type": "line_wall",
+      "x1": 77.636818,
+      "y1": 172.743873,
+      "x2": 80.444754,
+      "y2": 172.743873,
+      "length": 2.807935,
+      "source_segments": 2,
+      "source_entities": [
+        65,
+        227
+      ]
+    },
+    {
+      "id": "WALL_031",
+      "type": "line_wall",
+      "x1": 81.669583,
+      "y1": 172.727799,
+      "x2": 83.146457,
+      "y2": 172.727799,
+      "length": 1.476874,
+      "source_segments": 1,
+      "source_entities": [
+        280
+      ]
+    },
+    {
+      "id": "WALL_032",
+      "type": "line_wall",
+      "x1": 62.576405,
+      "y1": 182.218082,
+      "x2": 65.857958,
+      "y2": 182.218082,
+      "length": 3.281553,
+      "source_segments": 1,
+      "source_entities": [
+        70
+      ]
+    },
+    {
+      "id": "WALL_033",
+      "type": "line_wall",
+      "x1": 62.822021,
+      "y1": 182.464228,
+      "x2": 65.616316,
+      "y2": 182.464228,
+      "length": 2.794295,
+      "source_segments": 1,
+      "source_entities": [
+        71
+      ]
+    },
+    {
+      "id": "WALL_034",
+      "type": "line_wall",
+      "x1": 33.423129,
+      "y1": 194.739129,
+      "x2": 34.49681,
+      "y2": 194.739129,
+      "length": 1.073681,
+      "source_segments": 1,
+      "source_entities": [
+        76
+      ]
+    },
+    {
+      "id": "WALL_035",
+      "type": "line_wall",
+      "x1": 35.891635,
+      "y1": 194.739129,
+      "x2": 37.376599,
+      "y2": 194.739129,
+      "length": 1.484964,
+      "source_segments": 1,
+      "source_entities": [
+        78
+      ]
+    },
+    {
+      "id": "WALL_036",
+      "type": "line_wall",
+      "x1": 38.771424,
+      "y1": 194.739129,
+      "x2": 39.995773,
+      "y2": 194.739129,
+      "length": 1.224349,
+      "source_segments": 1,
+      "source_entities": [
+        80
+      ]
+    },
+    {
+      "id": "WALL_037",
+      "type": "line_wall",
+      "x1": 41.390598,
+      "y1": 194.739129,
+      "x2": 50.012885,
+      "y2": 194.739129,
+      "length": 8.622287,
+      "source_segments": 3,
+      "source_entities": [
+        82,
+        299,
+        83
+      ]
+    },
+    {
+      "id": "WALL_038",
+      "type": "line_wall",
+      "x1": 51.407711,
+      "y1": 194.739129,
+      "x2": 60.389692,
+      "y2": 194.739129,
+      "length": 8.981982,
+      "source_segments": 4,
+      "source_entities": [
+        85,
+        240,
+        86,
+        295
+      ]
+    },
+    {
+      "id": "WALL_039",
+      "type": "line_wall",
+      "x1": 61.825543,
+      "y1": 194.739129,
+      "x2": 69.623049,
+      "y2": 194.739129,
+      "length": 7.797506,
+      "source_segments": 2,
+      "source_entities": [
+        200,
+        88
+      ]
+    },
+    {
+      "id": "WALL_040",
+      "type": "line_wall",
+      "x1": 71.017874,
+      "y1": 194.739129,
+      "x2": 71.354274,
+      "y2": 194.739129,
+      "length": 0.3364,
+      "source_segments": 2,
+      "source_entities": [
+        90,
+        179
+      ]
+    },
+    {
+      "id": "WALL_041",
+      "type": "line_wall",
+      "x1": 33.422707,
+      "y1": 194.985274,
+      "x2": 34.455785,
+      "y2": 194.985274,
+      "length": 1.033078,
+      "source_segments": 2,
+      "source_entities": [
+        91,
+        153
+      ]
+    },
+    {
+      "id": "WALL_042",
+      "type": "line_wall",
+      "x1": 35.932659,
+      "y1": 194.985274,
+      "x2": 36.189021,
+      "y2": 194.985274,
+      "length": 0.256362,
+      "source_segments": 1,
+      "source_entities": [
+        92
+      ]
+    },
+    {
+      "id": "WALL_043",
+      "type": "line_wall",
+      "x1": 36.435167,
+      "y1": 194.985274,
+      "x2": 37.335573,
+      "y2": 194.985274,
+      "length": 0.900407,
+      "source_segments": 1,
+      "source_entities": [
+        93
+      ]
+    },
+    {
+      "id": "WALL_044",
+      "type": "line_wall",
+      "x1": 38.812449,
+      "y1": 194.985272,
+      "x2": 39.954748,
+      "y2": 194.985272,
+      "length": 1.142299,
+      "source_segments": 1,
+      "source_entities": [
+        186
+      ]
+    },
+    {
+      "id": "WALL_045",
+      "type": "line_wall",
+      "x1": 41.431623,
+      "y1": 194.985251,
+      "x2": 49.971862,
+      "y2": 194.985251,
+      "length": 8.540239,
+      "source_segments": 3,
+      "source_entities": [
+        187,
+        298,
+        188
+      ]
+    },
+    {
+      "id": "WALL_046",
+      "type": "line_wall",
+      "x1": 51.448736,
+      "y1": 194.985214,
+      "x2": 60.389692,
+      "y2": 194.985214,
+      "length": 8.940956,
+      "source_segments": 5,
+      "source_entities": [
+        189,
+        239,
+        190,
+        241,
+        294
+      ]
+    },
+    {
+      "id": "WALL_047",
+      "type": "line_wall",
+      "x1": 61.866568,
+      "y1": 194.985274,
+      "x2": 66.431361,
+      "y2": 194.985274,
+      "length": 4.564793,
+      "source_segments": 4,
+      "source_entities": [
+        231,
+        199,
+        94,
+        95
+      ]
+    },
+    {
+      "id": "WALL_048",
+      "type": "line_wall",
+      "x1": 66.529819,
+      "y1": 194.985274,
+      "x2": 69.582024,
+      "y2": 194.985274,
+      "length": 3.052204,
+      "source_segments": 1,
+      "source_entities": [
+        96
+      ]
+    },
+    {
+      "id": "WALL_049",
+      "type": "line_wall",
+      "x1": 71.058899,
+      "y1": 194.985274,
+      "x2": 71.354274,
+      "y2": 194.985274,
+      "length": 0.295375,
+      "source_segments": 1,
+      "source_entities": [
+        97
+      ]
+    },
+    {
+      "id": "WALL_050",
+      "type": "line_wall",
+      "x1": 30.20866,
+      "y1": 190.409832,
+      "x2": 33.184375,
+      "y2": 190.409832,
+      "length": 2.975715,
+      "source_segments": 2,
+      "source_entities": [
+        101,
+        103
+      ]
+    },
+    {
+      "id": "WALL_051",
+      "type": "line_wall",
+      "x1": 62.814988,
+      "y1": 185.021518,
+      "x2": 65.663632,
+      "y2": 185.021518,
+      "length": 2.848644,
+      "source_segments": 1,
+      "source_entities": [
+        114
+      ]
+    },
+    {
+      "id": "WALL_052",
+      "type": "line_wall",
+      "x1": 74.16718,
+      "y1": 185.048076,
+      "x2": 76.037887,
+      "y2": 185.048076,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        371
+      ]
+    },
+    {
+      "id": "WALL_053",
+      "type": "line_wall",
+      "x1": 78.37516,
+      "y1": 185.048076,
+      "x2": 80.245867,
+      "y2": 185.048076,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        374
+      ]
+    },
+    {
+      "id": "WALL_054",
+      "type": "line_wall",
+      "x1": 90.674959,
+      "y1": 185.048076,
+      "x2": 92.545666,
+      "y2": 185.048076,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        377
+      ]
+    },
+    {
+      "id": "WALL_055",
+      "type": "line_wall",
+      "x1": 95.196827,
+      "y1": 185.048076,
+      "x2": 97.067534,
+      "y2": 185.048076,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        380
+      ]
+    },
+    {
+      "id": "WALL_056",
+      "type": "line_wall",
+      "x1": 104.548476,
+      "y1": 185.050009,
+      "x2": 106.419183,
+      "y2": 185.050009,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        385
+      ]
+    },
+    {
+      "id": "WALL_057",
+      "type": "line_wall",
+      "x1": 109.668169,
+      "y1": 185.044627,
+      "x2": 111.538876,
+      "y2": 185.044627,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        383
+      ]
+    },
+    {
+      "id": "WALL_058",
+      "type": "line_wall",
+      "x1": 62.568038,
+      "y1": 185.25706,
+      "x2": 65.913891,
+      "y2": 185.25706,
+      "length": 3.345854,
+      "source_segments": 2,
+      "source_entities": [
+        116,
+        115
+      ]
+    },
+    {
+      "id": "WALL_059",
+      "type": "line_wall",
+      "x1": 116.036413,
+      "y1": 185.27861,
+      "x2": 118.167339,
+      "y2": 185.27861,
+      "length": 2.130925,
+      "source_segments": 1,
+      "source_entities": [
+        165
+      ]
+    },
+    {
+      "id": "WALL_060",
+      "type": "line_wall",
+      "x1": 59.267773,
+      "y1": 191.341355,
+      "x2": 61.324872,
+      "y2": 191.341355,
+      "length": 2.057099,
+      "source_segments": 1,
+      "source_entities": [
+        118
+      ]
+    },
+    {
+      "id": "WALL_061",
+      "type": "line_wall",
+      "x1": 61.571018,
+      "y1": 191.341355,
+      "x2": 62.5556,
+      "y2": 191.341355,
+      "length": 0.984583,
+      "source_segments": 1,
+      "source_entities": [
+        119
+      ]
+    },
+    {
+      "id": "WALL_062",
+      "type": "line_wall",
+      "x1": 53.855239,
+      "y1": 191.586662,
+      "x2": 62.801746,
+      "y2": 191.586662,
+      "length": 8.946507,
+      "source_segments": 1,
+      "source_entities": [
+        121
+      ]
+    },
+    {
+      "id": "WALL_063",
+      "type": "line_wall",
+      "x1": 54.106752,
+      "y1": 188.941373,
+      "x2": 61.324872,
+      "y2": 188.941373,
+      "length": 7.21812,
+      "source_segments": 1,
+      "source_entities": [
+        123
+      ]
+    },
+    {
+      "id": "WALL_064",
+      "type": "line_wall",
+      "x1": 61.571018,
+      "y1": 188.941373,
+      "x2": 62.5556,
+      "y2": 188.941373,
+      "length": 0.984583,
+      "source_segments": 1,
+      "source_entities": [
+        124
+      ]
+    },
+    {
+      "id": "WALL_065",
+      "type": "line_wall",
+      "x1": 80.615276,
+      "y1": 192.149794,
+      "x2": 86.295233,
+      "y2": 192.149794,
+      "length": 5.679957,
+      "source_segments": 1,
+      "source_entities": [
+        132
+      ]
+    },
+    {
+      "id": "WALL_066",
+      "type": "line_wall",
+      "x1": 80.574251,
+      "y1": 191.903786,
+      "x2": 86.295234,
+      "y2": 191.903786,
+      "length": 5.720983,
+      "source_segments": 1,
+      "source_entities": [
+        137
+      ]
+    },
+    {
+      "id": "WALL_067",
+      "type": "line_wall",
+      "x1": 91.840119,
+      "y1": 191.961654,
+      "x2": 93.701486,
+      "y2": 191.961654,
+      "length": 1.861366,
+      "source_segments": 1,
+      "source_entities": [
+        490
+      ]
+    },
+    {
+      "id": "WALL_068",
+      "type": "line_wall",
+      "x1": 94.751541,
+      "y1": 191.934752,
+      "x2": 96.622248,
+      "y2": 191.934752,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        487
+      ]
+    },
+    {
+      "id": "WALL_069",
+      "type": "line_wall",
+      "x1": 112.451042,
+      "y1": 191.943448,
+      "x2": 113.543506,
+      "y2": 191.943448,
+      "length": 1.092464,
+      "source_segments": 1,
+      "source_entities": [
+        135
+      ]
+    },
+    {
+      "id": "WALL_070",
+      "type": "line_wall",
+      "x1": 115.02038,
+      "y1": 191.925859,
+      "x2": 116.010544,
+      "y2": 191.925859,
+      "length": 0.990164,
+      "source_segments": 1,
+      "source_entities": [
+        136
+      ]
+    },
+    {
+      "id": "WALL_071",
+      "type": "line_wall",
+      "x1": 112.451042,
+      "y1": 191.697296,
+      "x2": 113.543506,
+      "y2": 191.697296,
+      "length": 1.092464,
+      "source_segments": 1,
+      "source_entities": [
+        140
+      ]
+    },
+    {
+      "id": "WALL_072",
+      "type": "line_wall",
+      "x1": 115.02038,
+      "y1": 191.679713,
+      "x2": 116.008825,
+      "y2": 191.679713,
+      "length": 0.988444,
+      "source_segments": 1,
+      "source_entities": [
+        141
+      ]
+    },
+    {
+      "id": "WALL_073",
+      "type": "line_wall",
+      "x1": 71.354274,
+      "y1": 191.871189,
+      "x2": 71.601908,
+      "y2": 191.871189,
+      "length": 0.247634,
+      "source_segments": 1,
+      "source_entities": [
+        143
+      ]
+    },
+    {
+      "id": "WALL_074",
+      "type": "line_wall",
+      "x1": 100.580336,
+      "y1": 191.894039,
+      "x2": 102.451043,
+      "y2": 191.894039,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        365
+      ]
+    },
+    {
+      "id": "WALL_075",
+      "type": "line_wall",
+      "x1": 104.944051,
+      "y1": 191.863559,
+      "x2": 106.814757,
+      "y2": 191.863559,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        484
+      ]
+    },
+    {
+      "id": "WALL_076",
+      "type": "line_wall",
+      "x1": 108.268407,
+      "y1": 191.840339,
+      "x2": 110.139114,
+      "y2": 191.840339,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        368
+      ]
+    },
+    {
+      "id": "WALL_077",
+      "type": "line_wall",
+      "x1": 116.290301,
+      "y1": 185.52506,
+      "x2": 118.166747,
+      "y2": 185.52506,
+      "length": 1.876446,
+      "source_segments": 1,
+      "source_entities": [
+        166
+      ]
+    },
+    {
+      "id": "WALL_078",
+      "type": "line_wall",
+      "x1": 116.290301,
+      "y1": 186.01735,
+      "x2": 118.165564,
+      "y2": 186.01735,
+      "length": 1.875263,
+      "source_segments": 1,
+      "source_entities": [
+        169
+      ]
+    },
+    {
+      "id": "WALL_079",
+      "type": "line_wall",
+      "x1": 116.034114,
+      "y1": 186.271957,
+      "x2": 118.165564,
+      "y2": 186.271957,
+      "length": 2.13145,
+      "source_segments": 2,
+      "source_entities": [
+        534,
+        170
+      ]
+    },
+    {
+      "id": "WALL_080",
+      "type": "line_wall",
+      "x1": 71.641158,
+      "y1": 185.171149,
+      "x2": 72.281003,
+      "y2": 185.171149,
+      "length": 0.639845,
+      "source_segments": 2,
+      "source_entities": [
+        191,
+        221
+      ]
+    },
+    {
+      "id": "WALL_081",
+      "type": "line_wall",
+      "x1": 73.675828,
+      "y1": 185.171149,
+      "x2": 86.067435,
+      "y2": 185.171149,
+      "length": 12.391607,
+      "source_segments": 2,
+      "source_entities": [
+        223,
+        202
+      ]
+    },
+    {
+      "id": "WALL_082",
+      "type": "line_wall",
+      "x1": 87.46226,
+      "y1": 185.171149,
+      "x2": 100.430338,
+      "y2": 185.171149,
+      "length": 12.968078,
+      "source_segments": 1,
+      "source_entities": [
+        204
+      ]
+    },
+    {
+      "id": "WALL_083",
+      "type": "line_wall",
+      "x1": 101.825163,
+      "y1": 185.171149,
+      "x2": 102.329922,
+      "y2": 185.171149,
+      "length": 0.504759,
+      "source_segments": 1,
+      "source_entities": [
+        206
+      ]
+    },
+    {
+      "id": "WALL_084",
+      "type": "line_wall",
+      "x1": 103.724748,
+      "y1": 185.171149,
+      "x2": 113.293163,
+      "y2": 185.171149,
+      "length": 9.568415,
+      "source_segments": 1,
+      "source_entities": [
+        208
+      ]
+    },
+    {
+      "id": "WALL_085",
+      "type": "line_wall",
+      "x1": 58.91684,
+      "y1": 184.896276,
+      "x2": 59.620817,
+      "y2": 184.896276,
+      "length": 0.703977,
+      "source_segments": 1,
+      "source_entities": [
+        193
+      ]
+    },
+    {
+      "id": "WALL_086",
+      "type": "line_wall",
+      "x1": 71.88275,
+      "y1": 184.925004,
+      "x2": 72.239978,
+      "y2": 184.925004,
+      "length": 0.357228,
+      "source_segments": 1,
+      "source_entities": [
+        225
+      ]
+    },
+    {
+      "id": "WALL_087",
+      "type": "line_wall",
+      "x1": 73.716853,
+      "y1": 184.925004,
+      "x2": 86.02641,
+      "y2": 184.925004,
+      "length": 12.309556,
+      "source_segments": 4,
+      "source_entities": [
+        226,
+        209,
+        273,
+        275
+      ]
+    },
+    {
+      "id": "WALL_088",
+      "type": "line_wall",
+      "x1": 87.503285,
+      "y1": 184.925004,
+      "x2": 100.389313,
+      "y2": 184.925004,
+      "length": 12.886028,
+      "source_segments": 1,
+      "source_entities": [
+        210
+      ]
+    },
+    {
+      "id": "WALL_089",
+      "type": "line_wall",
+      "x1": 102.179226,
+      "y1": 184.925004,
+      "x2": 102.288897,
+      "y2": 184.925004,
+      "length": 0.109671,
+      "source_segments": 1,
+      "source_entities": [
+        212
+      ]
+    },
+    {
+      "id": "WALL_090",
+      "type": "line_wall",
+      "x1": 103.765773,
+      "y1": 184.925004,
+      "x2": 113.048735,
+      "y2": 184.925004,
+      "length": 9.282962,
+      "source_segments": 1,
+      "source_entities": [
+        213
+      ]
+    },
+    {
+      "id": "WALL_091",
+      "type": "line_wall",
+      "x1": 56.796463,
+      "y1": 186.682053,
+      "x2": 57.029135,
+      "y2": 186.682053,
+      "length": 0.232672,
+      "source_segments": 1,
+      "source_entities": [
+        198
+      ]
+    },
+    {
+      "id": "WALL_092",
+      "type": "line_wall",
+      "x1": 114.49408,
+      "y1": 201.490884,
+      "x2": 115.958002,
+      "y2": 201.490884,
+      "length": 1.463922,
+      "source_segments": 1,
+      "source_entities": [
+        217
+      ]
+    },
+    {
+      "id": "WALL_093",
+      "type": "line_wall",
+      "x1": 71.600423,
+      "y1": 192.611874,
+      "x2": 73.475686,
+      "y2": 192.611874,
+      "length": 1.875263,
+      "source_segments": 2,
+      "source_entities": [
+        242,
+        246
+      ]
+    },
+    {
+      "id": "WALL_094",
+      "type": "line_wall",
+      "x1": 73.673785,
+      "y1": 192.616857,
+      "x2": 75.549048,
+      "y2": 192.616857,
+      "length": 1.875263,
+      "source_segments": 1,
+      "source_entities": [
+        251
+      ]
+    },
+    {
+      "id": "WALL_095",
+      "type": "line_wall",
+      "x1": 97.496894,
+      "y1": 192.581111,
+      "x2": 97.743032,
+      "y2": 192.581111,
+      "length": 0.246138,
+      "source_segments": 1,
+      "source_entities": [
+        285
+      ]
+    },
+    {
+      "id": "WALL_096",
+      "type": "line_wall",
+      "x1": 75.747081,
+      "y1": 192.032166,
+      "x2": 79.138401,
+      "y2": 192.032166,
+      "length": 3.391319,
+      "source_segments": 2,
+      "source_entities": [
+        363,
+        551
+      ]
+    },
+    {
+      "id": "WALL_097",
+      "type": "line_wall",
+      "x1": 83.512653,
+      "y1": 192.01982,
+      "x2": 85.374019,
+      "y2": 192.01982,
+      "length": 1.861366,
+      "source_segments": 1,
+      "source_entities": [
+        493
+      ]
+    },
+    {
+      "id": "WALL_098",
+      "type": "line_wall",
+      "x1": 97.743039,
+      "y1": 192.048231,
+      "x2": 98.494642,
+      "y2": 192.048231,
+      "length": 0.751603,
+      "source_segments": 1,
+      "source_entities": [
+        286
+      ]
+    },
+    {
+      "id": "WALL_099",
+      "type": "line_wall",
+      "x1": 113.04834,
+      "y1": 184.451944,
+      "x2": 113.296392,
+      "y2": 184.451944,
+      "length": 0.248053,
+      "source_segments": 1,
+      "source_entities": [
+        288
+      ]
+    },
+    {
+      "id": "WALL_100",
+      "type": "line_wall",
+      "x1": 113.053069,
+      "y1": 182.975068,
+      "x2": 113.303024,
+      "y2": 182.975068,
+      "length": 0.249955,
+      "source_segments": 1,
+      "source_entities": [
+        289
+      ]
+    },
+    {
+      "id": "WALL_101",
+      "type": "line_wall",
+      "x1": 36.896732,
+      "y1": 191.512487,
+      "x2": 38.767438,
+      "y2": 191.512487,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        326
+      ]
+    },
+    {
+      "id": "WALL_102",
+      "type": "line_wall",
+      "x1": 39.742035,
+      "y1": 191.51542,
+      "x2": 41.612742,
+      "y2": 191.51542,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        329
+      ]
+    },
+    {
+      "id": "WALL_103",
+      "type": "line_wall",
+      "x1": 48.931147,
+      "y1": 191.51699,
+      "x2": 50.801854,
+      "y2": 191.51699,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        332
+      ]
+    },
+    {
+      "id": "WALL_104",
+      "type": "line_wall",
+      "x1": 51.575915,
+      "y1": 191.480953,
+      "x2": 53.446481,
+      "y2": 191.480953,
+      "length": 1.870567,
+      "source_segments": 1,
+      "source_entities": [
+        335
+      ]
+    },
+    {
+      "id": "WALL_105",
+      "type": "line_wall",
+      "x1": 53.861029,
+      "y1": 190.94843,
+      "x2": 54.107174,
+      "y2": 190.94843,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        339
+      ]
+    },
+    {
+      "id": "WALL_106",
+      "type": "line_wall",
+      "x1": 116.034114,
+      "y1": 190.94843,
+      "x2": 116.280259,
+      "y2": 190.94843,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        483
+      ]
+    },
+    {
+      "id": "WALL_107",
+      "type": "line_wall",
+      "x1": 60.501519,
+      "y1": 183.60754,
+      "x2": 62.372226,
+      "y2": 183.60754,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        340
+      ]
+    },
+    {
+      "id": "WALL_108",
+      "type": "line_wall",
+      "x1": 42.274266,
+      "y1": 190.878198,
+      "x2": 48.018605,
+      "y2": 190.878198,
+      "length": 5.744339,
+      "source_segments": 1,
+      "source_entities": [
+        344
+      ]
+    },
+    {
+      "id": "WALL_109",
+      "type": "line_wall",
+      "x1": 39.403034,
+      "y1": 194.866023,
+      "x2": 41.273741,
+      "y2": 194.866023,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        345
+      ]
+    },
+    {
+      "id": "WALL_110",
+      "type": "line_wall",
+      "x1": 42.825931,
+      "y1": 194.854713,
+      "x2": 44.696638,
+      "y2": 194.854713,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        348
+      ]
+    },
+    {
+      "id": "WALL_111",
+      "type": "line_wall",
+      "x1": 51.85283,
+      "y1": 194.876369,
+      "x2": 53.723537,
+      "y2": 194.876369,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        351
+      ]
+    },
+    {
+      "id": "WALL_112",
+      "type": "line_wall",
+      "x1": 55.041973,
+      "y1": 194.850664,
+      "x2": 56.912679,
+      "y2": 194.850664,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        354
+      ]
+    },
+    {
+      "id": "WALL_113",
+      "type": "line_wall",
+      "x1": 57.7734,
+      "y1": 194.850664,
+      "x2": 59.644107,
+      "y2": 194.850664,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        499
+      ]
+    },
+    {
+      "id": "WALL_114",
+      "type": "line_wall",
+      "x1": 63.522293,
+      "y1": 194.871706,
+      "x2": 65.393,
+      "y2": 194.871706,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        357
+      ]
+    },
+    {
+      "id": "WALL_115",
+      "type": "line_wall",
+      "x1": 67.359083,
+      "y1": 194.862202,
+      "x2": 69.22979,
+      "y2": 194.862202,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        360
+      ]
+    },
+    {
+      "id": "WALL_116",
+      "type": "line_wall",
+      "x1": 36.847042,
+      "y1": 206.316346,
+      "x2": 38.717749,
+      "y2": 206.316346,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        388
+      ]
+    },
+    {
+      "id": "WALL_117",
+      "type": "line_wall",
+      "x1": 40.062131,
+      "y1": 206.326958,
+      "x2": 41.932838,
+      "y2": 206.326958,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        391
+      ]
+    },
+    {
+      "id": "WALL_118",
+      "type": "line_wall",
+      "x1": 43.182906,
+      "y1": 206.319215,
+      "x2": 45.053613,
+      "y2": 206.319215,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        394
+      ]
+    },
+    {
+      "id": "WALL_119",
+      "type": "line_wall",
+      "x1": 45.937416,
+      "y1": 206.314798,
+      "x2": 47.808123,
+      "y2": 206.314798,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        397
+      ]
+    },
+    {
+      "id": "WALL_120",
+      "type": "line_wall",
+      "x1": 50.868823,
+      "y1": 206.305908,
+      "x2": 52.73953,
+      "y2": 206.305908,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        400
+      ]
+    },
+    {
+      "id": "WALL_121",
+      "type": "line_wall",
+      "x1": 55.563383,
+      "y1": 206.328745,
+      "x2": 57.434089,
+      "y2": 206.328745,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        403
+      ]
+    },
+    {
+      "id": "WALL_122",
+      "type": "line_wall",
+      "x1": 59.440985,
+      "y1": 206.310117,
+      "x2": 61.311692,
+      "y2": 206.310117,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        406
+      ]
+    },
+    {
+      "id": "WALL_123",
+      "type": "line_wall",
+      "x1": 62.311672,
+      "y1": 206.323514,
+      "x2": 64.182379,
+      "y2": 206.323514,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        409
+      ]
+    },
+    {
+      "id": "WALL_124",
+      "type": "line_wall",
+      "x1": 64.879337,
+      "y1": 206.313953,
+      "x2": 66.750044,
+      "y2": 206.313953,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        412
+      ]
+    },
+    {
+      "id": "WALL_125",
+      "type": "line_wall",
+      "x1": 68.293526,
+      "y1": 206.305073,
+      "x2": 70.164233,
+      "y2": 206.305073,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        415
+      ]
+    },
+    {
+      "id": "WALL_126",
+      "type": "line_wall",
+      "x1": 73.039205,
+      "y1": 203.446479,
+      "x2": 74.909912,
+      "y2": 203.446479,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        418
+      ]
+    },
+    {
+      "id": "WALL_127",
+      "type": "line_wall",
+      "x1": 76.991277,
+      "y1": 203.432177,
+      "x2": 78.861984,
+      "y2": 203.432177,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        421
+      ]
+    },
+    {
+      "id": "WALL_128",
+      "type": "line_wall",
+      "x1": 83.655591,
+      "y1": 203.452817,
+      "x2": 85.526298,
+      "y2": 203.452817,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        424
+      ]
+    },
+    {
+      "id": "WALL_129",
+      "type": "line_wall",
+      "x1": 86.890992,
+      "y1": 203.452862,
+      "x2": 88.761698,
+      "y2": 203.452862,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        427
+      ]
+    },
+    {
+      "id": "WALL_130",
+      "type": "line_wall",
+      "x1": 89.694929,
+      "y1": 203.452862,
+      "x2": 91.565636,
+      "y2": 203.452862,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        430
+      ]
+    },
+    {
+      "id": "WALL_131",
+      "type": "line_wall",
+      "x1": 92.373699,
+      "y1": 203.452938,
+      "x2": 94.244406,
+      "y2": 203.452938,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        433
+      ]
+    },
+    {
+      "id": "WALL_132",
+      "type": "line_wall",
+      "x1": 96.734467,
+      "y1": 203.452999,
+      "x2": 98.605173,
+      "y2": 203.452999,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        436
+      ]
+    },
+    {
+      "id": "WALL_133",
+      "type": "line_wall",
+      "x1": 102.086883,
+      "y1": 203.453073,
+      "x2": 103.95759,
+      "y2": 203.453073,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        439
+      ]
+    },
+    {
+      "id": "WALL_134",
+      "type": "line_wall",
+      "x1": 104.747859,
+      "y1": 203.45311,
+      "x2": 106.618566,
+      "y2": 203.45311,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        442
+      ]
+    },
+    {
+      "id": "WALL_135",
+      "type": "line_wall",
+      "x1": 107.811266,
+      "y1": 203.453153,
+      "x2": 109.681973,
+      "y2": 203.453153,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        445
+      ]
+    },
+    {
+      "id": "WALL_136",
+      "type": "line_wall",
+      "x1": 110.437041,
+      "y1": 203.453153,
+      "x2": 112.307748,
+      "y2": 203.453153,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        448
+      ]
+    },
+    {
+      "id": "WALL_137",
+      "type": "line_wall",
+      "x1": 72.87777,
+      "y1": 172.636647,
+      "x2": 74.748477,
+      "y2": 172.636647,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        451
+      ]
+    },
+    {
+      "id": "WALL_138",
+      "type": "line_wall",
+      "x1": 79.420227,
+      "y1": 172.611779,
+      "x2": 81.290934,
+      "y2": 172.611779,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        454
+      ]
+    },
+    {
+      "id": "WALL_139",
+      "type": "line_wall",
+      "x1": 83.29083,
+      "y1": 172.597067,
+      "x2": 85.161537,
+      "y2": 172.597067,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        457
+      ]
+    },
+    {
+      "id": "WALL_140",
+      "type": "line_wall",
+      "x1": 85.535579,
+      "y1": 172.588534,
+      "x2": 87.406286,
+      "y2": 172.588534,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        460
+      ]
+    },
+    {
+      "id": "WALL_141",
+      "type": "line_wall",
+      "x1": 91.825126,
+      "y1": 172.564628,
+      "x2": 93.695833,
+      "y2": 172.564628,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        463
+      ]
+    },
+    {
+      "id": "WALL_142",
+      "type": "line_wall",
+      "x1": 116.034114,
+      "y1": 189.077724,
+      "x2": 116.280259,
+      "y2": 189.077724,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        482
+      ]
+    },
+    {
+      "id": "WALL_143",
+      "type": "line_wall",
+      "x1": 88.666659,
+      "y1": 191.98382,
+      "x2": 90.528025,
+      "y2": 191.98382,
+      "length": 1.861366,
+      "source_segments": 1,
+      "source_entities": [
+        496
+      ]
+    },
+    {
+      "id": "WALL_144",
+      "type": "line_wall",
+      "x1": 71.603886,
+      "y1": 175.230856,
+      "x2": 71.850031,
+      "y2": 175.230856,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        503
+      ]
+    },
+    {
+      "id": "WALL_145",
+      "type": "line_wall",
+      "x1": 71.603007,
+      "y1": 173.359941,
+      "x2": 71.849152,
+      "y2": 173.359941,
+      "length": 0.246144,
+      "source_segments": 2,
+      "source_entities": [
+        504,
+        505
+      ]
+    },
+    {
+      "id": "WALL_146",
+      "type": "line_wall",
+      "x1": 71.617989,
+      "y1": 179.359013,
+      "x2": 71.864134,
+      "y2": 179.359013,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        507
+      ]
+    },
+    {
+      "id": "WALL_147",
+      "type": "line_wall",
+      "x1": 71.61711,
+      "y1": 177.488099,
+      "x2": 71.863254,
+      "y2": 177.488099,
+      "length": 0.246144,
+      "source_segments": 2,
+      "source_entities": [
+        508,
+        509
+      ]
+    },
+    {
+      "id": "WALL_148",
+      "type": "line_wall",
+      "x1": 71.632798,
+      "y1": 183.705276,
+      "x2": 71.878944,
+      "y2": 183.705276,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        511
+      ]
+    },
+    {
+      "id": "WALL_149",
+      "type": "line_wall",
+      "x1": 71.63192,
+      "y1": 181.834361,
+      "x2": 71.878064,
+      "y2": 181.834361,
+      "length": 0.246144,
+      "source_segments": 2,
+      "source_entities": [
+        512,
+        513
+      ]
+    },
+    {
+      "id": "WALL_150",
+      "type": "line_wall",
+      "x1": 52.727005,
+      "y1": 183.664482,
+      "x2": 52.97315,
+      "y2": 183.664482,
+      "length": 0.246144,
+      "source_segments": 1,
+      "source_entities": [
+        515
+      ]
+    },
+    {
+      "id": "WALL_151",
+      "type": "line_wall",
+      "x1": 113.33831,
+      "y1": 175.127698,
+      "x2": 118.191969,
+      "y2": 175.127698,
+      "length": 4.853659,
+      "source_segments": 1,
+      "source_entities": [
+        519
+      ]
+    },
+    {
+      "id": "WALL_152",
+      "type": "line_wall",
+      "x1": 33.17977,
+      "y1": 193.111981,
+      "x2": 33.428445,
+      "y2": 193.111981,
+      "length": 0.248676,
+      "source_segments": 1,
+      "source_entities": [
+        520
+      ]
+    },
+    {
+      "id": "WALL_153",
+      "type": "line_wall",
+      "x1": 116.034114,
+      "y1": 188.509032,
+      "x2": 116.280261,
+      "y2": 188.509032,
+      "length": 0.246147,
+      "source_segments": 1,
+      "source_entities": [
+        533
+      ]
+    },
+    {
+      "id": "WALL_154",
+      "type": "line_wall",
+      "x1": 75.384301,
+      "y1": 171.305933,
+      "x2": 78.830336,
+      "y2": 171.305933,
+      "length": 3.446035,
+      "source_segments": 1,
+      "source_entities": [
+        545
+      ]
+    },
+    {
+      "id": "WALL_155",
+      "type": "line_wall",
+      "x1": 75.138155,
+      "y1": 171.060255,
+      "x2": 79.076482,
+      "y2": 171.060255,
+      "length": 3.938327,
+      "source_segments": 1,
+      "source_entities": [
+        546
+      ]
+    },
+    {
+      "id": "WALL_156",
+      "type": "line_wall",
+      "x1": 30.199357,
+      "y1": 190.409832,
+      "x2": 30.199357,
+      "y2": 199.04845,
+      "length": 8.638618,
+      "source_segments": 1,
+      "source_entities": [
+        0
+      ]
+    },
+    {
+      "id": "WALL_157",
+      "type": "line_wall",
+      "x1": 30.454888,
+      "y1": 190.409832,
+      "x2": 30.454888,
+      "y2": 198.802835,
+      "length": 8.393003,
+      "source_segments": 2,
+      "source_entities": [
+        100,
+        1
+      ]
+    },
+    {
+      "id": "WALL_158",
+      "type": "line_wall",
+      "x1": 33.186349,
+      "y1": 189.62869,
+      "x2": 33.186349,
+      "y2": 191.381907,
+      "length": 1.753217,
+      "source_segments": 2,
+      "source_entities": [
+        47,
+        102
+      ]
+    },
+    {
+      "id": "WALL_159",
+      "type": "line_wall",
+      "x1": 33.174891,
+      "y1": 193.111981,
+      "x2": 33.174891,
+      "y2": 198.808722,
+      "length": 5.696741,
+      "source_segments": 1,
+      "source_entities": [
+        74
+      ]
+    },
+    {
+      "id": "WALL_160",
+      "type": "line_wall",
+      "x1": 33.1636,
+      "y1": 199.054867,
+      "x2": 33.1636,
+      "y2": 204.617074,
+      "length": 5.562207,
+      "source_segments": 1,
+      "source_entities": [
+        4
+      ]
+    },
+    {
+      "id": "WALL_161",
+      "type": "line_wall",
+      "x1": 33.43188,
+      "y1": 189.876056,
+      "x2": 33.43188,
+      "y2": 191.382437,
+      "length": 1.506381,
+      "source_segments": 2,
+      "source_entities": [
+        48,
+        106
+      ]
+    },
+    {
+      "id": "WALL_162",
+      "type": "line_wall",
+      "x1": 33.402566,
+      "y1": 191.635107,
+      "x2": 33.402566,
+      "y2": 194.739129,
+      "length": 3.104022,
+      "source_segments": 2,
+      "source_entities": [
+        523,
+        107
+      ]
+    },
+    {
+      "id": "WALL_163",
+      "type": "line_wall",
+      "x1": 33.419221,
+      "y1": 194.985274,
+      "x2": 33.419221,
+      "y2": 204.371459,
+      "length": 9.386185,
+      "source_segments": 2,
+      "source_entities": [
+        75,
+        5
+      ]
+    },
+    {
+      "id": "WALL_164",
+      "type": "line_wall",
+      "x1": 71.599142,
+      "y1": 172.525565,
+      "x2": 71.599142,
+      "y2": 175.493873,
+      "length": 2.968308,
+      "source_segments": 1,
+      "source_entities": [
+        56
+      ]
+    },
+    {
+      "id": "WALL_165",
+      "type": "line_wall",
+      "x1": 71.637002,
+      "y1": 184.925039,
+      "x2": 71.637002,
+      "y2": 185.17199,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        525
+      ]
+    },
+    {
+      "id": "WALL_166",
+      "type": "line_wall",
+      "x1": 71.600423,
+      "y1": 192.11733,
+      "x2": 71.600423,
+      "y2": 203.329097,
+      "length": 11.211767,
+      "source_segments": 1,
+      "source_entities": [
+        130
+      ]
+    },
+    {
+      "id": "WALL_167",
+      "type": "line_wall",
+      "x1": 71.600399,
+      "y1": 203.575243,
+      "x2": 71.600399,
+      "y2": 206.443191,
+      "length": 2.867948,
+      "source_segments": 1,
+      "source_entities": [
+        11
+      ]
+    },
+    {
+      "id": "WALL_168",
+      "type": "line_wall",
+      "x1": 71.354274,
+      "y1": 191.871189,
+      "x2": 71.354274,
+      "y2": 194.739129,
+      "length": 2.86794,
+      "source_segments": 1,
+      "source_entities": [
+        142
+      ]
+    },
+    {
+      "id": "WALL_169",
+      "type": "line_wall",
+      "x1": 71.354274,
+      "y1": 194.985274,
+      "x2": 71.354274,
+      "y2": 197.840564,
+      "length": 2.855289,
+      "source_segments": 1,
+      "source_entities": [
+        109
+      ]
+    },
+    {
+      "id": "WALL_170",
+      "type": "line_wall",
+      "x1": 71.354274,
+      "y1": 197.939022,
+      "x2": 71.354274,
+      "y2": 206.197042,
+      "length": 8.25802,
+      "source_segments": 3,
+      "source_entities": [
+        108,
+        129,
+        12
+      ]
+    },
+    {
+      "id": "WALL_171",
+      "type": "line_wall",
+      "x1": 62.575039,
+      "y1": 182.218082,
+      "x2": 62.575039,
+      "y2": 183.48587,
+      "length": 1.267788,
+      "source_segments": 1,
+      "source_entities": [
+        13
+      ]
+    },
+    {
+      "id": "WALL_172",
+      "type": "line_wall",
+      "x1": 62.5556,
+      "y1": 188.941373,
+      "x2": 62.5556,
+      "y2": 191.341355,
+      "length": 2.399983,
+      "source_segments": 1,
+      "source_entities": [
+        122
+      ]
+    },
+    {
+      "id": "WALL_173",
+      "type": "line_wall",
+      "x1": 62.820655,
+      "y1": 182.464228,
+      "x2": 62.820655,
+      "y2": 183.732548,
+      "length": 1.26832,
+      "source_segments": 1,
+      "source_entities": [
+        14
+      ]
+    },
+    {
+      "id": "WALL_174",
+      "type": "line_wall",
+      "x1": 62.814585,
+      "y1": 185.016747,
+      "x2": 62.814585,
+      "y2": 185.257472,
+      "length": 0.240725,
+      "source_segments": 1,
+      "source_entities": [
+        527
+      ]
+    },
+    {
+      "id": "WALL_175",
+      "type": "line_wall",
+      "x1": 62.801746,
+      "y1": 188.970495,
+      "x2": 62.801746,
+      "y2": 191.586662,
+      "length": 2.616167,
+      "source_segments": 1,
+      "source_entities": [
+        120
+      ]
+    },
+    {
+      "id": "WALL_176",
+      "type": "line_wall",
+      "x1": 36.198937,
+      "y1": 189.889733,
+      "x2": 36.198937,
+      "y2": 191.639858,
+      "length": 1.750125,
+      "source_segments": 2,
+      "source_entities": [
+        32,
+        314
+      ]
+    },
+    {
+      "id": "WALL_177",
+      "type": "line_wall",
+      "x1": 36.189021,
+      "y1": 194.985274,
+      "x2": 36.189021,
+      "y2": 204.377457,
+      "length": 9.392183,
+      "source_segments": 1,
+      "source_entities": [
+        98
+      ]
+    },
+    {
+      "id": "WALL_178",
+      "type": "line_wall",
+      "x1": 36.187062,
+      "y1": 204.623603,
+      "x2": 36.187062,
+      "y2": 206.442699,
+      "length": 1.819096,
+      "source_segments": 1,
+      "source_entities": [
+        20
+      ]
+    },
+    {
+      "id": "WALL_179",
+      "type": "line_wall",
+      "x1": 36.443159,
+      "y1": 189.665435,
+      "x2": 36.443159,
+      "y2": 191.388961,
+      "length": 1.723526,
+      "source_segments": 1,
+      "source_entities": [
+        31
+      ]
+    },
+    {
+      "id": "WALL_180",
+      "type": "line_wall",
+      "x1": 36.435167,
+      "y1": 194.985274,
+      "x2": 36.435167,
+      "y2": 206.196557,
+      "length": 11.211282,
+      "source_segments": 2,
+      "source_entities": [
+        99,
+        21
+      ]
+    },
+    {
+      "id": "WALL_181",
+      "type": "line_wall",
+      "x1": 113.311088,
+      "y1": 172.367011,
+      "x2": 113.311088,
+      "y2": 182.975068,
+      "length": 10.608057,
+      "source_segments": 3,
+      "source_entities": [
+        29,
+        517,
+        113
+      ]
+    },
+    {
+      "id": "WALL_182",
+      "type": "line_wall",
+      "x1": 113.294777,
+      "y1": 184.451944,
+      "x2": 113.294777,
+      "y2": 185.171149,
+      "length": 0.719205,
+      "source_segments": 1,
+      "source_entities": [
+        112
+      ]
+    },
+    {
+      "id": "WALL_183",
+      "type": "line_wall",
+      "x1": 52.964732,
+      "y1": 183.664894,
+      "x2": 52.964732,
+      "y2": 188.691373,
+      "length": 5.026479,
+      "source_segments": 1,
+      "source_entities": [
+        33
+      ]
+    },
+    {
+      "id": "WALL_184",
+      "type": "line_wall",
+      "x1": 53.856589,
+      "y1": 188.940548,
+      "x2": 53.856589,
+      "y2": 191.340531,
+      "length": 2.399983,
+      "source_segments": 1,
+      "source_entities": [
+        35
+      ]
+    },
+    {
+      "id": "WALL_185",
+      "type": "line_wall",
+      "x1": 53.892999,
+      "y1": 194.985274,
+      "x2": 53.892999,
+      "y2": 206.196877,
+      "length": 11.211602,
+      "source_segments": 1,
+      "source_entities": [
+        233
+      ]
+    },
+    {
+      "id": "WALL_186",
+      "type": "line_wall",
+      "x1": 54.102733,
+      "y1": 188.941373,
+      "x2": 54.102733,
+      "y2": 191.586662,
+      "length": 2.645289,
+      "source_segments": 2,
+      "source_entities": [
+        36,
+        553
+      ]
+    },
+    {
+      "id": "WALL_187",
+      "type": "line_wall",
+      "x1": 54.139145,
+      "y1": 194.985274,
+      "x2": 54.139145,
+      "y2": 206.19688,
+      "length": 11.211606,
+      "source_segments": 1,
+      "source_entities": [
+        234
+      ]
+    },
+    {
+      "id": "WALL_188",
+      "type": "line_wall",
+      "x1": 42.027917,
+      "y1": 190.754872,
+      "x2": 42.027917,
+      "y2": 191.394704,
+      "length": 0.639832,
+      "source_segments": 1,
+      "source_entities": [
+        41
+      ]
+    },
+    {
+      "id": "WALL_189",
+      "type": "line_wall",
+      "x1": 42.274266,
+      "y1": 190.755126,
+      "x2": 42.274266,
+      "y2": 191.640849,
+      "length": 0.885724,
+      "source_segments": 3,
+      "source_entities": [
+        342,
+        42,
+        127
+      ]
+    },
+    {
+      "id": "WALL_190",
+      "type": "line_wall",
+      "x1": 48.264674,
+      "y1": 190.761302,
+      "x2": 48.264674,
+      "y2": 191.401135,
+      "length": 0.639832,
+      "source_segments": 1,
+      "source_entities": [
+        68
+      ]
+    },
+    {
+      "id": "WALL_191",
+      "type": "line_wall",
+      "x1": 48.018605,
+      "y1": 190.761048,
+      "x2": 48.018605,
+      "y2": 191.647266,
+      "length": 0.886217,
+      "source_segments": 3,
+      "source_entities": [
+        343,
+        69,
+        128
+      ]
+    },
+    {
+      "id": "WALL_192",
+      "type": "line_wall",
+      "x1": 113.061667,
+      "y1": 175.238671,
+      "x2": 113.061667,
+      "y2": 182.975068,
+      "length": 7.736397,
+      "source_segments": 1,
+      "source_entities": [
+        110
+      ]
+    },
+    {
+      "id": "WALL_193",
+      "type": "line_wall",
+      "x1": 113.04926,
+      "y1": 184.451944,
+      "x2": 113.04926,
+      "y2": 184.925004,
+      "length": 0.47306,
+      "source_segments": 1,
+      "source_entities": [
+        111
+      ]
+    },
+    {
+      "id": "WALL_194",
+      "type": "line_wall",
+      "x1": 31.803425,
+      "y1": 197.57505,
+      "x2": 31.803425,
+      "y2": 198.805778,
+      "length": 1.230728,
+      "source_segments": 1,
+      "source_entities": [
+        144
+      ]
+    },
+    {
+      "id": "WALL_195",
+      "type": "line_wall",
+      "x1": 31.139929,
+      "y1": 193.273823,
+      "x2": 31.139929,
+      "y2": 193.977799,
+      "length": 0.703977,
+      "source_segments": 1,
+      "source_entities": [
+        145
+      ]
+    },
+    {
+      "id": "WALL_196",
+      "type": "line_wall",
+      "x1": 32.311491,
+      "y1": 195.865504,
+      "x2": 32.311491,
+      "y2": 196.098176,
+      "length": 0.232672,
+      "source_segments": 1,
+      "source_entities": [
+        150
+      ]
+    },
+    {
+      "id": "WALL_197",
+      "type": "line_wall",
+      "x1": 35.932659,
+      "y1": 194.739129,
+      "x2": 35.932659,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        154
+      ]
+    },
+    {
+      "id": "WALL_198",
+      "type": "line_wall",
+      "x1": 34.455785,
+      "y1": 194.739129,
+      "x2": 34.455785,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        155
+      ]
+    },
+    {
+      "id": "WALL_199",
+      "type": "line_wall",
+      "x1": 61.571018,
+      "y1": 188.941373,
+      "x2": 61.571018,
+      "y2": 191.341355,
+      "length": 2.399983,
+      "source_segments": 1,
+      "source_entities": [
+        156
+      ]
+    },
+    {
+      "id": "WALL_200",
+      "type": "line_wall",
+      "x1": 61.324872,
+      "y1": 188.941373,
+      "x2": 61.324872,
+      "y2": 191.341355,
+      "length": 2.399983,
+      "source_segments": 1,
+      "source_entities": [
+        157
+      ]
+    },
+    {
+      "id": "WALL_201",
+      "type": "line_wall",
+      "x1": 61.311692,
+      "y1": 206.187044,
+      "x2": 61.311692,
+      "y2": 206.43319,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        408
+      ]
+    },
+    {
+      "id": "WALL_202",
+      "type": "line_wall",
+      "x1": 117.042299,
+      "y1": 180.916229,
+      "x2": 117.042299,
+      "y2": 181.620206,
+      "length": 0.703977,
+      "source_segments": 1,
+      "source_entities": [
+        158
+      ]
+    },
+    {
+      "id": "WALL_203",
+      "type": "line_wall",
+      "x1": 115.256521,
+      "y1": 178.795852,
+      "x2": 115.256521,
+      "y2": 179.028524,
+      "length": 0.232672,
+      "source_segments": 1,
+      "source_entities": [
+        163
+      ]
+    },
+    {
+      "id": "WALL_204",
+      "type": "line_wall",
+      "x1": 116.036413,
+      "y1": 185.27605,
+      "x2": 116.036413,
+      "y2": 188.508758,
+      "length": 3.232709,
+      "source_segments": 2,
+      "source_entities": [
+        164,
+        531
+      ]
+    },
+    {
+      "id": "WALL_205",
+      "type": "line_wall",
+      "x1": 116.013693,
+      "y1": 192.139203,
+      "x2": 116.013693,
+      "y2": 192.385344,
+      "length": 0.246141,
+      "source_segments": 1,
+      "source_entities": [
+        201
+      ]
+    },
+    {
+      "id": "WALL_206",
+      "type": "line_wall",
+      "x1": 116.290301,
+      "y1": 185.522805,
+      "x2": 116.290301,
+      "y2": 186.015097,
+      "length": 0.492291,
+      "source_segments": 1,
+      "source_entities": [
+        168
+      ]
+    },
+    {
+      "id": "WALL_207",
+      "type": "line_wall",
+      "x1": 116.28547,
+      "y1": 186.260864,
+      "x2": 116.28547,
+      "y2": 188.509305,
+      "length": 2.248441,
+      "source_segments": 2,
+      "source_entities": [
+        167,
+        532
+      ]
+    },
+    {
+      "id": "WALL_208",
+      "type": "line_wall",
+      "x1": 71.058899,
+      "y1": 194.739129,
+      "x2": 71.058899,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        180
+      ]
+    },
+    {
+      "id": "WALL_209",
+      "type": "line_wall",
+      "x1": 69.582024,
+      "y1": 194.739129,
+      "x2": 69.582024,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        181
+      ]
+    },
+    {
+      "id": "WALL_210",
+      "type": "line_wall",
+      "x1": 38.812449,
+      "y1": 194.739129,
+      "x2": 38.812449,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        184
+      ]
+    },
+    {
+      "id": "WALL_211",
+      "type": "line_wall",
+      "x1": 37.335573,
+      "y1": 194.739129,
+      "x2": 37.335573,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        185
+      ]
+    },
+    {
+      "id": "WALL_212",
+      "type": "line_wall",
+      "x1": 71.883146,
+      "y1": 182.955033,
+      "x2": 71.883146,
+      "y2": 185.171149,
+      "length": 2.216117,
+      "source_segments": 3,
+      "source_entities": [
+        277,
+        192,
+        224
+      ]
+    },
+    {
+      "id": "WALL_213",
+      "type": "line_wall",
+      "x1": 113.002719,
+      "y1": 191.953197,
+      "x2": 113.002719,
+      "y2": 201.490884,
+      "length": 9.537686,
+      "source_segments": 1,
+      "source_entities": [
+        215
+      ]
+    },
+    {
+      "id": "WALL_214",
+      "type": "line_wall",
+      "x1": 113.248865,
+      "y1": 191.951478,
+      "x2": 113.248865,
+      "y2": 201.490884,
+      "length": 9.539405,
+      "source_segments": 1,
+      "source_entities": [
+        216
+      ]
+    },
+    {
+      "id": "WALL_215",
+      "type": "line_wall",
+      "x1": 115.02038,
+      "y1": 191.683165,
+      "x2": 115.02038,
+      "y2": 191.929317,
+      "length": 0.246152,
+      "source_segments": 1,
+      "source_entities": [
+        218
+      ]
+    },
+    {
+      "id": "WALL_216",
+      "type": "line_wall",
+      "x1": 113.543506,
+      "y1": 191.693481,
+      "x2": 113.543506,
+      "y2": 191.939633,
+      "length": 0.246152,
+      "source_segments": 1,
+      "source_entities": [
+        219
+      ]
+    },
+    {
+      "id": "WALL_217",
+      "type": "line_wall",
+      "x1": 62.189279,
+      "y1": 194.985274,
+      "x2": 62.189279,
+      "y2": 206.196877,
+      "length": 11.211602,
+      "source_segments": 1,
+      "source_entities": [
+        228
+      ]
+    },
+    {
+      "id": "WALL_218",
+      "type": "line_wall",
+      "x1": 62.435424,
+      "y1": 194.985274,
+      "x2": 62.435424,
+      "y2": 206.19688,
+      "length": 11.211606,
+      "source_segments": 1,
+      "source_entities": [
+        230
+      ]
+    },
+    {
+      "id": "WALL_219",
+      "type": "line_wall",
+      "x1": 49.300421,
+      "y1": 194.985295,
+      "x2": 49.300421,
+      "y2": 206.196897,
+      "length": 11.211602,
+      "source_segments": 1,
+      "source_entities": [
+        235
+      ]
+    },
+    {
+      "id": "WALL_220",
+      "type": "line_wall",
+      "x1": 49.546567,
+      "y1": 194.985295,
+      "x2": 49.546567,
+      "y2": 206.196901,
+      "length": 11.211606,
+      "source_segments": 1,
+      "source_entities": [
+        236
+      ]
+    },
+    {
+      "id": "WALL_221",
+      "type": "line_wall",
+      "x1": 61.866568,
+      "y1": 194.739067,
+      "x2": 61.866568,
+      "y2": 194.985274,
+      "length": 0.246207,
+      "source_segments": 1,
+      "source_entities": [
+        237
+      ]
+    },
+    {
+      "id": "WALL_222",
+      "type": "line_wall",
+      "x1": 60.389692,
+      "y1": 194.739067,
+      "x2": 60.389692,
+      "y2": 194.985213,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        238
+      ]
+    },
+    {
+      "id": "WALL_223",
+      "type": "line_wall",
+      "x1": 73.476277,
+      "y1": 192.121839,
+      "x2": 73.476277,
+      "y2": 192.614128,
+      "length": 0.492288,
+      "source_segments": 1,
+      "source_entities": [
+        245
+      ]
+    },
+    {
+      "id": "WALL_224",
+      "type": "line_wall",
+      "x1": 82.799018,
+      "y1": 192.154378,
+      "x2": 82.799018,
+      "y2": 196.604454,
+      "length": 4.450076,
+      "source_segments": 2,
+      "source_entities": [
+        259,
+        253
+      ]
+    },
+    {
+      "id": "WALL_225",
+      "type": "line_wall",
+      "x1": 82.799002,
+      "y1": 196.702913,
+      "x2": 82.799002,
+      "y2": 203.329253,
+      "length": 6.62634,
+      "source_segments": 3,
+      "source_entities": [
+        254,
+        255,
+        256
+      ]
+    },
+    {
+      "id": "WALL_226",
+      "type": "line_wall",
+      "x1": 83.045102,
+      "y1": 192.152659,
+      "x2": 83.045102,
+      "y2": 203.329253,
+      "length": 11.176593,
+      "source_segments": 1,
+      "source_entities": [
+        258
+      ]
+    },
+    {
+      "id": "WALL_227",
+      "type": "line_wall",
+      "x1": 91.343253,
+      "y1": 192.094698,
+      "x2": 91.343253,
+      "y2": 203.329253,
+      "length": 11.234555,
+      "source_segments": 1,
+      "source_entities": [
+        262
+      ]
+    },
+    {
+      "id": "WALL_228",
+      "type": "line_wall",
+      "x1": 91.097168,
+      "y1": 192.096417,
+      "x2": 91.097168,
+      "y2": 203.329368,
+      "length": 11.232951,
+      "source_segments": 2,
+      "source_entities": [
+        263,
+        264
+      ]
+    },
+    {
+      "id": "WALL_229",
+      "type": "line_wall",
+      "x1": 103.786225,
+      "y1": 172.403201,
+      "x2": 103.786225,
+      "y2": 172.649346,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        470
+      ]
+    },
+    {
+      "id": "WALL_230",
+      "type": "line_wall",
+      "x1": 103.805996,
+      "y1": 192.007648,
+      "x2": 103.805996,
+      "y2": 203.329614,
+      "length": 11.321966,
+      "source_segments": 1,
+      "source_entities": [
+        267
+      ]
+    },
+    {
+      "id": "WALL_231",
+      "type": "line_wall",
+      "x1": 103.707538,
+      "y1": 192.008335,
+      "x2": 103.707538,
+      "y2": 203.329614,
+      "length": 11.321278,
+      "source_segments": 1,
+      "source_entities": [
+        269
+      ]
+    },
+    {
+      "id": "WALL_232",
+      "type": "line_wall",
+      "x1": 97.496894,
+      "y1": 192.051716,
+      "x2": 97.496894,
+      "y2": 192.581111,
+      "length": 0.529396,
+      "source_segments": 1,
+      "source_entities": [
+        271
+      ]
+    },
+    {
+      "id": "WALL_233",
+      "type": "line_wall",
+      "x1": 97.743036,
+      "y1": 192.051716,
+      "x2": 97.743036,
+      "y2": 192.581111,
+      "length": 0.529396,
+      "source_segments": 1,
+      "source_entities": [
+        272
+      ]
+    },
+    {
+      "id": "WALL_234",
+      "type": "line_wall",
+      "x1": 99.971516,
+      "y1": 191.788279,
+      "x2": 99.971516,
+      "y2": 192.034431,
+      "length": 0.246152,
+      "source_segments": 1,
+      "source_entities": [
+        283
+      ]
+    },
+    {
+      "id": "WALL_235",
+      "type": "line_wall",
+      "x1": 98.494642,
+      "y1": 191.798595,
+      "x2": 98.494642,
+      "y2": 192.044747,
+      "length": 0.246152,
+      "source_segments": 1,
+      "source_entities": [
+        284
+      ]
+    },
+    {
+      "id": "WALL_236",
+      "type": "line_wall",
+      "x1": 72.239978,
+      "y1": 184.924198,
+      "x2": 72.239978,
+      "y2": 185.171149,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        292
+      ]
+    },
+    {
+      "id": "WALL_237",
+      "type": "line_wall",
+      "x1": 73.716853,
+      "y1": 184.924198,
+      "x2": 73.716853,
+      "y2": 185.171149,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        293
+      ]
+    },
+    {
+      "id": "WALL_238",
+      "type": "line_wall",
+      "x1": 39.254543,
+      "y1": 194.985274,
+      "x2": 39.254543,
+      "y2": 206.196877,
+      "length": 11.211602,
+      "source_segments": 1,
+      "source_entities": [
+        296
+      ]
+    },
+    {
+      "id": "WALL_239",
+      "type": "line_wall",
+      "x1": 39.500689,
+      "y1": 194.985274,
+      "x2": 39.500689,
+      "y2": 206.19688,
+      "length": 11.211606,
+      "source_segments": 1,
+      "source_entities": [
+        297
+      ]
+    },
+    {
+      "id": "WALL_240",
+      "type": "line_wall",
+      "x1": 49.971862,
+      "y1": 194.739067,
+      "x2": 49.971862,
+      "y2": 194.985223,
+      "length": 0.246156,
+      "source_segments": 1,
+      "source_entities": [
+        300
+      ]
+    },
+    {
+      "id": "WALL_241",
+      "type": "line_wall",
+      "x1": 51.448736,
+      "y1": 194.739067,
+      "x2": 51.448736,
+      "y2": 194.985216,
+      "length": 0.246149,
+      "source_segments": 1,
+      "source_entities": [
+        301
+      ]
+    },
+    {
+      "id": "WALL_242",
+      "type": "line_wall",
+      "x1": 41.431623,
+      "y1": 194.739129,
+      "x2": 41.431623,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        302
+      ]
+    },
+    {
+      "id": "WALL_243",
+      "type": "line_wall",
+      "x1": 39.954748,
+      "y1": 194.739129,
+      "x2": 39.954748,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        303
+      ]
+    },
+    {
+      "id": "WALL_244",
+      "type": "line_wall",
+      "x1": 80.615276,
+      "y1": 191.92348,
+      "x2": 80.615276,
+      "y2": 192.169631,
+      "length": 0.246151,
+      "source_segments": 1,
+      "source_entities": [
+        304
+      ]
+    },
+    {
+      "id": "WALL_245",
+      "type": "line_wall",
+      "x1": 79.138401,
+      "y1": 191.916687,
+      "x2": 79.138401,
+      "y2": 192.162819,
+      "length": 0.246132,
+      "source_segments": 1,
+      "source_entities": [
+        305
+      ]
+    },
+    {
+      "id": "WALL_246",
+      "type": "line_wall",
+      "x1": 87.772108,
+      "y1": 191.87349,
+      "x2": 87.772108,
+      "y2": 192.119642,
+      "length": 0.246151,
+      "source_segments": 2,
+      "source_entities": [
+        306,
+        308
+      ]
+    },
+    {
+      "id": "WALL_247",
+      "type": "line_wall",
+      "x1": 86.295233,
+      "y1": 191.87349,
+      "x2": 86.295233,
+      "y2": 192.129958,
+      "length": 0.256467,
+      "source_segments": 2,
+      "source_entities": [
+        307,
+        309
+      ]
+    },
+    {
+      "id": "WALL_248",
+      "type": "line_wall",
+      "x1": 34.525649,
+      "y1": 189.881502,
+      "x2": 34.525649,
+      "y2": 191.384791,
+      "length": 1.503289,
+      "source_segments": 1,
+      "source_entities": [
+        310
+      ]
+    },
+    {
+      "id": "WALL_249",
+      "type": "line_wall",
+      "x1": 34.279506,
+      "y1": 189.880279,
+      "x2": 34.279506,
+      "y2": 191.384791,
+      "length": 1.504512,
+      "source_segments": 1,
+      "source_entities": [
+        311
+      ]
+    },
+    {
+      "id": "WALL_250",
+      "type": "line_wall",
+      "x1": 35.473474,
+      "y1": 191.386841,
+      "x2": 35.473474,
+      "y2": 191.639858,
+      "length": 0.253017,
+      "source_segments": 1,
+      "source_entities": [
+        315
+      ]
+    },
+    {
+      "id": "WALL_251",
+      "type": "line_wall",
+      "x1": 86.02641,
+      "y1": 184.924198,
+      "x2": 86.02641,
+      "y2": 185.171149,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        316
+      ]
+    },
+    {
+      "id": "WALL_252",
+      "type": "line_wall",
+      "x1": 87.503285,
+      "y1": 184.924198,
+      "x2": 87.503285,
+      "y2": 185.171149,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        317
+      ]
+    },
+    {
+      "id": "WALL_253",
+      "type": "line_wall",
+      "x1": 100.389313,
+      "y1": 184.924198,
+      "x2": 100.389313,
+      "y2": 185.171149,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        318
+      ]
+    },
+    {
+      "id": "WALL_254",
+      "type": "line_wall",
+      "x1": 101.866188,
+      "y1": 184.924198,
+      "x2": 101.866188,
+      "y2": 185.171149,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        319
+      ]
+    },
+    {
+      "id": "WALL_255",
+      "type": "line_wall",
+      "x1": 102.288897,
+      "y1": 184.924198,
+      "x2": 102.288897,
+      "y2": 185.171149,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        320
+      ]
+    },
+    {
+      "id": "WALL_256",
+      "type": "line_wall",
+      "x1": 103.765773,
+      "y1": 184.924198,
+      "x2": 103.765773,
+      "y2": 185.171149,
+      "length": 0.246951,
+      "source_segments": 1,
+      "source_entities": [
+        321
+      ]
+    },
+    {
+      "id": "WALL_257",
+      "type": "line_wall",
+      "x1": 112.451042,
+      "y1": 191.701112,
+      "x2": 112.451042,
+      "y2": 191.947263,
+      "length": 0.246152,
+      "source_segments": 2,
+      "source_entities": [
+        324,
+        322
+      ]
+    },
+    {
+      "id": "WALL_258",
+      "type": "line_wall",
+      "x1": 110.974167,
+      "y1": 191.709496,
+      "x2": 110.974167,
+      "y2": 191.957579,
+      "length": 0.248083,
+      "source_segments": 2,
+      "source_entities": [
+        323,
+        325
+      ]
+    },
+    {
+      "id": "WALL_259",
+      "type": "line_wall",
+      "x1": 36.896732,
+      "y1": 191.389414,
+      "x2": 36.896732,
+      "y2": 191.635559,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        327
+      ]
+    },
+    {
+      "id": "WALL_260",
+      "type": "line_wall",
+      "x1": 38.767438,
+      "y1": 191.389414,
+      "x2": 38.767438,
+      "y2": 191.635559,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        328
+      ]
+    },
+    {
+      "id": "WALL_261",
+      "type": "line_wall",
+      "x1": 39.742035,
+      "y1": 191.392347,
+      "x2": 39.742035,
+      "y2": 191.638493,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        330
+      ]
+    },
+    {
+      "id": "WALL_262",
+      "type": "line_wall",
+      "x1": 41.612742,
+      "y1": 191.392347,
+      "x2": 41.612742,
+      "y2": 191.638493,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        331
+      ]
+    },
+    {
+      "id": "WALL_263",
+      "type": "line_wall",
+      "x1": 48.931147,
+      "y1": 191.393918,
+      "x2": 48.931147,
+      "y2": 191.640063,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        333
+      ]
+    },
+    {
+      "id": "WALL_264",
+      "type": "line_wall",
+      "x1": 50.801854,
+      "y1": 191.393918,
+      "x2": 50.801854,
+      "y2": 191.640063,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        334
+      ]
+    },
+    {
+      "id": "WALL_265",
+      "type": "line_wall",
+      "x1": 51.575915,
+      "y1": 191.370818,
+      "x2": 51.575915,
+      "y2": 191.616964,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        336
+      ]
+    },
+    {
+      "id": "WALL_266",
+      "type": "line_wall",
+      "x1": 53.446481,
+      "y1": 191.344933,
+      "x2": 53.446481,
+      "y2": 191.591097,
+      "length": 0.246163,
+      "source_segments": 1,
+      "source_entities": [
+        337
+      ]
+    },
+    {
+      "id": "WALL_267",
+      "type": "line_wall",
+      "x1": 53.984101,
+      "y1": 189.077724,
+      "x2": 53.984101,
+      "y2": 190.94843,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        338
+      ]
+    },
+    {
+      "id": "WALL_268",
+      "type": "line_wall",
+      "x1": 62.372226,
+      "y1": 183.484467,
+      "x2": 62.372226,
+      "y2": 183.730613,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        341
+      ]
+    },
+    {
+      "id": "WALL_269",
+      "type": "line_wall",
+      "x1": 39.403034,
+      "y1": 194.74295,
+      "x2": 39.403034,
+      "y2": 194.989096,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        346
+      ]
+    },
+    {
+      "id": "WALL_270",
+      "type": "line_wall",
+      "x1": 41.273741,
+      "y1": 194.74295,
+      "x2": 41.273741,
+      "y2": 194.989096,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        347
+      ]
+    },
+    {
+      "id": "WALL_271",
+      "type": "line_wall",
+      "x1": 42.825931,
+      "y1": 194.73164,
+      "x2": 42.825931,
+      "y2": 194.977786,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        349
+      ]
+    },
+    {
+      "id": "WALL_272",
+      "type": "line_wall",
+      "x1": 44.696638,
+      "y1": 194.73164,
+      "x2": 44.696638,
+      "y2": 194.977786,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        350
+      ]
+    },
+    {
+      "id": "WALL_273",
+      "type": "line_wall",
+      "x1": 51.85283,
+      "y1": 194.753297,
+      "x2": 51.85283,
+      "y2": 194.999442,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        352
+      ]
+    },
+    {
+      "id": "WALL_274",
+      "type": "line_wall",
+      "x1": 53.723537,
+      "y1": 194.753297,
+      "x2": 53.723537,
+      "y2": 194.999442,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        353
+      ]
+    },
+    {
+      "id": "WALL_275",
+      "type": "line_wall",
+      "x1": 55.041973,
+      "y1": 194.727591,
+      "x2": 55.041973,
+      "y2": 194.973737,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        355
+      ]
+    },
+    {
+      "id": "WALL_276",
+      "type": "line_wall",
+      "x1": 56.912679,
+      "y1": 194.727591,
+      "x2": 56.912679,
+      "y2": 194.973737,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        356
+      ]
+    },
+    {
+      "id": "WALL_277",
+      "type": "line_wall",
+      "x1": 63.522293,
+      "y1": 194.748633,
+      "x2": 63.522293,
+      "y2": 194.994779,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        358
+      ]
+    },
+    {
+      "id": "WALL_278",
+      "type": "line_wall",
+      "x1": 65.393,
+      "y1": 194.748633,
+      "x2": 65.393,
+      "y2": 194.994779,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        359
+      ]
+    },
+    {
+      "id": "WALL_279",
+      "type": "line_wall",
+      "x1": 67.359083,
+      "y1": 194.739129,
+      "x2": 67.359083,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        361
+      ]
+    },
+    {
+      "id": "WALL_280",
+      "type": "line_wall",
+      "x1": 69.22979,
+      "y1": 194.739129,
+      "x2": 69.22979,
+      "y2": 194.985274,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        362
+      ]
+    },
+    {
+      "id": "WALL_281",
+      "type": "line_wall",
+      "x1": 75.747081,
+      "y1": 191.896213,
+      "x2": 75.747081,
+      "y2": 192.154603,
+      "length": 0.25839,
+      "source_segments": 1,
+      "source_entities": [
+        364
+      ]
+    },
+    {
+      "id": "WALL_282",
+      "type": "line_wall",
+      "x1": 100.580336,
+      "y1": 191.770966,
+      "x2": 100.580336,
+      "y2": 192.017112,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        366
+      ]
+    },
+    {
+      "id": "WALL_283",
+      "type": "line_wall",
+      "x1": 102.451043,
+      "y1": 191.770966,
+      "x2": 102.451043,
+      "y2": 192.017112,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        367
+      ]
+    },
+    {
+      "id": "WALL_284",
+      "type": "line_wall",
+      "x1": 108.268407,
+      "y1": 191.717266,
+      "x2": 108.268407,
+      "y2": 191.963412,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        369
+      ]
+    },
+    {
+      "id": "WALL_285",
+      "type": "line_wall",
+      "x1": 110.139114,
+      "y1": 191.717266,
+      "x2": 110.139114,
+      "y2": 191.963412,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        370
+      ]
+    },
+    {
+      "id": "WALL_286",
+      "type": "line_wall",
+      "x1": 74.16718,
+      "y1": 184.925004,
+      "x2": 74.16718,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        372
+      ]
+    },
+    {
+      "id": "WALL_287",
+      "type": "line_wall",
+      "x1": 76.037887,
+      "y1": 184.925004,
+      "x2": 76.037887,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        373
+      ]
+    },
+    {
+      "id": "WALL_288",
+      "type": "line_wall",
+      "x1": 78.37516,
+      "y1": 184.925004,
+      "x2": 78.37516,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        375
+      ]
+    },
+    {
+      "id": "WALL_289",
+      "type": "line_wall",
+      "x1": 80.245867,
+      "y1": 184.925004,
+      "x2": 80.245867,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        376
+      ]
+    },
+    {
+      "id": "WALL_290",
+      "type": "line_wall",
+      "x1": 90.674959,
+      "y1": 184.925004,
+      "x2": 90.674959,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        378
+      ]
+    },
+    {
+      "id": "WALL_291",
+      "type": "line_wall",
+      "x1": 92.545666,
+      "y1": 184.925004,
+      "x2": 92.545666,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        379
+      ]
+    },
+    {
+      "id": "WALL_292",
+      "type": "line_wall",
+      "x1": 95.196827,
+      "y1": 184.925004,
+      "x2": 95.196827,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        381
+      ]
+    },
+    {
+      "id": "WALL_293",
+      "type": "line_wall",
+      "x1": 97.067534,
+      "y1": 184.925004,
+      "x2": 97.067534,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        382
+      ]
+    },
+    {
+      "id": "WALL_294",
+      "type": "line_wall",
+      "x1": 109.668169,
+      "y1": 184.921555,
+      "x2": 109.668169,
+      "y2": 185.1677,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        384
+      ]
+    },
+    {
+      "id": "WALL_295",
+      "type": "line_wall",
+      "x1": 109.681973,
+      "y1": 203.33008,
+      "x2": 109.681973,
+      "y2": 203.576226,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        447
+      ]
+    },
+    {
+      "id": "WALL_296",
+      "type": "line_wall",
+      "x1": 104.548476,
+      "y1": 184.926936,
+      "x2": 104.548476,
+      "y2": 185.173081,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        386
+      ]
+    },
+    {
+      "id": "WALL_297",
+      "type": "line_wall",
+      "x1": 106.419183,
+      "y1": 184.926936,
+      "x2": 106.419183,
+      "y2": 185.173081,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        387
+      ]
+    },
+    {
+      "id": "WALL_298",
+      "type": "line_wall",
+      "x1": 36.847042,
+      "y1": 206.193273,
+      "x2": 36.847042,
+      "y2": 206.439418,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        389
+      ]
+    },
+    {
+      "id": "WALL_299",
+      "type": "line_wall",
+      "x1": 38.717749,
+      "y1": 206.193273,
+      "x2": 38.717749,
+      "y2": 206.439418,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        390
+      ]
+    },
+    {
+      "id": "WALL_300",
+      "type": "line_wall",
+      "x1": 40.062131,
+      "y1": 206.203885,
+      "x2": 40.062131,
+      "y2": 206.450031,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        392
+      ]
+    },
+    {
+      "id": "WALL_301",
+      "type": "line_wall",
+      "x1": 41.932838,
+      "y1": 206.203885,
+      "x2": 41.932838,
+      "y2": 206.450031,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        393
+      ]
+    },
+    {
+      "id": "WALL_302",
+      "type": "line_wall",
+      "x1": 43.182906,
+      "y1": 206.196143,
+      "x2": 43.182906,
+      "y2": 206.442288,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        395
+      ]
+    },
+    {
+      "id": "WALL_303",
+      "type": "line_wall",
+      "x1": 45.053613,
+      "y1": 206.196143,
+      "x2": 45.053613,
+      "y2": 206.442288,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        396
+      ]
+    },
+    {
+      "id": "WALL_304",
+      "type": "line_wall",
+      "x1": 45.937416,
+      "y1": 206.191725,
+      "x2": 45.937416,
+      "y2": 206.437871,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        398
+      ]
+    },
+    {
+      "id": "WALL_305",
+      "type": "line_wall",
+      "x1": 47.808123,
+      "y1": 206.191725,
+      "x2": 47.808123,
+      "y2": 206.437871,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        399
+      ]
+    },
+    {
+      "id": "WALL_306",
+      "type": "line_wall",
+      "x1": 50.868823,
+      "y1": 206.182835,
+      "x2": 50.868823,
+      "y2": 206.428981,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        401
+      ]
+    },
+    {
+      "id": "WALL_307",
+      "type": "line_wall",
+      "x1": 52.73953,
+      "y1": 206.182835,
+      "x2": 52.73953,
+      "y2": 206.428981,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        402
+      ]
+    },
+    {
+      "id": "WALL_308",
+      "type": "line_wall",
+      "x1": 55.563383,
+      "y1": 206.205672,
+      "x2": 55.563383,
+      "y2": 206.451818,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        404
+      ]
+    },
+    {
+      "id": "WALL_309",
+      "type": "line_wall",
+      "x1": 57.434089,
+      "y1": 206.205672,
+      "x2": 57.434089,
+      "y2": 206.451818,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        405
+      ]
+    },
+    {
+      "id": "WALL_310",
+      "type": "line_wall",
+      "x1": 59.440985,
+      "y1": 206.187044,
+      "x2": 59.440985,
+      "y2": 206.43319,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        407
+      ]
+    },
+    {
+      "id": "WALL_311",
+      "type": "line_wall",
+      "x1": 62.311672,
+      "y1": 206.200441,
+      "x2": 62.311672,
+      "y2": 206.446587,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        410
+      ]
+    },
+    {
+      "id": "WALL_312",
+      "type": "line_wall",
+      "x1": 64.182379,
+      "y1": 206.200441,
+      "x2": 64.182379,
+      "y2": 206.446587,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        411
+      ]
+    },
+    {
+      "id": "WALL_313",
+      "type": "line_wall",
+      "x1": 64.879337,
+      "y1": 206.19088,
+      "x2": 64.879337,
+      "y2": 206.437026,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        413
+      ]
+    },
+    {
+      "id": "WALL_314",
+      "type": "line_wall",
+      "x1": 66.750044,
+      "y1": 206.19088,
+      "x2": 66.750044,
+      "y2": 206.437026,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        414
+      ]
+    },
+    {
+      "id": "WALL_315",
+      "type": "line_wall",
+      "x1": 68.293526,
+      "y1": 206.182,
+      "x2": 68.293526,
+      "y2": 206.428146,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        416
+      ]
+    },
+    {
+      "id": "WALL_316",
+      "type": "line_wall",
+      "x1": 70.164233,
+      "y1": 206.182,
+      "x2": 70.164233,
+      "y2": 206.428146,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        417
+      ]
+    },
+    {
+      "id": "WALL_317",
+      "type": "line_wall",
+      "x1": 73.039205,
+      "y1": 203.323406,
+      "x2": 73.039205,
+      "y2": 203.569552,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        419
+      ]
+    },
+    {
+      "id": "WALL_318",
+      "type": "line_wall",
+      "x1": 74.909912,
+      "y1": 203.323406,
+      "x2": 74.909912,
+      "y2": 203.569552,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        420
+      ]
+    },
+    {
+      "id": "WALL_319",
+      "type": "line_wall",
+      "x1": 76.991277,
+      "y1": 203.309105,
+      "x2": 76.991277,
+      "y2": 203.55525,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        422
+      ]
+    },
+    {
+      "id": "WALL_320",
+      "type": "line_wall",
+      "x1": 78.830336,
+      "y1": 171.299384,
+      "x2": 78.830336,
+      "y2": 172.498057,
+      "length": 1.198674,
+      "source_segments": 1,
+      "source_entities": [
+        539
+      ]
+    },
+    {
+      "id": "WALL_321",
+      "type": "line_wall",
+      "x1": 78.861984,
+      "y1": 203.309105,
+      "x2": 78.861984,
+      "y2": 203.55525,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        423
+      ]
+    },
+    {
+      "id": "WALL_322",
+      "type": "line_wall",
+      "x1": 83.655591,
+      "y1": 203.329745,
+      "x2": 83.655591,
+      "y2": 203.57589,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        425
+      ]
+    },
+    {
+      "id": "WALL_323",
+      "type": "line_wall",
+      "x1": 85.535579,
+      "y1": 172.465462,
+      "x2": 85.535579,
+      "y2": 172.711607,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        462
+      ]
+    },
+    {
+      "id": "WALL_324",
+      "type": "line_wall",
+      "x1": 85.526298,
+      "y1": 203.329745,
+      "x2": 85.526298,
+      "y2": 203.57589,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        426
+      ]
+    },
+    {
+      "id": "WALL_325",
+      "type": "line_wall",
+      "x1": 86.890992,
+      "y1": 203.32979,
+      "x2": 86.890992,
+      "y2": 203.575935,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        428
+      ]
+    },
+    {
+      "id": "WALL_326",
+      "type": "line_wall",
+      "x1": 88.761698,
+      "y1": 203.32979,
+      "x2": 88.761698,
+      "y2": 203.575935,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        429
+      ]
+    },
+    {
+      "id": "WALL_327",
+      "type": "line_wall",
+      "x1": 89.694929,
+      "y1": 203.32979,
+      "x2": 89.694929,
+      "y2": 203.575935,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        431
+      ]
+    },
+    {
+      "id": "WALL_328",
+      "type": "line_wall",
+      "x1": 91.565636,
+      "y1": 203.32979,
+      "x2": 91.565636,
+      "y2": 203.575935,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        432
+      ]
+    },
+    {
+      "id": "WALL_329",
+      "type": "line_wall",
+      "x1": 92.373699,
+      "y1": 203.329866,
+      "x2": 92.373699,
+      "y2": 203.576011,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        434
+      ]
+    },
+    {
+      "id": "WALL_330",
+      "type": "line_wall",
+      "x1": 94.244406,
+      "y1": 203.329866,
+      "x2": 94.244406,
+      "y2": 203.576011,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        435
+      ]
+    },
+    {
+      "id": "WALL_331",
+      "type": "line_wall",
+      "x1": 96.734467,
+      "y1": 203.329926,
+      "x2": 96.734467,
+      "y2": 203.576072,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        437
+      ]
+    },
+    {
+      "id": "WALL_332",
+      "type": "line_wall",
+      "x1": 98.605173,
+      "y1": 203.329926,
+      "x2": 98.605173,
+      "y2": 203.576072,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        438
+      ]
+    },
+    {
+      "id": "WALL_333",
+      "type": "line_wall",
+      "x1": 102.086883,
+      "y1": 203.33,
+      "x2": 102.086883,
+      "y2": 203.576146,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        440
+      ]
+    },
+    {
+      "id": "WALL_334",
+      "type": "line_wall",
+      "x1": 103.95759,
+      "y1": 203.33,
+      "x2": 103.95759,
+      "y2": 203.576146,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        441
+      ]
+    },
+    {
+      "id": "WALL_335",
+      "type": "line_wall",
+      "x1": 104.747859,
+      "y1": 203.330037,
+      "x2": 104.747859,
+      "y2": 203.576183,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        443
+      ]
+    },
+    {
+      "id": "WALL_336",
+      "type": "line_wall",
+      "x1": 106.618566,
+      "y1": 203.330037,
+      "x2": 106.618566,
+      "y2": 203.576183,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        444
+      ]
+    },
+    {
+      "id": "WALL_337",
+      "type": "line_wall",
+      "x1": 107.811266,
+      "y1": 203.33008,
+      "x2": 107.811266,
+      "y2": 203.576226,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        446
+      ]
+    },
+    {
+      "id": "WALL_338",
+      "type": "line_wall",
+      "x1": 110.437041,
+      "y1": 203.33008,
+      "x2": 110.437041,
+      "y2": 203.576226,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        449
+      ]
+    },
+    {
+      "id": "WALL_339",
+      "type": "line_wall",
+      "x1": 112.307748,
+      "y1": 203.33008,
+      "x2": 112.307748,
+      "y2": 203.576226,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        450
+      ]
+    },
+    {
+      "id": "WALL_340",
+      "type": "line_wall",
+      "x1": 72.87777,
+      "y1": 172.513575,
+      "x2": 72.87777,
+      "y2": 172.75972,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        452
+      ]
+    },
+    {
+      "id": "WALL_341",
+      "type": "line_wall",
+      "x1": 74.748477,
+      "y1": 172.513575,
+      "x2": 74.748477,
+      "y2": 172.75972,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        453
+      ]
+    },
+    {
+      "id": "WALL_342",
+      "type": "line_wall",
+      "x1": 81.290934,
+      "y1": 172.488706,
+      "x2": 81.290934,
+      "y2": 172.734852,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        455
+      ]
+    },
+    {
+      "id": "WALL_343",
+      "type": "line_wall",
+      "x1": 79.420227,
+      "y1": 172.488706,
+      "x2": 79.420227,
+      "y2": 172.734852,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        456
+      ]
+    },
+    {
+      "id": "WALL_344",
+      "type": "line_wall",
+      "x1": 85.161537,
+      "y1": 172.473994,
+      "x2": 85.161537,
+      "y2": 172.72014,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        458
+      ]
+    },
+    {
+      "id": "WALL_345",
+      "type": "line_wall",
+      "x1": 83.29083,
+      "y1": 172.473994,
+      "x2": 83.29083,
+      "y2": 172.72014,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        459
+      ]
+    },
+    {
+      "id": "WALL_346",
+      "type": "line_wall",
+      "x1": 87.406286,
+      "y1": 172.465462,
+      "x2": 87.406286,
+      "y2": 172.711607,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        461
+      ]
+    },
+    {
+      "id": "WALL_347",
+      "type": "line_wall",
+      "x1": 93.695833,
+      "y1": 172.441555,
+      "x2": 93.695833,
+      "y2": 172.6877,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        464
+      ]
+    },
+    {
+      "id": "WALL_348",
+      "type": "line_wall",
+      "x1": 93.701486,
+      "y1": 191.83208,
+      "x2": 93.701486,
+      "y2": 192.078226,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        492
+      ]
+    },
+    {
+      "id": "WALL_349",
+      "type": "line_wall",
+      "x1": 91.825126,
+      "y1": 172.441555,
+      "x2": 91.825126,
+      "y2": 172.6877,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        465
+      ]
+    },
+    {
+      "id": "WALL_350",
+      "type": "line_wall",
+      "x1": 91.840119,
+      "y1": 191.845082,
+      "x2": 91.840119,
+      "y2": 192.091227,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        491
+      ]
+    },
+    {
+      "id": "WALL_351",
+      "type": "line_wall",
+      "x1": 100.232747,
+      "y1": 172.416708,
+      "x2": 100.232747,
+      "y2": 172.662853,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        467
+      ]
+    },
+    {
+      "id": "WALL_352",
+      "type": "line_wall",
+      "x1": 98.36204,
+      "y1": 172.416708,
+      "x2": 98.36204,
+      "y2": 172.662853,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        468
+      ]
+    },
+    {
+      "id": "WALL_353",
+      "type": "line_wall",
+      "x1": 101.915518,
+      "y1": 172.403201,
+      "x2": 101.915518,
+      "y2": 172.649346,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        471
+      ]
+    },
+    {
+      "id": "WALL_354",
+      "type": "line_wall",
+      "x1": 106.795941,
+      "y1": 172.39176,
+      "x2": 106.795941,
+      "y2": 172.637906,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        473
+      ]
+    },
+    {
+      "id": "WALL_355",
+      "type": "line_wall",
+      "x1": 106.814757,
+      "y1": 191.740486,
+      "x2": 106.814757,
+      "y2": 191.986632,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        486
+      ]
+    },
+    {
+      "id": "WALL_356",
+      "type": "line_wall",
+      "x1": 104.925234,
+      "y1": 172.39176,
+      "x2": 104.925234,
+      "y2": 172.637906,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        474
+      ]
+    },
+    {
+      "id": "WALL_357",
+      "type": "line_wall",
+      "x1": 104.944051,
+      "y1": 191.740486,
+      "x2": 104.944051,
+      "y2": 191.986632,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        485
+      ]
+    },
+    {
+      "id": "WALL_358",
+      "type": "line_wall",
+      "x1": 109.991419,
+      "y1": 172.379614,
+      "x2": 109.991419,
+      "y2": 172.62576,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        476
+      ]
+    },
+    {
+      "id": "WALL_359",
+      "type": "line_wall",
+      "x1": 108.120712,
+      "y1": 172.379614,
+      "x2": 108.120712,
+      "y2": 172.62576,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        477
+      ]
+    },
+    {
+      "id": "WALL_360",
+      "type": "line_wall",
+      "x1": 112.594857,
+      "y1": 172.379614,
+      "x2": 112.594857,
+      "y2": 172.62576,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        479
+      ]
+    },
+    {
+      "id": "WALL_361",
+      "type": "line_wall",
+      "x1": 110.72415,
+      "y1": 172.379614,
+      "x2": 110.72415,
+      "y2": 172.62576,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        480
+      ]
+    },
+    {
+      "id": "WALL_362",
+      "type": "line_wall",
+      "x1": 116.157187,
+      "y1": 189.077724,
+      "x2": 116.157187,
+      "y2": 190.94843,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        481
+      ]
+    },
+    {
+      "id": "WALL_363",
+      "type": "line_wall",
+      "x1": 94.751541,
+      "y1": 191.811679,
+      "x2": 94.751541,
+      "y2": 192.057825,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        488
+      ]
+    },
+    {
+      "id": "WALL_364",
+      "type": "line_wall",
+      "x1": 96.622248,
+      "y1": 191.811679,
+      "x2": 96.622248,
+      "y2": 192.057825,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        489
+      ]
+    },
+    {
+      "id": "WALL_365",
+      "type": "line_wall",
+      "x1": 83.512653,
+      "y1": 191.903248,
+      "x2": 83.512653,
+      "y2": 192.149394,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        494
+      ]
+    },
+    {
+      "id": "WALL_366",
+      "type": "line_wall",
+      "x1": 85.374019,
+      "y1": 191.890247,
+      "x2": 85.374019,
+      "y2": 192.136392,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        495
+      ]
+    },
+    {
+      "id": "WALL_367",
+      "type": "line_wall",
+      "x1": 88.666659,
+      "y1": 191.867248,
+      "x2": 88.666659,
+      "y2": 192.113394,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        497
+      ]
+    },
+    {
+      "id": "WALL_368",
+      "type": "line_wall",
+      "x1": 90.528025,
+      "y1": 191.854247,
+      "x2": 90.528025,
+      "y2": 192.100392,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        498
+      ]
+    },
+    {
+      "id": "WALL_369",
+      "type": "line_wall",
+      "x1": 57.7734,
+      "y1": 194.727591,
+      "x2": 57.7734,
+      "y2": 194.973737,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        500
+      ]
+    },
+    {
+      "id": "WALL_370",
+      "type": "line_wall",
+      "x1": 59.644107,
+      "y1": 194.727591,
+      "x2": 59.644107,
+      "y2": 194.973737,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        501
+      ]
+    },
+    {
+      "id": "WALL_371",
+      "type": "line_wall",
+      "x1": 71.726959,
+      "y1": 173.360149,
+      "x2": 71.726959,
+      "y2": 175.230856,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        502
+      ]
+    },
+    {
+      "id": "WALL_372",
+      "type": "line_wall",
+      "x1": 71.741061,
+      "y1": 177.488307,
+      "x2": 71.741061,
+      "y2": 179.359013,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        506
+      ]
+    },
+    {
+      "id": "WALL_373",
+      "type": "line_wall",
+      "x1": 71.755871,
+      "y1": 181.834569,
+      "x2": 71.755871,
+      "y2": 183.705276,
+      "length": 1.870707,
+      "source_segments": 1,
+      "source_entities": [
+        510
+      ]
+    },
+    {
+      "id": "WALL_374",
+      "type": "line_wall",
+      "x1": 52.84166,
+      "y1": 183.664482,
+      "x2": 52.84166,
+      "y2": 188.690961,
+      "length": 5.026479,
+      "source_segments": 1,
+      "source_entities": [
+        516
+      ]
+    },
+    {
+      "id": "WALL_375",
+      "type": "line_wall",
+      "x1": 118.191969,
+      "y1": 175.015524,
+      "x2": 118.191969,
+      "y2": 175.261667,
+      "length": 0.246143,
+      "source_segments": 1,
+      "source_entities": [
+        518
+      ]
+    },
+    {
+      "id": "WALL_376",
+      "type": "line_wall",
+      "x1": 33.304108,
+      "y1": 191.635107,
+      "x2": 33.304108,
+      "y2": 193.111981,
+      "length": 1.476874,
+      "source_segments": 1,
+      "source_entities": [
+        522
+      ]
+    },
+    {
+      "id": "WALL_377",
+      "type": "line_wall",
+      "x1": 65.911814,
+      "y1": 185.021743,
+      "x2": 65.911814,
+      "y2": 185.267854,
+      "length": 0.246111,
+      "source_segments": 1,
+      "source_entities": [
+        524
+      ]
+    },
+    {
+      "id": "WALL_378",
+      "type": "line_wall",
+      "x1": 65.663632,
+      "y1": 185.026288,
+      "x2": 65.663632,
+      "y2": 185.267015,
+      "length": 0.240727,
+      "source_segments": 1,
+      "source_entities": [
+        528
+      ]
+    },
+    {
+      "id": "WALL_379",
+      "type": "line_wall",
+      "x1": 75.138155,
+      "y1": 171.060255,
+      "x2": 75.138155,
+      "y2": 172.512092,
+      "length": 1.451837,
+      "source_segments": 1,
+      "source_entities": [
+        537
+      ]
+    },
+    {
+      "id": "WALL_380",
+      "type": "line_wall",
+      "x1": 75.384301,
+      "y1": 171.305933,
+      "x2": 75.384301,
+      "y2": 172.511156,
+      "length": 1.205223,
+      "source_segments": 1,
+      "source_entities": [
+        538
+      ]
+    },
+    {
+      "id": "WALL_381",
+      "type": "line_wall",
+      "x1": 76.565801,
+      "y1": 171.303688,
+      "x2": 76.565801,
+      "y2": 171.782228,
+      "length": 0.478541,
+      "source_segments": 1,
+      "source_entities": [
+        540
+      ]
+    },
+    {
+      "id": "WALL_382",
+      "type": "line_wall",
+      "x1": 77.735237,
+      "y1": 171.302798,
+      "x2": 77.735237,
+      "y2": 171.777626,
+      "length": 0.474829,
+      "source_segments": 1,
+      "source_entities": [
+        541
+      ]
+    },
+    {
+      "id": "WALL_383",
+      "type": "line_wall",
+      "x1": 79.076482,
+      "y1": 171.060255,
+      "x2": 79.076482,
+      "y2": 172.497122,
+      "length": 1.436867,
+      "source_segments": 1,
+      "source_entities": [
+        542
+      ]
+    },
+    {
+      "id": "WALL_384",
+      "type": "line_wall",
+      "x1": 77.636779,
+      "y1": 171.30654,
+      "x2": 77.636779,
+      "y2": 171.777626,
+      "length": 0.471086,
+      "source_segments": 1,
+      "source_entities": [
+        543
+      ]
+    },
+    {
+      "id": "WALL_385",
+      "type": "line_wall",
+      "x1": 77.636799,
+      "y1": 172.475039,
+      "x2": 77.636799,
+      "y2": 172.748742,
+      "length": 0.273702,
+      "source_segments": 1,
+      "source_entities": [
+        550
+      ]
+    },
+    {
+      "id": "WALL_386",
+      "type": "line_wall",
+      "x1": 76.664259,
+      "y1": 171.305933,
+      "x2": 76.664259,
+      "y2": 171.782228,
+      "length": 0.476295,
+      "source_segments": 1,
+      "source_entities": [
+        544
+      ]
+    },
+    {
+      "id": "WALL_387",
+      "type": "line_wall",
+      "x1": 76.898382,
+      "y1": 172.505401,
+      "x2": 76.898382,
+      "y2": 172.751548,
+      "length": 0.246147,
+      "source_segments": 1,
+      "source_entities": [
+        549
+      ]
+    },
+    {
+      "id": "WALL_388",
+      "type": "line_wall",
+      "x1": 59.267773,
+      "y1": 191.341355,
+      "x2": 59.267773,
+      "y2": 191.586662,
+      "length": 0.245307,
+      "source_segments": 1,
+      "source_entities": [
+        552
+      ]
+    },
+    {
+      "id": "WALL_389",
+      "type": "line_wall",
+      "x1": 111.538876,
+      "y1": 184.925004,
+      "x2": 111.538876,
+      "y2": 185.171149,
+      "length": 0.246146,
+      "source_segments": 1,
+      "source_entities": [
+        554
+      ]
+    },
+    {
+      "id": "WALL_390",
+      "type": "line_wall",
+      "x1": 52.97315,
+      "y1": 183.664894,
+      "x2": 62.573144,
+      "y2": 183.732018,
+      "length": 9.600229,
+      "source_segments": 1,
+      "source_entities": [
+        2
+      ]
+    },
+    {
+      "id": "WALL_391",
+      "type": "line_wall",
+      "x1": 71.637002,
+      "y1": 184.925039,
+      "x2": 65.909736,
+      "y2": 185.021743,
+      "length": 5.728083,
+      "source_segments": 1,
+      "source_entities": [
+        23
+      ]
+    },
+    {
+      "id": "WALL_392",
+      "type": "line_wall",
+      "x1": 71.641158,
+      "y1": 185.171149,
+      "x2": 65.913891,
+      "y2": 185.267854,
+      "length": 5.728083,
+      "source_segments": 1,
+      "source_entities": [
+        24
+      ]
+    },
+    {
+      "id": "WALL_393",
+      "type": "line_wall",
+      "x1": 71.637002,
+      "y1": 184.925039,
+      "x2": 71.594642,
+      "y2": 172.525561,
+      "length": 12.39955,
+      "source_segments": 1,
+      "source_entities": [
+        25
+      ]
+    },
+    {
+      "id": "WALL_394",
+      "type": "line_wall",
+      "x1": 71.883146,
+      "y1": 184.924198,
+      "x2": 71.841627,
+      "y2": 172.770769,
+      "length": 12.153499,
+      "source_segments": 1,
+      "source_entities": [
+        26
+      ]
+    },
+    {
+      "id": "WALL_395",
+      "type": "line_wall",
+      "x1": 65.909736,
+      "y1": 185.021743,
+      "x2": 65.857958,
+      "y2": 182.218082,
+      "length": 2.804139,
+      "source_segments": 1,
+      "source_entities": [
+        27
+      ]
+    },
+    {
+      "id": "WALL_396",
+      "type": "line_wall",
+      "x1": 65.663632,
+      "y1": 185.026288,
+      "x2": 65.616316,
+      "y2": 182.464228,
+      "length": 2.562497,
+      "source_segments": 1,
+      "source_entities": [
+        28
+      ]
+    },
+    {
+      "id": "WALL_397",
+      "type": "line_wall",
+      "x1": 53.85257,
+      "y1": 191.340531,
+      "x2": 48.264344,
+      "y2": 191.401135,
+      "length": 5.588554,
+      "source_segments": 1,
+      "source_entities": [
+        37
+      ]
+    },
+    {
+      "id": "WALL_398",
+      "type": "line_wall",
+      "x1": 53.855239,
+      "y1": 191.586662,
+      "x2": 48.267013,
+      "y2": 191.647266,
+      "length": 5.588554,
+      "source_segments": 1,
+      "source_entities": [
+        38
+      ]
+    },
+    {
+      "id": "WALL_399",
+      "type": "line_wall",
+      "x1": 113.306601,
+      "y1": 172.367011,
+      "x2": 79.076482,
+      "y2": 172.497122,
+      "length": 34.230367,
+      "source_segments": 1,
+      "source_entities": [
+        49
+      ]
+    },
+    {
+      "id": "WALL_400",
+      "type": "line_wall",
+      "x1": 54.074784,
+      "y1": 183.672597,
+      "x2": 62.499402,
+      "y2": 183.731502,
+      "length": 8.424824,
+      "source_segments": 1,
+      "source_entities": [
+        55
+      ]
+    },
+    {
+      "id": "WALL_401",
+      "type": "line_wall",
+      "x1": 80.444754,
+      "y1": 172.738068,
+      "x2": 113.061298,
+      "y2": 172.614091,
+      "length": 32.616781,
+      "source_segments": 1,
+      "source_entities": [
+        66
+      ]
+    },
+    {
+      "id": "WALL_402",
+      "type": "line_wall",
+      "x1": 71.600423,
+      "y1": 192.11733,
+      "x2": 79.138401,
+      "y2": 192.162819,
+      "length": 7.538115,
+      "source_segments": 1,
+      "source_entities": [
+        131
+      ]
+    },
+    {
+      "id": "WALL_403",
+      "type": "line_wall",
+      "x1": 87.772108,
+      "y1": 192.119642,
+      "x2": 97.496894,
+      "y2": 192.051716,
+      "length": 9.725023,
+      "source_segments": 1,
+      "source_entities": [
+        133
+      ]
+    },
+    {
+      "id": "WALL_404",
+      "type": "line_wall",
+      "x1": 99.971516,
+      "y1": 192.034431,
+      "x2": 110.974167,
+      "y2": 191.957579,
+      "length": 11.002919,
+      "source_segments": 1,
+      "source_entities": [
+        134
+      ]
+    },
+    {
+      "id": "WALL_405",
+      "type": "line_wall",
+      "x1": 87.772107,
+      "y1": 191.87349,
+      "x2": 98.494642,
+      "y2": 191.798595,
+      "length": 10.722796,
+      "source_segments": 1,
+      "source_entities": [
+        138
+      ]
+    },
+    {
+      "id": "WALL_406",
+      "type": "line_wall",
+      "x1": 99.971516,
+      "y1": 191.788279,
+      "x2": 110.974167,
+      "y2": 191.711428,
+      "length": 11.00292,
+      "source_segments": 1,
+      "source_entities": [
+        139
+      ]
+    },
+    {
+      "id": "WALL_407",
+      "type": "line_wall",
+      "x1": 31.139929,
+      "y1": 193.977799,
+      "x2": 30.982396,
+      "y2": 193.65781,
+      "length": 0.356665,
+      "source_segments": 1,
+      "source_entities": [
+        146
+      ]
+    },
+    {
+      "id": "WALL_408",
+      "type": "line_wall",
+      "x1": 31.139929,
+      "y1": 193.977799,
+      "x2": 31.297462,
+      "y2": 193.65781,
+      "length": 0.356665,
+      "source_segments": 1,
+      "source_entities": [
+        147
+      ]
+    },
+    {
+      "id": "WALL_409",
+      "type": "line_wall",
+      "x1": 32.311491,
+      "y1": 196.083755,
+      "x2": 31.884794,
+      "y2": 196.232857,
+      "length": 0.451997,
+      "source_segments": 1,
+      "source_entities": [
+        148
+      ]
+    },
+    {
+      "id": "WALL_410",
+      "type": "line_wall",
+      "x1": 32.704917,
+      "y1": 196.222227,
+      "x2": 32.311491,
+      "y2": 195.865504,
+      "length": 0.53107,
+      "source_segments": 1,
+      "source_entities": [
+        149
+      ]
+    },
+    {
+      "id": "WALL_411",
+      "type": "line_wall",
+      "x1": 117.042299,
+      "y1": 180.916229,
+      "x2": 117.199832,
+      "y2": 181.236218,
+      "length": 0.356665,
+      "source_segments": 1,
+      "source_entities": [
+        159
+      ]
+    },
+    {
+      "id": "WALL_412",
+      "type": "line_wall",
+      "x1": 117.042299,
+      "y1": 180.916229,
+      "x2": 116.884766,
+      "y2": 181.236218,
+      "length": 0.356665,
+      "source_segments": 1,
+      "source_entities": [
+        160
+      ]
+    },
+    {
+      "id": "WALL_413",
+      "type": "line_wall",
+      "x1": 115.256521,
+      "y1": 178.810273,
+      "x2": 115.683218,
+      "y2": 178.661172,
+      "length": 0.451997,
+      "source_segments": 1,
+      "source_entities": [
+        161
+      ]
+    },
+    {
+      "id": "WALL_414",
+      "type": "line_wall",
+      "x1": 114.863095,
+      "y1": 178.671801,
+      "x2": 115.256521,
+      "y2": 179.028524,
+      "length": 0.53107,
+      "source_segments": 1,
+      "source_entities": [
+        162
+      ]
+    },
+    {
+      "id": "WALL_415",
+      "type": "line_wall",
+      "x1": 116.290301,
+      "y1": 186.015097,
+      "x2": 118.166747,
+      "y2": 185.527315,
+      "length": 1.938809,
+      "source_segments": 1,
+      "source_entities": [
+        171
+      ]
+    },
+    {
+      "id": "WALL_416",
+      "type": "line_wall",
+      "x1": 118.165564,
+      "y1": 186.019603,
+      "x2": 116.290301,
+      "y2": 185.522805,
+      "length": 1.939953,
+      "source_segments": 1,
+      "source_entities": [
+        172
+      ]
+    },
+    {
+      "id": "WALL_417",
+      "type": "line_wall",
+      "x1": 61.571018,
+      "y1": 191.341355,
+      "x2": 62.5556,
+      "y2": 188.941373,
+      "length": 2.594093,
+      "source_segments": 1,
+      "source_entities": [
+        173
+      ]
+    },
+    {
+      "id": "WALL_418",
+      "type": "line_wall",
+      "x1": 62.5556,
+      "y1": 191.341355,
+      "x2": 61.571018,
+      "y2": 188.941373,
+      "length": 2.594093,
+      "source_segments": 1,
+      "source_entities": [
+        174
+      ]
+    },
+    {
+      "id": "WALL_419",
+      "type": "line_wall",
+      "x1": 58.91684,
+      "y1": 184.896276,
+      "x2": 59.23683,
+      "y2": 184.738743,
+      "length": 0.356665,
+      "source_segments": 1,
+      "source_entities": [
+        194
+      ]
+    },
+    {
+      "id": "WALL_420",
+      "type": "line_wall",
+      "x1": 58.91684,
+      "y1": 184.896276,
+      "x2": 59.23683,
+      "y2": 185.053809,
+      "length": 0.356665,
+      "source_segments": 1,
+      "source_entities": [
+        195
+      ]
+    },
+    {
+      "id": "WALL_421",
+      "type": "line_wall",
+      "x1": 56.810884,
+      "y1": 186.682053,
+      "x2": 56.661783,
+      "y2": 186.255356,
+      "length": 0.451997,
+      "source_segments": 1,
+      "source_entities": [
+        196
+      ]
+    },
+    {
+      "id": "WALL_422",
+      "type": "line_wall",
+      "x1": 56.672412,
+      "y1": 187.07548,
+      "x2": 57.029135,
+      "y2": 186.682053,
+      "length": 0.53107,
+      "source_segments": 1,
+      "source_entities": [
+        197
+      ]
+    },
+    {
+      "id": "WALL_423",
+      "type": "line_wall",
+      "x1": 71.601908,
+      "y1": 191.871189,
+      "x2": 79.138401,
+      "y2": 191.916687,
+      "length": 7.53663,
+      "source_segments": 1,
+      "source_entities": [
+        220
+      ]
+    },
+    {
+      "id": "WALL_424",
+      "type": "line_wall",
+      "x1": 71.600423,
+      "y1": 192.609621,
+      "x2": 73.476869,
+      "y2": 192.121839,
+      "length": 1.938809,
+      "source_segments": 1,
+      "source_entities": [
+        243
+      ]
+    },
+    {
+      "id": "WALL_425",
+      "type": "line_wall",
+      "x1": 73.475686,
+      "y1": 192.614128,
+      "x2": 71.600423,
+      "y2": 192.11733,
+      "length": 1.939953,
+      "source_segments": 1,
+      "source_entities": [
+        244
+      ]
+    },
+    {
+      "id": "WALL_426",
+      "type": "line_wall",
+      "x1": 73.673785,
+      "y1": 192.614604,
+      "x2": 75.550231,
+      "y2": 192.126822,
+      "length": 1.938809,
+      "source_segments": 1,
+      "source_entities": [
+        249
+      ]
+    },
+    {
+      "id": "WALL_427",
+      "type": "line_wall",
+      "x1": 75.549048,
+      "y1": 192.61911,
+      "x2": 73.673785,
+      "y2": 192.122312,
+      "length": 1.939953,
+      "source_segments": 1,
+      "source_entities": [
+        250
+      ]
+    },
+    {
+      "id": "WALL_428",
+      "type": "line_wall",
+      "x1": 85.179955,
+      "y1": 184.930049,
+      "x2": 85.133556,
+      "y2": 172.723114,
+      "length": 12.207023,
+      "source_segments": 1,
+      "source_entities": [
+        274
+      ]
+    },
+    {
+      "id": "WALL_429",
+      "type": "line_wall",
+      "x1": 85.426101,
+      "y1": 184.930049,
+      "x2": 85.379698,
+      "y2": 172.722178,
+      "length": 12.207959,
+      "source_segments": 1,
+      "source_entities": [
+        276
+      ]
+    },
+    {
+      "id": "WALL_430",
+      "type": "line_wall",
+      "x1": 101.927052,
+      "y1": 184.925004,
+      "x2": 101.880419,
+      "y2": 172.65659,
+      "length": 12.268502,
+      "source_segments": 1,
+      "source_entities": [
+        281
+      ]
+    },
+    {
+      "id": "WALL_431",
+      "type": "line_wall",
+      "x1": 102.179226,
+      "y1": 184.925004,
+      "x2": 102.13259,
+      "y2": 172.655632,
+      "length": 12.269461,
+      "source_segments": 1,
+      "source_entities": [
+        282
+      ]
+    },
+    {
+      "id": "WALL_432",
+      "type": "line_wall",
+      "x1": 33.428878,
+      "y1": 191.382437,
+      "x2": 34.283244,
+      "y2": 189.880279,
+      "length": 1.728126,
+      "source_segments": 1,
+      "source_entities": [
+        312
+      ]
+    },
+    {
+      "id": "WALL_433",
+      "type": "line_wall",
+      "x1": 34.275768,
+      "y1": 191.384791,
+      "x2": 33.433243,
+      "y2": 189.876056,
+      "length": 1.728043,
+      "source_segments": 1,
+      "source_entities": [
+        313
+      ]
+    },
+    {
+      "id": "WALL_434",
+      "type": "line_wall",
+      "x1": 71.637002,
+      "y1": 185.048514,
+      "x2": 65.911814,
+      "y2": 185.144798,
+      "length": 5.725998,
+      "source_segments": 1,
+      "source_entities": [
+        526
+      ]
+    },
+    {
+      "id": "WALL_435",
+      "type": "line_wall",
+      "x1": 62.814182,
+      "y1": 185.257472,
+      "x2": 65.663632,
+      "y2": 185.026288,
+      "length": 2.858813,
+      "source_segments": 1,
+      "source_entities": [
+        529
+      ]
+    },
+    {
+      "id": "WALL_436",
+      "type": "line_wall",
+      "x1": 65.663632,
+      "y1": 185.267015,
+      "x2": 62.814988,
+      "y2": 185.016747,
+      "length": 2.859617,
+      "source_segments": 1,
+      "source_entities": [
+        530
+      ]
+    },
+    {
+      "id": "WALL_437",
+      "type": "line_wall",
+      "x1": 116.280261,
+      "y1": 188.509305,
+      "x2": 116.034114,
+      "y2": 186.271629,
+      "length": 2.251174,
+      "source_segments": 1,
+      "source_entities": [
+        535
+      ]
+    },
+    {
+      "id": "WALL_438",
+      "type": "line_wall",
+      "x1": 116.034114,
+      "y1": 188.508758,
+      "x2": 116.286081,
+      "y2": 186.272285,
+      "length": 2.250623,
+      "source_segments": 1,
+      "source_entities": [
+        536
+      ]
+    },
+    {
+      "id": "POLY_WALL_01_00",
+      "type": "structural_polyline",
+      "x1": 113.255293,
+      "y1": 203.575821,
+      "x2": 113.249676,
+      "y2": 201.728061,
+      "length": 1.847769,
+      "source_polyline": 0
+    },
+    {
+      "id": "POLY_WALL_01_01",
+      "type": "structural_polyline",
+      "x1": 113.249676,
+      "y1": 201.728061,
+      "x2": 116.202662,
+      "y2": 201.737841,
+      "length": 2.953002,
+      "source_polyline": 0
+    },
+    {
+      "id": "POLY_WALL_01_02",
+      "type": "structural_polyline",
+      "x1": 116.202662,
+      "y1": 201.737841,
+      "x2": 116.281075,
+      "y2": 188.744028,
+      "length": 12.994049,
+      "source_polyline": 0
+    },
+    {
+      "id": "POLY_WALL_01_03",
+      "type": "structural_polyline",
+      "x1": 116.281075,
+      "y1": 188.744028,
+      "x2": 118.405152,
+      "y2": 188.748749,
+      "length": 2.124083,
+      "source_polyline": 0
+    },
+    {
+      "id": "POLY_WALL_01_04",
+      "type": "structural_polyline",
+      "x1": 118.405152,
+      "y1": 188.748749,
+      "x2": 118.438152,
+      "y2": 175.016627,
+      "length": 13.732162,
+      "source_polyline": 0
+    },
+    {
+      "id": "POLY_WALL_01_05",
+      "type": "structural_polyline",
+      "x1": 118.438152,
+      "y1": 175.016627,
+      "x2": 113.315575,
+      "y2": 174.993624,
+      "length": 5.122629,
+      "source_polyline": 0
+    },
+    {
+      "id": "POLY_WALL_01_06",
+      "type": "structural_polyline",
+      "x1": 113.315575,
+      "y1": 174.993624,
+      "x2": 113.307242,
+      "y2": 172.554516,
+      "length": 2.439123,
+      "source_polyline": 0
+    },
+    {
+      "id": "POLY_WALL_02_00",
+      "type": "structural_polyline",
+      "x1": 62.556426,
+      "y1": 188.723526,
+      "x2": 52.956314,
+      "y2": 188.691373,
+      "length": 9.600165,
+      "source_polyline": 9
+    },
+    {
+      "id": "POLY_WALL_02_01",
+      "type": "structural_polyline",
+      "x1": 52.956314,
+      "y1": 188.691373,
+      "x2": 52.97315,
+      "y2": 183.664894,
+      "length": 5.026507,
+      "source_polyline": 9
+    },
+    {
+      "id": "POLY_WALL_02_02",
+      "type": "structural_polyline",
+      "x1": 52.97315,
+      "y1": 183.664894,
+      "x2": 62.573144,
+      "y2": 183.732018,
+      "length": 9.600229,
+      "source_polyline": 9
+    },
+    {
+      "id": "POLY_WALL_02_03",
+      "type": "structural_polyline",
+      "x1": 62.573144,
+      "y1": 183.732018,
+      "x2": 62.568038,
+      "y2": 185.256647,
+      "length": 1.524638,
+      "source_polyline": 9
+    },
+    {
+      "id": "POLY_WALL_03_00",
+      "type": "structural_polyline",
+      "x1": 116.281006,
+      "y1": 188.755448,
+      "x2": 118.405124,
+      "y2": 188.760553,
+      "length": 2.124124,
+      "source_polyline": 8
+    },
+    {
+      "id": "POLY_WALL_03_01",
+      "type": "structural_polyline",
+      "x1": 118.405124,
+      "y1": 188.760553,
+      "x2": 118.438152,
+      "y2": 175.016627,
+      "length": 13.743966,
+      "source_polyline": 8
+    },
+    {
+      "id": "POLY_WALL_03_02",
+      "type": "structural_polyline",
+      "x1": 118.438152,
+      "y1": 175.016627,
+      "x2": 113.315575,
+      "y2": 174.993624,
+      "length": 5.122629,
+      "source_polyline": 8
+    },
+    {
+      "id": "POLY_WALL_04_00",
+      "type": "structural_polyline",
+      "x1": 53.860608,
+      "y1": 188.940548,
+      "x2": 52.709346,
+      "y2": 188.936693,
+      "length": 1.151269,
+      "source_polyline": 12
+    },
+    {
+      "id": "POLY_WALL_04_01",
+      "type": "structural_polyline",
+      "x1": 52.709346,
+      "y1": 188.936693,
+      "x2": 52.727833,
+      "y2": 183.417027,
+      "length": 5.519697,
+      "source_polyline": 12
+    },
+    {
+      "id": "POLY_WALL_04_02",
+      "type": "structural_polyline",
+      "x1": 52.727833,
+      "y1": 183.417027,
+      "x2": 62.573674,
+      "y2": 183.48587,
+      "length": 9.846082,
+      "source_polyline": 12
+    },
+    {
+      "id": "POLY_WALL_05_00",
+      "type": "structural_polyline",
+      "x1": 118.167339,
+      "y1": 185.28117,
+      "x2": 118.191416,
+      "y2": 175.261667,
+      "length": 10.019532,
+      "source_polyline": 6
+    },
+    {
+      "id": "POLY_WALL_05_01",
+      "type": "structural_polyline",
+      "x1": 118.191416,
+      "y1": 175.261667,
+      "x2": 113.337758,
+      "y2": 175.239872,
+      "length": 4.853708,
+      "source_polyline": 6
+    },
+    {
+      "id": "POLY_WALL_06_00",
+      "type": "structural_polyline",
+      "x1": 113.008398,
+      "y1": 203.329672,
+      "x2": 113.002778,
+      "y2": 201.481096,
+      "length": 1.848585,
+      "source_polyline": 2
+    },
+    {
+      "id": "POLY_WALL_06_01",
+      "type": "structural_polyline",
+      "x1": 113.002778,
+      "y1": 201.481096,
+      "x2": 115.958002,
+      "y2": 201.490884,
+      "length": 2.95524,
+      "source_polyline": 2
+    },
+    {
+      "id": "POLY_WALL_06_02",
+      "type": "structural_polyline",
+      "x1": 115.958002,
+      "y1": 201.490884,
+      "x2": 116.012951,
+      "y2": 192.385344,
+      "length": 9.105706,
+      "source_polyline": 2
+    },
+    {
+      "id": "POLY_WALL_07_00",
+      "type": "structural_polyline",
+      "x1": 116.28256,
+      "y1": 188.497885,
+      "x2": 118.159599,
+      "y2": 188.502057,
+      "length": 1.877043,
+      "source_polyline": 4
+    },
+    {
+      "id": "POLY_WALL_07_01",
+      "type": "structural_polyline",
+      "x1": 118.159599,
+      "y1": 188.502057,
+      "x2": 118.164973,
+      "y2": 186.265747,
+      "length": 2.236317,
+      "source_polyline": 4
+    },
+    {
+      "id": "POLY_WALL_08_00",
+      "type": "structural_polyline",
+      "x1": 116.014436,
+      "y1": 192.139203,
+      "x2": 116.036413,
+      "y2": 188.497338,
+      "length": 3.641931,
+      "source_polyline": 3
+    },
+    {
+      "id": "POLY_WALL_09_00",
+      "type": "structural_polyline",
+      "x1": 115.830906,
+      "y1": 177.318978,
+      "x2": 115.830906,
+      "y2": 180.863475,
+      "length": 3.544497,
+      "source_polyline": 35
+    },
+    {
+      "id": "POLY_WALL_10_00",
+      "type": "structural_polyline",
+      "x1": 55.319589,
+      "y1": 186.107669,
+      "x2": 58.864086,
+      "y2": 186.107669,
+      "length": 3.544497,
+      "source_polyline": 57
+    },
+    {
+      "id": "POLY_WALL_11_00",
+      "type": "structural_polyline",
+      "x1": 31.737106,
+      "y1": 197.57505,
+      "x2": 31.737106,
+      "y2": 194.030553,
+      "length": 3.544497,
+      "source_polyline": 13
+    },
+    {
+      "id": "POLY_WALL_12_00",
+      "type": "structural_polyline",
+      "x1": 73.673312,
+      "y1": 192.81152,
+      "x2": 75.745491,
+      "y2": 192.816499,
+      "length": 2.072185,
+      "source_polyline": 83
+    },
+    {
+      "id": "POLY_WALL_12_01",
+      "type": "structural_polyline",
+      "x1": 75.745491,
+      "y1": 192.816499,
+      "x2": 75.747147,
+      "y2": 192.127295,
+      "length": 0.689206,
+      "source_polyline": 83
+    },
+    {
+      "id": "POLY_WALL_13_00",
+      "type": "structural_polyline",
+      "x1": 71.59995,
+      "y1": 192.806537,
+      "x2": 73.672129,
+      "y2": 192.811517,
+      "length": 2.072185,
+      "source_polyline": 79
+    },
+    {
+      "id": "POLY_WALL_13_01",
+      "type": "structural_polyline",
+      "x1": 73.672129,
+      "y1": 192.811517,
+      "x2": 73.673785,
+      "y2": 192.122312,
+      "length": 0.689206,
+      "source_polyline": 79
+    }
+  ]
+}

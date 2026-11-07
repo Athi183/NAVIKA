@@ -1,0 +1,13 @@
+{
+  "schema_version": "navika-connectors-in-use-0.1",
+  "building": "M. George Block",
+  "confirmed": "2026-11-01, by the project team from day-to-day use of the building",
+  "note": "Only these stairs and lifts are used for routes. Every other stair or lift found in the DXF stays in building.json with routable=false. xy is in floor 1's frame (metres); a shaft matches when one of its stair/lift points is within 3 m. The PDFs number staircases differently on each floor, so the names here describe the location instead. The main lift is the right-hand rounded lift in the main corridor (confirmed with a 3D screenshot; matches every floor's PDF).",
+  "in_use": [
+    {"name": "Staircase 1 (central)", "kind": "stairs", "xy": [13, 27]},
+    {"name": "Staircase 2 (west wing)", "kind": "stairs", "xy": [-45, 11]},
+    {"name": "Staircase 3 (east, library side)", "kind": "stairs", "xy": [49, 0]},
+    {"name": "Main lift (corridor)", "kind": "lift", "xy": [19.3, 9.2]},
+    {"name": "West wing lift", "kind": "lift", "xy": [-46, 2]}
+  ]
+}

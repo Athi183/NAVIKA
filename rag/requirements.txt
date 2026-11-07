@@ -9,7 +9,19 @@ faiss-cpu==1.11.0
 beautifulsoup4==4.13.4
 requests==2.32.4
 python-dotenv==1.1.1
+# Enables ingest.py's PDF text extraction (extract_pdf_document). Without
+# this installed, extraction silently no-ops ("PDF skipped (install pypdf
+# to extract it)") and every linked PDF -- academic calendars, circulars,
+# newsletters, result sheets -- contributes zero content to the knowledge
+# base despite the crawler still spending a request on each one. Confirmed
+# missing from this file: two full crawl runs logged "PDFs extracted: 0"
+# before this was added.
+pypdf==6.21.3
 
 sentence-transformers==5.1.0
-transformers==4.55.4
+# Must stay under sentence-transformers' <5.0.0 ceiling. Also shared with
+# interaction/requirements.txt, which pins the same exact version for its
+# own transformers-based Malayalam TTS (interaction/tts.py) -- both
+# modules load into the same environment, so keep the two pins in sync.
+transformers==4.57.6
 huggingface-hub==0.34.4

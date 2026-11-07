@@ -20,28 +20,45 @@ def load_college_facts_documents() -> list[Document]:
 
     documents = []
 
-    # 1. Placement Statistics Document
     cse = data.get("cse_department", {})
     po = cse.get("placement_overview", {})
     batch_stats = cse.get("batch_placement_statistics", [])
 
     lines = [
-        "Computer Science and Engineering (CSE) Placement Statistics at Muthoot Institute of Technology and Science (MITS):",
-        f"Overview: Total Offers Received: {po.get('total_offers_received', 708)}, "
-        f"Average Salary Package: {po.get('average_salary_package_lpa', 4.4)} LPA, "
-        f"Total Students Placed: {po.get('total_students_placed', 372)}, "
-        f"Associated Companies: {po.get('companies_associated', 177)}.",
-        "\nBatch-wise Placement Records:",
+        "Computer Science and Engineering (CSE) "
+        "placement statistics at MITS."
     ]
-    for b in batch_stats:
-        lines.append(f"- Batch {b['batch']}: {b['students_placed']} students placed, {b['offers']} offers")
 
-    documents.append(
-        Document(
-            page_content="\n".join(lines),
-            metadata={"source": "https://mgmits.ac.in/cs-careerandplacementstatistics (cse placement summary)"},
-        )
-    )
+    overview_labels = {
+        "total_offers_received": "Total offers received",
+        "average_salary_package_lpa": "Average salary package (LPA)",
+        "total_students_placed": "Total students placed",
+        "companies_associated": "Associated companies",
+    }
+
+    for key, label in overview_labels.items():
+        value = po.get(key)
+        if value is not None and str(value).strip() != "":
+            lines.append(f"{label}: {value}")
+
+    if batch_stats:
+        lines.append("Batch-wise placement records:")
+
+        for batch in batch_stats:
+            year = batch.get("batch")
+            placed = batch.get("students_placed")
+            offers = batch.get("offers")
+
+            details = []
+            if placed is not None:
+                details.append(f"{placed} students placed")
+            if offers is not None:
+                details.append(f"{offers} offers")
+
+            if year and details:
+                lines.append(
+                    f"- Batch {year}: " + ", ".join(details)
+                )
 
     # 2. Recruiters Document
     recruiters = cse.get("top_recruiters", [])

@@ -1,0 +1,1663 @@
+{
+ "schema_version": "navika-building-0.1",
+ "building": "M. George Block",
+ "review_status": "auto_generated_requires_review",
+ "kiosk_floor": 1,
+ "floors": [
+  {
+   "floor_number": 0,
+   "label": "Ground Floor",
+   "elevation_m": 0.0,
+   "graph": "floor_00_walkable_graph.json",
+   "walls": "floor_00_walls.json",
+   "rooms": "floor_00_rooms.json"
+  },
+  {
+   "floor_number": 1,
+   "label": "First Floor (entrance / reception level)",
+   "elevation_m": 3.3,
+   "graph": "floor_01_walkable_graph.json",
+   "walls": "floor_01_walls.json",
+   "rooms": "floor_01_rooms.json"
+  },
+  {
+   "floor_number": 2,
+   "label": "Second Floor",
+   "elevation_m": 6.6,
+   "graph": "floor_02_walkable_graph.json",
+   "walls": "floor_02_walls.json",
+   "rooms": "floor_02_rooms.json"
+  },
+  {
+   "floor_number": 3,
+   "label": "Third Floor",
+   "elevation_m": 9.9,
+   "graph": "floor_03_walkable_graph.json",
+   "walls": "floor_03_walls.json",
+   "rooms": "floor_03_rooms.json"
+  },
+  {
+   "floor_number": 4,
+   "label": "Fourth Floor",
+   "elevation_m": 13.2,
+   "graph": "floor_04_walkable_graph.json",
+   "walls": "floor_04_walls.json",
+   "rooms": "floor_04_rooms.json"
+  }
+ ],
+ "shafts": [
+  {
+   "id": "shaft_00",
+   "name": "Lift (east wing) 1",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C00",
+    "1": "MG01_C00",
+    "2": "MG02_C00",
+    "3": "MG03_C00",
+    "4": "MG04_C00"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_01",
+   "name": "Lift (east wing) 2",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C01",
+    "1": "MG01_C12",
+    "2": "MG02_C11",
+    "3": "MG03_C11",
+    "4": "MG04_C11"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_02",
+   "name": "Staircase 3 (east, library side)",
+   "kind": "stairs",
+   "routable": true,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C02",
+    "1": "MG01_C11",
+    "2": "MG02_C10",
+    "3": "MG03_C10",
+    "4": "MG04_C09"
+   },
+   "in_normal_use": true
+  },
+  {
+   "id": "shaft_03",
+   "name": "Staircase 1 (central)",
+   "kind": "stairs",
+   "routable": true,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C03",
+    "1": "MG01_C04",
+    "2": "MG02_C05",
+    "3": "MG03_C05",
+    "4": "MG04_C04"
+   },
+   "in_normal_use": true
+  },
+  {
+   "id": "shaft_04",
+   "name": "Lift (centre) 1",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C04",
+    "1": "MG01_C08",
+    "2": "MG02_C06",
+    "3": "MG03_C06",
+    "4": "MG04_C05"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_05",
+   "name": "Lift (centre) 2",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C05",
+    "1": "MG01_C09",
+    "2": "MG02_C07",
+    "3": "MG03_C07",
+    "4": "MG04_C06"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_06",
+   "name": "Main lift (corridor)",
+   "kind": "lift",
+   "routable": true,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C06",
+    "1": "MG01_C06",
+    "2": "MG02_C08",
+    "3": "MG03_C09",
+    "4": "MG04_C08"
+   },
+   "in_normal_use": true
+  },
+  {
+   "id": "shaft_07",
+   "name": "Fire Exit 3 (south-west)",
+   "kind": "fire_stairs",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2
+   ],
+   "connectors": {
+    "0": "MG00_C07",
+    "1": "MG01_C14",
+    "2": "MG02_C12"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_08",
+   "name": "Lift (centre) 3",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C08",
+    "1": "MG01_C05",
+    "2": "MG02_C14",
+    "3": "MG03_C12",
+    "4": "MG04_C14"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_09",
+   "name": "Lift (centre) 4",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C09",
+    "1": "MG01_C07",
+    "2": "MG02_C15",
+    "3": "MG03_C13",
+    "4": "MG04_C15"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_10",
+   "name": "Lift (centre) 5",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C10",
+    "1": "MG01_C10",
+    "2": "MG02_C16",
+    "3": "MG03_C14",
+    "4": "MG04_C16"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_11",
+   "name": "Lift (east wing) 3",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "0": "MG00_C11",
+    "1": "MG01_C13",
+    "2": "MG02_C17",
+    "3": "MG03_C15",
+    "4": "MG04_C17"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_12",
+   "name": "Lift (west wing) 1",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "1": "MG01_C01",
+    "2": "MG02_C04",
+    "3": "MG03_C03",
+    "4": "MG04_C03"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_13",
+   "name": "West wing lift",
+   "kind": "lift",
+   "routable": true,
+   "floors": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "1": "MG01_C02",
+    "2": "MG02_C02",
+    "3": "MG03_C02",
+    "4": "MG04_C10"
+   },
+   "in_normal_use": true
+  },
+  {
+   "id": "shaft_14",
+   "name": "Lift (west wing) 2",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "1": "MG01_C03",
+    "2": "MG02_C01",
+    "3": "MG03_C01",
+    "4": "MG04_C01"
+   },
+   "in_normal_use": false
+  },
+  {
+   "id": "shaft_15",
+   "name": "Staircase 2 (west wing)",
+   "kind": "stairs",
+   "routable": true,
+   "floors": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "1": "MG01_C15",
+    "2": "MG02_C03",
+    "3": "MG03_C04",
+    "4": "MG04_C02"
+   },
+   "in_normal_use": true
+  },
+  {
+   "id": "shaft_16",
+   "name": "Lift (centre) 6",
+   "kind": "lift",
+   "routable": false,
+   "floors": [
+    2,
+    3,
+    4
+   ],
+   "connectors": {
+    "2": "MG02_C09",
+    "3": "MG03_C08",
+    "4": "MG04_C07"
+   },
+   "in_normal_use": false
+  }
+ ],
+ "vertical_nodes": [
+  {
+   "id": "shaft_11_F0",
+   "floor": 0,
+   "x": 47.195,
+   "y": -6.8,
+   "shaft": "shaft_11"
+  },
+  {
+   "id": "shaft_11_F1",
+   "floor": 1,
+   "x": 47.195,
+   "y": -6.725,
+   "shaft": "shaft_11"
+  },
+  {
+   "id": "shaft_10_F0",
+   "floor": 0,
+   "x": 18.45,
+   "y": 22.251,
+   "shaft": "shaft_10"
+  },
+  {
+   "id": "shaft_10_F1",
+   "floor": 1,
+   "x": 18.449,
+   "y": 22.326,
+   "shaft": "shaft_10"
+  },
+  {
+   "id": "shaft_09_F0",
+   "floor": 0,
+   "x": 8.424,
+   "y": 19.531,
+   "shaft": "shaft_09"
+  },
+  {
+   "id": "shaft_09_F1",
+   "floor": 1,
+   "x": 8.423,
+   "y": 19.606,
+   "shaft": "shaft_09"
+  },
+  {
+   "id": "shaft_08_F0",
+   "floor": 0,
+   "x": 7.833,
+   "y": 9.09,
+   "shaft": "shaft_08"
+  },
+  {
+   "id": "shaft_08_F1",
+   "floor": 1,
+   "x": 7.833,
+   "y": 9.166,
+   "shaft": "shaft_08"
+  },
+  {
+   "id": "shaft_04_F0",
+   "floor": 0,
+   "x": 8.828,
+   "y": 22.229,
+   "shaft": "shaft_04"
+  },
+  {
+   "id": "shaft_04_F1",
+   "floor": 1,
+   "x": 8.828,
+   "y": 22.322,
+   "shaft": "shaft_04"
+  },
+  {
+   "id": "shaft_05_F0",
+   "floor": 0,
+   "x": 18.712,
+   "y": 19.47,
+   "shaft": "shaft_05"
+  },
+  {
+   "id": "shaft_05_F1",
+   "floor": 1,
+   "x": 18.712,
+   "y": 19.563,
+   "shaft": "shaft_05"
+  },
+  {
+   "id": "shaft_01_F0",
+   "floor": 0,
+   "x": 47.458,
+   "y": -4.025,
+   "shaft": "shaft_01"
+  },
+  {
+   "id": "shaft_01_F1",
+   "floor": 1,
+   "x": 47.458,
+   "y": -3.925,
+   "shaft": "shaft_01"
+  },
+  {
+   "id": "shaft_06_F0",
+   "floor": 0,
+   "x": 19.098,
+   "y": 8.964,
+   "shaft": "shaft_06"
+  },
+  {
+   "id": "shaft_06_F1",
+   "floor": 1,
+   "x": 19.304,
+   "y": 9.169,
+   "shaft": "shaft_06"
+  },
+  {
+   "id": "shaft_00_F0",
+   "floor": 0,
+   "x": 51.575,
+   "y": -4.498,
+   "shaft": "shaft_00"
+  },
+  {
+   "id": "shaft_00_F1",
+   "floor": 1,
+   "x": 51.439,
+   "y": -5.01,
+   "shaft": "shaft_00"
+  },
+  {
+   "id": "shaft_01_F2",
+   "floor": 2,
+   "x": 47.459,
+   "y": -3.926,
+   "shaft": "shaft_01"
+  },
+  {
+   "id": "shaft_12_F1",
+   "floor": 1,
+   "x": -44.754,
+   "y": 27.914,
+   "shaft": "shaft_12"
+  },
+  {
+   "id": "shaft_12_F2",
+   "floor": 2,
+   "x": -44.754,
+   "y": 27.912,
+   "shaft": "shaft_12"
+  },
+  {
+   "id": "shaft_08_F2",
+   "floor": 2,
+   "x": 7.833,
+   "y": 9.187,
+   "shaft": "shaft_08"
+  },
+  {
+   "id": "shaft_11_F2",
+   "floor": 2,
+   "x": 47.195,
+   "y": -6.704,
+   "shaft": "shaft_11"
+  },
+  {
+   "id": "shaft_10_F2",
+   "floor": 2,
+   "x": 18.449,
+   "y": 22.347,
+   "shaft": "shaft_10"
+  },
+  {
+   "id": "shaft_09_F2",
+   "floor": 2,
+   "x": 8.424,
+   "y": 19.627,
+   "shaft": "shaft_09"
+  },
+  {
+   "id": "shaft_06_F2",
+   "floor": 2,
+   "x": 19.25,
+   "y": 9.116,
+   "shaft": "shaft_06"
+  },
+  {
+   "id": "shaft_14_F1",
+   "floor": 1,
+   "x": -46.124,
+   "y": -10.732,
+   "shaft": "shaft_14"
+  },
+  {
+   "id": "shaft_14_F2",
+   "floor": 2,
+   "x": -46.124,
+   "y": -10.819,
+   "shaft": "shaft_14"
+  },
+  {
+   "id": "shaft_04_F2",
+   "floor": 2,
+   "x": 8.733,
+   "y": 22.322,
+   "shaft": "shaft_04"
+  },
+  {
+   "id": "shaft_13_F1",
+   "floor": 1,
+   "x": -45.714,
+   "y": 2.338,
+   "shaft": "shaft_13"
+  },
+  {
+   "id": "shaft_13_F2",
+   "floor": 2,
+   "x": -45.714,
+   "y": 2.445,
+   "shaft": "shaft_13"
+  },
+  {
+   "id": "shaft_00_F2",
+   "floor": 2,
+   "x": 51.472,
+   "y": -4.88,
+   "shaft": "shaft_00"
+  },
+  {
+   "id": "shaft_05_F2",
+   "floor": 2,
+   "x": 18.857,
+   "y": 19.593,
+   "shaft": "shaft_05"
+  },
+  {
+   "id": "shaft_12_F3",
+   "floor": 3,
+   "x": -44.808,
+   "y": 27.879,
+   "shaft": "shaft_12"
+  },
+  {
+   "id": "shaft_14_F3",
+   "floor": 3,
+   "x": -46.178,
+   "y": -10.853,
+   "shaft": "shaft_14"
+  },
+  {
+   "id": "shaft_13_F3",
+   "floor": 3,
+   "x": -45.768,
+   "y": 2.411,
+   "shaft": "shaft_13"
+  },
+  {
+   "id": "shaft_10_F3",
+   "floor": 3,
+   "x": 18.395,
+   "y": 22.289,
+   "shaft": "shaft_10"
+  },
+  {
+   "id": "shaft_11_F3",
+   "floor": 3,
+   "x": 47.14,
+   "y": -6.762,
+   "shaft": "shaft_11"
+  },
+  {
+   "id": "shaft_01_F3",
+   "floor": 3,
+   "x": 47.405,
+   "y": -3.985,
+   "shaft": "shaft_01"
+  },
+  {
+   "id": "shaft_09_F3",
+   "floor": 3,
+   "x": 8.369,
+   "y": 19.568,
+   "shaft": "shaft_09"
+  },
+  {
+   "id": "shaft_08_F3",
+   "floor": 3,
+   "x": 7.778,
+   "y": 9.128,
+   "shaft": "shaft_08"
+  },
+  {
+   "id": "shaft_16_F2",
+   "floor": 2,
+   "x": 12.973,
+   "y": 9.303,
+   "shaft": "shaft_16"
+  },
+  {
+   "id": "shaft_16_F3",
+   "floor": 3,
+   "x": 12.92,
+   "y": 9.203,
+   "shaft": "shaft_16"
+  },
+  {
+   "id": "shaft_06_F3",
+   "floor": 3,
+   "x": 19.405,
+   "y": 9.083,
+   "shaft": "shaft_06"
+  },
+  {
+   "id": "shaft_04_F3",
+   "floor": 3,
+   "x": 8.679,
+   "y": 22.485,
+   "shaft": "shaft_04"
+  },
+  {
+   "id": "shaft_05_F3",
+   "floor": 3,
+   "x": 18.624,
+   "y": 19.643,
+   "shaft": "shaft_05"
+  },
+  {
+   "id": "shaft_00_F3",
+   "floor": 3,
+   "x": 52.042,
+   "y": -4.87,
+   "shaft": "shaft_00"
+  },
+  {
+   "id": "shaft_16_F4",
+   "floor": 4,
+   "x": 12.973,
+   "y": 9.229,
+   "shaft": "shaft_16"
+  },
+  {
+   "id": "shaft_06_F4",
+   "floor": 4,
+   "x": 19.459,
+   "y": 9.109,
+   "shaft": "shaft_06"
+  },
+  {
+   "id": "shaft_05_F4",
+   "floor": 4,
+   "x": 18.677,
+   "y": 19.676,
+   "shaft": "shaft_05"
+  },
+  {
+   "id": "shaft_10_F4",
+   "floor": 4,
+   "x": 18.449,
+   "y": 22.322,
+   "shaft": "shaft_10"
+  },
+  {
+   "id": "shaft_04_F4",
+   "floor": 4,
+   "x": 8.733,
+   "y": 22.518,
+   "shaft": "shaft_04"
+  },
+  {
+   "id": "shaft_09_F4",
+   "floor": 4,
+   "x": 8.423,
+   "y": 19.602,
+   "shaft": "shaft_09"
+  },
+  {
+   "id": "shaft_08_F4",
+   "floor": 4,
+   "x": 7.832,
+   "y": 9.162,
+   "shaft": "shaft_08"
+  },
+  {
+   "id": "shaft_01_F4",
+   "floor": 4,
+   "x": 47.458,
+   "y": -4.026,
+   "shaft": "shaft_01"
+  },
+  {
+   "id": "shaft_13_F4",
+   "floor": 4,
+   "x": -45.715,
+   "y": 2.463,
+   "shaft": "shaft_13"
+  },
+  {
+   "id": "shaft_12_F4",
+   "floor": 4,
+   "x": -44.755,
+   "y": 27.936,
+   "shaft": "shaft_12"
+  },
+  {
+   "id": "shaft_14_F4",
+   "floor": 4,
+   "x": -46.125,
+   "y": -10.79,
+   "shaft": "shaft_14"
+  },
+  {
+   "id": "shaft_11_F4",
+   "floor": 4,
+   "x": 47.043,
+   "y": -6.729,
+   "shaft": "shaft_11"
+  },
+  {
+   "id": "shaft_00_F4",
+   "floor": 4,
+   "x": 51.448,
+   "y": -4.556,
+   "shaft": "shaft_00"
+  }
+ ],
+ "vertical_edges": [
+  {
+   "from": "MG00_N0014",
+   "to": "shaft_11_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "MG01_N0351",
+   "to": "shaft_11_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "shaft_11_F0",
+   "to": "shaft_11_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "MG00_N0025",
+   "to": "shaft_10_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "MG01_N0046",
+   "to": "shaft_10_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "shaft_10_F0",
+   "to": "shaft_10_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "MG00_N0025",
+   "to": "shaft_09_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "MG01_N0195",
+   "to": "shaft_09_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "shaft_09_F0",
+   "to": "shaft_09_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "MG00_N0052",
+   "to": "shaft_08_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "MG01_N0431",
+   "to": "shaft_08_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "shaft_08_F0",
+   "to": "shaft_08_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "MG00_N0025",
+   "to": "shaft_04_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "MG01_N0200",
+   "to": "shaft_04_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "shaft_04_F0",
+   "to": "shaft_04_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "MG00_N0025",
+   "to": "shaft_05_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "MG01_N0279",
+   "to": "shaft_05_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "shaft_05_F0",
+   "to": "shaft_05_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "MG00_N0014",
+   "to": "shaft_01_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "MG01_N0351",
+   "to": "shaft_01_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "shaft_01_F0",
+   "to": "shaft_01_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "MG00_N0076",
+   "to": "MG01_N0110",
+   "weight_m": 18.0,
+   "kind": "fire_stairs",
+   "shaft": "shaft_07"
+  },
+  {
+   "from": "MG00_N0021",
+   "to": "shaft_06_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "MG01_N0014",
+   "to": "shaft_06_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "shaft_06_F0",
+   "to": "shaft_06_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "MG00_N0018",
+   "to": "shaft_00_F0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "MG01_N0103",
+   "to": "shaft_00_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "shaft_00_F0",
+   "to": "shaft_00_F1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "MG00_N0025",
+   "to": "MG01_N0354",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_03"
+  },
+  {
+   "from": "MG00_N0016",
+   "to": "MG01_N0100",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_02"
+  },
+  {
+   "from": "MG02_N0214",
+   "to": "shaft_01_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "shaft_01_F1",
+   "to": "shaft_01_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "MG01_N0034",
+   "to": "shaft_12_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_12"
+  },
+  {
+   "from": "MG02_N0007",
+   "to": "shaft_12_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_12"
+  },
+  {
+   "from": "shaft_12_F1",
+   "to": "shaft_12_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_12"
+  },
+  {
+   "from": "MG01_N0110",
+   "to": "MG02_N0325",
+   "weight_m": 18.0,
+   "kind": "fire_stairs",
+   "shaft": "shaft_07"
+  },
+  {
+   "from": "MG02_N0223",
+   "to": "shaft_08_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "shaft_08_F1",
+   "to": "shaft_08_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "MG02_N0214",
+   "to": "shaft_11_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "shaft_11_F1",
+   "to": "shaft_11_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "MG02_N0014",
+   "to": "shaft_10_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "shaft_10_F1",
+   "to": "shaft_10_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "MG02_N0154",
+   "to": "shaft_09_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "shaft_09_F1",
+   "to": "shaft_09_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "MG02_N0226",
+   "to": "shaft_06_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "shaft_06_F1",
+   "to": "shaft_06_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "MG01_N0267",
+   "to": "shaft_14_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_14"
+  },
+  {
+   "from": "MG02_N0180",
+   "to": "shaft_14_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_14"
+  },
+  {
+   "from": "shaft_14_F1",
+   "to": "shaft_14_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_14"
+  },
+  {
+   "from": "MG02_N0157",
+   "to": "shaft_04_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "shaft_04_F1",
+   "to": "shaft_04_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "MG01_N0142",
+   "to": "shaft_13_F1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_13"
+  },
+  {
+   "from": "MG02_N0102",
+   "to": "shaft_13_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_13"
+  },
+  {
+   "from": "shaft_13_F1",
+   "to": "shaft_13_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_13"
+  },
+  {
+   "from": "MG02_N0043",
+   "to": "shaft_00_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "shaft_00_F1",
+   "to": "shaft_00_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "MG02_N0229",
+   "to": "shaft_05_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "shaft_05_F1",
+   "to": "shaft_05_F2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "MG01_N0100",
+   "to": "MG02_N0038",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_02"
+  },
+  {
+   "from": "MG01_N0354",
+   "to": "MG02_N0334",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_03"
+  },
+  {
+   "from": "MG01_N0341",
+   "to": "MG02_N0242",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_15"
+  },
+  {
+   "from": "MG03_N0101",
+   "to": "shaft_12_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_12"
+  },
+  {
+   "from": "shaft_12_F2",
+   "to": "shaft_12_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_12"
+  },
+  {
+   "from": "MG02_N0038",
+   "to": "MG03_N0403",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_02"
+  },
+  {
+   "from": "MG03_N0052",
+   "to": "shaft_14_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_14"
+  },
+  {
+   "from": "shaft_14_F2",
+   "to": "shaft_14_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_14"
+  },
+  {
+   "from": "MG03_N0142",
+   "to": "shaft_13_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_13"
+  },
+  {
+   "from": "shaft_13_F2",
+   "to": "shaft_13_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_13"
+  },
+  {
+   "from": "MG03_N0048",
+   "to": "shaft_10_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "shaft_10_F2",
+   "to": "shaft_10_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "MG03_N0293",
+   "to": "shaft_11_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "shaft_11_F2",
+   "to": "shaft_11_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "MG03_N0323",
+   "to": "shaft_01_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "shaft_01_F2",
+   "to": "shaft_01_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "MG03_N0108",
+   "to": "shaft_09_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "shaft_09_F2",
+   "to": "shaft_09_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "MG03_N0214",
+   "to": "shaft_08_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "shaft_08_F2",
+   "to": "shaft_08_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "MG02_N0149",
+   "to": "shaft_16_F2",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_16"
+  },
+  {
+   "from": "MG03_N0029",
+   "to": "shaft_16_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_16"
+  },
+  {
+   "from": "shaft_16_F2",
+   "to": "shaft_16_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_16"
+  },
+  {
+   "from": "MG03_N0028",
+   "to": "shaft_06_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "shaft_06_F2",
+   "to": "shaft_06_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "MG03_N0111",
+   "to": "shaft_04_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "shaft_04_F2",
+   "to": "shaft_04_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "MG02_N0334",
+   "to": "MG03_N0194",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_03"
+  },
+  {
+   "from": "MG03_N0444",
+   "to": "shaft_05_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "shaft_05_F2",
+   "to": "shaft_05_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "MG02_N0242",
+   "to": "MG03_N0300",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_15"
+  },
+  {
+   "from": "MG03_N0261",
+   "to": "shaft_00_F3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "shaft_00_F2",
+   "to": "shaft_00_F3",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "MG04_N0006",
+   "to": "shaft_16_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_16"
+  },
+  {
+   "from": "shaft_16_F3",
+   "to": "shaft_16_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_16"
+  },
+  {
+   "from": "MG04_N0005",
+   "to": "shaft_06_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "shaft_06_F3",
+   "to": "shaft_06_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_06"
+  },
+  {
+   "from": "MG04_N0253",
+   "to": "shaft_05_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "shaft_05_F3",
+   "to": "shaft_05_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_05"
+  },
+  {
+   "from": "MG03_N0403",
+   "to": "MG04_N0269",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_02"
+  },
+  {
+   "from": "MG04_N0340",
+   "to": "shaft_10_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "shaft_10_F3",
+   "to": "shaft_10_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_10"
+  },
+  {
+   "from": "MG04_N0172",
+   "to": "shaft_04_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "shaft_04_F3",
+   "to": "shaft_04_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_04"
+  },
+  {
+   "from": "MG04_N0167",
+   "to": "shaft_09_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "shaft_09_F3",
+   "to": "shaft_09_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_09"
+  },
+  {
+   "from": "MG04_N0246",
+   "to": "shaft_08_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "shaft_08_F3",
+   "to": "shaft_08_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_08"
+  },
+  {
+   "from": "MG04_N0240",
+   "to": "shaft_01_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "shaft_01_F3",
+   "to": "shaft_01_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_01"
+  },
+  {
+   "from": "MG04_N0124",
+   "to": "shaft_13_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_13"
+  },
+  {
+   "from": "shaft_13_F3",
+   "to": "shaft_13_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_13"
+  },
+  {
+   "from": "MG04_N0026",
+   "to": "shaft_12_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_12"
+  },
+  {
+   "from": "shaft_12_F3",
+   "to": "shaft_12_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_12"
+  },
+  {
+   "from": "MG04_N0243",
+   "to": "shaft_14_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_14"
+  },
+  {
+   "from": "shaft_14_F3",
+   "to": "shaft_14_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_14"
+  },
+  {
+   "from": "MG04_N0240",
+   "to": "shaft_11_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "shaft_11_F3",
+   "to": "shaft_11_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_11"
+  },
+  {
+   "from": "MG03_N0194",
+   "to": "MG04_N0342",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_03"
+  },
+  {
+   "from": "MG04_N0159",
+   "to": "shaft_00_F4",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "shaft_00_F3",
+   "to": "shaft_00_F4",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "shaft_00"
+  },
+  {
+   "from": "MG03_N0300",
+   "to": "MG04_N0271",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "shaft_15"
+  }
+ ],
+ "assumptions": {
+  "floor_height_m": 3.3,
+  "stairs_weight_m_per_floor": 18.0,
+  "lift_board_weight_m": 18.0,
+  "lift_weight_m_per_floor": 4.0,
+  "fire_escape_stairs": "recorded but not used for routing",
+  "note": "Stairs (within 8 m) and lifts (within 3 m) are paired across floors by position. Confirm on site which ones are in normal use."
+ }
+}

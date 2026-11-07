@@ -1,5 +1,7 @@
 import os
 import re
+from datetime import datetime, timezone
+from pathlib import Path
 
 # Must be set before HuggingFaceEmbeddings loads the tokenizer — the
 # STT/NLU pipeline that calls into this module runs it after already
@@ -19,7 +21,32 @@ except ImportError:
     from spatial_lookup import spatial_context_for_question
 
 
-load_dotenv()
+# Must be set before HuggingFaceEmbeddings loads the tokenizer — the
+# STT/NLU pipeline that calls into this module runs it after already
+# using tokenizers elsewhere in the process, which otherwise prints a
+# fork-safety warning on every single query.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+
+load_dotenv(Path(__file__).resolve().parent / ".env")
+
+# Malayalam occupies one distinct Unicode block (U+0D00-U+0D7F), so
+# script-based detection is fully reliable with no language-ID model.
+# Duplicated from interaction/preprocess.py's identical check rather than
+# imported — this module is designed to run standalone (see the __main__
+# chat loop below) without depending on interaction/ being on sys.path.
+# Built from explicit codepoints via chr(), not a \uXXXX regex escape --
+# some editors/tools render or transcode that escape as the literal
+# character instead of keeping it as text, which is impossible to
+# visually verify is still correct; chr(0x0D00) is unambiguous no matter
+# how it displays.
+_MALAYALAM_PATTERN = re.compile(f"[{chr(0x0D00)}-{chr(0x0D7F)}]")
+
+
+def detect_language(text):
+    """Returns "ml" (Malayalam) or "en", by Unicode script."""
+    if text and _MALAYALAM_PATTERN.search(text):
+        return "ml"
+    return "en"
 
 # ==========================================
 # Resolve paths relative to this file
@@ -55,22 +82,6 @@ vectorstore = FAISS.load_local(
     embeddings,
     allow_dangerous_deserialization=True
 )
-print("\n--- PLACEMENT DATA CHECK ---")
-
-for doc in vectorstore.docstore._dict.values():
-    content = doc.page_content.lower()
-
-    if any(term in content for term in [
-        "tcs - digital",
-        "tcs - ninja",
-        "total offers",
-        "placement statistics",
-        "students placed",
-    ]):
-        print("\nSOURCE:", doc.metadata)
-        print(doc.page_content[:1200])
-        print("-" * 50)
-
 # ==========================================
 # Create retriever
 # ==========================================
@@ -127,14 +138,242 @@ def _docs_matching(markers):
 ALWAYS_INCLUDE_DOCUMENTS = _docs_matching(_ALWAYS_INCLUDE_MARKERS)
 GATED_AUGMENT_GROUPS = [(triggers, _docs_matching(markers)) for markers, triggers in _GATED_AUGMENT_GROUPS]
 
+# The placement page (mgmits.ac.in/placement) has one self-contained
+# section per batch (2022-2026, 2019-2023, 2018-2022, ...): a
+# "Recruiter Wise Analysis <range> Batch" header, optionally a
+# "(Highest Package: X LPA)" line (only published for 2 of the 5 batches
+# on the live site -- the others genuinely don't have one, not a scraping
+# gap), the recruiter-wise table, and a "Total Offers | N" line closing
+# that batch's section before the next one starts.
+#
+# Naive per-CHUNK filtering (does this 800-char chunk contain the digits
+# "2026"?) was unreliable two different ways: chunking can split a
+# batch's own "Total Offers" line into a different chunk than its table,
+# and on a wider top-k retrieval pass, entirely unrelated per-DEPARTMENT
+# placement blurbs (e.g. mgmits.ac.in/department/ca's own "Students
+# Placed: 43, Median Salary: 7" -- a different dataset for the MCA
+# department specifically, not tied to any batch range) kept getting
+# pulled in alongside a batch query and blended into one answer as if
+# they described the same thing. Reconstructing the full page text and
+# regex-matching "header ... until the next header" per batch fixes the
+# first problem structurally; the explicit instruction in ask_question's
+# prompt (see CONVERSATIONAL_INTENTS block below) about not mixing
+# figures across sources covers the second, since retrieval can still
+# independently surface a department chunk this function doesn't control.
+_PLACEMENT_TRIGGERS = ("placement", "placed", "recruiter", "stipend", "ctc", "lpa", "batch", "offer")
+# Must be the exact canonical placement page, not a substring/prefix match.
+# A later, much broader crawl added several other pages whose URL starts
+# with "/placement" (placement-statistics-of-cse, placement-test, ...) --
+# with the old substring check, those got joined into the SAME full-text
+# blob this regex walks. The last batch's section has no following header
+# to stop at (it falls through to end-of-text, \Z, by design -- there's
+# nothing after the oldest batch), so once other pages' unrelated content
+# was appended after it, that "last section" silently grew to include all
+# of it: 325,567 characters in one context chunk, which blew Groq's
+# context-length limit outright (400 context_length_exceeded) on every
+# batch-placement question. Restricting to the exact page URL is the
+# correct fix; the length guard below is a second, independent safety net
+# so this class of bug can't silently reintroduce a multi-hundred-KB
+# chunk even if the source set changes again later.
+_PLACEMENT_SOURCE_URLS = ("https://mgmits.ac.in/placement", "https://www.mgmits.ac.in/placement")
+_PLACEMENT_MAX_SECTION_CHARS = 8000
+_YEAR_PATTERN = re.compile(r"\b(?:19|20)\d{2}\b")  # non-capturing group so findall returns the full year
+_BATCH_SECTION_PATTERN = re.compile(
+    r"Recruiter Wise Analysis ([\d]{4}-[\d]{4}) Batch.*?(?=Recruiter Wise Analysis [\d]{4}-[\d]{4} Batch|\Z)",
+    re.DOTALL,
+)
+
+PLACEMENT_DOCUMENTS = [
+    doc.page_content
+    for doc in vectorstore.docstore._dict.values()
+    if doc.metadata.get("source", "") in _PLACEMENT_SOURCE_URLS
+]
+_PLACEMENT_FULL_TEXT = "\n".join(PLACEMENT_DOCUMENTS)
+PLACEMENT_BATCH_SECTIONS = {
+    match.group(1): match.group(0).strip()[:_PLACEMENT_MAX_SECTION_CHARS]
+    for match in _BATCH_SECTION_PATTERN.finditer(_PLACEMENT_FULL_TEXT)
+}
+
+
+def _placement_docs_for(question_lower):
+    if not any(trigger in question_lower for trigger in _PLACEMENT_TRIGGERS):
+        return []
+
+    years_in_question = _YEAR_PATTERN.findall(question_lower)
+
+    if not years_in_question:
+        # No specific year named ("placement stats" in general) -- a
+        # handful of chunks is a reasonable size; let normal retrieval
+        # ranking supply whichever table it finds most relevant rather
+        # than including every batch's table unfiltered.
+        return []
+
+    # A question naming a full "2022-2026"-style range is matched against
+    # that exact range first, before falling back to single-year
+    # matching. This isn't just an optimization: a bare single year is
+    # fundamentally ambiguous between two different batches whenever one
+    # batch's START year equals another batch's END year, which is
+    # genuinely true here ("2022-2026" starts the same year "2018-2022"
+    # ends) -- asking about "the 2022-2026 batch" would otherwise also
+    # exact-match "2018-2022" via its own end year, doubling the prompt
+    # size and risking the two batches' figures getting blended in the
+    # answer. An explicit range in the question resolves that ambiguity
+    # outright, so it takes priority whenever present.
+    explicit_range_match = re.search(r"\b((?:19|20)\d{2})\s*-\s*((?:19|20)\d{2})\b", question_lower)
+    if explicit_range_match:
+        exact_range = f"{explicit_range_match.group(1)}-{explicit_range_match.group(2)}"
+        if exact_range in PLACEMENT_BATCH_SECTIONS:
+            return [PLACEMENT_BATCH_SECTIONS[exact_range]]
+
+    # No explicit range given -- a single year ("the 2026 batch") refers
+    # to the GRADUATION year by the standard convention established in
+    # the prompt instructions above, so only match each batch's END year,
+    # never its start year (which is what let "2022" wrongly resolve to
+    # "2018-2022" in the first place).
+    matched_sections = []
+    for batch_range, section_text in PLACEMENT_BATCH_SECTIONS.items():
+        graduation_year = batch_range.split("-")[1]
+        if graduation_year in years_in_question:
+            matched_sections.append(section_text)
+
+    return matched_sections
+
+
+# A faculty member's name is the sharpest case of the "structurally hard
+# for similarity search" problem noted above for HODs/deans: it's one
+# entry among 50-100+ in a flat "Name | Designation | Research interests |
+# view profile" department staff-listing page, with almost no other
+# distinguishing text nearby -- confirmed directly against this
+# vectorstore (vectorstore.similarity_search("who is doctor Indu MT", k=5)
+# never surfaces the cs-staff chunk that contains her, even though that
+# chunk is in the index). Unlike admissions/hostel/deans there's no fixed
+# keyword list to gate on here -- the "topic" is whichever person the
+# question names, which is unbounded, so this matches chunk *text*
+# directly instead of chunk *topic*: after stripping the campus-boilerplate
+# words a lookup question is typically phrased with ("who is assistant
+# professor ... in the computer science department"), what's left over is
+# almost always the actual name fragments the person typed or said, and a
+# plain case-insensitive substring search for those across every staff/
+# faculty-pattern page finds them reliably where embedding similarity
+# alone does not.
+_FACULTY_SOURCE_MARKERS = ("staff", "faculty", "deans-and-heads", "profile-details")
+_PERSON_LOOKUP_TRIGGERS = (
+    "who is", "who's", "whos", "tell me about", "contact of", "email of",
+    "professor", "faculty", "staff", "hod", "lecturer",
+)
+_PERSON_LOOKUP_STOPWORDS = {
+    "who", "is", "are", "was", "the", "a", "an", "in", "of", "at", "for", "about",
+    "me", "tell", "you", "know", "whos", "please", "can",
+    "dr", "doctor", "prof", "professor", "mr", "mrs", "ms", "sir", "madam",
+    "name", "teacher", "faculty", "staff", "assistant", "associate", "lecturer",
+    "department", "dept", "hod", "head", "college", "mits",
+    "cse", "computer", "science", "engineering", "ece", "eee", "ee", "ec",
+    "mechanical", "civil", "cyber", "security", "ai", "ds", "data",
+    "applications", "mca", "basic", "humanities", "ca", "cc", "ad", "bsh",
+}
+
+FACULTY_DOCUMENTS = _docs_matching(_FACULTY_SOURCE_MARKERS)
+_FACULTY_FULL_TEXT = "\n".join(FACULTY_DOCUMENTS)
+
+
+def _person_lookup_tokens(question_lower):
+    words = re.findall(r"[a-z]+", question_lower)
+    # Split into primary tokens (4+ letters -- a first/last name, specific
+    # enough on its own to anchor a search) and initial tokens (1-2
+    # letters, e.g. the "K", "V" in "Sheena K V"). Initials alone are too
+    # common as substrings of unrelated words to search on directly (e.g.
+    # "mt" inside "comment"), but dropping them entirely turned out to
+    # lose real information: this college has three different faculty
+    # members named Sheena ("Sheena K.V.", "Sheena Kurian K.", "Sheena
+    # Y."), so "who is Sheena K V" with only "sheena" as a search token
+    # can't tell them apart at all -- confirmed directly, it surfaced
+    # "Sheena Kurian K" (who happens to appear far more often across the
+    # crawled pages) instead of the person actually asked about. Initials
+    # are used below only to RANK matches of a primary token, never as a
+    # search basis by themselves.
+    primary = [w for w in words if w not in _PERSON_LOOKUP_STOPWORDS and len(w) > 2]
+    initials = [w for w in words if w not in _PERSON_LOOKUP_STOPWORDS and len(w) <= 2]
+    return primary, initials
+
+
+def _faculty_snippets_for(question_lower):
+    if not any(trigger in question_lower for trigger in _PERSON_LOOKUP_TRIGGERS):
+        return []
+
+    primary_tokens, initial_tokens = _person_lookup_tokens(question_lower)
+    if not primary_tokens:
+        return []
+
+    # Score and rank every occurrence instead of taking the first few
+    # found: for each primary-token match, count how many of the
+    # question's initials appear as standalone words (word-boundaried, so
+    # "K" matches only the initial "K", never the "k" inside "Kurian")
+    # within a short window right around it. "Sheena K V" then scores
+    # higher near "Sheena K.V." (both initials present) than near "Sheena
+    # Kurian K" (only one), which is exactly the disambiguation that was
+    # missing.
+    candidates = []
+    seen_spans = []
+    for token in primary_tokens:
+        for match in re.finditer(re.escape(token), _FACULTY_FULL_TEXT, re.IGNORECASE):
+            start = max(0, match.start() - 250)
+            end = min(len(_FACULTY_FULL_TEXT), match.end() + 250)
+            if any(start < e and s < end for s, e in seen_spans):
+                continue
+            seen_spans.append((start, end))
+
+            nearby_start = max(0, match.start() - 40)
+            nearby_end = min(len(_FACULTY_FULL_TEXT), match.end() + 40)
+            nearby_text = _FACULTY_FULL_TEXT[nearby_start:nearby_end]
+            initials_matched = sum(
+                1 for initial in initial_tokens
+                if re.search(rf"\b{re.escape(initial)}\b", nearby_text, re.IGNORECASE)
+            )
+
+            candidates.append((initials_matched, start, end))
+
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    return [_FACULTY_FULL_TEXT[start:end] for _, start, end in candidates[:4]]
+
 
 def augment_documents_for(question):
     question_lower = question.lower()
-    chunks = list(ALWAYS_INCLUDE_DOCUMENTS)
+
+    placement_docs = _placement_docs_for(question_lower)
+    faculty_docs = _faculty_snippets_for(question_lower)
+
+    # The always-include departments-directory/contact-info chunks are
+    # genuinely useful as default context for a question with no other
+    # obvious topic, but they're pure noise on top of an already large,
+    # self-sufficient batch-placement section -- and noise has a real
+    # cost: this is what pushed a placement question from 6,900 input
+    # tokens to 7,361, just over qwen's 7,000 ITPM cap, confirmed live
+    # (a 413 on a question that otherwise answers fine). Skipping them
+    # whenever a bigger, more specific augmentation already fired keeps
+    # genuinely topic-less questions covered while trimming the one case
+    # that was actually tipping over the limit.
+    chunks = [] if placement_docs or faculty_docs else list(ALWAYS_INCLUDE_DOCUMENTS)
 
     for triggers, docs in GATED_AUGMENT_GROUPS:
-        if any(trigger in question_lower for trigger in triggers):
-            chunks.extend(docs)
+        if not any(trigger in question_lower for trigger in triggers):
+            continue
+        # The generic CSE-department placement blurb (one of these gated
+        # groups) shares its trigger words with _placement_docs_for's own
+        # batch-specific extraction, so both fire together on any
+        # placement question and duplicate content -- confirmed live:
+        # this was the last piece pushing a batch question from 7,054 to
+        # 7,165+ input tokens, just over qwen's 7,000 ITPM cap. Once a
+        # specific batch section is already matched, that section is the
+        # authoritative, correctly-scoped source and the generic blurb
+        # adds nothing but redundant tokens; only skip it in that case --
+        # a department-level question with no specific batch (where
+        # placement_docs is empty) still needs it.
+        if placement_docs and "placement" in triggers:
+            continue
+        chunks.extend(docs)
+
+    chunks.extend(placement_docs)
+    chunks.extend(faculty_docs)
 
     return chunks
 
@@ -174,6 +413,27 @@ def augment_documents_for(question):
 # cap with margin while still comfortably covering the 20-200 tokens
 # any real answer here has needed.
 
+# openai/gpt-oss-20b (an even earlier model here) is a *reasoning* model: it
+# spends completion tokens on hidden chain-of-thought before writing the
+# actual answer, and that reasoning length scales with context size and
+# question difficulty rather than being bounded. The gpt-oss family (20b
+# and 120b) was used as a temporary fallback on the night of 2026-10-28
+# when qwen's daily Groq quota was exhausted from heavy same-day testing;
+# see git history around that date for the full story, including a
+# directly-confirmed case of gpt-oss-20b giving a correct placement figure
+# once and a wrong, contaminated one on the very next identical run. Back
+# on qwen/qwen3.8-27b as of 2026-10-29 (quota resets daily) -- re-verified
+# with 5 real queries covering faculty lookup, two different placement
+# batches (confirming no cross-batch contamination), and spatial lookup,
+# all correct with zero errors.
+# Back on qwen/qwen3.8-27b as of 2026-11-06. gpt-oss-20b was a last-resort
+# emergency fallback on 2026-10-29 when every other model on the account
+# was quota-exhausted the same day; it's less reliable (directly caught
+# hallucinating a placement figure) and was never meant to be the
+# permanent default. A week later, quota has reset and recovered on all
+# three models -- re-verified qwen specifically with 3 consecutive
+# real-sized calls (not just a single ping, which previously gave a false
+# "it's fine" reading) before reverting back to it as the normal choice.
 llm = ChatGroq(
     model="qwen/qwen3.8-27b",
     temperature=0,
@@ -192,74 +452,169 @@ llm = ChatGroq(
 # filled in — "them" refers to a list the previous *answer* gave, which
 # only the RAG's own context can supply.
 
+# History exists so the model can resolve references ("name all of
+# them", "what about that batch") to what was just discussed -- it was
+# never meant to reproduce a previous answer's exact content, only enough
+# of it to know what's being referred back to. Without a cap, a previous
+# turn that happened to be a big table (e.g. a full placement
+# recruiter-wise breakdown, which alone runs several thousand characters)
+# got included in full, verbatim, in EVERY subsequent question's prompt
+# for as long as it stayed in the last-2-turns window -- a real
+# contributor to blowing past Groq's per-minute token limit on an
+# otherwise ordinary follow-up question.
+_HISTORY_ANSWER_CHAR_LIMIT = 300
+
+
 def format_history(history):
     if not history:
         return ""
 
     lines = []
     for turn in history:
+        answer = turn["answer"]
+        if len(answer) > _HISTORY_ANSWER_CHAR_LIMIT:
+            answer = answer[:_HISTORY_ANSWER_CHAR_LIMIT] + " [...truncated]"
         lines.append(f"User: {turn['question']}")
-        lines.append(f"Assistant: {turn['answer']}")
+        lines.append(f"Assistant: {answer}")
 
     return "\n".join(lines)
 
 
+def translate_to_english(malayalam_text):
+    """
+    Used only for the RETRIEVAL step of a Malayalam question. The
+    embedding model (bge-small-en-v1.5) and the entire crawled corpus are
+    English-only — monolingual embedding models aren't trained to place
+    semantically equivalent text in different scripts near each other in
+    vector space, so embedding a Malayalam query directly against English
+    chunks would retrieve badly. Translating just for retrieval, while
+    keeping the original Malayalam text in the generation prompt below,
+    gets both good retrieval AND an answer in the question's own language.
+    Raises on failure — the caller falls back to retrieving on the
+    untranslated text rather than failing the whole question.
 
-def get_conversational_response(question):
-    message = re.sub(r"[^\w\s']", " ", question.lower())
-    message = " ".join(message.split())
+    The extra instructions below (beyond a bare translation) exist to
+    fix a confirmed, reproduced failure: a voice-transcribed "2022-2026
+    batch placement status" question came through the browser's
+    Malayalam speech recognizer with "batch" misheard as "watch" and
+    "placement" as "plus one" (both genuine, plausible mishearings of
+    those English loanwords), and the years spoken out as words
+    ("twenty twenty two...") rather than digits. A bare translation
+    preserved all of that literally -- "Watch Plus One" contains none of
+    _placement_docs_for's trigger words, and _YEAR_PATTERN only matches
+    digits, so the batch's actual recruiter table never got retrieved at
+    all; the answer fell back to a generic, wrong summary instead.
+    Giving the translator domain context (so it prefers a plausible
+    campus/placement term over a literal nonsense one) and an explicit
+    instruction to write spoken numbers as digits fixes both at once --
+    confirmed against this exact transcript, which now translates to
+    "...the 2022-2026 batch...placements..." and correctly matches the
+    right table.
+    """
 
-    responses = {
-        # Greetings
-        "hi": "Hello! I'm NAVIKA, your MITS assistant. How can I help you today?",
-        "hello": "Hello! I'm NAVIKA, your MITS assistant. What would you like to know about MITS?",
-        "hey": "Hey! Welcome to NAVIKA. How can I help you with MITS?",
-        "good morning": "Good morning! Welcome to NAVIKA. How can I help you today?",
-        "good afternoon": "Good afternoon! How can I help you today?",
-        "good evening": "Good evening! Welcome to NAVIKA. What would you like to know about MITS?",
-
-        # Acknowledgements
-        "ok": "Alright! If you'd like to know anything else about MITS, feel free to ask.",
-        "okay": "Alright! If you'd like to know anything else about MITS, feel free to ask.",
-        "alright": "Alright! Let me know if there's anything else I can help you with.",
-        "got it": "Great! Feel free to ask if you need any more information.",
-
-        # Gratitude
-        "thanks": "You're welcome! Feel free to ask if you need any more information about MITS.",
-        "thank you": "You're very welcome! Is there anything else you'd like to know about MITS?",
-        "thanks a lot": "You're welcome! I'm happy to help.",
-
-        # Conversation endings
-        "bye": "Goodbye! Have a wonderful day. I'm here whenever you need information about MITS.",
-        "goodbye": "Goodbye! Have a great day.",
-        "see you": "See you! Feel free to return whenever you need help with MITS.",
-        "that's all": "Alright! Thank you for using NAVIKA. Have a great day.",
-        "thats all": "Alright! Thank you for using NAVIKA. Have a great day.",
-    }
-
-    return responses.get(message)
+    prompt = (
+        "Translate the following Malayalam text to English. This text is "
+        "a voice-transcribed question to a college campus assistant "
+        "(admissions, placements, departments, facilities) -- the speech "
+        "recognizer sometimes mishears an English loanword as an "
+        "unrelated but similar-sounding Malayalam word (for example, "
+        "hearing \"batch\" as \"watch\", or \"placement\" as \"plus one\"); "
+        "where a word doesn't make sense in a campus/placement context "
+        "but a similar-sounding campus term would, translate it as that "
+        "campus term instead. Spoken-out numbers (e.g. \"twenty twenty "
+        "two\") must be written as digits (e.g. \"2022\"), and a spoken "
+        "year range must be written with a hyphen (e.g. \"2022-2026\"). "
+        "Respond with ONLY the translation, no other text.\n\n"
+        f"{malayalam_text}"
+    )
+    response = llm.invoke(prompt)
+    return response.content.strip()
 
 
-def ask_question(question, history=None):
-    conversational_reply = get_conversational_response(question)
+# Intents that need a short, friendly reply, not a document-grounded
+# answer — retrieval has nothing relevant to offer them anyway, and
+# forcing one through the normal path actively breaks them: the history-
+# blended retrieval query below (needed for genuine follow-ups like "name
+# all of them") pulls in whatever the PREVIOUS question was about, so
+# "hello" right after "where is the library" retrieves library chunks,
+# and the LLM then correctly-but-uselessly decides "hello" isn't answered
+# by that context and falls back to "I couldn't find that information" —
+# verified by reproducing this exact case before writing this fix.
+CONVERSATIONAL_INTENTS = {
+    "greeting": "The user is greeting you. Reply with a short, friendly greeting, and invite them to ask a question about the college.",
+    "goodbye": "The user is ending the conversation. Reply with a short, friendly goodbye.",
+    "help": "The user is asking what you can help with. Briefly explain that you can answer questions about campus locations, timings, contact info, departments, and general college information.",
+}
 
-    if conversational_reply:
-        return conversational_reply
-       # Prepare the query, including the previous answer
-    # so follow-up references can retrieve relevant documents.
-    retrieval_query = question
 
-    if history:
-        previous_turn = history[-1]
+def ask_question(question, history=None, intent=None, places=None):
 
-        previous_question = previous_turn.get("question", "")
-        previous_answer = previous_turn.get("answer", "")
+    language = detect_language(question)
 
-        retrieval_query = (
-            f"{previous_question}\n"
-            f"{previous_answer}\n"
-            f"Current question: {question}"
+    # No retrieval, no history, no document context at all for these --
+    # see CONVERSATIONAL_INTENTS above for why that's required, not just
+    # an optimization.
+    if intent in CONVERSATIONAL_INTENTS:
+        language_instruction = (
+            "Respond entirely in Malayalam.\n\n" if language == "ml" else ""
         )
+        prompt = f"""
+You are a helpful college information assistant.
+
+{language_instruction}{CONVERSATIONAL_INTENTS[intent]}
+
+Current message:
+{question}
+
+Response:
+"""
+        response = llm.invoke(prompt)
+        return response.content
+
+    # The current question alone can be too thin to retrieve well when
+    # it's a follow-up ("name all of them" carries no lexical signal
+    # about departments on its own) — folding in the previous question's
+    # text gives the retriever and the keyword-based augment gating
+    # something to actually match against, without the cost of a separate
+    # LLM call to rewrite the question. For Malayalam, retrieval runs on
+    # a translated copy of the current question specifically (see
+    # translate_to_english); a Malayalam previous-question folded in
+    # unstranslated would dilute that signal, so history is only blended
+    # in for the English case — a known gap for Malayalam follow-ups.
+    if language == "ml":
+        try:
+            retrieval_query = translate_to_english(question)
+        except Exception:
+            retrieval_query = question
+    else:
+        retrieval_query = question
+        if history:
+            previous_turn = history[-1]
+            previous_question = previous_turn.get("question", "")
+            # Truncated, not the full previous answer -- a past merge
+            # introduced an unbounded fold-in here (a second, unconditional
+            # "if history" block right after this one, overwriting it
+            # regardless of language and dropping in the entire previous
+            # answer). Confirmed live: after a long "tell me about the
+            # college" answer, the very next question's retrieval_query
+            # inherited its whole vocabulary, which both FAISS retrieval
+            # and -- worse -- the keyword-based augment_documents_for()
+            # trigger matching and the lexical-match loop below then took
+            # literally, over-triggering several unrelated
+            # GATED_AUGMENT_GROUPS and ballooning a normal ~7k-char prompt
+            # to 21,678 chars. The resulting noise was enough to make the
+            # LLM answer "I couldn't find that information" to a plainly
+            # answerable follow-up, and took 40+ seconds besides. A short
+            # snippet still carries forward whatever entity the previous
+            # answer named (for "where is it"-style follow-ups) without
+            # dragging in an entire long answer's unrelated vocabulary.
+            previous_answer = previous_turn.get("answer", "")[:300]
+            retrieval_query = (
+                f"{previous_question}\n"
+                f"{previous_answer}\n"
+                f"Current question: {question}"
+            )
+
     # 1. Retrieve semantically relevant documents.
     documents = retriever.invoke(retrieval_query)
 
@@ -311,6 +666,15 @@ def ask_question(question, history=None):
     if spatial_context:
         chunks.append(f"Structured DXF spatial lookup (candidate/unreviewed data):\n{spatial_context}")
 
+    try:
+        from .place_lookup import find_places, format_place_context
+    except ImportError:
+        from place_lookup import find_places, format_place_context
+    place_matches = places if places is not None else find_places(question)
+    place_context = format_place_context(place_matches)
+    if place_context:
+        chunks.append(f"Destination facts from the current kiosk navigation data:\n{place_context}")
+
     context = "\n\n".join(chunks)
 
     # 4. Include conversation history for follow-up questions.
@@ -319,20 +683,113 @@ def ask_question(question, history=None):
         f"Conversation so far:\n{history_text}\n\n"
         if history_text else ""
     )
+    # "Do not mix languages" alone wasn't enough -- the model kept writing
+    # proper nouns (person names, "MITS") in Latin script mid-Malayalam-
+    # sentence even when told the rest must be Malayalam, apparently
+    # treating names as exempt from the instruction (a common and
+    # reasonable judgment call for TEXT, but wrong for this use case: the
+    # answer also gets spoken aloud by a Malayalam-only TTS voice whose
+    # tokenizer vocabulary has almost no Latin letters at all, so any word
+    # with so much as one Latin character gets dropped from speech
+    # entirely -- "Dr. Neelakantan P. C." came out as "Dr. P. C." with the
+    # name itself silently missing). Spelling it out that names must be
+    # transliterated too, not just translated, fixed it in testing.
+    language_instruction = (
+        "The Current Question is in Malayalam. Write your entire answer in "
+        "Malayalam script, translating the relevant facts from the (English) "
+        "context below — do not answer in English and do not mix languages. "
+        "This includes proper nouns: write person names, institution names, "
+        "and abbreviations (e.g. \"MITS\", \"Dr. Neelakantan P. C.\") "
+        "phonetically in Malayalam script too (e.g. \"ഡോ. നീലകണ്ഠൻ പി. സി.\"), "
+        "never left in Latin letters, even partially — this answer is also "
+        "read aloud by a Malayalam-only voice that cannot pronounce Latin "
+        "script at all, so any word left in English is silently dropped "
+        "from the spoken version entirely.\n\n"
+        if language == "ml" else ""
+    )
+
+    # Placement answers were going straight into the recruiter-wise table
+    # with no lead-in, which buries the handful of numbers someone
+    # actually skims for first (how good was this batch's placement,
+    # roughly, before they care which specific companies came). Only
+    # applies when placement is actually the topic, same trigger check
+    # _placement_docs_for uses, so this doesn't add irrelevant structure
+    # to answers about anything else.
+    placement_instruction = (
+        "This is a placement-statistics question. The context may contain "
+        "TWO DIFFERENT kinds of placement data that must never be mixed "
+        "together: (1) college-wide recruiter-wise tables for a specific "
+        "graduating batch (e.g. \"Recruiter Wise Analysis 2022-2026 "
+        "Batch\"), each with its own Total Offers and sometimes a Highest "
+        "Package figure, and (2) a single department's own overall "
+        "placement figures (Students Placed, Offers Received, Median "
+        "Salary, Companies Associated), which belong to that department "
+        "only and are NOT about any specific graduating batch. If the "
+        "question asks about a batch/graduating year, answer ONLY from "
+        "that batch's own college-wide section — do not state a "
+        "department's separate Students Placed/Median Salary/Companies "
+        "Associated figures as if they were that batch's figures.\n\n"
+        "Before any detailed recruiter-wise table, start with a short "
+        "summary line covering whichever of these are actually present "
+        "for the specific thing asked about: highest package/offer, "
+        "median salary, average salary, and total offers/students "
+        "placed. A \"Highest Package\" figure only counts if that exact "
+        "label appears explicitly in the context for this batch — never "
+        "state one by scanning the recruiter-wise table yourself and "
+        "reporting whichever CTC value looks largest; that number was "
+        "wrong in testing (it picked up a company's stipend or one "
+        "recruiter's package as if it were the batch's official highest "
+        "package, which the source material never actually claims). The "
+        "same applies to median or average salary: only state one if "
+        "that exact figure is given in the text, never computed from the "
+        "per-recruiter rows. If a figure isn't explicitly labeled as such "
+        "in the context, omit it from the summary rather than computing "
+        "or estimating it.\n\n"
+        if any(trigger in question.lower() for trigger in _PLACEMENT_TRIGGERS) else ""
+    )
+
+    is_navigation_request = bool(re.search(
+        r"\b(?:lead|guide|take|bring|navigate)\s+me\s+to\b|"
+        r"\b(?:directions?|route|way)\s+to\b|\bwhere\s+is\b",
+        question, re.IGNORECASE,
+    ))
+    navigation_instruction = ""
+    if is_navigation_request and place_matches:
+        navigation_instruction = (
+            "A destination matched the kiosk navigation catalog. State its supported location and tell the user to use its "
+            "'Show me the way' control to see the computed path. Do not claim route information is unavailable or invent turn-by-turn directions.\n\n"
+        )
+    elif is_navigation_request:
+        navigation_instruction = (
+            "No destination matched the routeable kiosk catalog. Give any supported location, then say a verified path is not available. Do not imply a route control exists.\n\n"
+        )
 
     # 5. Generate an answer grounded in the retrieved context.
     prompt = f"""
 You are a helpful campus information assistant.
 
-{history_block}Answer the user's current question using only the
-information in the context below. Use conversation history only
-to understand references in the current question, not as a source
-of factual information.
+{history_block}{language_instruction}{placement_instruction}{navigation_instruction}Answer the user's CURRENT question ONLY using the information
+provided in the context below. If the current question refers back to the
+conversation above (words like "them", "it", "there", "those", "the
+second one"), use the conversation to work out what is actually being
+asked — but still answer strictly from the context, never from the
+conversation history itself.
 
-If the answer cannot be found in the context,
-say:
+Answer spatial questions only from the retrieved or structured spatial context. Preserve any candidate or unreviewed status and never convert a label anchor or candidate connector into a verified room entrance or route.
 
-"I couldn't find that information on the college website."
+Student batches in the context are labeled by their full admission-to-
+graduation span, e.g. "2022-2026 Batch" for students who were admitted in
+2022 and graduated in 2026. When the question names only a single year
+for a batch or graduating class (e.g. "the 2026 batch", "2026 batch
+placement stats", "students who graduated in 2026"), treat that year as
+the GRADUATION year and match it to the span in the context whose second
+year is the same — do not treat this as ambiguous or ask the user to
+clarify, since this is the standard way batches are referred to in
+everyday conversation, not a guess.
+
+If the answer cannot be found in the context, say so — in the same
+language as the Current Question — instead of guessing. In English that's:
+"I couldn't find that information in the available campus data."
 
 Do not invent facts or unsupported details.
 
@@ -345,9 +802,98 @@ Current question:
 Answer:
 """
 
-    response = llm.invoke(prompt)
-    return response.content
+    return _invoke_with_fallback_retry(prompt)
 
+
+# gpt-oss-120b (a reasoning model) has been observed to flip-flop on the
+# exact same (question, context) pair despite temperature=0: "who is the
+# principal" answered correctly once, then "I couldn't find that
+# information" on a later identical attempt, with no error either time --
+# its hidden reasoning occasionally reaches a wrong conclusion that the
+# context is insufficient even when it isn't. A retry on exactly that
+# signal is a cheap, targeted fix for this specific failure mode (as
+# opposed to retrying on anything else, which would just waste tokens).
+# Matches both languages this app answers in; a third language would need
+# its own marker here, but English and Malayalam are all CONVERSATIONAL
+# questions ever resolve to (see detect_language).
+_NOT_FOUND_MARKERS = (
+    "couldn't find that information",
+    "കണ്ടെത്താൻ കഴിഞ്ഞില്ല",
+)
+
+
+def _looks_like_not_found(answer_text):
+    lowered = answer_text.lower()
+    return any(marker.lower() in lowered for marker in _NOT_FOUND_MARKERS)
+
+
+def _invoke_with_fallback_retry(prompt, attempts=2):
+    """
+    The retry itself must never be able to make things WORSE than not
+    retrying at all. A real failure mode this caused before this fix: the
+    first call succeeds but looks like a "not found" answer, triggering a
+    retry -- and if that retry then hits Groq's per-minute token limit
+    (a real, separate cap from the daily one; confirmed in production
+    logs: 8000 TPM for this model, and ordinary requests here run
+    1500-4000+ tokens of context alone before the reserved max_tokens is
+    even added), the resulting RateLimitError was propagating all the way
+    up through ask_question into main.py's broad exception handler --
+    turning a graceful "couldn't find that" into the much uglier generic
+    "I couldn't reach the knowledge base yet" failure. So: only the FIRST
+    attempt is allowed to raise (a genuine hard failure there should still
+    surface to the caller, same as before this retry logic existed at
+    all); any later attempt that errors just falls back to whatever
+    answer is already in hand instead of raising.
+    """
+
+    try:
+        first_response = llm.invoke(prompt)
+    except Exception as error:
+        _log_query_diagnostics(prompt, None, None, attempt=1, retry_error=error)
+        raise
+    last_answer = first_response.content
+    _log_query_diagnostics(prompt, first_response, last_answer, attempt=1)
+
+    for attempt_number in range(2, attempts + 1):
+        if not _looks_like_not_found(last_answer):
+            return last_answer
+        try:
+            response = llm.invoke(prompt)
+        except Exception as error:
+            _log_query_diagnostics(prompt, None, last_answer, attempt=attempt_number, retry_error=error)
+            return last_answer
+        last_answer = response.content
+        _log_query_diagnostics(prompt, response, last_answer, attempt=attempt_number)
+
+    return last_answer
+
+
+# TEMPORARY diagnostic logging (2026-10-29): added to track down a report
+# that couldn't be reproduced directly -- the exact same question, run
+# fresh moments apart, succeeded here but failed on the user's machine
+# with no exception (a genuine "couldn't find" answer from the model, not
+# a crash). Logs the actual context size and raw model output for every
+# attempt so the next occurrence can be inspected directly instead of
+# re-guessing. Remove once the cause is found.
+_DIAGNOSTIC_LOG_PATH = Path(__file__).resolve().parent / "query_diagnostics.log"
+
+
+def _log_query_diagnostics(prompt, response, answer, attempt, retry_error=None):
+    try:
+        with _DIAGNOSTIC_LOG_PATH.open("a", encoding="utf-8") as f:
+            f.write(f"\n=== {datetime.now(timezone.utc).isoformat()} | attempt {attempt} ===\n")
+            f.write(f"prompt_chars: {len(prompt)}\n")
+            if response is not None:
+                usage = response.response_metadata.get("token_usage", {})
+                f.write(f"token_usage: {usage}\n")
+                f.write(f"finish_reason: {response.response_metadata.get('finish_reason')}\n")
+            if retry_error is not None:
+                f.write(f"retry_error: {retry_error}\n")
+            if answer is not None:
+                f.write(f"looks_like_not_found: {_looks_like_not_found(answer)}\n")
+            f.write(f"answer: {answer!r}\n")
+    except Exception:
+        pass
 
 
 # ==========================================

@@ -1,0 +1,286 @@
+{
+ "schema_version": 1,
+ "source": "data/original_sources/ramanujan_floor5/ram_5th.ifc",
+ "floor": "R5",
+ "elements": {
+  "IfcDoor": 19,
+  "IfcSlab": 1,
+  "IfcWall": 66
+ },
+ "fit": {
+  "rotation_deg": 90.04341758640086,
+  "scale": 1.232483170181857,
+  "shift_m": [
+   -94.56222108354017,
+   -22.901018156377763
+  ],
+  "median_m": 0.09537094224109088,
+  "p90_m": 0.2840036391773252,
+  "within_0_3_m": 0.9042182931922595,
+  "our_walls_covered_by_ifc": 0.8904336312479312
+ },
+ "doors_xy": [
+  [
+   -89.34,
+   -12.68
+  ],
+  [
+   -89.34,
+   -1.92
+  ],
+  [
+   -89.36,
+   15.26
+  ],
+  [
+   -88.46,
+   26.37
+  ],
+  [
+   -96.12,
+   25.4
+  ],
+  [
+   -96.12,
+   19.86
+  ],
+  [
+   -96.11,
+   13.36
+  ],
+  [
+   -96.1,
+   0.29
+  ],
+  [
+   -96.1,
+   -10.75
+  ],
+  [
+   -98.91,
+   -14.78
+  ],
+  [
+   -98.91,
+   -25.13
+  ],
+  [
+   -98.9,
+   -38.79
+  ],
+  [
+   -98.89,
+   -45.97
+  ],
+  [
+   -95.58,
+   -48.45
+  ],
+  [
+   -98.89,
+   -48.6
+  ],
+  [
+   -96.12,
+   27.05
+  ],
+  [
+   -77.26,
+   -7.34
+  ],
+  [
+   -96.1,
+   -3.21
+  ],
+  [
+   -96.11,
+   9.01
+  ]
+ ],
+ "door_check": {
+  "through a door": 10,
+  "enters away from the doors": 2,
+  "no room outline": 7,
+  "no IFC door on this room": 1
+ },
+ "rooms": [
+  {
+   "id": "rb5_room_601",
+   "name": "S5/S6 CSE-A Class Room (601)",
+   "status": "through a door",
+   "entry_xy": [
+    -98.84,
+    -38.79
+   ],
+   "nearest_door_m": 0.06,
+   "ifc_doors": 2
+  },
+  {
+   "id": "rb5_room_603",
+   "name": "S5/S6 CSE-B Class Room (603)",
+   "status": "through a door",
+   "entry_xy": [
+    -98.84,
+    -25.09
+   ],
+   "nearest_door_m": 0.08,
+   "ifc_doors": 1
+  },
+  {
+   "id": "rb5_room_604",
+   "name": "S5/S6 CS AI Class Room (604)",
+   "status": "through a door",
+   "entry_xy": [
+    -98.84,
+    -14.89
+   ],
+   "nearest_door_m": 0.13,
+   "ifc_doors": 1
+  },
+  {
+   "id": "rb5_room_605",
+   "name": "Div of CSE & AIDS Department (605)",
+   "status": "through a door",
+   "entry_xy": [
+    -89.46,
+    -12.49
+   ],
+   "nearest_door_m": 0.23,
+   "ifc_doors": 2
+  },
+  {
+   "id": "rb5_room_606",
+   "name": "Elective/Tutorial/IDP Room (606)",
+   "status": "through a door",
+   "entry_xy": [
+    -89.46,
+    -1.79
+   ],
+   "nearest_door_m": 0.18,
+   "ifc_doors": 1
+  },
+  {
+   "id": "rb5_room_607",
+   "name": "S3/S4 CSE-A Class Room (607)",
+   "status": "through a door",
+   "entry_xy": [
+    -89.46,
+    15.11
+   ],
+   "nearest_door_m": 0.18,
+   "ifc_doors": 1
+  },
+  {
+   "id": "rb5_room_608",
+   "name": "Experiential Learning Hub (608)",
+   "status": "through a door",
+   "entry_xy": [
+    -88.24,
+    26.35
+   ],
+   "nearest_door_m": 0.22,
+   "ifc_doors": 1
+  },
+  {
+   "id": "rb5_room_609",
+   "name": "File Association Room (609)",
+   "status": "through a door",
+   "entry_xy": [
+    -95.93,
+    24.81
+   ],
+   "nearest_door_m": 0.63,
+   "ifc_doors": 1
+  },
+  {
+   "id": "rb5_room_610",
+   "name": "S7/S8 CS-AI Class Room (610)",
+   "status": "through a door",
+   "entry_xy": [
+    -95.93,
+    13.41
+   ],
+   "nearest_door_m": 0.19,
+   "ifc_doors": 2
+  },
+  {
+   "id": "rb5_room_611_612",
+   "name": "S7/S8 CSE-B Class Room (611/612)",
+   "status": "enters away from the doors",
+   "entry_xy": [
+    -95.93,
+    1.81
+   ],
+   "nearest_door_m": 1.53,
+   "ifc_doors": 2
+  },
+  {
+   "id": "rb5_room_613",
+   "name": "S3/S4 CSE-B Class Room (613)",
+   "status": "enters away from the doors",
+   "entry_xy": [
+    -96.08,
+    -8.09
+   ],
+   "nearest_door_m": 2.66,
+   "ifc_doors": 2
+  },
+  {
+   "id": "rb5_ladies_toilet",
+   "name": "Ladies Toilet",
+   "status": "no room outline"
+  },
+  {
+   "id": "rb5_toilet",
+   "name": "Toilet",
+   "status": "through a door",
+   "entry_xy": [
+    -77.66,
+    -8.34
+   ],
+   "nearest_door_m": 1.07,
+   "ifc_doors": 1
+  },
+  {
+   "id": "rb5_gents_toilet",
+   "name": "Gents Toilet",
+   "status": "no room outline"
+  },
+  {
+   "id": "rb5_electrical_room",
+   "name": "Electrical Room",
+   "status": "no IFC door on this room",
+   "entry_xy": [
+    -96.01,
+    -25.56
+   ],
+   "nearest_door_m": 2.93,
+   "ifc_doors": 0
+  },
+  {
+   "id": "rb5_lift_b",
+   "name": "Lift B",
+   "status": "no room outline"
+  },
+  {
+   "id": "rb5_lift_a",
+   "name": "Lift A",
+   "status": "no room outline"
+  },
+  {
+   "id": "rb5_staircase_a",
+   "name": "Staircase A",
+   "status": "no room outline"
+  },
+  {
+   "id": "rb5_staircase_b",
+   "name": "Staircase B",
+   "status": "no room outline"
+  },
+  {
+   "id": "rb5_staircase_c",
+   "name": "Staircase C",
+   "status": "no room outline"
+  }
+ ]
+}

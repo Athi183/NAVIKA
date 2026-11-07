@@ -3,12 +3,12 @@ export default function Modal({ open, onClose, children, title }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-lg animate-[fadeIn_0.2s_ease-out] rounded-3xl border border-slate-200 bg-white shadow-2xl">
-        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
-          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+      <div className="w-full max-w-lg animate-[fadeIn_0.2s_ease-out] rounded-2xl border-[3px] border-ink-900 bg-white shadow-[8px_8px_0_0_#160f0f]">
+        <div className="flex items-center justify-between border-b-[3px] border-ink-900 px-5 py-4">
+          <h3 className="text-lg font-black text-ink-900">{title}</h3>
           <button
             type="button"
-            className="rounded-full border border-slate-200 px-2 py-1 text-sm text-slate-500 transition hover:border-brand-500 hover:text-brand-500"
+            className="rounded-lg border-[3px] border-ink-900 bg-white px-2 py-1 text-sm font-bold text-ink-900 transition hover:bg-brand-100"
             onClick={onClose}
           >
             Close

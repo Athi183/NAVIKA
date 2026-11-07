@@ -1,0 +1,5 @@
+# Preserve original CAD/BIM source bytes; avoid line-ending conversion and noisy text diffs.
+*.dxf binary
+*.ifc binary
+*.rvt binary
+*.rfa binary

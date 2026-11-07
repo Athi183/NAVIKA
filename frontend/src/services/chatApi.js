@@ -45,18 +45,24 @@ const NOVELTY_VOICE_NAMES = new Set([
   'grandma', 'grandpa', 'reed', 'rocko', 'sandy', 'shelley',
 ])
 
+// English only now — Malayalam speech is rendered server-side (see
+// startVoiceResponse below) instead of picked from the browser's own
+// voice list, since no system tested has a usable Malayalam voice for
+// window.speechSynthesis to pick from in the first place (the same gap
+// tts.py's pyttsx3 path has on the Python side).
 function scoreVoice(voice) {
   const name = voice.name.toLowerCase()
+  const lang = voice.lang.toLowerCase()
 
   if (NOVELTY_VOICE_NAMES.has(name)) return -1000
-  if (!voice.lang.toLowerCase().startsWith('en')) return -500
+  if (!lang.startsWith('en')) return -500
 
   // Chrome ships its own cloud-quality "Google ..." voices, independent
   // of whatever's installed on the OS — clearly the best option when
   // present, so it outranks everything else including the OS default.
   if (name.includes('google')) return 100
   if (name.includes('natural') || name.includes('neural') || name.includes('premium') || name.includes('enhanced')) return 90
-  if (voice.lang.toLowerCase() === 'en-us') return 50
+  if (lang === 'en-us' || lang === 'en-in') return 50
   if (voice.default) return 40
 
   return 10
@@ -64,7 +70,7 @@ function scoreVoice(voice) {
 
 let cachedVoices = null
 
-function pickBestVoice() {
+function pickBestEnglishVoice() {
   // getVoices() can return an empty list on the very first call in some
   // browsers (notably Chrome) until the async voiceschanged event fires.
   // Caching after the first non-empty read avoids re-picking (and
@@ -78,9 +84,11 @@ function pickBestVoice() {
 
   if (!cachedVoices || cachedVoices.length === 0) return null
 
-  return cachedVoices.reduce((best, voice) =>
-    scoreVoice(voice) > scoreVoice(best) ? voice : best
+  const best = cachedVoices.reduce((current, voice) =>
+    scoreVoice(voice) > scoreVoice(current) ? voice : current
   )
+
+  return scoreVoice(best) > -500 ? best : null
 }
 
 if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -89,14 +97,77 @@ if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
   }
 }
 
+// Malayalam occupies one distinct Unicode block (U+0D00-U+0D7F), so
+// script-based detection is fully reliable with no language-ID library —
+// the same check used in interaction/preprocess.py and rag/app.py,
+// duplicated here rather than shared since this is a separate JS runtime.
+// Built from explicit codepoints via String.fromCharCode(), not a \u
+// escape written directly in a regex literal, since some editors/tools
+// render or transcode that escape as the literal character instead of
+// keeping it as text — impossible to visually verify is still correct.
+const MALAYALAM_PATTERN = new RegExp(`[${String.fromCharCode(0x0D00)}-${String.fromCharCode(0x0D7F)}]`)
+
+function detectLangCode(text) {
+  return MALAYALAM_PATTERN.test(text || '') ? 'ml' : 'en'
+}
+
 // The LLM's answers are markdown-formatted ("**Dr. Neelakantan**", "- item"
 // bullet lists, "## Heading"), which reads fine visually but SpeechSynthesis
 // has no idea what markdown is — it reads every "*", "#", "_" and backtick
 // out loud as a literal symbol. This strips markdown syntax down to plain
 // words before anything is spoken, without touching what's displayed in
 // the chat bubble (that still shows the raw markdown text as-is).
+// Common designation abbreviations (pulled straight from the crawled
+// staff pages, e.g. "Asst. Professor", "Asst. HOD") read wrong by both
+// TTS paths if left as-is: the browser's English speechSynthesis reads
+// "Asst." as something that sounds like "ass" before stumbling on the
+// period, and the Malayalam voice has no Latin-letter coverage at all
+// (see interaction/tts.py) so it would just drop the word outright.
+// Expanding these before either engine sees the text fixes both at once,
+// since it's a plain word-level substitution with no language-specific
+// logic. Keyed on the exact abbreviation text (word-boundaried, case-
+// insensitive) rather than trying to guess every abbreviation that could
+// ever appear -- new ones can be added here as they come up.
+// \b after the core letters (before the optional period) matters: it's
+// what stops "prof" from also matching inside the whole word
+// "Professor" and mangling it into "Professoressor". With the \b placed
+// there, "prof" only matches when it's NOT immediately followed by more
+// letters -- i.e. "Prof." or "Prof " or "Prof" at a word's end, never as
+// a prefix of a longer word.
+const SPEECH_ABBREVIATIONS = [
+  [/\b(asst)\b\.?/gi, 'Assistant'],
+  [/\b(assoc)\b\.?/gi, 'Associate'],
+  [/\b(prof)\b\.?/gi, 'Professor'],
+  [/\b(dept)\b\.?/gi, 'Department'],
+]
+
+function expandAbbreviationsForSpeech(text) {
+  return SPEECH_ABBREVIATIONS.reduce(
+    (result, [pattern, replacement]) => result.replace(pattern, replacement),
+    text
+  )
+}
+
 function stripMarkdownForSpeech(text) {
   return text
+    // images: "![alt](url)" -> removed entirely, not just unwrapped. A RAG
+    // answer's markdown can embed a photo this way, and with no rule for
+    // it at all, the raw image URL was being read aloud character by
+    // character ("https colon slash slash mgmits dot ac dot in
+    // storage..."). Unlike bold/italic, there's nothing here worth
+    // keeping for speech -- not even the alt text, which just repeats
+    // text already stated separately in the message.
+    //
+    // The URL body itself ("(?:[^()]|\([^()]*\))*" rather than a plain
+    // "[^)]*") has to tolerate one level of literal parentheses, not just
+    // stop at the first ")" -- the college site's real photo filenames
+    // look like ".../Abhijith6-(1)2_11zon-(1).jpg", and a naive "stop at
+    // the first close-paren" match left everything after that first ")"
+    // (the rest of the filename, ".jpg" included) as ordinary leftover
+    // text that still got read aloud.
+    .replace(/!\[[^\]]*\]\((?:[^()]|\([^()]*\))*\)/g, '')
+    // links: "[text](url)" -> "text", dropping the URL the same way.
+    .replace(/\[([^\]]+)\]\((?:[^()]|\([^()]*\))*\)/g, '$1')
     // bullet/numbered list markers at the start of a line
     .replace(/^[ \t]*(?:[-*+]|\d+\.)[ \t]+/gm, '')
     // headings: "## Heading" -> "Heading"
@@ -120,8 +191,81 @@ function stripMarkdownForSpeech(text) {
 // ask-then-speak flow (which stops it directly, right on final result).
 let activeRecognition = null
 
+// BCP-47 codes the Web Speech API expects — mirrors interaction/stt.py's
+// STT_LANG_CODES. A recognizer has to be told which language to expect
+// *before* it starts listening (unlike text, where the language can be
+// detected from what was actually typed/spoken after the fact), so
+// switching between English and Malayalam voice input needs an explicit
+// selection from the caller (e.g. a language toggle in the UI) rather
+// than being inferred here.
+const STT_LANG_CODES = { en: 'en-US', ml: 'ml-IN' }
+
+// Tracks server-rendered Malayalam audio the same way activeRecognition
+// tracks an in-progress mic session — so stopVoiceResponse and a new
+// startVoiceResponse call can always stop playback regardless of which
+// voice path (browser speechSynthesis or this) started it.
+let activeAudio = null
+
+function stopActiveAudio() {
+  if (activeAudio) {
+    activeAudio.pause()
+    activeAudio.src = ''
+    activeAudio = null
+  }
+}
+
+// Malayalam has no usable voice in window.speechSynthesis on any system
+// tested — same gap tts.py's pyttsx3 path has on the Python/CLI side —
+// so Malayalam speech is rendered server-side instead, by the same
+// FastPitch+HiFi-GAN pipeline tts.py uses, and played back here as a
+// plain audio file rather than a SpeechSynthesisUtterance.
+function startMalayalamVoiceResponse(speechText, { onStart, onEnd } = {}) {
+  if (demoMode) {
+    // No live backend to render audio against in demo mode.
+    return {
+      ok: false,
+      message: 'Malayalam voice response needs the live NAVIKA backend, which demo mode has no connection to.',
+    }
+  }
+
+  const audio = new Audio()
+  activeAudio = audio
+
+  audio.onplay = () => onStart?.()
+  const finish = () => {
+    if (activeAudio === audio) activeAudio = null
+    onEnd?.()
+  }
+  audio.onended = finish
+  audio.onerror = finish
+
+  fetch(`${baseUrl}/api/tts/malayalam`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: speechText }),
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error(`TTS backend returned ${response.status}`)
+      return response.blob()
+    })
+    .then((blob) => {
+      // Only play if nothing newer (stopVoiceResponse, or another
+      // startVoiceResponse call) has already superseded this one while
+      // the fetch was in flight.
+      if (activeAudio !== audio) return
+      audio.src = URL.createObjectURL(blob)
+      return audio.play()
+    })
+    .catch(finish)
+
+  return {
+    ok: true,
+    message: 'NAVIKA is speaking (Malayalam).',
+  }
+}
+
 export const voiceControls = {
-  startVoiceInput: ({ onStart, onResult, onInterimResult, onError, onEnd } = {}) => {
+  startVoiceInput: ({ onStart, onResult, onInterimResult, onError, onEnd, lang = 'en' } = {}) => {
     const SpeechRecognition =
       window.SpeechRecognition ||
       window.webkitSpeechRecognition ||
@@ -137,7 +281,7 @@ export const voiceControls = {
     }
 
     const recognition = new SpeechRecognition()
-    recognition.lang = 'en-US'
+    recognition.lang = STT_LANG_CODES[lang] || STT_LANG_CODES.en
     recognition.interimResults = true
     // continuous:true was the source of a much worse bug than the
     // interim-results one above: it keeps the microphone open
@@ -237,6 +381,26 @@ export const voiceControls = {
   },
 
   startVoiceResponse: (text, { onStart, onEnd } = {}) => {
+    // Belt-and-suspenders against the mic-hears-the-speaker feedback
+    // loop: the automatic ask-then-speak flow already stops recognition
+    // itself the moment it has a final transcript, but the separate
+    // "Voice response" replay button calls straight into here with no
+    // such guarantee, so stop here too before any audio plays.
+    activeRecognition?.stop()
+    window.speechSynthesis?.cancel()
+    stopActiveAudio()
+
+    const speechText = expandAbbreviationsForSpeech(stripMarkdownForSpeech(text || 'NAVIKA is ready to help.'))
+    // Detected from the answer text itself rather than passed in — the
+    // RAG already answers in whatever language the question was asked in
+    // (see rag/app.py), so the response text is the one reliable source
+    // of truth for which language to speak it back in.
+    const langCode = detectLangCode(speechText)
+
+    if (langCode === 'ml') {
+      return startMalayalamVoiceResponse(speechText, { onStart, onEnd })
+    }
+
     if (!('speechSynthesis' in window)) {
       return {
         ok: false,
@@ -244,20 +408,12 @@ export const voiceControls = {
       }
     }
 
-    // Belt-and-suspenders against the mic-hears-the-speaker feedback
-    // loop: the automatic ask-then-speak flow already stops recognition
-    // itself the moment it has a final transcript, but the separate
-    // "Voice response" replay button calls straight into here with no
-    // such guarantee, so stop here too before any audio plays.
-    activeRecognition?.stop()
-
-    const speechText = stripMarkdownForSpeech(text || 'NAVIKA is ready to help.')
     const utterance = new SpeechSynthesisUtterance(speechText)
-    utterance.lang = 'en-US'
+    utterance.lang = STT_LANG_CODES.en
     utterance.rate = 0.95
     utterance.pitch = 1
 
-    const voice = pickBestVoice()
+    const voice = pickBestEnglishVoice()
     if (voice) {
       utterance.voice = voice
     }
@@ -278,7 +434,6 @@ export const voiceControls = {
       onEnd?.()
     }
 
-    window.speechSynthesis.cancel()
     window.speechSynthesis.speak(utterance)
 
     return {
@@ -290,9 +445,11 @@ export const voiceControls = {
   // Silences whatever NAVIKA is currently saying — the automatic
   // answer-then-speak playback and the manual "Voice response" replay
   // both go through startVoiceResponse above, so stopping here covers
-  // either trigger.
+  // either trigger, for both the browser-voice (English) and
+  // server-rendered (Malayalam) playback paths.
   stopVoiceResponse: () => {
-    window.speechSynthesis.cancel()
+    window.speechSynthesis?.cancel()
+    stopActiveAudio()
   },
 }
 
@@ -309,12 +466,11 @@ async function askBackend(question) {
 
   const data = await response.json()
 
-  // Route-triggering (kind: 'route') is a separate system (indoor
-  // navigation/pathfinding) the chat backend doesn't touch — every real
-  // backend answer is plain info until that's wired up too.
+  const places = Array.isArray(data.places) ? data.places : []
   return {
     text: data.answer,
-    kind: 'info',
+    kind: places.length ? 'route' : 'info',
+    places,
   }
 }
 
@@ -393,4 +549,67 @@ export async function askNavika(query) {
 
 export async function getSuggestedQuestions() {
   return demoSuggestions
+}
+
+// Backed by /api/faculty, which parses the already-crawled department
+// staff pages directly (no LLM call) -- see rag/faculty_directory.py.
+// Demo mode has no real crawled data to serve, so it returns an empty
+// list rather than fabricating faculty entries; the dropdown just hides
+// itself in that case (see FacultySearch's empty-list guard).
+export async function getFacultyDirectory() {
+  if (demoMode) {
+    return []
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/faculty`)
+    if (!response.ok) {
+      return []
+    }
+    const data = await response.json()
+    return data.faculty ?? []
+  } catch {
+    return []
+  }
+}
+
+// Backed by /api/placements, which parses the recruiter-wise table
+// straight out of the crawled placement page (no LLM call) -- see
+// rag/placement_directory.py. Going through the chat/LLM pipeline for
+// this was both slow (it's the single heaviest prompt in the whole app,
+// a full recruiter table) and a recurring point of failure (the repeated
+// cause of hitting Groq's per-minute token caps); this removes both.
+export async function getPlacementDirectory() {
+  if (demoMode) {
+    return []
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/placements`)
+    if (!response.ok) {
+      return []
+    }
+    const data = await response.json()
+    return data.batches ?? []
+  } catch {
+    return []
+  }
+}
+
+// Backed by /api/departments -- rag/department_directory.py (no LLM call).
+export async function getDepartmentDirectory() {
+  if (demoMode) {
+    return []
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/api/departments`)
+    if (!response.ok) {
+      return []
+    }
+    const data = await response.json()
+    return data.departments ?? []
+  } catch {
+    return []
+  }
 }

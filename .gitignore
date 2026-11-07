@@ -26,5 +26,23 @@ dist-ssr
 .env
 __pycache__/
 rag/vectorstore/
+rag/vectorstore_pre_fix/
+# AI4Bharat Malayalam FastPitch+HiFi-GAN checkpoint (~2.8GB incl. the
+# downloaded zip) -- too large for git; see rag/benchmark_malayalam_tts.py
+# for the download command and expected layout.
+rag/tts_models/
 vectorstore/.DS_Store
 .DS_Store
+query_diagnostics.log
+
+# Python virtual environments (never commit; recreate from requirements.txt)
+venv/
+backend/venv/
+*.pyc
+
+# Local-only CAD/BIM files: Revit backups, title-block templates, reference screenshots
+*.0[0-9][0-9][0-9].rfa
+*.0[0-9][0-9][0-9].rvt
+data/original_sources/m_george/Title_Blocks_A1_Metric*
+data/original_sources/m_george/A1 metric.rfa
+data/original_sources/m_george/*.jpg
