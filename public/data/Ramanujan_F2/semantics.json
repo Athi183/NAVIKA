@@ -1,0 +1,244 @@
+{
+  "floor": "2",
+  "source": "data/RAMANUJAN_2ND_FLOOR_REAL.dxf",
+  "coordinate_system": "CAD XY (source drawing units; plan labels show dimensions in metres)",
+  "places": [
+    {
+      "id": "room_301",
+      "name": "CSE Department",
+      "type": "department",
+      "cadX": 779.7098,
+      "cadY": 224.8739,
+      "roomNumber": "301",
+      "dimensions_m": [
+        8.9,
+        11.82
+      ]
+    },
+    {
+      "id": "room_305",
+      "name": "Association Room - Cse",
+      "type": "facility",
+      "cadX": 741.7834,
+      "cadY": 242.0167,
+      "roomNumber": "305",
+      "labelCadX": 742.5,
+      "labelCadY": 245.8
+    },
+    {
+      "id": "ceaser_lab",
+      "name": "Ceaser Lab",
+      "type": "laboratory",
+      "cadX": 803.5265,
+      "cadY": 225.5012,
+      "dimensions_m": [
+        8.85,
+        11.82
+      ],
+      "labelCadX": 813.0,
+      "labelCadY": 224.0
+    },
+    {
+      "id": "class_room_m_tech_cy_s1_s2",
+      "name": "Class Room (M.Tech Cy S1/S2)",
+      "type": "classroom",
+      "cadX": 797.9313,
+      "cadY": 244.1168,
+      "dimensions_m": [
+        5.92,
+        11.85
+      ],
+      "labelCadX": 801.3,
+      "labelCadY": 242.9
+    },
+    {
+      "id": "codd_base_lab",
+      "name": "Codd Base Lab",
+      "type": "laboratory",
+      "cadX": 788.9541,
+      "cadY": 244.2162,
+      "dimensions_m": [
+        11.82,
+        11.85
+      ],
+      "labelCadX": 810.8,
+      "labelCadY": 242.9
+    },
+    {
+      "id": "data_warehouse_cse",
+      "name": "Data Warehouse-Cse",
+      "type": "facility",
+      "cadX": 759.5028,
+      "cadY": 235.2669
+    },
+    {
+      "id": "eee_department_library",
+      "name": "EEE Department Library",
+      "type": "department",
+      "cadX": 723.3974,
+      "cadY": 250.7593,
+      "dimensions_m": [
+        5.8,
+        3.91
+      ],
+      "labelCadX": 747.2,
+      "labelCadY": 250.0
+    },
+    {
+      "id": "electrical_measurements_lab",
+      "name": "Electrical Measurements Lab",
+      "type": "laboratory",
+      "cadX": 757.2545,
+      "cadY": 244.2209,
+      "dimensions_m": [
+        11.8,
+        11.85
+      ],
+      "labelCadX": 781.3,
+      "labelCadY": 242.9
+    },
+    {
+      "id": "gents_toilet",
+      "name": "Gents Toilet",
+      "type": "toilet",
+      "cadX": 819.2778,
+      "cadY": 241.0991
+    },
+    {
+      "id": "grace_hopper_lab",
+      "name": "Grace Hopper Lab",
+      "type": "laboratory",
+      "cadX": 783.015,
+      "cadY": 225.4995,
+      "dimensions_m": [
+        8.95,
+        11.82
+      ],
+      "labelCadX": 803.5,
+      "labelCadY": 225.5
+    },
+    {
+      "id": "ladies_toilet",
+      "name": "Ladies Toilet",
+      "type": "toilet",
+      "cadX": 738.9983,
+      "cadY": 243.3677
+    },
+    {
+      "id": "lift_a",
+      "name": "Lift A",
+      "type": "vertical_transport",
+      "cadX": 767.9022,
+      "cadY": 229.0366
+    },
+    {
+      "id": "lift_b",
+      "name": "Lift B",
+      "type": "vertical_transport",
+      "cadX": 821.0799,
+      "cadY": 232.5928
+    },
+    {
+      "id": "michael_faraday_hall",
+      "name": "Michael Faraday Hall",
+      "type": "classroom",
+      "cadX": 745.4019,
+      "cadY": 244.9914,
+      "dimensions_m": [
+        14.3,
+        11.85
+      ],
+      "labelCadX": 768.3,
+      "labelCadY": 245.9
+    },
+    {
+      "id": "microprocessor_microcontrollor_lab",
+      "name": "Microprocessor & Microcontrollor Lab",
+      "type": "laboratory",
+      "cadX": 735.094,
+      "cadY": 246.6227,
+      "dimensions_m": [
+        11.96,
+        11.85
+      ],
+      "labelCadX": 756.5,
+      "labelCadY": 245.8
+    },
+    {
+      "id": "simulation_lab",
+      "name": "Simulation Lab",
+      "type": "laboratory",
+      "cadX": 724.476,
+      "cadY": 244.7943,
+      "dimensions_m": [
+        5.8,
+        7.84
+      ],
+      "labelCadX": 747.2,
+      "labelCadY": 244.2
+    },
+    {
+      "id": "staff_cabin",
+      "name": "Staff Cabin",
+      "type": "facility",
+      "cadX": 759.6787,
+      "cadY": 250.4369,
+      "labelCadX": 761.0,
+      "labelCadY": 250.0
+    },
+    {
+      "id": "staff_cabin_2",
+      "name": "Staff Cabin",
+      "type": "facility",
+      "cadX": 782.2948,
+      "cadY": 219.287,
+      "labelCadX": 806.0,
+      "labelCadY": 219.2
+    },
+    {
+      "id": "staircase_a",
+      "name": "Staircase A",
+      "type": "staircase",
+      "cadX": 735.5141,
+      "cadY": 238.1844
+    },
+    {
+      "id": "staircase_b",
+      "name": "Staircase B",
+      "type": "staircase",
+      "cadX": 764.5458,
+      "cadY": 229.9589
+    },
+    {
+      "id": "staircase_c",
+      "name": "Staircase C",
+      "type": "staircase",
+      "cadX": 821.4202,
+      "cadY": 226.9821
+    },
+    {
+      "id": "steve_jobs_hall",
+      "name": "Steve Jobs Hall",
+      "type": "classroom",
+      "cadX": 768.5377,
+      "cadY": 244.0805,
+      "dimensions_m": [
+        11.6,
+        11.85
+      ],
+      "labelCadX": 792.5,
+      "labelCadY": 242.9
+    },
+    {
+      "id": "turing_lab",
+      "name": "Turing Lab",
+      "type": "laboratory",
+      "cadX": 789.8369,
+      "cadY": 224.8739,
+      "dimensions_m": [
+        11.77,
+        11.82
+      ]
+    }
+  ]
+}
