@@ -109,6 +109,20 @@ def boundary_coverage(walls: list[dict], bounds: tuple[float, float, float, floa
 
 
 def bounds_for_floor(floor: int, places: list[dict]) -> dict[str, tuple[float, float, float, float]]:
+    if floor in (2, 3):
+        result = {}
+        for place in places:
+            dimensions = place.get("dimensions_m")
+            if not dimensions:
+                continue
+            width, height = dimensions
+            result[place["id"]] = (
+                place["cadX"] - width / 2,
+                place["cadX"] + width / 2,
+                place["cadY"] - height / 2,
+                place["cadY"] + height / 2,
+            )
+        return result
     if floor == 4:
         result = {}
         for place_id, (width, height) in FLOOR4_ROOM_SIZES.items():
@@ -141,7 +155,7 @@ def inset_polygon(bounds: tuple[float, float, float, float]) -> list[list[float]
 
 def main() -> None:
     report = {"wall_support_tolerance": WALL_TOLERANCE, "floor_inset": OUTPUT_INSET, "floors": {}}
-    for floor in range(3, 7):
+    for floor in ("G", 1, 2, 3, 4, 5, 6):
         directory = ROOT / "public" / "data" / f"Ramanujan_F{floor}"
         walls = json.loads((directory / "walls.json").read_text())
         semantics_text = (directory / "semantics.json").read_text()
@@ -207,7 +221,7 @@ def main() -> None:
         }
     report_path = ROOT / "inspection_navigation" / "floor_region_validation.json"
     report_path.write_text(json.dumps(report, indent=2) + "\n")
-    print(f"Wrote floor_regions.json for Floors 3-6 and {report_path.relative_to(ROOT)}")
+    print(f"Wrote floor_regions.json for Ground Floor–6 and {report_path.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
