@@ -25,7 +25,7 @@ result = dijkstra(
 )
 
 
-if result:
+if result["status"] == "ok":
 
     print("Start:", start)
     print("Goal:", goal)
@@ -33,7 +33,7 @@ if result:
     print("Shortest path:")
     print(" → ".join(result["path"]))
 
-    print("Distance:", result["distance"])
+    print("Navigation cost:", result["total_cost"])
 
 else:
 
