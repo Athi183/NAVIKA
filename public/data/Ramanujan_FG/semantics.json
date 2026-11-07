@@ -1,0 +1,239 @@
+{
+  "floor": "G",
+  "source": "data/RAMANUJAN_GRND_FLOOR.dxf",
+  "coordinate_system": "CAD XY (DXF source units)",
+  "places": [
+    {
+      "id": "cafeteria",
+      "name": "Cafeteria",
+      "type": "food",
+      "cadX": 1054.9343,
+      "cadY": 257.4194,
+      "source_text": "Cafeteria"
+    },
+    {
+      "id": "doctor",
+      "name": "Doctor",
+      "type": "facility",
+      "cadX": 1028.5199,
+      "cadY": 240.931,
+      "source_text": "Doctor"
+    },
+    {
+      "id": "electrical_engineering_workshop",
+      "name": "Electrical Engineering Workshop",
+      "type": "workshop",
+      "cadX": 1028.0711,
+      "cadY": 259.0337,
+      "source_text": "Electrical Engineering Workshop"
+    },
+    {
+      "id": "electrical_machines_lab",
+      "name": "Electrical Machines Lab",
+      "type": "laboratory",
+      "cadX": 1044.3,
+      "cadY": 240.7,
+      "source_text": "Manually identified room from equipment layout"
+    },
+    {
+      "id": "electrical_room",
+      "name": "Electrical Room",
+      "type": "facility",
+      "cadX": 1007.1539,
+      "cadY": 250.3907,
+      "source_text": "Electrical room"
+    },
+    {
+      "id": "food_counter",
+      "name": "Food Counter",
+      "type": "facility",
+      "cadX": 1058.4287,
+      "cadY": 259.0346,
+      "source_text": "Food counter"
+    },
+    {
+      "id": "gents_toilet",
+      "name": "Gents Toilet",
+      "type": "toilet",
+      "cadX": 986.4347,
+      "cadY": 259.8201,
+      "source_text": "Gents Toilet"
+    },
+    {
+      "id": "geo_technical_engineering_lab",
+      "name": "Geo-Technical Engineering Lab",
+      "type": "laboratory",
+      "cadX": 992.7288,
+      "cadY": 262.9501,
+      "source_text": "Geo-technical Engineering Lab"
+    },
+    {
+      "id": "house_keeping",
+      "name": "House Keeping",
+      "type": "facility",
+      "cadX": 1041.8609,
+      "cadY": 256.7921,
+      "source_text": "House Keeping"
+    },
+    {
+      "id": "lab_staff",
+      "name": "Lab Staff",
+      "type": "laboratory",
+      "cadX": 1032.589,
+      "cadY": 242.9214,
+      "source_text": "Lab Staff"
+    },
+    {
+      "id": "lift_a",
+      "name": "Lift A",
+      "type": "vertical_transport",
+      "cadX": 1014.675,
+      "cadY": 244.3038,
+      "source_text": "LIFT"
+    },
+    {
+      "id": "lift_b",
+      "name": "Lift B",
+      "type": "vertical_transport",
+      "cadX": 1067.735,
+      "cadY": 247.8922,
+      "source_text": "LIFT"
+    },
+    {
+      "id": "lobby",
+      "name": "Lobby",
+      "type": "corridor",
+      "cadX": 1019.7812,
+      "cadY": 248.8936,
+      "source_text": "LOBY"
+    },
+    {
+      "id": "maintenance",
+      "name": "Maintenance",
+      "type": "facility",
+      "cadX": 1041.9478,
+      "cadY": 253.6261,
+      "source_text": "Maintenance"
+    },
+    {
+      "id": "material_testing_lab_ii",
+      "name": "Material Testing Lab- II",
+      "type": "laboratory",
+      "cadX": 1010.4383,
+      "cadY": 263.8043,
+      "source_text": "Material Testing Lab- II"
+    },
+    {
+      "id": "nss_room",
+      "name": "Nss Room",
+      "type": "facility",
+      "cadX": 1055.4764,
+      "cadY": 234.8549,
+      "source_text": "NSS ROOM"
+    },
+    {
+      "id": "physical_education",
+      "name": "Physical Education",
+      "type": "facility",
+      "cadX": 1029.4073,
+      "cadY": 243.4649,
+      "source_text": "Physical Education"
+    },
+    {
+      "id": "ramp",
+      "name": "Ramp",
+      "type": "ramp",
+      "cadX": 1021.9564,
+      "cadY": 236.9147,
+      "source_text": "Ramp"
+    },
+    {
+      "id": "reception",
+      "name": "Reception",
+      "type": "corridor",
+      "cadX": 1020.0829,
+      "cadY": 254.0487,
+      "source_text": "Reception"
+    },
+    {
+      "id": "sick_room",
+      "name": "Sick Room",
+      "type": "facility",
+      "cadX": 1026.3007,
+      "cadY": 237.4169,
+      "source_text": "Sick room"
+    },
+    {
+      "id": "staff_room",
+      "name": "Staff Room",
+      "type": "facility",
+      "cadX": 1003.2228,
+      "cadY": 264.9969,
+      "source_text": "Staff Room"
+    },
+    {
+      "id": "staircase_a",
+      "name": "Staircase A",
+      "type": "staircase",
+      "cadX": 982.2782,
+      "cadY": 253.1142,
+      "source_text": "UP"
+    },
+    {
+      "id": "staircase_b",
+      "name": "Staircase B",
+      "type": "staircase",
+      "cadX": 1011.0692,
+      "cadY": 245.4854,
+      "source_text": "UP"
+    },
+    {
+      "id": "staircase_c",
+      "name": "Staircase C",
+      "type": "staircase",
+      "cadX": 1068.1844,
+      "cadY": 242.1119,
+      "source_text": "UP"
+    },
+    {
+      "id": "stationary_photostat",
+      "name": "Stationary- Photostat",
+      "type": "facility",
+      "cadX": 1046.6687,
+      "cadY": 255.1228,
+      "source_text": "Stationary- Photostat"
+    },
+    {
+      "id": "store",
+      "name": "Store",
+      "type": "facility",
+      "cadX": 1041.8581,
+      "cadY": 261.0559,
+      "source_text": "Store"
+    },
+    {
+      "id": "students_dining_area",
+      "name": "Students Dining Area",
+      "type": "food",
+      "cadX": 1060.377,
+      "cadY": 240.144,
+      "source_text": "STUDENTS DINING AREA"
+    },
+    {
+      "id": "students_dining_room",
+      "name": "Students Dining Room",
+      "type": "food",
+      "cadX": 1035.2467,
+      "cadY": 256.3143,
+      "source_text": "Students Dining room"
+    },
+    {
+      "id": "visitors_room",
+      "name": "Visitors Room",
+      "type": "facility",
+      "cadX": 1020.6059,
+      "cadY": 256.7239,
+      "source_text": "Visitors room"
+    }
+  ]
+}
