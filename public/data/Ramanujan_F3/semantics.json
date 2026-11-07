@@ -1,0 +1,238 @@
+{
+  "floor": "3",
+  "source": "data/RAMANUJAN_3RD_FLOOR.dxf",
+  "coordinate_system": "CAD XY (source drawing units; plan labels show dimensions in metres)",
+  "places": [
+    {
+      "id": "room_400",
+      "name": "CSE Department Library",
+      "type": "facility",
+      "cadX": 671.0188,
+      "cadY": 318.1729,
+      "roomNumber": "400",
+      "dimensions_m": [
+        2.95,
+        11.82
+      ],
+      "labelCadX": 695.0,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_401",
+      "name": "S5/S6 CSE B",
+      "type": "classroom",
+      "cadX": 677.6333,
+      "cadY": 318.0869,
+      "roomNumber": "401",
+      "dimensions_m": [
+        8.78,
+        11.82
+      ],
+      "labelCadX": 701.5,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_402",
+      "name": "Singularity Lab",
+      "type": "laboratory",
+      "cadX": 685.0002,
+      "cadY": 317.7688,
+      "roomNumber": "402",
+      "dimensions_m": [
+        5.92,
+        11.82
+      ],
+      "labelCadX": 708.9,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_403",
+      "name": "S5/S6 Cyber Security",
+      "type": "classroom",
+      "cadX": 691.5153,
+      "cadY": 317.7688,
+      "roomNumber": "403",
+      "dimensions_m": [
+        8.9,
+        11.82
+      ],
+      "labelCadX": 715.1,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_404",
+      "name": "S7/S8 CSE A",
+      "type": "classroom",
+      "cadX": 700.1637,
+      "cadY": 317.7688,
+      "roomNumber": "404",
+      "dimensions_m": [
+        8.52,
+        11.82
+      ],
+      "labelCadX": 723.8,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_405",
+      "name": "CSE Staff Room 2",
+      "type": "facility",
+      "cadX": 711.3412,
+      "cadY": 296.3764,
+      "roomNumber": "405",
+      "dimensions_m": [
+        11.88,
+        11.88
+      ],
+      "labelCadX": 735.5,
+      "labelCadY": 294.8
+    },
+    {
+      "id": "room_406",
+      "name": "CSE Staff Room 1",
+      "type": "facility",
+      "cadX": 711.3412,
+      "cadY": 315.5276,
+      "roomNumber": "406",
+      "dimensions_m": [
+        11.82,
+        11.84
+      ],
+      "labelCadX": 734.3,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_407",
+      "name": "Shannon Lab",
+      "type": "laboratory",
+      "cadX": 720.7965,
+      "cadY": 315.6199,
+      "roomNumber": "407",
+      "dimensions_m": [
+        9.1,
+        11.84
+      ],
+      "labelCadX": 744.3,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_408",
+      "name": "FOSS Lab",
+      "type": "laboratory",
+      "cadX": 726.1905,
+      "cadY": 296.3764,
+      "roomNumber": "408",
+      "dimensions_m": [
+        17.95,
+        11.88
+      ],
+      "labelCadX": 750.7,
+      "labelCadY": 294.8
+    },
+    {
+      "id": "room_409",
+      "name": "Class Room - S3 CSE AI-B",
+      "type": "classroom",
+      "cadX": 730.3559,
+      "cadY": 315.6199,
+      "roomNumber": "409",
+      "dimensions_m": [
+        14.85,
+        11.84
+      ],
+      "labelCadX": 754.7,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_410",
+      "name": "Elective Class Room",
+      "type": "classroom",
+      "cadX": 742.1672,
+      "cadY": 315.6199,
+      "roomNumber": "410",
+      "dimensions_m": [
+        8.92,
+        11.84
+      ],
+      "labelCadX": 765.2,
+      "labelCadY": 316.5
+    },
+    {
+      "id": "room_411",
+      "name": "Neumann Lab",
+      "type": "laboratory",
+      "cadX": 740.9956,
+      "cadY": 296.3764,
+      "roomNumber": "411",
+      "dimensions_m": [
+        11.88,
+        11.88
+      ],
+      "labelCadX": 765.2,
+      "labelCadY": 294.8
+    },
+    {
+      "id": "electrical_room",
+      "name": "Electrical Room",
+      "type": "facility",
+      "cadX": 712.8407,
+      "cadY": 306.1531
+    },
+    {
+      "id": "gents_toilet",
+      "name": "Gents Toilet",
+      "type": "toilet",
+      "cadX": 691.9441,
+      "cadY": 313.223
+    },
+    {
+      "id": "ladies_toilet",
+      "name": "Ladies Toilet",
+      "type": "toilet",
+      "cadX": 771.9238,
+      "cadY": 311.2093
+    },
+    {
+      "id": "lift_a",
+      "name": "Lift A",
+      "type": "vertical_transport",
+      "cadX": 720.4484,
+      "cadY": 299.9256
+    },
+    {
+      "id": "lift_b",
+      "name": "Lift B",
+      "type": "vertical_transport",
+      "cadX": 773.5954,
+      "cadY": 303.567
+    },
+    {
+      "id": "staircase_a",
+      "name": "Staircase A",
+      "type": "staircase",
+      "cadX": 688.0168,
+      "cadY": 308.5544
+    },
+    {
+      "id": "staircase_b",
+      "name": "Staircase B",
+      "type": "staircase",
+      "cadX": 717.0787,
+      "cadY": 300.7813
+    },
+    {
+      "id": "staircase_c",
+      "name": "Staircase C",
+      "type": "staircase",
+      "cadX": 773.9229,
+      "cadY": 297.9005
+    },
+    {
+      "id": "toilet_3f",
+      "name": "Toilet",
+      "type": "toilet",
+      "cadX": 733.5514,
+      "cadY": 288.2472
+    }
+  ]
+}
