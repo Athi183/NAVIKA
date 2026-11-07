@@ -27,7 +27,7 @@ except ImportError:
 # fork-safety warning on every single query.
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parent / ".env")
 
 # Malayalam occupies one distinct Unicode block (U+0D00-U+0D7F), so
 # script-based detection is fully reliable with no language-ID model.
@@ -547,7 +547,7 @@ CONVERSATIONAL_INTENTS = {
 }
 
 
-def ask_question(question, history=None, intent=None):
+def ask_question(question, history=None, intent=None, places=None):
 
     language = detect_language(question)
 
@@ -666,6 +666,15 @@ Response:
     if spatial_context:
         chunks.append(f"Structured DXF spatial lookup (candidate/unreviewed data):\n{spatial_context}")
 
+    try:
+        from .place_lookup import find_places, format_place_context
+    except ImportError:
+        from place_lookup import find_places, format_place_context
+    place_matches = places if places is not None else find_places(question)
+    place_context = format_place_context(place_matches)
+    if place_context:
+        chunks.append(f"Destination facts from the current kiosk navigation data:\n{place_context}")
+
     context = "\n\n".join(chunks)
 
     # 4. Include conversation history for follow-up questions.
@@ -739,11 +748,27 @@ Response:
         if any(trigger in question.lower() for trigger in _PLACEMENT_TRIGGERS) else ""
     )
 
+    is_navigation_request = bool(re.search(
+        r"\b(?:lead|guide|take|bring|navigate)\s+me\s+to\b|"
+        r"\b(?:directions?|route|way)\s+to\b|\bwhere\s+is\b",
+        question, re.IGNORECASE,
+    ))
+    navigation_instruction = ""
+    if is_navigation_request and place_matches:
+        navigation_instruction = (
+            "A destination matched the kiosk navigation catalog. State its supported location and tell the user to use its "
+            "'Show me the way' control to see the computed path. Do not claim route information is unavailable or invent turn-by-turn directions.\n\n"
+        )
+    elif is_navigation_request:
+        navigation_instruction = (
+            "No destination matched the routeable kiosk catalog. Give any supported location, then say a verified path is not available. Do not imply a route control exists.\n\n"
+        )
+
     # 5. Generate an answer grounded in the retrieved context.
     prompt = f"""
 You are a helpful campus information assistant.
 
-{history_block}{language_instruction}{placement_instruction}Answer the user's CURRENT question ONLY using the information
+{history_block}{language_instruction}{placement_instruction}{navigation_instruction}Answer the user's CURRENT question ONLY using the information
 provided in the context below. If the current question refers back to the
 conversation above (words like "them", "it", "there", "those", "the
 second one"), use the conversation to work out what is actually being

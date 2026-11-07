@@ -1,6 +1,8 @@
-import { Square, User, Volume2 } from 'lucide-react'
+import { useState } from 'react'
+import { MapPinned, Square, User, Volume2 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import InlineRoutePreview from './InlineRoutePreview'
 
 // NAVIKA's answers come back as markdown from the LLM -- including, for
 // RAG answers built from tabular source data (e.g. placement/recruiter
@@ -50,8 +52,9 @@ const MARKDOWN_COMPONENTS = {
   ),
 }
 
-export default function ChatMessage({ speaker, text, timestamp, isLoading = false, isSpeaking = false, onToggleSpeak }) {
+export default function ChatMessage({ speaker, text, timestamp, isLoading = false, isSpeaking = false, onToggleSpeak, places = [], onNavigateToPlace }) {
   const isUser = speaker === 'USER'
+  const [expandedPlaceId, setExpandedPlaceId] = useState(null)
 
   return (
     <div className={`mb-4 flex ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -86,6 +89,21 @@ export default function ChatMessage({ speaker, text, timestamp, isLoading = fals
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>
             {text}
           </ReactMarkdown>
+        )}
+        {!isUser && places.length > 0 && !isLoading && (
+          <div className="mt-3 grid gap-2">
+            {places.map((place) => (
+              <div key={place.place_id}>
+                <button type="button" aria-expanded={expandedPlaceId === place.place_id}
+                  onClick={() => setExpandedPlaceId((current) => current === place.place_id ? null : place.place_id)}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-3 text-sm font-bold text-white">
+                  <MapPinned className="h-4 w-4" />
+                  {expandedPlaceId === place.place_id ? 'Hide route' : `Show me the way to ${place.name}`}
+                </button>
+                {expandedPlaceId === place.place_id && <InlineRoutePreview placeId={place.place_id} onOpenFullRoute={onNavigateToPlace} />}
+              </div>
+            ))}
+          </div>
         )}
       </div>
 

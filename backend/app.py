@@ -22,6 +22,7 @@ import tts as interaction_tts  # noqa: E402
 from faculty_directory import build_faculty_directory  # noqa: E402
 from placement_directory import build_placement_directory  # noqa: E402
 from department_directory import build_department_directory  # noqa: E402
+from place_lookup import find_places  # noqa: E402
 
 
 app = Flask(__name__)
@@ -59,12 +60,13 @@ def get_rag():
     return _rag
 
 
-def answer_from_rag(structured_query, exchanges):
+def answer_from_rag(structured_query, exchanges, places):
     try:
         return get_rag().ask_question(
             structured_query["clean_text"],
             history=exchanges,
             intent=structured_query["intent"],
+            places=places,
         )
     except Exception as error:
         app.logger.exception("RAG unavailable: %s", error)
@@ -89,7 +91,8 @@ def chat():
 
     structured_query = interaction_main.process_query(message, session["context"])
 
-    answer = answer_from_rag(structured_query, session["exchanges"])
+    places = find_places(structured_query["clean_text"])
+    answer = answer_from_rag(structured_query, session["exchanges"], places)
     session["exchanges"] = (session["exchanges"] + [{"question": message, "answer": answer}])[-MAX_HISTORY:]
 
     return jsonify({
@@ -97,6 +100,7 @@ def chat():
         "answer": answer,
         "intent": structured_query["intent"],
         "confidence": structured_query["confidence"],
+        "places": places,
         "entities": structured_query["entities"],
         "resolved_from_context": structured_query["resolved_from_context"],
     })

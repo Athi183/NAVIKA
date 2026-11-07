@@ -124,7 +124,7 @@ INTENT_KEYWORDS = {
     "get_directions": [
         "how do i get", "how do i reach", "how to reach", "how do you reach",
         "directions to", "way to", "way from", "route to", "route from",
-        "navigate to", "go to", "take me to",
+        "navigate to", "go to", "take me to", "lead me to", "guide me to", "navigate me to", "bring me to",
     ],
     "get_timing": ["timing", "open", "close", "hours", "when is"],
     "get_contact": ["contact", "phone number", "email address"],

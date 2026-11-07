@@ -80,14 +80,23 @@ def _alias_targets(places):
         aliases.append((alias, None, "toilet"))
     aliases.append(("elevator", None, "lift"))
 
-    # Reuse interaction's recognized short forms only when their canonical
-    # entity occurs in the navigation destination names.
-    try:
-        import sys
-        sys.path.insert(0, str(REPO_DIR / "interaction"))
-        from nlu import ENTITY_ALIASES
-    except (ImportError, OSError):
-        ENTITY_ALIASES = {}
+    # Keep this builder independent of interaction/nlu.py: importing the
+    # NLU stack loads the language-model dependencies and can make this
+    # small, deterministic catalog build stall on kiosk deployments.
+    ENTITY_ALIASES = {
+        "mech": "Mechanical Engineering Department",
+        "mechanical": "Mechanical Engineering Department",
+        "cse": "Computer Science Engineering",
+        "ece": "Electronics and Communication Engineering",
+        "eee": "Electrical and Electronics Engineering",
+        "library": "Tagore Library",
+        "admission": "Admission Cell",
+        "principal": "Principal",
+        "vice principal": "Vice Principal",
+        "placement cell": "Placement Cell",
+        "sports complex": "Sports Complex",
+        "auditorium": "Auditorium",
+    }
     for alias, canonical in ENTITY_ALIASES.items():
         key = " ".join(canonical.casefold().split())
         target_id = by_name.get(key)

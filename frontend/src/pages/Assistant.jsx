@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowUp, ChevronDown } from 'lucide-react'
 import Button from '../components/common/Button'
 import ChatMessage from '../components/ai/ChatMessage'
@@ -56,6 +56,7 @@ function createTimestamp() {
 const MALAYALAM_SCRIPT_PATTERN = /[ഀ-ൿ]/
 
 export default function Assistant() {
+  const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const nextMessageId = useRef(1)
   const [messages, setMessages] = useState([
@@ -138,7 +139,7 @@ export default function Assistant() {
     setLoading(false)
 
     const responseId = nextMessageId.current++
-    setMessages((current) => [...current, { id: responseId, speaker: 'NAVIKA', text: response.text, timestamp: createTimestamp() }])
+    setMessages((current) => [...current, { id: responseId, speaker: 'NAVIKA', text: response.text, places: response.places || [], timestamp: createTimestamp() }])
 
     if (response.kind === 'route') {
       setVoiceStatus('Route guidance ready for navigation.')
@@ -322,6 +323,8 @@ export default function Assistant() {
                 key={message.id}
                 speaker={message.speaker}
                 text={message.text}
+                places={message.places}
+                onNavigateToPlace={(placeId) => navigate(`/navigation?to=${encodeURIComponent(placeId)}`)}
                 timestamp={message.timestamp}
                 isSpeaking={speakingMessageId === message.id}
                 onToggleSpeak={message.speaker === 'NAVIKA' ? () => speakMessage(message.id, message.text) : undefined}
