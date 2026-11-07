@@ -1,0 +1,233 @@
+{
+  "floor": "1",
+  "source": "data/RAMANUJAN_1ST_FLOOR.dxf",
+  "coordinate_system": "CAD XY (DXF source units)",
+  "places": [
+    {
+      "id": "ccf_1",
+      "name": "CCF 1",
+      "type": "facility",
+      "cadX": 863.4863,
+      "cadY": 245.3476,
+      "source_text": "CCF 1"
+    },
+    {
+      "id": "class_room",
+      "name": "Class Room",
+      "type": "classroom",
+      "cadX": 817.8448,
+      "cadY": 266.5411,
+      "source_text": "Class Room"
+    },
+    {
+      "id": "class_room_2",
+      "name": "Class Room",
+      "type": "classroom",
+      "cadX": 809.3456,
+      "cadY": 266.5411,
+      "source_text": "Class Room"
+    },
+    {
+      "id": "class_room_3",
+      "name": "Class Room",
+      "type": "classroom",
+      "cadX": 862.3937,
+      "cadY": 263.97,
+      "source_text": "Class Room"
+    },
+    {
+      "id": "conference_room",
+      "name": "Conference Room",
+      "type": "classroom",
+      "cadX": 855.4816,
+      "cadY": 263.3661,
+      "source_text": "Conference Room"
+    },
+    {
+      "id": "counselor",
+      "name": "Counselor",
+      "type": "facility",
+      "cadX": 830.5263,
+      "cadY": 248.0611,
+      "source_text": "Counselor"
+    },
+    {
+      "id": "eee_department",
+      "name": "EEE Department",
+      "type": "department",
+      "cadX": 796.8593,
+      "cadY": 261.9939,
+      "source_text": "EEE Department"
+    },
+    {
+      "id": "electrical_room",
+      "name": "Electrical Room",
+      "type": "facility",
+      "cadX": 813.8719,
+      "cadY": 256.6307,
+      "source_text": "Electrical Room"
+    },
+    {
+      "id": "gents_toilet",
+      "name": "Gents Toilet",
+      "type": "toilet",
+      "cadX": 871.3735,
+      "cadY": 262.8804,
+      "source_text": "Gents Toilet"
+    },
+    {
+      "id": "ladies_toilet",
+      "name": "Ladies Toilet",
+      "type": "toilet",
+      "cadX": 792.2259,
+      "cadY": 264.3254,
+      "source_text": "Ladies Toilet"
+    },
+    {
+      "id": "lift_a",
+      "name": "Lift A",
+      "type": "vertical_transport",
+      "cadX": 820.2701,
+      "cadY": 250.4261,
+      "source_text": "LIFT"
+    },
+    {
+      "id": "lift_b",
+      "name": "Lift B",
+      "type": "vertical_transport",
+      "cadX": 873.1135,
+      "cadY": 254.0919,
+      "source_text": "LIFT"
+    },
+    {
+      "id": "passage",
+      "name": "Passage",
+      "type": "corridor",
+      "cadX": 836.4461,
+      "cadY": 243.0263,
+      "source_text": "Passage"
+    },
+    {
+      "id": "placement_office",
+      "name": "Placement Office",
+      "type": "facility",
+      "cadX": 830.6709,
+      "cadY": 239.454,
+      "source_text": "Placement Office"
+    },
+    {
+      "id": "power_system_lab",
+      "name": "Power system Lab",
+      "type": "laboratory",
+      "cadX": 831.4523,
+      "cadY": 264.7048,
+      "source_text": "Power system Lab"
+    },
+    {
+      "id": "project_lab",
+      "name": "Project Lab",
+      "type": "laboratory",
+      "cadX": 824.803,
+      "cadY": 266.3426,
+      "source_text": "Project Lab"
+    },
+    {
+      "id": "research_lab",
+      "name": "Research Lab",
+      "type": "laboratory",
+      "cadX": 839.3234,
+      "cadY": 263.8433,
+      "source_text": "Research Lab"
+    },
+    {
+      "id": "server_room",
+      "name": "Server Room",
+      "type": "facility",
+      "cadX": 852.3064,
+      "cadY": 241.1356,
+      "source_text": "Server"
+    },
+    {
+      "id": "siemens_lab",
+      "name": "SIEMENS LAB",
+      "type": "laboratory",
+      "cadX": 846.2605,
+      "cadY": 263.9744,
+      "source_text": "SIEMENS LAB"
+    },
+    {
+      "id": "staircase_a",
+      "name": "Staircase A",
+      "type": "staircase",
+      "cadX": 787.7393,
+      "cadY": 259.5394,
+      "source_text": "UP"
+    },
+    {
+      "id": "staircase_b",
+      "name": "Staircase B",
+      "type": "staircase",
+      "cadX": 816.5302,
+      "cadY": 251.7106,
+      "source_text": "UP"
+    },
+    {
+      "id": "staircase_c",
+      "name": "Staircase C",
+      "type": "staircase",
+      "cadX": 873.6454,
+      "cadY": 248.3371,
+      "source_text": "UP"
+    },
+    {
+      "id": "system_admin_s_room",
+      "name": "SYSTEM ADMIN'S ROOM",
+      "type": "facility",
+      "cadX": 856.2152,
+      "cadY": 241.9788,
+      "source_text": "SYSTEM ADMIN'S ROOM",
+      "labelCadX": 855.8,
+      "labelCadY": 244.5
+    },
+    {
+      "id": "vacant_room",
+      "name": "Vacant Room",
+      "type": "vacant",
+      "cadX": 830.2154,
+      "cadY": 243.0929,
+      "source_text": "vacant"
+    },
+    {
+      "id": "vacant_room_2",
+      "name": "Vacant Room",
+      "type": "vacant",
+      "cadX": 841.2174,
+      "cadY": 239.9417,
+      "source_text": "vacant"
+    },
+    {
+      "id": "vacant_room_3",
+      "name": "Vacant Room",
+      "type": "vacant",
+      "cadX": 848.3856,
+      "cadY": 246.8167,
+      "source_text": "vacant"
+    },
+    {
+      "id": "vacant_room_4",
+      "name": "Vacant Room",
+      "type": "vacant",
+      "cadX": 836.253,
+      "cadY": 245.13,
+      "source_text": "vacant"
+    },
+    {
+      "id": "vacant_room_5",
+      "name": "Vacant Room",
+      "type": "vacant",
+      "cadX": 836.1963,
+      "cadY": 240.7277,
+      "source_text": "vacant"
+    }
+  ]
+}
