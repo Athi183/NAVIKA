@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "building": "Ramanujan Block",
+  "included_floors": ["G", "1", "2", "3", "4", "5", "6"],
+  "coordinate_system": "CAD XY from public/data/Ramanujan_F{G,1,2,3,4,5,6}; corridor nodes and cad_path points must use these source coordinates",
+  "review_policy": "Only corridor nodes and walking edges with verification_status=verified, route_eligible=true, source evidence, and a wall-clear CAD path enter the routable graph.",
+  "candidate_reviews": {},
+  "corridor_nodes": [],
+  "connections": []
+}
