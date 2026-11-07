@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build an explicit connector-only graph for campus Floors 4, 5, and 6."""
+"""Build an explicit connector-only graph for Ramanujan Floors 1 through 6."""
 
 import json
 import re
@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FLOORS = (4, 5, 6)
+FLOORS = ("G", 1, 2, 3, 4, 5, 6)
 TYPE_MAP = {"staircase": "stairs", "vertical_transport": "lift"}
 
 
@@ -18,7 +18,7 @@ def slug(name: str) -> str:
     return match.group(2).lower()
 
 
-def load_floor(floor: int) -> tuple[dict, dict]:
+def load_floor(floor: str | int) -> tuple[dict, dict]:
     directory = ROOT / "public" / "data" / f"Ramanujan_F{floor}"
     walls = json.loads((directory / "walls.json").read_text())
     semantics = json.loads((directory / "semantics.json").read_text())
