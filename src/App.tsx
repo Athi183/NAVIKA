@@ -25,6 +25,8 @@ type SemanticPlace = {
   type: string;
   cadX: number;
   cadY: number;
+  labelCadX?: number;
+  labelCadY?: number;
   roomNumber?: string;
 };
 
@@ -208,14 +210,37 @@ const FLOOR6_DISPLAY_NAMES: Record<string, string> = {
   room_709: "DIFFIE HELLMAN\nLAB",
 };
 
+function polygonCentroid(polygon: [number, number][]): [number, number] {
+  let areaTwice = 0;
+  let xTotal = 0;
+  let yTotal = 0;
+  for (let i = 0; i < polygon.length; i += 1) {
+    const [x1, y1] = polygon[i];
+    const [x2, y2] = polygon[(i + 1) % polygon.length];
+    const cross = x1 * y2 - x2 * y1;
+    areaTwice += cross;
+    xTotal += (x1 + x2) * cross;
+    yTotal += (y1 + y2) * cross;
+  }
+  if (Math.abs(areaTwice) < 1e-8) {
+    return [polygon.reduce((sum, point) => sum + point[0], 0) / polygon.length,
+      polygon.reduce((sum, point) => sum + point[1], 0) / polygon.length];
+  }
+  return [xTotal / (3 * areaTwice), yTotal / (3 * areaTwice)];
+}
+
 function SemanticLabels({
   data,
   minX,
   minY,
+  regions,
+  labelElevation = 3.1,
 }: {
   data: SemanticData;
   minX: number;
   minY: number;
+  regions?: FloorRegionData;
+  labelElevation?: number;
 }) {
   const isFloor4 = data.floor === "4";
   const isFloor5 = data.floor === "5";
@@ -227,16 +252,48 @@ function SemanticLabels({
         // These two source annotations share the same small elevator core.
         // Stack their names in one rendered label, while preserving both places.
         if (isFloor4 && place.id === "engine_room") return null;
+        const isFloor3DepartmentLibrary =
+          data.floor === "3" && place.id === "room_400";
+        const isFloor2CompactLabel =
+          data.floor === "2" &&
+          (place.id === "eee_department_library");
+        const isFloor2AssociationRoom =
+          data.floor === "2" && place.id === "room_305";
+        const isFloor1SystemAdminRoom =
+          data.floor === "1" && place.id === "system_admin_s_room";
+        const isGroundFloorCompactLabel =
+          data.floor === "G" &&
+          (place.id === "stationary_photostat" ||
+            place.id === "house_keeping" ||
+            place.id === "physical_education");
         const displayName =
-          isFloor4 && place.id === "lift_west"
-            ? "LIFT A\nEngine Room"
-            : isFloor4
-              ? FLOOR4_DISPLAY_NAMES[place.id] ?? place.name
-              : isFloor5
-                ? FLOOR5_DISPLAY_NAMES[place.id] ?? place.name
-                : isFloor6
-                  ? FLOOR6_DISPLAY_NAMES[place.id] ?? place.name
-                  : place.name;
+          isFloor1SystemAdminRoom
+            ? "SYSTEM ADMIN'S\nROOM"
+            : data.floor === "G" && place.id === "electrical_machines_lab"
+              ? "Electrical Machines\nLab"
+            : data.floor === "G" && place.id === "stationary_photostat"
+              ? "Stationary-\nPhotostat"
+              : data.floor === "G" && place.id === "house_keeping"
+                ? "House\nKeeping"
+                : data.floor === "G" && place.id === "physical_education"
+                  ? "Physical\nEducation"
+            : isFloor3DepartmentLibrary
+            ? "CSE\nDepartment\nLibrary"
+            : isFloor2AssociationRoom
+              ? "Association\nRoom - Cse"
+            : data.floor === "2" && place.id === "eee_department_library"
+              ? "EEE Department\nLibrary"
+              : data.floor === "2" && place.id === "simulation_lab"
+                ? "Simulation\nLab"
+                : isFloor4 && place.id === "lift_west"
+                  ? "LIFT A\nEngine Room"
+                  : isFloor4
+                    ? FLOOR4_DISPLAY_NAMES[place.id] ?? place.name
+                    : isFloor5
+                      ? FLOOR5_DISPLAY_NAMES[place.id] ?? place.name
+                      : isFloor6
+                        ? FLOOR6_DISPLAY_NAMES[place.id] ?? place.name
+                        : place.name;
         const numberAlreadyInName =
           supportsRoomNumbers &&
           place.roomNumber !== undefined &&
@@ -252,27 +309,39 @@ function SemanticLabels({
             : isFloor6
               ? FLOOR6_LABEL_LAYOUTS[place.id]
               : undefined;
-        const fontSize = roomLayout
+        const fontSize = isFloor1SystemAdminRoom
+          ? 0.28
+          : isGroundFloorCompactLabel
+            ? 0.3
+          : isFloor3DepartmentLibrary || isFloor2CompactLabel || isFloor2AssociationRoom
+          ? 0.3
+          : roomLayout
           ? Math.max(
               0.34,
               Math.min(0.44, roomLayout.roomWidth / 12, roomLayout.roomHeight / 24),
             )
           : (isFloor4 || isFloor5 || (isFloor6 && Boolean(place.roomNumber)))
             ? 0.36
-            : 0.65;
+            : 0.42;
         const displayLineCount = displayText.split("\n").length;
+        const region = regions?.regions.find((item) => item.semantic_id === place.id);
+        const regionCenter = region?.polygon.length
+          ? polygonCentroid(region.polygon)
+          : null;
+        const labelX = place.labelCadX ?? regionCenter?.[0] ?? place.cadX;
+        const labelZ = place.labelCadY ?? regionCenter?.[1] ?? place.cadY;
         const labelY =
           supportsRoomNumbers && place.roomNumber
-            ? 3.1 + ((displayLineCount - 1) * fontSize * 1.2) / 2
-            : 3.1;
+            ? labelElevation + ((displayLineCount - 1) * fontSize * 1.2) / 2
+            : labelElevation;
 
         return (
           <Text
             key={place.id}
             position={[
-              place.cadX - minX,
+              labelX - minX,
               labelY,
-              -(place.cadY - minY),
+              -(labelZ - minY),
             ]}
             fontSize={fontSize}
             color={getSemanticColor(place.type)}
@@ -287,10 +356,16 @@ function SemanticLabels({
             }
             outlineColor={SEMANTIC_OUTLINE_COLOR}
             maxWidth={
-              roomLayout?.maxWidth ??
+              isFloor1SystemAdminRoom
+                ? 2.6
+                : isGroundFloorCompactLabel
+                  ? 2.8
+                : isFloor3DepartmentLibrary || isFloor2CompactLabel || isFloor2AssociationRoom
+                ? 2.8
+                : roomLayout?.maxWidth ??
               (isFloor4 || isFloor5 || (isFloor6 && Boolean(place.roomNumber))
                 ? 4
-                : 8)
+                : 5)
             }
             textAlign="center"
           >
@@ -486,7 +561,7 @@ function App() {
   const [slabFootprint, setSlabFootprint] = useState<SlabFootprint | null>(null);
   const requestedFloor = new URLSearchParams(window.location.search).get("floor");
   const stackedView = new URLSearchParams(window.location.search).get("view") === "stacked";
-  const floorId = ["3", "5", "6"].includes(requestedFloor ?? "")
+  const floorId = ["G", "1", "2", "3", "5", "6"].includes(requestedFloor ?? "")
     ? requestedFloor!
     : "4";
   useEffect(() => {
@@ -564,7 +639,7 @@ function App() {
 
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
-    <a href="/?view=stacked" style={viewLinkStyle}>Open Floors 4–6 stacked preview</a>
+    <a href="/?view=stacked" style={viewLinkStyle}>Open Ground–6 stacked preview</a>
     <Canvas
       camera={{
         position: [centerX + 45, 35, centerZ + 45],
@@ -593,6 +668,7 @@ function App() {
         data={semantics}
         minX={minX}
         minY={minY}
+        regions={floorRegions}
       />
       <gridHelper
         args={[100, 100]}
@@ -601,6 +677,9 @@ function App() {
 
       <OrbitControls
         target={[centerX, 0, centerZ]}
+        zoomToCursor
+        minDistance={2}
+        maxDistance={300}
       />
     </Canvas>
     </div>
@@ -613,8 +692,8 @@ const viewLinkStyle: React.CSSProperties = {
   color: "#202025", font: "14px sans-serif", textDecoration: "none",
 };
 
-function StackedFloorModel({ floorId, displayElevation, offsetX, offsetZ }: {
-  floorId: string; displayElevation: number; offsetX: number; offsetZ: number;
+function StackedFloorModel({ floorId, displayElevation, offsetX, offsetZ, labelElevation }: {
+  floorId: string; displayElevation: number; offsetX: number; offsetZ: number; labelElevation: number;
 }) {
   const [model, setModel] = useState<{ walls: WallData; semantics: SemanticData; regions: FloorRegionData; footprint: SlabFootprint } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -639,8 +718,8 @@ function StackedFloorModel({ floorId, displayElevation, offsetX, offsetZ }: {
     <FloorSlab data={model.walls} footprint={model.footprint} />
     <SemanticFloorRegions data={model.regions} semantics={model.semantics} minX={minX} minY={minY} omitConnectorSurfaces />
     <FloorWalls data={model.walls} />
-    <SemanticLabels data={model.semantics} minX={minX} minY={minY} />
-    <Text position={[maxX - minX - 5, 0.18, -(maxY - minY) - 2]} fontSize={1.25} color="#ffffff" anchorX="right">Floor {floorId}</Text>
+    <SemanticLabels data={model.semantics} minX={minX} minY={minY} regions={model.regions} labelElevation={labelElevation} />
+    <Text position={[maxX - minX - 5, 0.18, -(maxY - minY) - 2]} fontSize={1.25} color="#ffffff" anchorX="right">{floorId === "G" ? "Ground Floor" : `Floor ${floorId}`}</Text>
   </group>;
 }
 
@@ -668,7 +747,7 @@ function StackedFloorPreview() {
       <color attach="background" args={["#202025"]} />
       <ambientLight intensity={1.0} />
       <directionalLight position={[20, 60, 20]} intensity={1.3} />
-      {floors.map((floor, index) => <StackedFloorModel key={floor.id} floorId={floor.id} displayElevation={floorY(index)} offsetX={floor.offsetX} offsetZ={floor.offsetZ} />)}
+      {floors.map((floor, index) => <StackedFloorModel key={floor.id} floorId={floor.id} displayElevation={floorY(index)} offsetX={floor.offsetX} offsetZ={floor.offsetZ} labelElevation={exploded ? 3.1 : 2.85} />)}
       {STACKED_FLOOR_CONFIG.lifts.connectors.map((lift) => <LiftShaft key={lift.id} lift={lift} floors={floors} floorY={floorY} />)}
       {STACKED_FLOOR_CONFIG.stairs.connectors.map((connector) => {
         const lowerIndex = floors.findIndex((item) => item.id === connector.lowerFloor);
@@ -679,14 +758,27 @@ function StackedFloorPreview() {
         const upperDisplayY = floorY(upperIndex);
         const x = connector.x + floor.offsetX;
         const z = connector.z + floor.offsetZ;
-        const upperOffsetX = connector.upperX + upper.offsetX + connector.upperLandingOffsetX - x;
-        const upperOffsetZ = connector.upperZ + upper.offsetZ + connector.upperLandingOffsetZ - z;
+        const targetX = connector.upperX + upper.offsetX + connector.upperLandingOffsetX;
+        const targetZ = connector.upperZ + upper.offsetZ + connector.upperLandingOffsetZ;
+        const worldDeltaX = targetX - x;
+        const worldDeltaZ = targetZ - z;
+        // Staircase geometry is rotated as a group, so transform the target
+        // landing displacement back into the group's local axes first.
+        const cos = Math.cos(connector.rotation);
+        const sin = Math.sin(connector.rotation);
+        const upperOffsetX = cos * worldDeltaX - sin * worldDeltaZ;
+        const upperOffsetZ = sin * worldDeltaX + cos * worldDeltaZ;
         return <group key={`${connector.lowerFloor}-${connector.id}`}>
           <Staircase x={x} z={z} y={lowerDisplayY} rotation={connector.rotation}
             storeyRise={upperDisplayY - lowerDisplayY} upperOffsetX={upperOffsetX} upperOffsetZ={upperOffsetZ} />
         </group>;
       })}
-      <OrbitControls target={[45, exploded ? 10 : 3, -20]} />
+      <OrbitControls
+        target={[45, exploded ? 10 : 3, -20]}
+        zoomToCursor
+        minDistance={3}
+        maxDistance={500}
+      />
     </Canvas>
   </div>;
 }
