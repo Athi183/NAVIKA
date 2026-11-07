@@ -2,6 +2,10 @@
   "schema_version": 1,
   "building": "Ramanujan Block",
   "included_floors": [
+    "G",
+    "1",
+    "2",
+    "3",
     "4",
     "5",
     "6"
@@ -12,6 +16,10 @@
     "globally_aligned": false
   },
   "storey_elevations": {
+    "G": null,
+    "1": null,
+    "2": null,
+    "3": null,
     "4": null,
     "5": null,
     "6": null
@@ -21,6 +29,261 @@
     "lift": null
   },
   "nodes": [
+    {
+      "id": "f1:lift:a",
+      "floor": "1",
+      "name": "Lift A",
+      "type": "lift",
+      "cad": {
+        "x": 820.2701,
+        "y": 250.4261
+      },
+      "floor_local": {
+        "x": 33.275059,
+        "z": -12.751862
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f1:lift:b",
+      "floor": "1",
+      "name": "Lift B",
+      "type": "lift",
+      "cad": {
+        "x": 873.1135,
+        "y": 254.0919
+      },
+      "floor_local": {
+        "x": 86.118459,
+        "z": -16.417662
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f1:stairs:a",
+      "floor": "1",
+      "name": "Staircase A",
+      "type": "stairs",
+      "cad": {
+        "x": 787.7393,
+        "y": 259.5394
+      },
+      "floor_local": {
+        "x": 0.744259,
+        "z": -21.865162
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f1:stairs:b",
+      "floor": "1",
+      "name": "Staircase B",
+      "type": "stairs",
+      "cad": {
+        "x": 816.5302,
+        "y": 251.7106
+      },
+      "floor_local": {
+        "x": 29.535159,
+        "z": -14.036362
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f1:stairs:c",
+      "floor": "1",
+      "name": "Staircase C",
+      "type": "stairs",
+      "cad": {
+        "x": 873.6454,
+        "y": 248.3371
+      },
+      "floor_local": {
+        "x": 86.650359,
+        "z": -10.662862
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f2:lift:a",
+      "floor": "2",
+      "name": "Lift A",
+      "type": "lift",
+      "cad": {
+        "x": 767.9022,
+        "y": 229.0366
+      },
+      "floor_local": {
+        "x": 33.132382,
+        "z": -12.733258
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f2:lift:b",
+      "floor": "2",
+      "name": "Lift B",
+      "type": "lift",
+      "cad": {
+        "x": 821.0799,
+        "y": 232.5928
+      },
+      "floor_local": {
+        "x": 86.310082,
+        "z": -16.289458
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f2:stairs:a",
+      "floor": "2",
+      "name": "Staircase A",
+      "type": "stairs",
+      "cad": {
+        "x": 735.5141,
+        "y": 238.1844
+      },
+      "floor_local": {
+        "x": 0.744282,
+        "z": -21.881058
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f2:stairs:b",
+      "floor": "2",
+      "name": "Staircase B",
+      "type": "stairs",
+      "cad": {
+        "x": 764.5458,
+        "y": 229.9589
+      },
+      "floor_local": {
+        "x": 29.775982,
+        "z": -13.655558
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f2:stairs:c",
+      "floor": "2",
+      "name": "Staircase C",
+      "type": "stairs",
+      "cad": {
+        "x": 821.4202,
+        "y": 226.9821
+      },
+      "floor_local": {
+        "x": 86.650382,
+        "z": -10.678758
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f3:lift:a",
+      "floor": "3",
+      "name": "Lift A",
+      "type": "lift",
+      "cad": {
+        "x": 720.4484,
+        "y": 299.9256
+      },
+      "floor_local": {
+        "x": 33.175841,
+        "z": -12.819489
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f3:lift:b",
+      "floor": "3",
+      "name": "Lift B",
+      "type": "lift",
+      "cad": {
+        "x": 773.5954,
+        "y": 303.567
+      },
+      "floor_local": {
+        "x": 86.322841,
+        "z": -16.460889
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f3:stairs:a",
+      "floor": "3",
+      "name": "Staircase A",
+      "type": "stairs",
+      "cad": {
+        "x": 688.0168,
+        "y": 308.5544
+      },
+      "floor_local": {
+        "x": 0.744241,
+        "z": -21.448289
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f3:stairs:b",
+      "floor": "3",
+      "name": "Staircase B",
+      "type": "stairs",
+      "cad": {
+        "x": 717.0787,
+        "y": 300.7813
+      },
+      "floor_local": {
+        "x": 29.806141,
+        "z": -13.675189
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "f3:stairs:c",
+      "floor": "3",
+      "name": "Staircase C",
+      "type": "stairs",
+      "cad": {
+        "x": 773.9229,
+        "y": 297.9005
+      },
+      "floor_local": {
+        "x": 86.650341,
+        "z": -10.794389
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
     {
       "id": "f4:lift:a",
       "floor": "4",
@@ -275,9 +538,127 @@
       "coordinate_source": "semantic_place_position",
       "landing_position_verified": false,
       "corridor_access_verified": false
+    },
+    {
+      "id": "fG:lift:a",
+      "floor": "G",
+      "name": "Lift A",
+      "type": "lift",
+      "cad": {
+        "x": 1014.675,
+        "y": 244.3038
+      },
+      "floor_local": {
+        "x": 33.140993,
+        "z": -12.908028
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "fG:lift:b",
+      "floor": "G",
+      "name": "Lift B",
+      "type": "lift",
+      "cad": {
+        "x": 1067.735,
+        "y": 247.8922
+      },
+      "floor_local": {
+        "x": 86.200993,
+        "z": -16.496428
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "fG:stairs:a",
+      "floor": "G",
+      "name": "Staircase A",
+      "type": "stairs",
+      "cad": {
+        "x": 982.2782,
+        "y": 253.3142
+      },
+      "floor_local": {
+        "x": 0.744193,
+        "z": -21.918428
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "fG:stairs:b",
+      "floor": "G",
+      "name": "Staircase B",
+      "type": "stairs",
+      "cad": {
+        "x": 1011.0692,
+        "y": 245.4854
+      },
+      "floor_local": {
+        "x": 29.535193,
+        "z": -14.089628
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "fG:stairs:c",
+      "floor": "G",
+      "name": "Staircase C",
+      "type": "stairs",
+      "cad": {
+        "x": 1068.1844,
+        "y": 242.1119
+      },
+      "floor_local": {
+        "x": 86.650393,
+        "z": -10.716128
+      },
+      "coordinate_source": "semantic_place_position",
+      "landing_position_verified": false,
+      "corridor_access_verified": false
     }
   ],
   "edges": [
+    {
+      "id": "lift:a:f1-f2",
+      "from": "f1:lift:a",
+      "to": "f2:lift:a",
+      "name": "Lift A",
+      "type": "lift",
+      "bidirectional": true,
+      "vertical_cost_key": "lift",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "lift:a:f2-f3",
+      "from": "f2:lift:a",
+      "to": "f3:lift:a",
+      "name": "Lift A",
+      "type": "lift",
+      "bidirectional": true,
+      "vertical_cost_key": "lift",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "lift:a:f3-f4",
+      "from": "f3:lift:a",
+      "to": "f4:lift:a",
+      "name": "Lift A",
+      "type": "lift",
+      "bidirectional": true,
+      "vertical_cost_key": "lift",
+      "weight": null,
+      "corridor_access_verified": false
+    },
     {
       "id": "lift:a:f4-f5",
       "from": "f4:lift:a",
@@ -294,6 +675,50 @@
       "from": "f5:lift:a",
       "to": "f6:lift:a",
       "name": "Lift A",
+      "type": "lift",
+      "bidirectional": true,
+      "vertical_cost_key": "lift",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "lift:a:fG-f1",
+      "from": "fG:lift:a",
+      "to": "f1:lift:a",
+      "name": "Lift A",
+      "type": "lift",
+      "bidirectional": true,
+      "vertical_cost_key": "lift",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "lift:b:f1-f2",
+      "from": "f1:lift:b",
+      "to": "f2:lift:b",
+      "name": "Lift B",
+      "type": "lift",
+      "bidirectional": true,
+      "vertical_cost_key": "lift",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "lift:b:f2-f3",
+      "from": "f2:lift:b",
+      "to": "f3:lift:b",
+      "name": "Lift B",
+      "type": "lift",
+      "bidirectional": true,
+      "vertical_cost_key": "lift",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "lift:b:f3-f4",
+      "from": "f3:lift:b",
+      "to": "f4:lift:b",
+      "name": "Lift B",
       "type": "lift",
       "bidirectional": true,
       "vertical_cost_key": "lift",
@@ -323,6 +748,50 @@
       "corridor_access_verified": false
     },
     {
+      "id": "lift:b:fG-f1",
+      "from": "fG:lift:b",
+      "to": "f1:lift:b",
+      "name": "Lift B",
+      "type": "lift",
+      "bidirectional": true,
+      "vertical_cost_key": "lift",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:a:f1-f2",
+      "from": "f1:stairs:a",
+      "to": "f2:stairs:a",
+      "name": "Staircase A",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:a:f2-f3",
+      "from": "f2:stairs:a",
+      "to": "f3:stairs:a",
+      "name": "Staircase A",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:a:f3-f4",
+      "from": "f3:stairs:a",
+      "to": "f4:stairs:a",
+      "name": "Staircase A",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
       "id": "stairs:a:f4-f5",
       "from": "f4:stairs:a",
       "to": "f5:stairs:a",
@@ -338,6 +807,50 @@
       "from": "f5:stairs:a",
       "to": "f6:stairs:a",
       "name": "Staircase A",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:a:fG-f1",
+      "from": "fG:stairs:a",
+      "to": "f1:stairs:a",
+      "name": "Staircase A",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:b:f1-f2",
+      "from": "f1:stairs:b",
+      "to": "f2:stairs:b",
+      "name": "Staircase B",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:b:f2-f3",
+      "from": "f2:stairs:b",
+      "to": "f3:stairs:b",
+      "name": "Staircase B",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:b:f3-f4",
+      "from": "f3:stairs:b",
+      "to": "f4:stairs:b",
+      "name": "Staircase B",
       "type": "stairs",
       "bidirectional": true,
       "vertical_cost_key": "stairs",
@@ -367,6 +880,50 @@
       "corridor_access_verified": false
     },
     {
+      "id": "stairs:b:fG-f1",
+      "from": "fG:stairs:b",
+      "to": "f1:stairs:b",
+      "name": "Staircase B",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:c:f1-f2",
+      "from": "f1:stairs:c",
+      "to": "f2:stairs:c",
+      "name": "Staircase C",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:c:f2-f3",
+      "from": "f2:stairs:c",
+      "to": "f3:stairs:c",
+      "name": "Staircase C",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:c:f3-f4",
+      "from": "f3:stairs:c",
+      "to": "f4:stairs:c",
+      "name": "Staircase C",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
+    },
+    {
       "id": "stairs:c:f4-f5",
       "from": "f4:stairs:c",
       "to": "f5:stairs:c",
@@ -387,10 +944,201 @@
       "vertical_cost_key": "stairs",
       "weight": null,
       "corridor_access_verified": false
+    },
+    {
+      "id": "stairs:c:fG-f1",
+      "from": "fG:stairs:c",
+      "to": "f1:stairs:c",
+      "name": "Staircase C",
+      "type": "stairs",
+      "bidirectional": true,
+      "vertical_cost_key": "stairs",
+      "weight": null,
+      "corridor_access_verified": false
     }
   ],
   "unmatched_connectors": [],
   "alignment_diagnostics": [
+    {
+      "edge_id": "lift:a:fG-f1",
+      "semantic_anchor_delta_floor_local": {
+        "x": 0.134066,
+        "z": 0.156166,
+        "distance": 0.205819
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "lift:b:fG-f1",
+      "semantic_anchor_delta_floor_local": {
+        "x": -0.082534,
+        "z": 0.078766,
+        "distance": 0.114087
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:a:fG-f1",
+      "semantic_anchor_delta_floor_local": {
+        "x": 6.6e-05,
+        "z": 0.053266,
+        "distance": 0.053266
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:b:fG-f1",
+      "semantic_anchor_delta_floor_local": {
+        "x": -3.4e-05,
+        "z": 0.053266,
+        "distance": 0.053266
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:c:fG-f1",
+      "semantic_anchor_delta_floor_local": {
+        "x": -3.4e-05,
+        "z": 0.053266,
+        "distance": 0.053266
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "lift:a:f1-f2",
+      "semantic_anchor_delta_floor_local": {
+        "x": -0.142677,
+        "z": 0.018604,
+        "distance": 0.143885
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "lift:b:f1-f2",
+      "semantic_anchor_delta_floor_local": {
+        "x": 0.191623,
+        "z": 0.128204,
+        "distance": 0.230555
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:a:f1-f2",
+      "semantic_anchor_delta_floor_local": {
+        "x": 2.3e-05,
+        "z": -0.015896,
+        "distance": 0.015896
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:b:f1-f2",
+      "semantic_anchor_delta_floor_local": {
+        "x": 0.240823,
+        "z": 0.380804,
+        "distance": 0.450563
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:c:f1-f2",
+      "semantic_anchor_delta_floor_local": {
+        "x": 2.3e-05,
+        "z": -0.015896,
+        "distance": 0.015896
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "lift:a:f2-f3",
+      "semantic_anchor_delta_floor_local": {
+        "x": 0.043459,
+        "z": -0.086231,
+        "distance": 0.096563
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "lift:b:f2-f3",
+      "semantic_anchor_delta_floor_local": {
+        "x": 0.012759,
+        "z": -0.171431,
+        "distance": 0.171905
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:a:f2-f3",
+      "semantic_anchor_delta_floor_local": {
+        "x": -4.1e-05,
+        "z": 0.432769,
+        "distance": 0.432769
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:b:f2-f3",
+      "semantic_anchor_delta_floor_local": {
+        "x": 0.030159,
+        "z": -0.019631,
+        "distance": 0.035985
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:c:f2-f3",
+      "semantic_anchor_delta_floor_local": {
+        "x": -4.1e-05,
+        "z": -0.115631,
+        "distance": 0.115631
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "lift:a:f3-f4",
+      "semantic_anchor_delta_floor_local": {
+        "x": -0.211474,
+        "z": -0.013437,
+        "distance": 0.2119
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "lift:b:f3-f4",
+      "semantic_anchor_delta_floor_local": {
+        "x": -3.858474,
+        "z": 0.677963,
+        "distance": 3.917583
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:a:f3-f4",
+      "semantic_anchor_delta_floor_local": {
+        "x": 0.720126,
+        "z": -1.284637,
+        "distance": 1.47271
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:b:f3-f4",
+      "semantic_anchor_delta_floor_local": {
+        "x": -3.341774,
+        "z": -0.857737,
+        "distance": 3.450097
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
+    {
+      "edge_id": "stairs:c:f3-f4",
+      "semantic_anchor_delta_floor_local": {
+        "x": -4.485974,
+        "z": 3.011463,
+        "distance": 5.403043
+      },
+      "interpretation": "Difference between semantic label positions only; not a verified landing alignment."
+    },
     {
       "edge_id": "lift:a:f4-f5",
       "semantic_anchor_delta_floor_local": {
