@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NAVIKA Walkable Connection Review</title>
+  <style>
+    :root { color-scheme: light; font: 14px/1.45 system-ui, sans-serif; color: #17212b; background: #edf2f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { display: flex; gap: 20px; align-items: center; justify-content: space-between; padding: 16px 22px; color: white; background: #17212b; }
+    header h1 { margin: 0; font-size: 19px; }
+    header p { margin: 3px 0 0; color: #d3dde6; font-size: 12px; }
+    button, select, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .button { border: 0; border-radius: 8px; padding: 9px 12px; background: #0e7490; color: #fff; font-weight: 650; }
+    .button.secondary { background: #334155; }
+    .notice { margin: 12px 18px; padding: 11px 14px; border: 1px solid #f4c76e; border-radius: 10px; background: #fff8e7; color: #744b00; }
+    .summary { margin: 0 18px 12px; color: #475569; }
+    main { display: grid; grid-template-columns: minmax(235px, 290px) minmax(380px, 1fr) minmax(300px, 380px); gap: 12px; padding: 0 18px 18px; min-height: calc(100vh - 130px); }
+    .panel { min-width: 0; border: 1px solid #d5dde4; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px #17212b0b; }
+    .panel h2 { margin: 0; padding: 13px 14px; border-bottom: 1px solid #e7edf1; font-size: 14px; }
+    .list-controls { display: flex; gap: 6px; padding: 10px; }
+    .list-controls select { min-width: 0; flex: 1; }
+    #candidateList { max-height: calc(100vh - 265px); overflow: auto; padding: 0 7px 8px; }
+    .candidate-row { display: grid; width: 100%; grid-template-columns: 9px minmax(0, 1fr); gap: 8px; padding: 8px; border: 0; border-radius: 7px; background: white; text-align: left; }
+    .candidate-row:hover, .candidate-row.selected { background: #e8f2f8; }
+    .status-dot { width: 8px; height: 8px; margin-top: 5px; border-radius: 50%; background: #e7a526; }
+    .status-dot.verified { background: #16834a; } .status-dot.rejected { background: #c0392b; }
+    .candidate-row strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+    .candidate-row small { display: block; color: #64748b; font-size: 11px; }
+    .map-toolbar { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-bottom: 1px solid #e7edf1; }
+    .map-toolbar .spacer { flex: 1; }
+    #floorPlan { display: block; width: 100%; height: calc(100vh - 228px); min-height: 490px; background: #fbfcfd; }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px; padding: 9px 12px; border-top: 1px solid #e7edf1; color: #526170; font-size: 11px; }
+    .legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .swatch { width: 9px; height: 9px; border-radius: 50%; background: #e7a526; }
+    .swatch.room { background: #64748b; } .swatch.wall { border-radius: 0; background: #526170; }
+    .detail { padding: 12px 14px; }
+    .detail h3 { margin: 0 0 5px; font-size: 15px; overflow-wrap: anywhere; }
+    .muted { color: #64748b; font-size: 12px; }
+    .warning { margin: 9px 0; padding: 8px; border-left: 3px solid #e7a526; background: #fff8e7; color: #684800; font-size: 12px; }
+    .place-list, .wall-list { margin: 5px 0 12px; padding-left: 17px; font-size: 12px; }
+    .place-list li, .wall-list li { margin: 3px 0; }
+    .field { margin: 10px 0; }
+    .field label { display: block; margin-bottom: 4px; color: #475569; font-size: 11px; font-weight: 700; }
+    .field input, .field select, .field textarea { width: 100%; padding: 7px 8px; border: 1px solid #cbd5df; border-radius: 7px; background: #fff; color: #17212b; }
+    .field textarea { min-height: 78px; resize: vertical; font: 12px/1.35 ui-monospace, monospace; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0 6px; }
+    .actions button { flex: 1; min-width: 80px; border: 0; border-radius: 7px; padding: 8px; color: white; font-weight: 700; }
+    #verifyButton { background: #16834a; } #pendingButton { background: #64748b; } #rejectButton { background: #b83a32; }
+    #message { min-height: 20px; margin-top: 6px; color: #9f2823; font-size: 12px; }
+    .small { font-size: 11px; color: #64748b; }
+    @media (max-width: 1050px) { main { grid-template-columns: 250px minmax(0, 1fr); } .review-panel { grid-column: 1 / -1; } #floorPlan { height: 65vh; } }
+    @media (max-width: 680px) { header { align-items: flex-start; flex-direction: column; } main { grid-template-columns: 1fr; } #candidateList { max-height: 270px; } #floorPlan { height: 55vh; min-height: 360px; } .review-panel { grid-column: auto; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div><h1>NAVIKA · Walkable Connection Review</h1><p>Ramanujan Block · Floors 4, 5, and 6 · source CAD coordinates</p></div>
+    <div class="toolbar"><button id="exportButton" class="button">Download review manifest</button><button id="reloadButton" class="button secondary">Reload generated data</button></div>
+  </header>
+    <div class="notice"><b>Review gate:</b> orange wall-gap markers are candidates, not confirmed doors. Proximity, labels, or a wall-clear line alone do not verify access. Pale room polygons are context only and do not classify corridor space. A verified decision must include reviewer notes, evidence, a selected place/connector, a corridor node, and a checked CAD path.</div>
+  <p class="summary" id="summary">Loading review data…</p>
+  <main>
+    <section class="panel">
+      <h2>Door-gap candidates</h2>
+      <div class="list-controls"><select id="floorSelect" aria-label="Floor"><option value="4">Floor 4</option><option value="5">Floor 5</option><option value="6">Floor 6</option></select><select id="statusFilter" aria-label="Review status"><option value="all">All statuses</option><option value="pending">Pending</option><option value="verified">Verified</option><option value="rejected">Rejected</option></select></div>
+      <div id="candidateList"></div>
+    </section>
+    <section class="panel">
+      <div class="map-toolbar"><b id="mapTitle">Floor plan</b><span class="spacer"></span><button id="fitFloorButton" class="button secondary">Fit floor</button><button id="zoomCandidateButton" class="button secondary">Zoom candidate</button></div>
+      <svg id="floorPlan" role="img" aria-label="CAD wall geometry, room regions, semantic places, and candidate doorway gaps"></svg>
+      <div class="legend"><span><i class="swatch wall"></i>Extracted wall</span><span><i class="swatch room"></i>Semantic place</span><span><i class="swatch"></i>Pending gap</span><span><i class="swatch" style="background:#16834a"></i>Verified review</span><span><i class="swatch" style="background:#c0392b"></i>Rejected</span></div>
+    </section>
+    <section class="panel review-panel">
+      <h2>Candidate evidence and decision</h2>
+      <div class="detail" id="detail"><p class="muted">Select a candidate to inspect its local plan and evidence.</p></div>
+    </section>
+  </main>
+<script>
+(() => {
+  const svgNS = 'http://www.w3.org/2000/svg'
+  const el = (tag, attrs = {}, text = '') => { const item = document.createElementNS(svgNS, tag); for (const [key, value] of Object.entries(attrs)) item.setAttribute(key, value); if (text) item.textContent = text; return item }
+  const html = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]))
+  const $ = (id) => document.getElementById(id)
+  let data, manifest, floorFiles = {}, selectedId = null
+
+  async function loadJson(url) { const response = await fetch(url); if (!response.ok) throw new Error(`Could not load ${url} (${response.status})`); return response.json() }
+  async function loadData() {
+    $('summary').textContent = 'Loading review data…'
+    data = await loadJson('/data/campus_walkable_review_candidates.json')
+    manifest = structuredClone(data.review_manifest || { schema_version: 1, building: data.building, included_floors: ['4','5','6'], candidate_reviews: {}, corridor_nodes: [], connections: [] })
+    manifest.candidate_reviews ||= {}; manifest.corridor_nodes ||= []; manifest.connections ||= []
+    floorFiles = {}
+    for (const floor of ['4','5','6']) {
+      const [walls, semantics, regions] = await Promise.all([
+        loadJson(`/data/Ramanujan_F${floor}/walls.json`),
+        loadJson(`/data/Ramanujan_F${floor}/semantics.json`),
+        loadJson(`/data/Ramanujan_F${floor}/floor_regions.json`),
+      ])
+      floorFiles[floor] = { walls: walls.walls, semantics: semantics.places, regions: regions.regions }
+    }
+    selectedId = data.candidates.find((candidate) => candidate.floor === $('floorSelect').value)?.candidate_id || data.candidates[0]?.candidate_id || null
+    renderAll()
+  }
+
+  function currentFloor() { return $('floorSelect').value }
+  function candidatesForFloor() { return data.candidates.filter((candidate) => candidate.floor === currentFloor()) }
+  function selected() { return data.candidates.find((candidate) => candidate.candidate_id === selectedId) }
+  function statusFor(candidate) { return manifest.candidate_reviews[candidate.candidate_id]?.status || candidate.review_status || 'pending' }
+
+  function renderSummary() {
+    const counts = { pending: 0, verified: 0, rejected: 0 }
+    for (const candidate of data.candidates) counts[statusFor(candidate)] = (counts[statusFor(candidate)] || 0) + 1
+    const approvedEdges = manifest.connections.filter((connection) => connection.verification_status === 'verified' && connection.route_eligible).length
+    $('summary').textContent = `${data.candidates.length} gap candidates · ${counts.pending} pending · ${counts.verified} verified · ${counts.rejected} rejected · ${approvedEdges} verified walking-edge records in the manifest. CAD gap detections remain review evidence only.`
+  }
+
+  function renderList() {
+    const list = $('candidateList'); list.replaceChildren()
+    const filtered = candidatesForFloor().filter((candidate) => $('statusFilter').value === 'all' || statusFor(candidate) === $('statusFilter').value)
+    for (const candidate of filtered) {
+      const button = document.createElement('button'); button.className = `candidate-row${candidate.candidate_id === selectedId ? ' selected' : ''}`
+      const status = statusFor(candidate)
+      button.innerHTML = `<i class="status-dot ${html(status)}"></i><span><strong>${html(candidate.candidate_id)}</strong><small>(${candidate.cad_xy.map((n) => Number(n).toFixed(2)).join(', ')}) · ${html(status)}</small></span>`
+      button.addEventListener('click', () => { selectedId = candidate.candidate_id; renderAll() }); list.append(button)
+    }
+    if (!filtered.length) list.innerHTML = '<p class="muted" style="padding:8px">No candidates match this filter.</p>'
+  }
+
+  function renderMap(zoom = true) {
+    const svg = $('floorPlan'); svg.replaceChildren()
+    const floor = currentFloor(), source = floorFiles[floor], candidate = selected()
+    const floorInfo = data.floors[floor], [minX, minY, maxX, maxY] = floorInfo.bounds
+    const width = maxX - minX, height = maxY - minY
+    if (zoom && candidate) svg.setAttribute('viewBox', `${candidate.cad_xy[0] - 16} ${-candidate.cad_xy[1] - 12} 32 24`)
+    else svg.setAttribute('viewBox', `${minX - 2} ${-maxY - 2} ${width + 4} ${height + 4}`)
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
+    const group = el('g', { transform: 'scale(1,-1)' }); svg.append(group)
+    for (const room of source.regions) {
+      const polygon = room.polygon.map((point) => point.join(',')).join(' ')
+      group.append(el('polygon', { points: polygon, fill: '#e7f0eb', 'fill-opacity': '.55', stroke: '#a9b8b1', 'stroke-width': '.08' }))
+    }
+    const relevant = new Set((candidate?.source_wall_segments || []).map((wall) => wall.id))
+    for (const wall of source.walls) {
+      const hot = relevant.has(wall.id)
+      group.append(el('line', { x1: wall.x1, y1: wall.y1, x2: wall.x2, y2: wall.y2, stroke: hot ? '#7c3aed' : '#5b6872', 'stroke-width': hot ? '.25' : '.1', 'stroke-linecap': 'round' }))
+    }
+    for (const place of source.semantics) {
+      const dot = el('circle', { cx: place.cadX, cy: place.cadY, r: '.3', fill: ['staircase','vertical_transport'].includes(place.type) ? '#c47712' : '#516475', stroke: '#fff', 'stroke-width': '.08' })
+      group.append(dot)
+      if (candidate && candidate.nearby_places.some((near) => near.id === place.id)) {
+        const textGroup = el('g', { transform: `translate(${place.cadX} ${-place.cadY}) scale(1,-1)` })
+        textGroup.append(el('text', { x: '.4', y: '.12', fill: '#17212b', 'font-size': '.75', 'font-weight': '650' }, place.name))
+        group.append(textGroup)
+      }
+    }
+    for (const item of candidatesForFloor()) {
+      const status = statusFor(item)
+      const color = status === 'verified' ? '#16834a' : status === 'rejected' ? '#c0392b' : '#e7a526'
+      const isSelected = item.candidate_id === candidate?.candidate_id
+      group.append(el('circle', { cx: item.cad_xy[0], cy: item.cad_xy[1], r: isSelected ? '.55' : '.28', fill: color, stroke: isSelected ? '#075985' : '#fff', 'stroke-width': isSelected ? '.22' : '.08', opacity: isSelected ? '1' : '.82', cursor: 'pointer' }))
+      if (isSelected) {
+        const textGroup = el('g', { transform: `translate(${item.cad_xy[0]} ${-item.cad_xy[1]}) scale(1,-1)` })
+        textGroup.append(el('text', { x: '.8', y: '.2', fill: '#075985', 'font-size': '.9', 'font-weight': '700' }, item.candidate_id))
+        group.append(textGroup)
+      }
+    }
+    $('mapTitle').textContent = `Floor ${floor} · ${candidate ? candidate.candidate_id : 'all geometry'}`
+  }
+
+  function renderDetail() {
+    const box = $('detail'), candidate = selected()
+    if (!candidate) { box.innerHTML = '<p class="muted">Select a candidate to inspect its local plan and evidence.</p>'; return }
+    const review = manifest.candidate_reviews[candidate.candidate_id] || {}
+    const floorSources = data.floors[candidate.floor]
+    const places = candidate.nearby_places.map((item) => `<li>${html(item.name)} <span class="muted">(${html(item.semantic_type)}, ${item.distance_from_gap} units)</span>${item.node_id ? `<br><code>${html(item.node_id)}</code>` : ' · no unambiguous connector node match'}</li>`).join('') || '<li>No semantic place lies within the candidate search radius.</li>'
+    const regions = candidate.room_region_suggestions.map((item) => `<li>${html(item.name)} · boundary distance ${item.boundary_distance} source units</li>`).join('') || '<li>No room-region boundary nearby.</li>'
+    const connectors = candidate.nearby_connector_landings.map((item) => `<li>${html(item.name)} (${html(item.connector_type)}) · ${item.distance_from_gap} units<br><code>${html(item.node_id)}</code></li>`).join('') || '<li>No mapped connector landing nearby.</li>'
+    const walls = candidate.source_wall_segments.map((wall) => `<li><b>${html(wall.id)}</b>: (${wall.x1}, ${wall.y1}) → (${wall.x2}, ${wall.y2})</li>`).join('') || '<li>Candidate source wall segments unavailable.</li>'
+    box.innerHTML = `
+      <h3>${html(candidate.candidate_id)}</h3><div class="muted">Floor ${html(candidate.floor)} · source CAD XY (${candidate.cad_xy[0]}, ${candidate.cad_xy[1]}) · estimated opening width ${candidate.width_candidate} source units</div>
+      <p class="small">Source files: <code>${html(floorSources.wall_file)}</code> and <code>${html(floorSources.semantic_file)}</code>.</p>
+      <p class="warning">${html(candidate.candidate_method)}. This is an opening candidate only; it does not establish a door, room entrance, corridor, or connector access.</p>
+      <b class="small">Nearby semantic places</b><ul class="place-list">${places}</ul>
+      <b class="small">Nearby room boundaries (suggestions)</b><ul class="place-list">${regions}</ul>
+      <b class="small">Mapped lift/stair landing candidates</b><ul class="place-list">${connectors}</ul>
+      <details><summary class="small">Relevant wall segments (${candidate.source_wall_segments.length})</summary><ul class="wall-list">${walls}</ul></details>
+      <div class="field"><label for="decision">Review status</label><select id="decision"><option value="pending">Pending</option><option value="verified">Verified connection</option><option value="rejected">Rejected candidate</option></select></div>
+      <div class="field"><label for="reviewer">Reviewer</label><input id="reviewer" placeholder="Name or initials" /></div>
+      <div class="field"><label for="notes">Reviewer notes</label><textarea id="notes" placeholder="What does the plan show? Note any ambiguity."></textarea></div>
+      <div id="approvalFields">
+        <div class="field"><label for="sourceNode">Place or confirmed connector served by this opening</label><select id="sourceNode"><option value="">Choose explicitly…</option>${candidate.nearby_places.filter((place) => place.node_id).map((place) => `<option value="${html(place.node_id)}">${html(place.name)} · ${html(place.semantic_type)} · ${html(place.node_id)}</option>`).join('')}</select></div>
+        <div class="field"><label for="targetId">Corridor junction node ID (reuse an existing ID to join a corridor)</label><input id="targetId" placeholder="f4:corridor:north-junction" /></div>
+        <div class="field"><label for="targetName">Corridor junction label</label><input id="targetName" placeholder="North corridor junction" /></div>
+        <div class="grid2"><div class="field"><label for="targetX">Corridor point CAD X</label><input id="targetX" type="number" step="0.001" /></div><div class="field"><label for="targetY">Corridor point CAD Y</label><input id="targetY" type="number" step="0.001" /></div></div>
+        <div class="field"><label for="evidence">Evidence supporting the connection</label><textarea id="evidence" placeholder="For example: visible door leaf and opening on layer …, with clear corridor side …"></textarea></div>
+        <div class="field"><label for="cadPath">CAD path [ [x,y], … ] from place/landing through this gap to corridor</label><textarea id="cadPath" placeholder="Build a draft path, then inspect and edit it against the plan."></textarea></div>
+        <button id="buildPathButton" class="button secondary" type="button">Draft path through selected gap</button>
+        <p class="small">The graph generator checks this path against extracted wall segments. That check catches intersections but does not replace visual review of the doorway or corridor.</p>
+      </div>
+      <div class="actions"><button id="verifyButton" type="button">Save verified</button><button id="pendingButton" type="button">Save pending</button><button id="rejectButton" type="button">Save rejected</button></div>
+      <div id="message" role="status"></div>
+      <p class="small">Verified approval exports one manual walking edge plus its corridor node. The edge stays out of the routable graph until you download the manifest, replace the review file, and regenerate.</p>`
+    $('decision').value = review.status || candidate.review_status || 'pending'
+    $('reviewer').value = review.reviewer || ''
+    $('notes').value = review.notes || ''
+    $('evidence').value = review.evidence_text || ''
+    const approved = manifest.connections.find((connection) => connection.candidate_review_id === candidate.candidate_id)
+    if (approved) {
+      $('sourceNode').value = approved.from
+      $('targetId').value = approved.to
+      $('cadPath').value = JSON.stringify(approved.cad_path, null, 2)
+      const corridor = manifest.corridor_nodes.find((node) => node.id === approved.to)
+      if (corridor) { $('targetName').value = corridor.name || ''; $('targetX').value = corridor.cad_xy[0]; $('targetY').value = corridor.cad_xy[1] }
+    }
+    $('buildPathButton').addEventListener('click', () => {
+      const source = candidate.nearby_places.find((place) => place.node_id === $('sourceNode').value)
+      const targetX = Number($('targetX').value), targetY = Number($('targetY').value)
+      if (!source || !Number.isFinite(targetX) || !Number.isFinite(targetY)) { $('message').textContent = 'Choose a source and enter the corridor-side CAD point first.'; return }
+      $('cadPath').value = JSON.stringify([source.cad_xy, candidate.cad_xy, [targetX, targetY]], null, 2)
+      $('message').textContent = 'Draft created. Inspect every segment in the plan and edit if needed; the draft is not an approval.'
+    })
+    $('verifyButton').addEventListener('click', () => saveDecision('verified'))
+    $('pendingButton').addEventListener('click', () => saveDecision('pending'))
+    $('rejectButton').addEventListener('click', () => saveDecision('rejected'))
+  }
+
+  function saveDecision(status) {
+    const candidate = selected(), message = $('message')
+    if (!candidate) return
+    const reviewer = $('reviewer').value.trim(), notes = $('notes').value.trim()
+    if (!reviewer || !notes) { message.textContent = 'Add reviewer and notes before saving a decision.'; return }
+    const oldReview = manifest.candidate_reviews[candidate.candidate_id] || {}
+    const oldConnectionIds = oldReview.connection_ids || []
+    if (status === 'verified') {
+      const sourceId = $('sourceNode').value
+      const source = candidate.nearby_places.find((place) => place.node_id === sourceId)
+      const targetId = $('targetId').value.trim(), targetName = $('targetName').value.trim()
+      const targetX = Number($('targetX').value), targetY = Number($('targetY').value)
+      const evidence = $('evidence').value.trim()
+      let path
+      try { path = JSON.parse($('cadPath').value) } catch { message.textContent = 'The CAD path must be valid JSON.'; return }
+      if (!source || !targetId || !targetName || !Number.isFinite(targetX) || !Number.isFinite(targetY) || !evidence || !Array.isArray(path) || path.length < 2) {
+        message.textContent = 'Verified approval needs a place/connector, corridor ID and CAD point, evidence, and a path.'; return
+      }
+      if (!path.some((point) => Array.isArray(point) && point.length === 2 && Math.hypot(point[0] - candidate.cad_xy[0], point[1] - candidate.cad_xy[1]) < 0.02)) {
+        message.textContent = 'Include this candidate gap coordinate in the reviewed CAD path.'; return
+      }
+      const existingCorridor = manifest.corridor_nodes.find((node) => node.id === targetId)
+      if (existingCorridor && (String(existingCorridor.floor) !== candidate.floor || Math.hypot(existingCorridor.cad_xy[0] - targetX, existingCorridor.cad_xy[1] - targetY) > 0.02)) {
+        message.textContent = 'That corridor ID already exists at a different floor or coordinate. Reuse its exact point or choose a new ID.'; return
+      }
+      if (existingCorridor && (existingCorridor.verification_status !== 'verified' || !existingCorridor.evidence?.length || !existingCorridor.source_ref)) {
+        message.textContent = 'The existing corridor node lacks verification evidence. Review its manifest record before reusing it.'; return
+      }
+      manifest.connections = manifest.connections.filter((connection) => !oldConnectionIds.includes(connection.id) && connection.candidate_review_id !== candidate.candidate_id)
+      if (!existingCorridor) manifest.corridor_nodes.push({
+        id: targetId, floor: candidate.floor, cad_xy: [targetX, targetY], name: targetName,
+        node_type: 'corridor_junction', verification_status: 'verified', provenance: 'manual-verified',
+        source_ref: candidate.candidate_id, evidence: [evidence], reviewer, reviewer_notes: notes,
+      })
+      const edgeId = `walk:${candidate.candidate_id}:${sourceId}:${targetId}`
+      manifest.connections.push({
+        id: edgeId, from: sourceId, to: targetId, floor: candidate.floor,
+        edge_type: 'walking', bidirectional: true, cad_path: path,
+        candidate_review_id: candidate.candidate_id,
+        verification_status: 'verified', route_eligible: true,
+        provenance: 'manual-verified', source_ref: candidate.candidate_id,
+        evidence: [evidence], reviewer, reviewer_notes: notes,
+      })
+      manifest.candidate_reviews[candidate.candidate_id] = {
+        status, floor: candidate.floor, reviewer, notes, evidence_text: evidence,
+        reviewed_at: new Date().toISOString(), source_node_id: sourceId,
+        corridor_node_id: targetId, connection_ids: [edgeId],
+      }
+    } else {
+      manifest.connections = manifest.connections.filter((connection) => !oldConnectionIds.includes(connection.id) && connection.candidate_review_id !== candidate.candidate_id)
+      manifest.candidate_reviews[candidate.candidate_id] = {
+        status, floor: candidate.floor, reviewer, notes, reviewed_at: new Date().toISOString(), connection_ids: [],
+      }
+    }
+    candidate.review_status = status
+    candidate.review_notes = notes
+    message.textContent = `Saved ${status} decision in this browser session. Download the manifest to use it in graph generation.`
+    renderAll()
+  }
+
+  function exportManifest() {
+    const blob = new Blob([JSON.stringify(manifest, null, 2) + '\n'], { type: 'application/json' })
+    const url = URL.createObjectURL(blob), link = document.createElement('a')
+    link.href = url; link.download = 'walkable_connections_review.json'; link.click()
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }
+
+  function renderAll() { renderSummary(); renderList(); renderMap(true); renderDetail() }
+  $('floorSelect').addEventListener('change', () => { selectedId = candidatesForFloor()[0]?.candidate_id || null; renderAll() })
+  $('statusFilter').addEventListener('change', renderList)
+  $('fitFloorButton').addEventListener('click', () => renderMap(false))
+  $('zoomCandidateButton').addEventListener('click', () => renderMap(true))
+  $('exportButton').addEventListener('click', exportManifest)
+  $('reloadButton').addEventListener('click', () => loadData().catch((error) => { $('summary').textContent = error.message }))
+  loadData().catch((error) => { $('summary').textContent = `Could not load review data: ${error.message}. Run the graph generator first and open this page through the Vite server.` })
+})()
+</script>
+</body>
+</html>

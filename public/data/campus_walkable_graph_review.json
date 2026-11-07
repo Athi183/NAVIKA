@@ -1,0 +1,2207 @@
+{
+  "pending_connections": [],
+  "rejected_connections": [],
+  "candidate_door_gaps": [
+    {
+      "node_id": "fG:place:cafeteria",
+      "name": "Cafeteria",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:doctor",
+      "name": "Doctor",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:electrical_engineering_workshop",
+      "name": "Electrical Engineering Workshop",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:electrical_room",
+      "name": "Electrical Room",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:food_counter",
+      "name": "Food Counter",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:gents_toilet",
+      "name": "Gents Toilet",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:geo_technical_engineering_lab",
+      "name": "Geo-Technical Engineering Lab",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:house_keeping",
+      "name": "House Keeping",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:lab_staff",
+      "name": "Lab Staff",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:lobby",
+      "name": "Lobby",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:maintenance",
+      "name": "Maintenance",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:material_testing_lab_ii",
+      "name": "Material Testing Lab- Ii",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:nss_room",
+      "name": "Nss Room",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:physical_education",
+      "name": "Physical Education",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:ramp",
+      "name": "Ramp",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:reception",
+      "name": "Reception",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:sick_room",
+      "name": "Sick Room",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:staff_room",
+      "name": "Staff Room",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:stationary_photostat",
+      "name": "Stationary- Photostat",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:store",
+      "name": "Store",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:students_dining_area",
+      "name": "Students Dining Area",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:students_dining_room",
+      "name": "Students Dining Room",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "fG:place:visitors_room",
+      "name": "Visitors Room",
+      "floor": "G",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:ccf_1",
+      "name": "CCF 1",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:class_room",
+      "name": "Class Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:class_room_2",
+      "name": "Class Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:class_room_3",
+      "name": "Class Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:conference_room",
+      "name": "Conference Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:counselor",
+      "name": "Counselor",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:eee_department",
+      "name": "EEE Department",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:electrical_room",
+      "name": "Electrical Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:gents_toilet",
+      "name": "Gents Toilet",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:ladies_toilet",
+      "name": "Ladies Toilet",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:passage",
+      "name": "Passage",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:placement_office",
+      "name": "Placement Office",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:power_system_lab",
+      "name": "Power system Lab",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:project_lab",
+      "name": "Project Lab",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:research_lab",
+      "name": "Research Lab",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:server_room",
+      "name": "Server Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:siemens_lab",
+      "name": "SIEMENS LAB",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:system_admin_s_room",
+      "name": "SYSTEM ADMIN'S ROOM",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:vacant_room",
+      "name": "Vacant Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:vacant_room_2",
+      "name": "Vacant Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:vacant_room_3",
+      "name": "Vacant Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:vacant_room_4",
+      "name": "Vacant Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f1:place:vacant_room_5",
+      "name": "Vacant Room",
+      "floor": "1",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:room_301",
+      "name": "CSE Department",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:room_305",
+      "name": "Association Room - Cse",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:ceaser_lab",
+      "name": "Ceaser Lab",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:class_room_m_tech_cy_s1_s2",
+      "name": "Class Room (M.Tech Cy S1/S2)",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:codd_base_lab",
+      "name": "Codd Base Lab",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:data_warehouse_cse",
+      "name": "Data Warehouse-Cse",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:eee_department_library",
+      "name": "EEE Department Library",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:electrical_measurements_lab",
+      "name": "Electrical Measurements Lab",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:gents_toilet",
+      "name": "Gents Toilet",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:grace_hopper_lab",
+      "name": "Grace Hopper Lab",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:ladies_toilet",
+      "name": "Ladies Toilet",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:michael_faraday_hall",
+      "name": "Michael Faraday Hall",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:microprocessor_microcontrollor_lab",
+      "name": "Microprocessor & Microcontrollor Lab",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:simulation_lab",
+      "name": "Simulation Lab",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:staff_cabin",
+      "name": "Staff Cabin",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:staff_cabin_2",
+      "name": "Staff Cabin",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:steve_jobs_hall",
+      "name": "Steve Jobs Hall",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f2:place:turing_lab",
+      "name": "Turing Lab",
+      "floor": "2",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_400",
+      "name": "CSE Department Library",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_401",
+      "name": "S5/S6 CSE B",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_402",
+      "name": "Singularity Lab",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_403",
+      "name": "S5/S6 Cyber Security",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_404",
+      "name": "S7/S8 CSE A",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_405",
+      "name": "CSE Staff Room 2",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_406",
+      "name": "CSE Staff Room 1",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_407",
+      "name": "Shannon Lab",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_408",
+      "name": "FOSS Lab",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_409",
+      "name": "Class Room - S3 CSE AI-B",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_410",
+      "name": "Elective Class Room",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:room_411",
+      "name": "Neumann Lab",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:electrical_room",
+      "name": "Electrical Room",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:gents_toilet",
+      "name": "Gents Toilet",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:ladies_toilet",
+      "name": "Ladies Toilet",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f3:place:toilet_3f",
+      "name": "Toilet",
+      "floor": "3",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f4:place:room_501",
+      "name": "John McCarthy Lab",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_051",
+          "cad_xy": [
+            648.5402,
+            295.0124
+          ],
+          "width_candidate": 1.513,
+          "source_segment_indices": [
+            75,
+            77
+          ],
+          "distance_to_region_boundary": 0.1398,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_048",
+          "cad_xy": [
+            663.6045,
+            295.8759
+          ],
+          "width_candidate": 1.436,
+          "source_segment_indices": [
+            132,
+            143
+          ],
+          "distance_to_region_boundary": 0.2759,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_054",
+          "cad_xy": [
+            660.2836,
+            295.8782
+          ],
+          "width_candidate": 1.608,
+          "source_segment_indices": [
+            115,
+            132
+          ],
+          "distance_to_region_boundary": 0.2782,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_502",
+      "name": "S3/S4 CSE-A(AI) Class Room",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_011",
+          "cad_xy": [
+            673.4076,
+            295.7691
+          ],
+          "width_candidate": 0.879,
+          "source_segment_indices": [
+            169,
+            248,
+            284
+          ],
+          "distance_to_region_boundary": 0.1691,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_035",
+          "cad_xy": [
+            673.4076,
+            284.9863
+          ],
+          "width_candidate": 1.352,
+          "source_segment_indices": [
+            214,
+            247
+          ],
+          "distance_to_region_boundary": 0.1737,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_017",
+          "cad_xy": [
+            672.9477,
+            295.8844
+          ],
+          "width_candidate": 0.962,
+          "source_segment_indices": [
+            210,
+            226
+          ],
+          "distance_to_region_boundary": 0.2844,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_503",
+      "name": "AI&DS STAFF ROOM",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_049",
+          "cad_xy": [
+            678.4393,
+            295.8774
+          ],
+          "width_candidate": 1.484,
+          "source_segment_indices": [
+            254,
+            273
+          ],
+          "distance_to_region_boundary": 0.2774,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_001",
+          "cad_xy": [
+            675.5628,
+            295.8863
+          ],
+          "width_candidate": 0.67,
+          "source_segment_indices": [
+            226,
+            254
+          ],
+          "distance_to_region_boundary": 0.6804,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_504",
+      "name": "Div. of CSE & AIDS Department",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_003",
+          "cad_xy": [
+            687.8959,
+            263.6014
+          ],
+          "width_candidate": 0.71,
+          "source_segment_indices": [
+            325,
+            371
+          ],
+          "distance_to_region_boundary": 0.1736,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_057",
+          "cad_xy": [
+            683.3001,
+            275.5476
+          ],
+          "width_candidate": 1.798,
+          "source_segment_indices": [
+            317,
+            339
+          ],
+          "distance_to_region_boundary": 0.4326,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_505",
+      "name": "Elective/Tutorial Room/IDP Room",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_019",
+          "cad_xy": [
+            695.8994,
+            263.4492
+          ],
+          "width_candidate": 0.99,
+          "source_segment_indices": [
+            402,
+            424
+          ],
+          "distance_to_region_boundary": 0.3108,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_014",
+          "cad_xy": [
+            698.655,
+            263.4387
+          ],
+          "width_candidate": 0.923,
+          "source_segment_indices": [
+            424,
+            434
+          ],
+          "distance_to_region_boundary": 0.3213,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_033",
+          "cad_xy": [
+            694.2713,
+            275.5476
+          ],
+          "width_candidate": 1.341,
+          "source_segment_indices": [
+            388,
+            392,
+            409,
+            410
+          ],
+          "distance_to_region_boundary": 0.4476,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_506",
+      "name": "S5/S6 AI&DS Class Room",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_034",
+          "cad_xy": [
+            710.3871,
+            275.5476
+          ],
+          "width_candidate": 1.341,
+          "source_segment_indices": [
+            409,
+            477
+          ],
+          "distance_to_region_boundary": 0.4176,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_507",
+      "name": "Hinton Lab",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_028",
+          "cad_xy": [
+            716.8482,
+            263.3696
+          ],
+          "width_candidate": 1.274,
+          "source_segment_indices": [
+            498,
+            508
+          ],
+          "distance_to_region_boundary": 0.3204,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_002",
+          "cad_xy": [
+            719.6368,
+            263.3637
+          ],
+          "width_candidate": 0.705,
+          "source_segment_indices": [
+            508,
+            516
+          ],
+          "distance_to_region_boundary": 0.3263,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_508",
+      "name": "S7/S8 AI&DS Class Room",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_052",
+          "cad_xy": [
+            722.4204,
+            292.2414
+          ],
+          "width_candidate": 1.54,
+          "source_segment_indices": [
+            524,
+            526,
+            527,
+            531,
+            533,
+            534
+          ],
+          "distance_to_region_boundary": 0.1004,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_006",
+          "cad_xy": [
+            713.8614,
+            293.1302
+          ],
+          "width_candidate": 0.76,
+          "source_segment_indices": [
+            484,
+            496
+          ],
+          "distance_to_region_boundary": 0.2902,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_004",
+          "cad_xy": [
+            719.3499,
+            293.1303
+          ],
+          "width_candidate": 0.726,
+          "source_segment_indices": [
+            505,
+            514
+          ],
+          "distance_to_region_boundary": 0.2903,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_509",
+      "name": "MTech(AIDS)",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_044",
+          "cad_xy": [
+            705.9696,
+            281.9373
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            431,
+            433,
+            464,
+            467
+          ],
+          "distance_to_region_boundary": 0.3677,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_510",
+      "name": "Van Rossum Lab",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_047",
+          "cad_xy": [
+            698.2608,
+            281.9912
+          ],
+          "width_candidate": 1.431,
+          "source_segment_indices": [
+            419,
+            431
+          ],
+          "distance_to_region_boundary": 0.3488,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_007",
+          "cad_xy": [
+            701.952,
+            293.13
+          ],
+          "width_candidate": 0.777,
+          "source_segment_indices": [
+            439,
+            449
+          ],
+          "distance_to_region_boundary": 0.35,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_012",
+          "cad_xy": [
+            699.3156,
+            293.13
+          ],
+          "width_candidate": 0.898,
+          "source_segment_indices": [
+            426,
+            439
+          ],
+          "distance_to_region_boundary": 0.35,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_511",
+      "name": "AIDS Dept.Library",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_030",
+          "cad_xy": [
+            696.4114,
+            293.13
+          ],
+          "width_candidate": 1.312,
+          "source_segment_indices": [
+            405,
+            426
+          ],
+          "distance_to_region_boundary": 0.6565,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:room_512",
+      "name": "S3/S4 AI&DS Class Room",
+      "floor": "4",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_04_DOOR_CAND_045",
+          "cad_xy": [
+            689.3162,
+            282.2756
+          ],
+          "width_candidate": 1.421,
+          "source_segment_indices": [
+            298,
+            386
+          ],
+          "distance_to_region_boundary": 0.1094,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f4:place:electrical_room",
+      "name": "Electrical room",
+      "floor": "4",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f4:place:engine_room",
+      "name": "Engine Room",
+      "floor": "4",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f4:place:gents_toilet",
+      "name": "Gents Toilet",
+      "floor": "4",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f4:place:ladies_toilet",
+      "name": "Ladies Toilet",
+      "floor": "4",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f5:place:room_601",
+      "name": "S5/S6 CSE-A CLASS ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_050",
+          "cad_xy": [
+            955.1297,
+            233.0991
+          ],
+          "width_candidate": 1.513,
+          "source_segment_indices": [
+            73,
+            75
+          ],
+          "distance_to_region_boundary": 0.1803,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_052",
+          "cad_xy": [
+            966.873,
+            233.9649
+          ],
+          "width_candidate": 1.608,
+          "source_segment_indices": [
+            111,
+            129
+          ],
+          "distance_to_region_boundary": 0.2849,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_010",
+          "cad_xy": [
+            963.8451,
+            233.9713
+          ],
+          "width_candidate": 0.85,
+          "source_segment_indices": [
+            107,
+            111
+          ],
+          "distance_to_region_boundary": 0.2913,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_603",
+      "name": "S5/S6 CSE-B CLASS ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_047",
+          "cad_xy": [
+            970.1939,
+            233.9627
+          ],
+          "width_candidate": 1.436,
+          "source_segment_indices": [
+            129,
+            143
+          ],
+          "distance_to_region_boundary": 0.2827,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_019",
+          "cad_xy": [
+            969.8963,
+            222.9617
+          ],
+          "width_candidate": 1.18,
+          "source_segment_indices": [
+            127,
+            138
+          ],
+          "distance_to_region_boundary": 0.2883,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_008",
+          "cad_xy": [
+            973.1194,
+            233.9736
+          ],
+          "width_candidate": 0.817,
+          "source_segment_indices": [
+            143,
+            172
+          ],
+          "distance_to_region_boundary": 0.2936,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_604",
+      "name": "S5/S6 CS AI CLASS ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_048",
+          "cad_xy": [
+            985.0288,
+            233.9641
+          ],
+          "width_candidate": 1.484,
+          "source_segment_indices": [
+            245,
+            261
+          ],
+          "distance_to_region_boundary": 0.2841,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_015",
+          "cad_xy": [
+            979.5371,
+            233.9711
+          ],
+          "width_candidate": 0.962,
+          "source_segment_indices": [
+            201,
+            219
+          ],
+          "distance_to_region_boundary": 0.2911,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_001",
+          "cad_xy": [
+            982.1523,
+            233.973
+          ],
+          "width_candidate": 0.67,
+          "source_segment_indices": [
+            219,
+            245
+          ],
+          "distance_to_region_boundary": 0.293,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_605",
+      "name": "DIV OF CSE & AIDS DEPARTMENT",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_003",
+          "cad_xy": [
+            994.4096,
+            201.6884
+          ],
+          "width_candidate": 0.71,
+          "source_segment_indices": [
+            306,
+            334
+          ],
+          "distance_to_region_boundary": 0.1816,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_053",
+          "cad_xy": [
+            993.2081,
+            201.4563
+          ],
+          "width_candidate": 1.693,
+          "source_segment_indices": [
+            278,
+            323,
+            330
+          ],
+          "distance_to_region_boundary": 0.4137,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_606",
+      "name": "ELECTIVE / TUTORIAL/ IDP ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_039",
+          "cad_xy": [
+            1000.8133,
+            213.6343
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            352,
+            357,
+            371,
+            373
+          ],
+          "distance_to_region_boundary": 0.3643,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_607",
+      "name": "S3/S4 CSE-A CLASS ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_040",
+          "cad_xy": [
+            1017.6394,
+            213.6343
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            371,
+            373,
+            429,
+            431
+          ],
+          "distance_to_region_boundary": 0.3643,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_608",
+      "name": "EXPERIENTIAL LEARNING HUB",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_026",
+          "cad_xy": [
+            1023.4377,
+            201.4563
+          ],
+          "width_candidate": 1.274,
+          "source_segment_indices": [
+            442,
+            454
+          ],
+          "distance_to_region_boundary": 0.2137,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_002",
+          "cad_xy": [
+            1026.2262,
+            201.4505
+          ],
+          "width_candidate": 0.705,
+          "source_segment_indices": [
+            454,
+            462
+          ],
+          "distance_to_region_boundary": 0.2195,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_609",
+      "name": "FILE ASSOCIATION ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f5:place:room_610",
+      "name": "S7/S8 CS-AI CLASS ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_006",
+          "cad_xy": [
+            1020.4509,
+            231.217
+          ],
+          "width_candidate": 0.76,
+          "source_segment_indices": [
+            426,
+            440
+          ],
+          "distance_to_region_boundary": 0.297,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_044",
+          "cad_xy": [
+            1016.0053,
+            220.0
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            388,
+            389,
+            424,
+            432
+          ],
+          "distance_to_region_boundary": 0.34,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_018",
+          "cad_xy": [
+            1023.2036,
+            231.217
+          ],
+          "width_candidate": 1.147,
+          "source_segment_indices": [
+            440,
+            451
+          ],
+          "distance_to_region_boundary": 0.3492,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_611_612",
+      "name": "S7/S8 CSE-B CLASS ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_020",
+          "cad_xy": [
+            1004.387,
+            220.312
+          ],
+          "width_candidate": 1.181,
+          "source_segment_indices": [
+            354,
+            355,
+            388,
+            389
+          ],
+          "distance_to_region_boundary": 0.028,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_027",
+          "cad_xy": [
+            1010.9841,
+            220.1471
+          ],
+          "width_candidate": 1.277,
+          "source_segment_indices": [
+            400,
+            408
+          ],
+          "distance_to_region_boundary": 0.1929,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_011",
+          "cad_xy": [
+            1005.905,
+            231.2167
+          ],
+          "width_candidate": 0.898,
+          "source_segment_indices": [
+            382,
+            391
+          ],
+          "distance_to_region_boundary": 0.2967,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:room_613",
+      "name": "S3/S4 CSE-B CLASS ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_043",
+          "cad_xy": [
+            994.4435,
+            220.1112
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            282,
+            286,
+            335,
+            337
+          ],
+          "distance_to_region_boundary": 0.3788,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:ladies_toilet",
+      "name": "Ladies Toilet",
+      "floor": "5",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f5:place:toilet",
+      "name": "Toilet",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_053",
+          "cad_xy": [
+            993.2081,
+            201.4563
+          ],
+          "width_candidate": 1.693,
+          "source_segment_indices": [
+            278,
+            323,
+            330
+          ],
+          "distance_to_region_boundary": 0.0137,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_05_DOOR_CAND_003",
+          "cad_xy": [
+            994.4096,
+            201.6884
+          ],
+          "width_candidate": 0.71,
+          "source_segment_indices": [
+            306,
+            334
+          ],
+          "distance_to_region_boundary": 0.2184,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f5:place:gents_toilet",
+      "name": "GENTS TOILET",
+      "floor": "5",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f5:place:electrical_room",
+      "name": "ELECTRICAL ROOM",
+      "floor": "5",
+      "room_region_available": true,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f6:place:excel_hall",
+      "name": "ExCEL Hall",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_036",
+          "cad_xy": [
+            10632.2336,
+            2044.3941
+          ],
+          "width_candidate": 1.436,
+          "source_segment_indices": [
+            135,
+            136
+          ],
+          "distance_to_region_boundary": 0.1741,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_037",
+          "cad_xy": [
+            10647.0684,
+            2044.3955
+          ],
+          "width_candidate": 1.484,
+          "source_segment_indices": [
+            140,
+            141
+          ],
+          "distance_to_region_boundary": 0.1755,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_040",
+          "cad_xy": [
+            10628.9126,
+            2044.3963
+          ],
+          "width_candidate": 1.608,
+          "source_segment_indices": [
+            134,
+            135
+          ],
+          "distance_to_region_boundary": 0.1763,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f6:place:electrical_room",
+      "name": "Electrical Room",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f6:place:room_703",
+      "name": "Department of CY",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_028",
+          "cad_xy": [
+            10656.4832,
+            2030.7794
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            72,
+            73,
+            78,
+            84
+          ],
+          "distance_to_region_boundary": 0.1606,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f6:place:room_704",
+      "name": "S3/S4 CY Classroom",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_025",
+          "cad_xy": [
+            10665.0405,
+            2041.6481
+          ],
+          "width_candidate": 1.313,
+          "source_segment_indices": [
+            144,
+            145
+          ],
+          "distance_to_region_boundary": 0.1781,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_011",
+          "cad_xy": [
+            10667.9447,
+            2041.6482
+          ],
+          "width_candidate": 0.898,
+          "source_segment_indices": [
+            145,
+            146
+          ],
+          "distance_to_region_boundary": 0.1782,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_018",
+          "cad_xy": [
+            10666.4266,
+            2030.5032
+          ],
+          "width_candidate": 1.181,
+          "source_segment_indices": [
+            78,
+            79
+          ],
+          "distance_to_region_boundary": 0.2468,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f6:place:room_705",
+      "name": "S5/S6 CS-AI Classroom",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_034",
+          "cad_xy": [
+            10678.0449,
+            2030.6681
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            74,
+            75,
+            79,
+            80
+          ],
+          "distance_to_region_boundary": 0.0819,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_023",
+          "cad_xy": [
+            10673.0237,
+            2030.5786
+          ],
+          "width_candidate": 1.277,
+          "source_segment_indices": [
+            164,
+            165
+          ],
+          "distance_to_region_boundary": 0.1714,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_007",
+          "cad_xy": [
+            10670.5811,
+            2041.6482
+          ],
+          "width_candidate": 0.777,
+          "source_segment_indices": [
+            146,
+            147
+          ],
+          "distance_to_region_boundary": 0.1782,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f6:place:room_706",
+      "name": "S7 Classroom",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_042",
+          "cad_xy": [
+            10690.8124,
+            2040.6454
+          ],
+          "width_candidate": 1.769,
+          "source_segment_indices": [
+            103,
+            189
+          ],
+          "distance_to_region_boundary": 0.1624,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_004",
+          "cad_xy": [
+            10687.979,
+            2041.6484
+          ],
+          "width_candidate": 0.726,
+          "source_segment_indices": [
+            151,
+            152
+          ],
+          "distance_to_region_boundary": 0.1784,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_006",
+          "cad_xy": [
+            10682.4905,
+            2041.6484
+          ],
+          "width_candidate": 0.76,
+          "source_segment_indices": [
+            149,
+            150
+          ],
+          "distance_to_region_boundary": 0.1784,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f6:place:room_707",
+      "name": "Classroom 707",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_022",
+          "cad_xy": [
+            10685.4774,
+            2011.8878
+          ],
+          "width_candidate": 1.274,
+          "source_segment_indices": [
+            159,
+            160
+          ],
+          "distance_to_region_boundary": 0.2222,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_003",
+          "cad_xy": [
+            10688.2658,
+            2011.8819
+          ],
+          "width_candidate": 0.705,
+          "source_segment_indices": [
+            160,
+            161
+          ],
+          "distance_to_region_boundary": 0.2281,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f6:place:room_708",
+      "name": "Classroom 708",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_029",
+          "cad_xy": [
+            10679.679,
+            2024.0658
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            97,
+            98,
+            100,
+            101
+          ],
+          "distance_to_region_boundary": 0.2958,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f6:place:room_709",
+      "name": "Diffie Hellman Lab",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": [
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_021",
+          "cad_xy": [
+            10651.602,
+            2011.9016
+          ],
+          "width_candidate": 1.235,
+          "source_segment_indices": [
+            44,
+            45
+          ],
+          "distance_to_region_boundary": 0.2084,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_039",
+          "cad_xy": [
+            10652.0643,
+            2024.0638
+          ],
+          "width_candidate": 1.603,
+          "source_segment_indices": [
+            20,
+            96
+          ],
+          "distance_to_region_boundary": 0.2938,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        },
+        {
+          "candidate_id": "RAMANUJAN_BLOCK_06_DOOR_CAND_027",
+          "cad_xy": [
+            10662.853,
+            2024.0658
+          ],
+          "width_candidate": 1.42,
+          "source_segment_indices": [
+            96,
+            97,
+            99,
+            100
+          ],
+          "distance_to_region_boundary": 0.2958,
+          "evidence": "collinear_wall_endpoint_gap_candidate",
+          "review_status": "unreviewed_not_a_walkable_edge"
+        }
+      ]
+    },
+    {
+      "node_id": "f6:place:ladies_toilet",
+      "name": "Ladies Toilet",
+      "floor": "6",
+      "room_region_available": true,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f6:place:gents_toilet",
+      "name": "Gents Toilet",
+      "floor": "6",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    },
+    {
+      "node_id": "f6:place:wash_area",
+      "name": "Wash Area",
+      "floor": "6",
+      "room_region_available": false,
+      "doorway_suggestions": []
+    }
+  ],
+  "building": "Ramanujan Block",
+  "included_floors": [
+    "G",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+  ],
+  "room_node_count": 123,
+  "rooms_with_verified_entrances": 0,
+  "unconnected_room_node_ids": [
+    "fG:place:cafeteria",
+    "fG:place:doctor",
+    "fG:place:electrical_engineering_workshop",
+    "fG:place:electrical_room",
+    "fG:place:food_counter",
+    "fG:place:gents_toilet",
+    "fG:place:geo_technical_engineering_lab",
+    "fG:place:house_keeping",
+    "fG:place:lab_staff",
+    "fG:place:lobby",
+    "fG:place:maintenance",
+    "fG:place:material_testing_lab_ii",
+    "fG:place:nss_room",
+    "fG:place:physical_education",
+    "fG:place:ramp",
+    "fG:place:reception",
+    "fG:place:sick_room",
+    "fG:place:staff_room",
+    "fG:place:stationary_photostat",
+    "fG:place:store",
+    "fG:place:students_dining_area",
+    "fG:place:students_dining_room",
+    "fG:place:visitors_room",
+    "f1:place:ccf_1",
+    "f1:place:class_room",
+    "f1:place:class_room_2",
+    "f1:place:class_room_3",
+    "f1:place:conference_room",
+    "f1:place:counselor",
+    "f1:place:eee_department",
+    "f1:place:electrical_room",
+    "f1:place:gents_toilet",
+    "f1:place:ladies_toilet",
+    "f1:place:passage",
+    "f1:place:placement_office",
+    "f1:place:power_system_lab",
+    "f1:place:project_lab",
+    "f1:place:research_lab",
+    "f1:place:server_room",
+    "f1:place:siemens_lab",
+    "f1:place:system_admin_s_room",
+    "f1:place:vacant_room",
+    "f1:place:vacant_room_2",
+    "f1:place:vacant_room_3",
+    "f1:place:vacant_room_4",
+    "f1:place:vacant_room_5",
+    "f2:place:room_301",
+    "f2:place:room_305",
+    "f2:place:ceaser_lab",
+    "f2:place:class_room_m_tech_cy_s1_s2",
+    "f2:place:codd_base_lab",
+    "f2:place:data_warehouse_cse",
+    "f2:place:eee_department_library",
+    "f2:place:electrical_measurements_lab",
+    "f2:place:gents_toilet",
+    "f2:place:grace_hopper_lab",
+    "f2:place:ladies_toilet",
+    "f2:place:michael_faraday_hall",
+    "f2:place:microprocessor_microcontrollor_lab",
+    "f2:place:simulation_lab",
+    "f2:place:staff_cabin",
+    "f2:place:staff_cabin_2",
+    "f2:place:steve_jobs_hall",
+    "f2:place:turing_lab",
+    "f3:place:room_400",
+    "f3:place:room_401",
+    "f3:place:room_402",
+    "f3:place:room_403",
+    "f3:place:room_404",
+    "f3:place:room_405",
+    "f3:place:room_406",
+    "f3:place:room_407",
+    "f3:place:room_408",
+    "f3:place:room_409",
+    "f3:place:room_410",
+    "f3:place:room_411",
+    "f3:place:electrical_room",
+    "f3:place:gents_toilet",
+    "f3:place:ladies_toilet",
+    "f3:place:toilet_3f",
+    "f4:place:room_501",
+    "f4:place:room_502",
+    "f4:place:room_503",
+    "f4:place:room_504",
+    "f4:place:room_505",
+    "f4:place:room_506",
+    "f4:place:room_507",
+    "f4:place:room_508",
+    "f4:place:room_509",
+    "f4:place:room_510",
+    "f4:place:room_511",
+    "f4:place:room_512",
+    "f4:place:electrical_room",
+    "f4:place:engine_room",
+    "f4:place:gents_toilet",
+    "f4:place:ladies_toilet",
+    "f5:place:room_601",
+    "f5:place:room_603",
+    "f5:place:room_604",
+    "f5:place:room_605",
+    "f5:place:room_606",
+    "f5:place:room_607",
+    "f5:place:room_608",
+    "f5:place:room_609",
+    "f5:place:room_610",
+    "f5:place:room_611_612",
+    "f5:place:room_613",
+    "f5:place:ladies_toilet",
+    "f5:place:toilet",
+    "f5:place:gents_toilet",
+    "f5:place:electrical_room",
+    "f6:place:excel_hall",
+    "f6:place:electrical_room",
+    "f6:place:room_703",
+    "f6:place:room_704",
+    "f6:place:room_705",
+    "f6:place:room_706",
+    "f6:place:room_707",
+    "f6:place:room_708",
+    "f6:place:room_709",
+    "f6:place:ladies_toilet",
+    "f6:place:gents_toilet",
+    "f6:place:wash_area"
+  ],
+  "unconnected_connector_node_ids": [
+    "f1:lift:a",
+    "f1:lift:b",
+    "f1:stairs:a",
+    "f1:stairs:b",
+    "f1:stairs:c",
+    "f2:lift:a",
+    "f2:lift:b",
+    "f2:stairs:a",
+    "f2:stairs:b",
+    "f2:stairs:c",
+    "f3:lift:a",
+    "f3:lift:b",
+    "f3:stairs:a",
+    "f3:stairs:b",
+    "f3:stairs:c",
+    "f4:lift:a",
+    "f4:lift:b",
+    "f4:stairs:a",
+    "f4:stairs:b",
+    "f4:stairs:c",
+    "f5:lift:a",
+    "f5:lift:b",
+    "f5:stairs:a",
+    "f5:stairs:b",
+    "f5:stairs:c",
+    "f6:lift:a",
+    "f6:lift:b",
+    "f6:stairs:a",
+    "f6:stairs:b",
+    "f6:stairs:c",
+    "fG:lift:a",
+    "fG:lift:b",
+    "fG:stairs:a",
+    "fG:stairs:b",
+    "fG:stairs:c"
+  ],
+  "verified_walk_edge_count_directed": 0,
+  "pending_connection_count": 0,
+  "rejected_connection_count": 0,
+  "candidate_review_status_counts": {
+    "pending": 0,
+    "verified": 0,
+    "rejected": 0
+  },
+  "candidate_gap_review_status_counts": {
+    "pending": 503,
+    "verified": 0,
+    "rejected": 0
+  },
+  "validated_room_to_room_pairs": 0,
+  "room_to_room_routing_ready": false,
+  "floor_summary": {
+    "G": {
+      "semantic_place_nodes": 23,
+      "room_regions_available": 0,
+      "verified_room_entrances": 0,
+      "rooms_with_review_only_doorway_candidates": 0,
+      "connector_landings": 5,
+      "connector_landings_connected_to_corridor": 0,
+      "verified_walk_edges_directed": 0
+    },
+    "1": {
+      "semantic_place_nodes": 23,
+      "room_regions_available": 0,
+      "verified_room_entrances": 0,
+      "rooms_with_review_only_doorway_candidates": 0,
+      "connector_landings": 5,
+      "connector_landings_connected_to_corridor": 0,
+      "verified_walk_edges_directed": 0
+    },
+    "2": {
+      "semantic_place_nodes": 18,
+      "room_regions_available": 0,
+      "verified_room_entrances": 0,
+      "rooms_with_review_only_doorway_candidates": 0,
+      "connector_landings": 5,
+      "connector_landings_connected_to_corridor": 0,
+      "verified_walk_edges_directed": 0
+    },
+    "3": {
+      "semantic_place_nodes": 16,
+      "room_regions_available": 0,
+      "verified_room_entrances": 0,
+      "rooms_with_review_only_doorway_candidates": 0,
+      "connector_landings": 5,
+      "connector_landings_connected_to_corridor": 0,
+      "verified_walk_edges_directed": 0
+    },
+    "4": {
+      "semantic_place_nodes": 16,
+      "room_regions_available": 12,
+      "verified_room_entrances": 0,
+      "rooms_with_review_only_doorway_candidates": 12,
+      "connector_landings": 5,
+      "connector_landings_connected_to_corridor": 0,
+      "verified_walk_edges_directed": 0
+    },
+    "5": {
+      "semantic_place_nodes": 15,
+      "room_regions_available": 13,
+      "verified_room_entrances": 0,
+      "rooms_with_review_only_doorway_candidates": 11,
+      "connector_landings": 5,
+      "connector_landings_connected_to_corridor": 0,
+      "verified_walk_edges_directed": 0
+    },
+    "6": {
+      "semantic_place_nodes": 12,
+      "room_regions_available": 10,
+      "verified_room_entrances": 0,
+      "rooms_with_review_only_doorway_candidates": 8,
+      "connector_landings": 5,
+      "connector_landings_connected_to_corridor": 0,
+      "verified_walk_edges_directed": 0
+    }
+  },
+  "source_limitations": [
+    "CAD linework provides candidate openings but does not classify each opening as a doorway.",
+    "No corridor or corridor-junction centerline data is supplied for the Ground Floor through Floor 6.",
+    "Semantic coordinates identify labels/places, not verified entrances.",
+    "All geometry-derived doorway suggestions remain review-only until explicitly approved."
+  ]
+}
