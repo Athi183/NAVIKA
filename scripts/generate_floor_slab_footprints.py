@@ -17,15 +17,16 @@ import json
 import math
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FLOORS = (4, 5, 6)
+FLOORS = ("G", 1, 2, 3, 4, 5, 6)
 RESOLUTION = 20  # 20 pixels per source unit = 0.05-unit cells.
 WALL_THICKNESS = 0.24
 PAD = 2.0
 EXTERIOR = 128
+FLOOR2_GAP_CLOSING_RADIUS = 1.5
 
 # Floor 4 has no generated lift floor-region polygons. These two openings are
 # traced from its CAD wall enclosures, inset by the same 0.18-unit margin used
@@ -123,6 +124,15 @@ def recover_floor(floor: int) -> dict:
     for wall in wall_segments:
         draw.line((pixel(wall["x1"], wall["y1"]), pixel(wall["x2"], wall["y2"])), fill=0, width=wall_px)
 
+    # Floor 2 has several unclosed wall junctions in its source linework.
+    # They leak the exterior flood-fill through the plan, leaving only a small
+    # portion of the real footprint. Close sub-3-unit raster gaps before
+    # flood-filling so the slab includes the full plan and shared corridor.
+    if floor == 2:
+        radius_px = max(1, round(FLOOR2_GAP_CLOSING_RADIUS * RESOLUTION))
+        filter_size = radius_px * 2 + 1
+        raster = raster.filter(ImageFilter.MinFilter(filter_size)).filter(ImageFilter.MaxFilter(filter_size))
+
     # Flood-fill the connected exterior. Walls and enclosed floor areas remain.
     ImageDraw.floodfill(raster, (0, 0), EXTERIOR, thresh=0)
     loops = boundary_loops(raster)
@@ -166,12 +176,13 @@ def recover_floor(floor: int) -> dict:
 
     return {
         "floor": str(floor),
-        "method": "0.05-unit raster wall envelope, exterior flood-fill, pixel-edge contour tracing",
+        "method": "0.05-unit raster wall envelope, exterior flood-fill, pixel-edge contour tracing" + (", with 1.5-unit gap-closing pass" if floor == 2 else ""),
         "source_wall_thickness": WALL_THICKNESS,
         "boundary_cad_xy": cad_ring(outer),
         "openings": openings,
         "diagnostics": {
             "source_wall_segments": len(wall_segments),
+            "gap_closing_radius": FLOOR2_GAP_CLOSING_RADIUS if floor == 2 else 0,
             "outer_loop_count": len(outers),
             "ignored_disconnected_loop_areas": [round(area, 3) for area in extra_areas],
             "enclosed_voids_distinguished_from_rooms": False,
