@@ -1,0 +1,42 @@
+{
+  "wall_support_tolerance": 0.35,
+  "floor_inset": 0.18,
+  "matched_regions": [],
+  "excluded_regions": {
+    "room_400": "Insufficient wall support: [0.0, 0.0, 0.0, 0.0]",
+    "room_401": "Insufficient wall support: [0.0, 0.0, 0.0, 0.0]",
+    "room_402": "Insufficient wall support: [0.0, 0.263, 0.169, 0.0]",
+    "room_403": "Insufficient wall support: [0.297, 0.085, 0.528, 0.0]",
+    "room_404": "Insufficient wall support: [0.085, 0.085, 0.106, 0.0]",
+    "room_405": "Insufficient wall support: [0.0, 0.076, 0.0, 0.441]",
+    "room_406": "Insufficient wall support: [0.085, 0.085, 0.0, 0.153]",
+    "room_407": "Insufficient wall support: [0.085, 0.085, 0.078, 0.111]",
+    "room_408": "Insufficient wall support: [0.076, 0.085, 0.05, 0.0]",
+    "room_409": "Insufficient wall support: [0.085, 0.076, 0.115, 0.068]",
+    "room_410": "Insufficient wall support: [0.076, 0.076, 0.112, 0.0]",
+    "room_411": "Insufficient wall support: [0.085, 0.085, 0.076, 0.0]"
+  },
+  "neutral_fallback_ids": [
+    "electrical_room",
+    "gents_toilet",
+    "ladies_toilet",
+    "lift_a",
+    "lift_b",
+    "room_400",
+    "room_401",
+    "room_402",
+    "room_403",
+    "room_404",
+    "room_405",
+    "room_406",
+    "room_407",
+    "room_408",
+    "room_409",
+    "room_410",
+    "room_411",
+    "staircase_a",
+    "staircase_b",
+    "staircase_c",
+    "toilet_3f"
+  ]
+}

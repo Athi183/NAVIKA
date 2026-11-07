@@ -4,5 +4,27 @@
   "surface_elevation": 0.006,
   "floor_inset": 0.18,
   "regions": [],
-  "neutral_fallback_ids": []
+  "neutral_fallback_ids": [
+    "electrical_room",
+    "gents_toilet",
+    "ladies_toilet",
+    "lift_a",
+    "lift_b",
+    "room_400",
+    "room_401",
+    "room_402",
+    "room_403",
+    "room_404",
+    "room_405",
+    "room_406",
+    "room_407",
+    "room_408",
+    "room_409",
+    "room_410",
+    "room_411",
+    "staircase_a",
+    "staircase_b",
+    "staircase_c",
+    "toilet_3f"
+  ]
 }
