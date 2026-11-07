@@ -1,0 +1,32 @@
+{
+  "floor": "2",
+  "coordinate_system": "CAD XY",
+  "surface_elevation": 0.006,
+  "floor_inset": 0.18,
+  "regions": [],
+  "neutral_fallback_ids": [
+    "ceaser_lab",
+    "class_room_m_tech_cy_s1_s2",
+    "codd_base_lab",
+    "data_warehouse_cse",
+    "eee_department_library",
+    "electrical_measurements_lab",
+    "gents_toilet",
+    "grace_hopper_lab",
+    "ladies_toilet",
+    "lift_a",
+    "lift_b",
+    "michael_faraday_hall",
+    "microprocessor_microcontrollor_lab",
+    "room_301",
+    "room_305",
+    "simulation_lab",
+    "staff_cabin",
+    "staff_cabin_2",
+    "staircase_a",
+    "staircase_b",
+    "staircase_c",
+    "steve_jobs_hall",
+    "turing_lab"
+  ]
+}
