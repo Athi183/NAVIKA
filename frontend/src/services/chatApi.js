@@ -466,12 +466,11 @@ async function askBackend(question) {
 
   const data = await response.json()
 
-  // Route-triggering (kind: 'route') is a separate system (indoor
-  // navigation/pathfinding) the chat backend doesn't touch — every real
-  // backend answer is plain info until that's wired up too.
+  const places = Array.isArray(data.places) ? data.places : []
   return {
     text: data.answer,
-    kind: 'info',
+    kind: places.length ? 'route' : 'info',
+    places,
   }
 }
 

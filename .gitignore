@@ -26,6 +26,7 @@ dist-ssr
 .env
 __pycache__/
 rag/vectorstore/
+rag/vectorstore_pre_fix/
 # AI4Bharat Malayalam FastPitch+HiFi-GAN checkpoint (~2.8GB incl. the
 # downloaded zip) -- too large for git; see rag/benchmark_malayalam_tts.py
 # for the download command and expected layout.

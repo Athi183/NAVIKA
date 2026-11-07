@@ -448,7 +448,9 @@ export default function MGeorgeKioskNavigation() {
       setModel(loaded)
       // ?to=<destination id> opens a route directly (assistant hand-off, QR links).
       const requested = new URLSearchParams(window.location.search).get('to')
-      setDestination(loaded.destinations.find((place) => place.id === requested) || null)
+      setDestination(requested === 'nearest-toilet'
+        ? nearestToilet(loaded)
+        : loaded.destinations.find((place) => place.id === requested) || null)
     }).catch((reason) => setError(reason.message))
   }, [])
 

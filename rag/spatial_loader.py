@@ -1,46 +1,42 @@
+
+import sqlite3
 from pathlib import Path
 
-import pandas as pd
 from langchain_core.documents import Document
 
-
-SPATIAL_FILE = Path(__file__).parent / "navika_5th_floor_rag_semantics.csv"
+try:
+    from .build_place_index import DATABASE_PATH
+except ImportError:
+    from build_place_index import DATABASE_PATH
 
 
 def load_spatial_documents():
-    df = pd.read_csv(SPATIAL_FILE)
-
-    required_columns = [
-        "Node_ID",
-        "Location_Name",
-        "Node_Type",
-        "Floor_Level",
-        "Campus_Zone",
-        "Block",
-        "RAG_Text",
-    ]
-
-    missing = [column for column in required_columns if column not in df.columns]
-
-    if missing:
-        raise ValueError(f"Missing columns in spatial dataset: {missing}")
-
     documents = []
+    if not DATABASE_PATH.is_file():
+        print(f"Place database not found; run build_place_index.py: {DATABASE_PATH}")
+        return documents
 
-    for _, row in df.iterrows():
-        documents.append(
-            Document(
-                page_content=row["RAG_Text"],
+    with sqlite3.connect(DATABASE_PATH) as connection:
+        connection.row_factory = sqlite3.Row
+        for row in connection.execute("SELECT * FROM places"):
+            place = dict(row)
+            documents.append(Document(
+                page_content=(
+                    f"{place['name']} is a {place['category']} in {place['building']}, "
+                    f"{place['floor_name']}."
+                    + (f" Room {place['room_no']}." if place.get("room_no") else "")
+                ),
                 metadata={
-                    "source": "navika_5th_floor_rag_semantics.csv",
-                    "node_id": row["Node_ID"],
-                    "location_name": row["Location_Name"],
-                    "node_type": row["Node_Type"],
-                    "floor": row["Floor_Level"],
-                    "campus_zone": row["Campus_Zone"],
-                    "block": row["Block"],
+                    "source": str(DATABASE_PATH),
+                    "content_type": "navigation_place",
+                    "place_id": place["place_id"],
+                    "category": place["category"],
+                    "building": place["building"],
+                    "floor_key": place["floor_key"],
+                    "floor_name": place["floor_name"],
+                    "room_no": place.get("room_no") or "",
                 },
-            )
-        )
+            ))
 
+    print(f"Loaded {len(documents)} spatial documents.")
     return documents

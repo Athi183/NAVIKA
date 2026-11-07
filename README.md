@@ -117,6 +117,18 @@ commit secrets.
 parse the crawled source data directly for the kiosk's structured Find a
 Teacher, Placements and Departments pages.
 
+The chat's route buttons use a SQLite destination catalog generated from the
+kiosk's navigation JSON:
+
+```bash
+python rag/build_place_index.py
+```
+
+`rag/ingest.py` rebuilds this catalog before embedding its destination records.
+Rebuild it after regenerating navigation data, then rebuild the RAG index so
+retrieval also reflects the current destinations. The chat returns matching
+destination IDs; `/navigation?to=<place_id>` remains responsible for routing.
+
 ## Interaction (voice) pipeline
 
 1. `stt.py` records microphone speech.
