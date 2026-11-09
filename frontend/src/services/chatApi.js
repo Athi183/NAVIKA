@@ -264,6 +264,18 @@ function startMalayalamVoiceResponse(speechText, { onStart, onEnd } = {}) {
   }
 }
 
+// What the browser's speech recognizer can report (SpeechRecognitionErrorEvent.error).
+const voiceErrorMessage = (code) => ({
+  'not-allowed': window.isSecureContext
+    ? 'Microphone is blocked. Allow it from the icon in the address bar, then press the mic again.'
+    : 'Microphone is blocked on this address. Open NAVIKA on localhost or https, then press the mic again.',
+  'service-not-allowed': 'Voice input is blocked in this browser. Please use Google Chrome or Edge, or type your question.',
+  network: 'Voice input could not reach the speech service. Check the internet connection and use Google Chrome or Edge.',
+  'audio-capture': 'No microphone was found. Connect one and press the mic again.',
+  'no-speech': "Didn't hear anything. Press the mic and speak again.",
+  'language-not-supported': 'This browser cannot recognise that language. Please type your question.',
+}[code] ?? 'Voice input unavailable. You can continue using text.')
+
 export const voiceControls = {
   startVoiceInput: ({ onStart, onResult, onInterimResult, onError, onEnd, lang = 'en' } = {}) => {
     const SpeechRecognition =
@@ -346,7 +358,7 @@ export const voiceControls = {
       // started on purpose — that's not a failure, so don't show an
       // "unavailable" error for it; onEnd's own status message covers it.
       if (event.error === 'aborted') return
-      onError?.('Voice input unavailable. You can continue using text.')
+      onError?.(voiceErrorMessage(event.error))
     }
 
     recognition.onend = () => {

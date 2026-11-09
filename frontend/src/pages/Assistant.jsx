@@ -64,6 +64,7 @@ export default function Assistant() {
   ])
   const [loading, setLoading] = useState(false)
   const [facultyDirectory, setFacultyDirectory] = useState([])
+  const [facultyStatus, setFacultyStatus] = useState('loading') // 'loading' | 'ready' | 'failed'
   // The faculty member currently shown in the centered flashcard popup
   // (see FacultyFlashcard), or null when it's closed.
   const [facultyCard, setFacultyCard] = useState(null)
@@ -102,8 +103,13 @@ export default function Assistant() {
   // it's a stable list until the site is re-crawled and the backend
   // restarted, so there's nothing to gain from re-fetching it on every
   // search.
+  const loadFacultyDirectory = () => getFacultyDirectory().then((faculty) => {
+    setFacultyDirectory(faculty)
+    setFacultyStatus(faculty.length > 0 ? 'ready' : 'failed')
+  })
+
   useEffect(() => {
-    getFacultyDirectory().then(setFacultyDirectory)
+    loadFacultyDirectory()
   }, [])
 
   // Single toggle shared by the header "Voice response" button and every
@@ -189,6 +195,8 @@ export default function Assistant() {
       return
     }
 
+    // The browser reports "ended" right after an error; the error stays on screen.
+    let voiceFailed = false
     const result = voiceControls.startVoiceInput({
       lang: inputLang,
       onStart: () => {
@@ -230,10 +238,13 @@ export default function Assistant() {
         setVoiceStatus('Voice captured and sent to NAVIKA.')
         handleAsk(cleanedTranscript)
       },
-      onError: (message) => setVoiceStatus(message),
+      onError: (message) => {
+        voiceFailed = true
+        setVoiceStatus(message)
+      },
       onEnd: () => {
         setIsListening(false)
-        setVoiceStatus('Voice input stopped. Press the mic again to keep speaking.')
+        if (!voiceFailed) setVoiceStatus('Voice input stopped. Press the mic again to keep speaking.')
       },
     })
 
@@ -295,6 +306,17 @@ export default function Assistant() {
             be a second, redundant way to do the same lookup. */}
         {focusFacultySearch && (
           <FacultySearch faculty={facultyDirectory} onSelect={handleFacultySelect} autoFocus={focusFacultySearch} />
+        )}
+        {focusFacultySearch && facultyStatus === 'loading' && (
+          <p className="mb-4 rounded-xl bg-slate-100 p-3 text-sm font-semibold text-slate-600">Loading the teacher list…</p>
+        )}
+        {focusFacultySearch && facultyStatus === 'failed' && (
+          <div role="alert" className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border-[3px] border-ink-900 bg-amber-50 p-4">
+            <p className="font-semibold text-amber-900">The teacher list could not load. The NAVIKA server may not be running.</p>
+            <button type="button" onClick={() => { setFacultyStatus('loading'); loadFacultyDirectory() }} className="rounded-xl border-[3px] border-ink-900 bg-white px-4 py-2 font-bold text-ink-900">
+              Try again
+            </button>
+          </div>
         )}
 
         <div className="mb-4">

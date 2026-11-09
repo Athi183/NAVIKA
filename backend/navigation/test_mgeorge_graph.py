@@ -38,7 +38,7 @@ for place in data["destinations"]:
 
     result = dijkstra(graph, kiosk["node"], place["node"])
 
-    assert result, f"no route from the kiosk to {place['name']}"
+    assert result["status"] == "ok", f"no route from the kiosk to {place['name']}"
 
     # The building is ~135 m end to end; a longer walk means a broken graph.
     assert result["distance"] < 200, (place["name"], result["distance"])

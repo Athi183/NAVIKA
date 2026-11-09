@@ -56,9 +56,9 @@ for step_free in (False, True):
         result = dijkstra(graph, kiosk_node, place["node"])
         # The step_free flag must agree with an actual lifts-only route.
         if step_free and not place.get("step_free", True):
-            assert result is None, f"{place['name']} is flagged as not step-free but has a lifts-only route"
+            assert result["status"] == "no_route", f"{place['name']} is flagged as not step-free but has a lifts-only route"
             continue
-        assert result, f"no {'step-free ' if step_free else ''}route to {place['name']} ({number})"
+        assert result["status"] == "ok", f"no {'step-free ' if step_free else ''}route to {place['name']} ({number})"
         # Corridors plus a few storeys of stairs/lifts; far more means a broken join.
         assert result["distance"] < 400, (place["name"], result["distance"])
     print(("Step-free" if step_free else "Any route").ljust(10), "- all", len(offered), "offered destinations checked")
@@ -82,7 +82,7 @@ if site_file.exists():
         graph.add_edge(link["site_node"], link["indoor_node"], link["weight_m"])
     for place in site["destinations"]:
         result = dijkstra(graph, kiosk_node, place["node"])
-        assert result, f"no outdoor route to {place['name']}"
+        assert result["status"] == "ok", f"no outdoor route to {place['name']}"
         assert result["distance"] < 800, (place["name"], result["distance"])
     print("Outdoor    - all", len(site["destinations"]), "campus places reachable through the main entrance")
 
@@ -108,6 +108,6 @@ if (RAMANUJAN_DIR / "building.json").exists():
         assert all(p["reachable"] and p["step_free"] for _, p in places), [p["name"] for _, p in places if not p["reachable"]]
         for number, place in places:
             result = dijkstra(graph, kiosk_node, place["node"])
-            assert result, f"no {'step-free ' if step_free else ''}route to {place['name']} ({number})"
+            assert result["status"] == "ok", f"no {'step-free ' if step_free else ''}route to {place['name']} ({number})"
             assert result["distance"] < 500, (place["name"], result["distance"])
         print(("Step-free" if step_free else "Any route").ljust(10), "- all", len(places), "Ramanujan places reachable over the bridge")
