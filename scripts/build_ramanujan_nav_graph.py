@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Walkable-route data for Ramanujan Block floors 4-6, joined to M. George by the bridge.
+"""Walkable-route data for every Ramanujan Block floor, joined to M. George by the bridge.
 
-Floors 4, 5 and 6 come from Fathima Mehrin's Ramanujan viewer data
-(ramanujan-viewer/public/data/Ramanujan_F4..F6: walls, room names and
-positions), aligned with each other by her stackedFloorConfig.ts offsets. That
-data is read only, never changed.
+All seven floors (Ground to Sixth) come from Fathima Mehrin's Ramanujan viewer
+data (ramanujan-viewer/public/data/Ramanujan_FG, F1..F6: walls, room names,
+positions and room outlines), aligned with each other by her
+stackedFloorConfig.ts offsets. That data is read only, never changed.
 
 Visitors reach those floors over the bridge: from the west end of the
 M. George Third Floor corridor (the floor above Visvesvaraya Hall) across to
 Ramanujan's Second Floor, which stands at the same height,
 where a 3.08 m opening between Turing Lab and Caeser Lab is labelled
-"CONNECTION BRIDGE" in the multi-floor Ramanujan DXF. The Second Floor comes
-from that DXF (frontend/src/data/ramanujan_floors_2_6.json) and is used only to
-walk from the bridge to the lifts and stairs.
+"CONNECTION BRIDGE" in the multi-floor Ramanujan DXF
+(frontend/src/data/ramanujan_floors_2_6.json). That DXF gives the bridge
+door's position and Ramanujan's placement; the floors themselves are Mehrin's.
 
 Everything is written in M. George's frame (metres, floor 1 frame) so routes
 run straight from one building into the other. Ramanujan is placed by the
@@ -45,8 +45,13 @@ MGEORGE_DIR = ROOT / "frontend/public/data/MGeorge_nav"
 DEFAULT_OUTPUT_DIR = ROOT / "frontend/public/data/Ramanujan_nav"
 
 # Mehrin's floor alignment (offsetX, offsetZ) from ramanujan-viewer/src/stackedFloorConfig.ts.
-MEHRIN_OFFSETS = {4: (0.0, 0.0), 5: (-0.024855, 0.002161), 6: (-0.572493, -1.527466)}
-ORDINAL = {2: "Second", 4: "Fourth", 5: "Fifth", 6: "Sixth"}
+# Checked against each floor's stairs and lifts: no extra shift improves on them (the
+# remaining 1.5-3.5 m is where each label sits inside a 3-8 m stair or lift core).
+MEHRIN_OFFSETS = {
+    0: (-2.223, 0.318), 1: (-2.223, 0.318), 2: (-2.223, 0.318), 3: (-2.24, 0.31),
+    4: (0.0, 0.0), 5: (-0.024855, 0.002161), 6: (-0.572493, -1.527466),
+}
+ORDINAL = {0: "Ground", 1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth", 6: "Sixth"}
 
 # The bridge. M. George side: the west-end opening of the Third Floor main
 # corridor, above Visvesvaraya Hall (project team, 2026-11-03). Ramanujan side:
@@ -69,9 +74,13 @@ ALIGN_CELL_M = 0.2
 CATEGORIES = {
     "classroom": "classroom", "laboratory": "lab", "department": "department", "hall": "hall",
     "toilet": "toilet", "vertical_transport": "lift", "staircase": "stairs", "facility": "facility",
+    "food": "food", "workshop": "lab", "corridor": "facility",
 }
+# Not offered as places: empty rooms, the ramp, and plain passages (Reception and Lobby are kept).
+SKIP_TYPES = {"vacant", "ramp"}
+SKIP_NAMES = {"Passage"}
 SERVICE_WORDS = ("ELECTRICAL", "ENGINE", "WASH")
-KEEP_UPPER = {"CSE", "AIDS", "IDP", "CY", "CS", "AI", "DS"}
+KEEP_UPPER = {"CSE", "AIDS", "IDP", "CY", "CS", "AI", "DS", "CCF", "EEE", "NSS"}
 STAIR_WEIGHT_M = mg.STAIR_WEIGHT_M
 LIFT_BOARD_M = mg.LIFT_BOARD_M
 LIFT_FLOOR_M = mg.LIFT_FLOOR_M
@@ -83,14 +92,17 @@ def floor_key(level):
 
 
 def tidy(name):
-    """'S5/S6 CSE-A CLASS ROOM' -> 'S5/S6 CSE-A Class Room'; acronyms and mixed-case words stay."""
+    """'S5/S6 CSE-A CLASS ROOM' -> 'S5/S6 CSE-A Class Room'; acronyms (any case in the source) are capitals, other mixed-case words stay."""
     def fix(match):
         word = match.group(0)
+        if word.upper() in KEEP_UPPER:
+            return word.upper()
         if word in ("OF", "AND", "FOR"):
             return word.lower()
-        return word.title() if word.isupper() and len(word) > 2 and word not in KEEP_UPPER else word
+        # "ADMIN'S" -> "Admin's", not "Admin'S".
+        return word[0] + word[1:].lower() if word.isupper() and len(word) > 2 else word
 
-    return re.sub(r"[A-Za-z]+", fix, re.sub(r"\s*/\s*", "/", name.strip()))
+    return re.sub(r"[A-Za-z]+(?:'[A-Za-z]+)?", fix, re.sub(r"\s*/\s*", "/", name.strip()))
 
 
 def category(place):
@@ -103,7 +115,7 @@ def category(place):
 
 def mehrin_floor(level):
     """Walls (segments), places and room outlines of one of Mehrin's floors, in her shared frame."""
-    folder = VIEWER_DATA / f"Ramanujan_F{level}"
+    folder = VIEWER_DATA / f"Ramanujan_F{'G' if level == 0 else level}"
     walls = json.loads((folder / "walls.json").read_text())["walls"]
     places = json.loads((folder / "semantics.json").read_text())["places"]
     regions = json.loads((folder / "floor_regions.json").read_text())["regions"]
@@ -473,7 +485,7 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     mehrin = {level: mehrin_floor(level) for level in MEHRIN_OFFSETS}
-    dxf2_segments, _, dxf2_connectors = multifloor_floor(2)
+    dxf2_segments, _, _ = multifloor_floor(2)
     dxf4_segments, _, _ = multifloor_floor(4)
     shift = align_to_mehrin(dxf2_segments, mehrin[4][0])
     check = align_to_mehrin(dxf4_segments, mehrin[4][0])
@@ -490,22 +502,32 @@ def main():
         return [(*to_mg(x1, y1), *to_mg(x2, y2)) for x1, y1, x2, y2 in segments]
 
     results, previews = {}, {}
-    # Second Floor: only the bridge entrance and the way to the stairs/lifts.
-    r2_connectors = [{"kind": "lift" if c["type"] == "lift" else "stairs", "name": c["type"], "xy": list(to_mg(*dxf_to_frame(*c["xy"])))}
-                     for c in dxf2_connectors]
+    # The bridge door on the Second Floor, from the multi-floor DXF.
     entrance = {"id": "rb2_bridge_entrance", "name": "Ramanujan Block (bridge entrance)", "category": "building",
                 "xy": list(to_mg(bridge_door[0], bridge_door[1] + 1.5)), "confidence": "medium",
                 "note": "Inside the bridge opening on Ramanujan's Second Floor (multi-floor DXF)."}
-    dxf2_in_frame = [(*dxf_to_frame(x1, y1), *dxf_to_frame(x2, y2)) for x1, y1, x2, y2 in dxf2_segments]
-    results[2], *previews[2] = build_floor(2, segs_to_mg(dxf2_in_frame), [], r2_connectors, args.output_dir, [entrance])
     for level, (segments, places, outlines) in mehrin.items():
         for place in places:
             place["xy"] = to_mg(*place["frame_xy"])
         outlines = [(semantic_id, [to_mg(x, y) for x, y in polygon]) for semantic_id, polygon in outlines]
-        rooms = [p for p in places if p["type"] not in ("vertical_transport", "staircase")]
         connectors = [{"kind": "lift" if p["type"] == "vertical_transport" else "stairs", "name": p["name"], "xy": list(p["xy"])}
                       for p in places if p["type"] in ("vertical_transport", "staircase")]
-        results[level], *previews[level] = build_floor(level, segs_to_mg(segments), rooms, connectors, args.output_dir, outlines=outlines)
+        rooms = [p for p in places if p["type"] not in ("vertical_transport", "staircase", *SKIP_TYPES) and p["name"] not in SKIP_NAMES]
+        # Rooms sharing a name with no number ("Class Room" x3) are told apart by their nearest stair or lift,
+        # which is signed on site (compass words would point the wrong way: the map is turned).
+        for name in {p["name"] for p in rooms}:
+            same = [p for p in rooms if p["name"] == name and not p.get("roomNumber")]
+            if len(same) < 2:
+                continue
+            for p in same:
+                near = min(connectors, key=lambda c: math.dist(c["xy"], p["xy"]))["name"]
+                p["name"] = f"{name} (near {near})"
+            for label in {p["name"] for p in same}:
+                twins = [p for p in same if p["name"] == label]
+                for i, p in enumerate(twins[1:], start=2):
+                    p["name"] = f"{label[:-1]}, {i})"
+        extra = [entrance] if level == BRIDGE_RAMANUJAN_FLOOR else []
+        results[level], *previews[level] = build_floor(level, segs_to_mg(segments), rooms, connectors, args.output_dir, extra, outlines=outlines)
         # Stairs and lifts are places too, under their shaft names.
         for c in results[level]["connectors"]:
             results[level]["destinations"].append({
@@ -533,8 +555,6 @@ def main():
             "stack_level": result["stack_level"],
             "graph": f"floor_{floor_key(level)}_walkable_graph.json", "walls": f"floor_{floor_key(level)}_walls.json",
             "rooms": f"floor_{floor_key(level)}_rooms.json",
-            # The Second Floor is only walked through, from the bridge to the stairs/lifts.
-            "transit_only": level == 2,
             # 3D model from the floor's IFC, when scripts/pilot_ifc_floor.py has made one.
             **({"ifc_model": f"floor_{floor_key(level)}_ifc.glb"} if (args.output_dir / f"floor_{floor_key(level)}_ifc.glb").exists() else {}),
         } for level, result in sorted(results.items())],
@@ -553,7 +573,7 @@ def main():
             "lift_board_weight_m": LIFT_BOARD_M,
             "lift_weight_m_per_floor": LIFT_FLOOR_M,
             "note": "All Ramanujan stairs and lifts are in normal use (project team, 2026-11-02). "
-                    "The Third Floor is not drawn; stairs and lifts pass through it.",
+                    "Ground to Sixth Floor all from Mehrin's data; the bridge door from the multi-floor DXF.",
         },
     }
     (args.output_dir / "building.json").write_text(json.dumps(building, indent=1))
