@@ -271,8 +271,11 @@ the visitor's phone:
   follows the current step like a phone map: only that step's floors, the
   camera behind the walker looking along the step, the person walking just
   that stretch, the rest of the route faint (`follow` in `MGeorgeBuilding3D`,
-  `stepStretch` in `mgeorgeRoute.js`). Indoors there is no positioning, so the
-  visitor moves on with **Next step**. On the last step the button
+  `stepStretch` in `mgeorgeRoute.js`). Indoors the phone's motion sensors
+  track the visitor along the route (next section); without them the visitor
+  moves on with **Next step**. On stairs, lifts, the bridge and the entrance
+  the button confirms the change ("I'm on the Third Floor", "I'm outside").
+  On the last step the button
   becomes **I have arrived · Stop**. After stopping, the link shows "You have
   arrived" even if reopened on that phone.
 - **Live location outside.** On routes that go outside, the phone watches GPS
@@ -297,6 +300,58 @@ the visitor's phone:
   the deployed site; the kiosk shows a setup warning until then.
 - The expiry is checked on the phone from the link, so it stops casual reuse
   but is not a security control: someone could edit the time in the URL.
+
+## Indoor tracking (route-anchored) and the research study
+
+Inside, GPS is tens of metres off and has no floor, so the phone tracks the
+visitor's **progress along the planned route** from its motion sensors, with
+no app and no beacons (`frontend/src/services/indoorTracker.js`, used by
+`hooks/useIndoorTracking.js`):
+
+- **Steps** (the bounce in the accelerometer) move the dot one stride along
+  the route; the steps move on by themselves as the dot reaches them.
+- **Corners:** a turn of 50° or more (the gyroscope's rotation about the
+  vertical) snaps the dot to the route's nearest unused corner, which resets
+  the error the steps build up.
+- **Stride:** outside, GPS snapped to the path against the steps counted
+  teaches the visitor's own stride (kept between 0.45 and 0.95 m; 0.70 m until
+  learned).
+- **Floors:** stairs, lifts, the bridge and the entrance are confirmed with
+  one tap; a tapped step also re-anchors the dot at its start.
+- Needs the https site; iPhones ask permission on **Start**. Without motion
+  sensors the phone says so and the visitor taps **Next step**.
+
+**Research mode.** Add `&research=1` to a phone route link. While walking, a
+panel shows what is recorded and offers **Mark spot N** (tap when standing on
+numbered spot N) and **Save log** (a JSON file on the phone: the route, raw
+motion readings, GPS fixes, step changes and marks; nothing about the person).
+
+**Running the study:**
+
+1. Choose 30-50 spots along 3-4 routes (gate to M. George, across the bridge,
+   up to Ramanujan rooms), number them, and write `spots.json` with each true
+   position: map metres, a place id or a graph node id, e.g.
+   `{"1": {"place": "mg1_tagore_library"}, "2": {"node": "MG01_N0123"}}`.
+2. Each walker opens the route link with `&research=1`, taps **Start**,
+   walks normally, taps **Mark spot** on each spot, and saves the log. Use
+   several people and phones (Android and iPhone). Ask for consent first.
+3. Compare the methods on the same walks:
+
+   ```bash
+   cd frontend
+   node scripts/replay-walk.mjs spots.json walk1.json walk2.json ...   # --json for raw numbers
+   ```
+
+   It reports the error (mean, median, 90th percentile, max) at the marked
+   spots for: GPS, free step-and-heading dead reckoning (`--turn-sign=-1` if
+   the phones report turns the other way), steps along the route, + corner
+   snapping, and the full method with the stride learned outdoors.
+
+`npm test` checks the tracker on simulated walks
+(`frontend/scripts/synthetic-walk.mjs`). On an 87 m simulated corridor the
+mean error falls from about 6 m (free dead reckoning) to 4 m (on the route),
+1.4 m (+ corners) and 0.3 m (+ learned stride). **These are simulations that
+check the code, not results;** only the campus walks give real numbers.
 
 ## OpenStreetMap layer and GPS
 
