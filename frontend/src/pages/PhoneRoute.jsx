@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CircleCheck, Clock, DoorOpen, Footprints, MapPin, Navigation, TimerOff } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CircleCheck, Clock, DoorOpen, Footprints, LocateFixed, LocateOff, MapPin, Navigation, Route, TimerOff } from 'lucide-react'
 import MGeorgeBuilding3D from '../components/navigation/MGeorgeBuilding3D'
-import { SITE, floorName, formatDuration, goesUp, loadBuilding, readPhoneLink, routeBounds, routeFromKiosk, routeScene, routeSummary, stepStretch } from '../services/mgeorgeRoute'
+import { SITE, floorName, formatDuration, goesUp, latLonToMap, loadBuilding, locateOnRoute, readPhoneLink, routeBounds, routeFrom, routeFromKiosk, routeScene, routeSummary, siteStart, stepStretch } from '../services/mgeorgeRoute'
 
 // Phone view of one route handed off from the kiosk by QR code. There is no
 // place picker and no other source: only the scanned route, until it expires
@@ -52,6 +52,44 @@ function useWakeLock(active) {
   }, [active])
 }
 
+// Outdoors only: inside buildings phone GPS is tens of metres off and has no floor.
+const GOOD_FIX_M = 25   // fixes less precise than this never move the steps on
+const ON_ROUTE_M = 15   // this close to a later step's path, the visitor has reached it
+const OFF_ROUTE_M = 25  // further than this from the path (and the fix's own error), they have left it
+
+/** Live GPS while `active`, in map metres: { status, xy, accuracy }. Needs https. */
+function useLiveLocation(active, osm) {
+  const [fix, setFix] = useState({ status: 'waiting' })
+  useEffect(() => {
+    if (!active || !window.isSecureContext || !navigator.geolocation || !osm) return undefined
+    const watch = navigator.geolocation.watchPosition(
+      ({ coords }) => setFix({ status: 'ok', xy: latLonToMap(osm, coords.latitude, coords.longitude), accuracy: coords.accuracy }),
+      // A timeout only means no fix yet; the watch keeps trying.
+      (error) => setFix((current) => (error.code === error.TIMEOUT ? current : { status: error.code === error.PERMISSION_DENIED ? 'denied' : 'unavailable' })),
+      { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 })
+    return () => navigator.geolocation.clearWatch(watch)
+  }, [active, osm])
+  if (!active) return { status: 'off' }
+  if (!window.isSecureContext) return { status: 'insecure' }
+  if (!navigator.geolocation || !osm) return { status: 'unavailable' }
+  return fix
+}
+
+function LocationStatus({ fix }) {
+  const text = {
+    waiting: 'Finding your location…',
+    ok: fix.accuracy > GOOD_FIX_M ? `Weak GPS signal (±${Math.round(fix.accuracy)} m). Tap Next step as you walk.` : `Live location on (±${Math.round(fix.accuracy)} m). Steps move on as you walk.`,
+    denied: 'Location is off. Tap Next step as you walk.',
+    unavailable: 'Live location is not available. Tap Next step as you walk.',
+    insecure: 'Live location needs the https link. Tap Next step as you walk.',
+  }[fix.status]
+  if (!text) return null
+  const live = fix.status === 'ok' && fix.accuracy <= GOOD_FIX_M
+  return <p className={`flex items-center gap-2 text-sm font-semibold ${live ? 'text-blue-700' : 'text-slate-500'}`}>
+    {live ? <LocateFixed className="h-4 w-4" /> : <LocateOff className="h-4 w-4" />}{text}
+  </p>
+}
+
 function Notice({ icon: Icon, title, children }) {
   return <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-cream-50 px-6 text-center">
     <Icon className="h-14 w-14 text-brand-500" />
@@ -94,7 +132,35 @@ export default function PhoneRoute() {
   }, [link, ended, expired])
 
   const destination = model?.destinations.find((place) => place.id === link?.to)
-  const route = useMemo(() => (model && destination ? routeFromKiosk(model, destination, { stepFree: link.stepFree }) : null), [model, destination, link])
+  // null: from the kiosk; else where the visitor asked to re-route from (siteStart).
+  const [start, setStart] = useState(null)
+  const route = useMemo(() => {
+    if (!model || !destination) return null
+    return start ? routeFrom(model, start, destination, { stepFree: link.stepFree }) : routeFromKiosk(model, destination, { stepFree: link.stepFree })
+  }, [model, destination, link, start])
+
+  // Live location on the route's outdoor parts: moves the steps on, and notices a wrong turn.
+  const outdoors = Boolean(route?.legs.some((leg) => leg.floor === SITE))
+  const fix = useLiveLocation(walking && outdoors, model?.osm)
+  const goodFix = fix.status === 'ok' && fix.accuracy <= GOOD_FIX_M
+  const here = useMemo(() => (goodFix && route ? locateOnRoute(route, fix.xy) : null), [goodFix, route, fix.xy])
+  // Reaching a later step's path moves the steps on, once per step reached, so
+  // Previous still works afterwards.
+  const reachedStep = here && here.offM <= Math.max(ON_ROUTE_M, fix.accuracy) ? here.stepIndex : null
+  const [lastReached, setLastReached] = useState(null)
+  if (reachedStep !== lastReached) {
+    setLastReached(reachedStep)
+    if (reachedStep !== null && stepIndex !== null && reachedStep > stepIndex) setStepIndex(reachedStep)
+  }
+  const offRoute = Boolean(here && walking && route.steps[stepIndex]?.floor === SITE && here.offM > Math.max(OFF_ROUTE_M, fix.accuracy * 1.5))
+  // The dot sits on the path while the visitor follows it, and where GPS puts them once they leave it.
+  const live = fix.status === 'ok' ? { xy: here && !offRoute ? here.xy : fix.xy, accuracy: fix.accuracy } : null
+  const rerouteFromHere = () => {
+    const from = siteStart(model, fix.xy)
+    if (!from) return
+    setStart(from)
+    setStepIndex(0)
+  }
 
   if (!link) return <Notice icon={TimerOff} title="This link is not complete">Please scan the QR code on the NAVIKA kiosk again.</Notice>
   if (ended) return <Notice icon={CircleCheck} title="You have arrived">Navigation has ended. For another place, scan a new QR code at the NAVIKA kiosk.</Notice>
@@ -104,7 +170,9 @@ export default function PhoneRoute() {
   if (!destination || !route) return <Notice icon={TimerOff} title="Route not found">This place is no longer on the map. Please ask at reception.</Notice>
 
   // Overview: the whole route. Walking: only the floors of the current step, the camera following it.
-  const scene = walking ? stepScene(model, route, stepIndex) : routeScene(model, route, destination)
+  const stepView = walking ? stepScene(model, route, stepIndex) : routeScene(model, route, destination)
+  // Off the path: stop following and frame both the step and the visitor, so they can see the way back.
+  const scene = offRoute ? { ...stepView, follow: null, focus: routeBounds([...stepView.follow.map((point) => point.xy), live.xy], 20, 8) } : stepView
   const minutesLeft = Math.max(1, Math.ceil((link.expiresAt - now) / 60_000))
   const step = walking ? route.steps[stepIndex] : null
   const lastStep = walking && stepIndex === route.steps.length - 1
@@ -115,7 +183,7 @@ export default function PhoneRoute() {
 
   return <div className="flex min-h-screen flex-col bg-cream-50 text-ink-900">
     <header className="space-y-1 border-b-[3px] border-ink-900 bg-white px-4 pb-3 pt-4">
-      <p className="text-sm text-slate-500">From <span className="font-semibold text-slate-700">Reception kiosk, M. George Block</span></p>
+      <p className="text-sm text-slate-500">From <span className="font-semibold text-slate-700">{start ? 'where you re-routed' : 'Reception kiosk, M. George Block'}</span></p>
       <h1 className="text-2xl font-black leading-tight">{destination.name}</h1>
       <p className="flex flex-wrap items-center gap-x-3 text-base text-slate-600">
         <span>{destination.floorName}</span>
@@ -125,8 +193,8 @@ export default function PhoneRoute() {
     </header>
 
     <section className="h-[46vh] min-h-[300px] border-b-[3px] border-ink-900">
-      <MGeorgeBuilding3D model={model} floors={scene.floors} labelFloors={walking ? scene.floors : destination.floor === SITE ? [] : [destination.floor]} route={route}
-        destination={destination} showSite={scene.outside} focus={scene.focus} follow={scene.follow} />
+      <MGeorgeBuilding3D key={offRoute ? 'off-route' : 'on-route'} model={model} floors={scene.floors} labelFloors={walking ? scene.floors : destination.floor === SITE ? [] : [destination.floor]} route={route}
+        destination={destination} showSite={scene.outside} focus={scene.focus} follow={scene.follow} live={live} />
     </section>
 
     <main className="flex flex-1 flex-col gap-4 px-4 py-4">
@@ -151,6 +219,13 @@ export default function PhoneRoute() {
             </span>
             <p className="text-xl font-semibold leading-8">{step.text}</p>
           </div>
+          {outdoors && <LocationStatus fix={fix} />}
+          {offRoute && <div role="alert" className="space-y-3 rounded-xl border-[3px] border-ink-900 bg-amber-50 p-4">
+            <p className="text-lg font-bold text-amber-900">You seem to be off the path (about {Math.round(here.offM)} m away).</p>
+            <button type="button" onClick={rerouteFromHere} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 py-3 text-lg font-bold text-ink-900">
+              <Route className="h-5 w-5" />Re-route from here
+            </button>
+          </div>}
           <div className="mt-auto space-y-3">
             {lastStep
               ? <button type="button" onClick={stop} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-red-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
