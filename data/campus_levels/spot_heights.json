@@ -1,0 +1,253 @@
+{
+ "how_to": [
+  "Use any phone app that shows air pressure in hPa (for example Physics Toolbox Sensor Suite). Use the same phone all walk.",
+  "Hold the phone at waist height, wait about 10 seconds for the number to settle, then write the time (HH:MM) and the pressure.",
+  "Start at the entrance, visit the spots in any order, and end at the entrance again (this corrects for the weather).",
+  "Finish within about an hour. Skip a spot rather than guess. height_m can be given instead of pressure when it is known (e.g. stair steps x 0.15 m)."
+ ],
+ "temperature_c": 30,
+ "spots": [
+  {
+   "id": "entrance",
+   "name": "Main entrance, just outside the doors. Read here FIRST and LAST.",
+   "xy": [
+    8.66,
+    -27.15
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    },
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_00",
+   "name": "Workshop Building: at its door or edge, on the ground",
+   "xy": [
+    -68.55,
+    -62.48
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_01",
+   "name": "Ladies Hostel: at its door or edge, on the ground",
+   "xy": [
+    -233.87,
+    -15.27
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_02",
+   "name": "Basketball Court (Michael Jordan Arena): at its door or edge, on the ground",
+   "xy": [
+    57.8,
+    -45.11
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_03",
+   "name": "Canteen: at its door or edge, on the ground",
+   "xy": [
+    94.34,
+    -37.75
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_04",
+   "name": "Hostel Block: at its door or edge, on the ground",
+   "xy": [
+    -238.68,
+    -69.87
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_05",
+   "name": "Vikram Sarabhai Auditorium: at its door or edge, on the ground",
+   "xy": [
+    -45.07,
+    1.58
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_07",
+   "name": "Parking Ground: at its door or edge, on the ground",
+   "xy": [
+    -18.27,
+    -52.27
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_08",
+   "name": "Volleyball Court (Jimmi George Arena): at its door or edge, on the ground",
+   "xy": [
+    29.25,
+    -41.4
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "site_09",
+   "name": "Two-wheeler Parking: at its door or edge, on the ground",
+   "xy": [
+    127.79,
+    28.69
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "osm_1016036747",
+   "name": "Mens Hostel: at its main door",
+   "xy": [
+    -369.46,
+    -109.82
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "osm_1178348405",
+   "name": "Cafe: at its main door",
+   "xy": [
+    3.12,
+    -41.68
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "osm_area_oopli_chira",
+   "name": "Oopli Chira: centre",
+   "xy": [
+    -427.09,
+    -107.73
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "osm_area_sachin_tendulkar_arena",
+   "name": "Sachin Tendulkar Arena: centre",
+   "xy": [
+    -164.93,
+    -61.35
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "osm_area_cricket_net",
+   "name": "Cricket Net: centre",
+   "xy": [
+    -165.02,
+    -76.1
+   ],
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "mgeorge_ground_floor_door",
+   "name": "M. George Ground Floor: where it opens to the outside (write where, or give lat/lon)",
+   "xy": null,
+   "where": "",
+   "lat": null,
+   "lon": null,
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  },
+  {
+   "id": "ramanujan_ground_door",
+   "name": "Ramanujan Block: its lowest outside door (write where, or give lat/lon)",
+   "xy": null,
+   "where": "",
+   "lat": null,
+   "lon": null,
+   "readings": [
+    {
+     "time": "",
+     "pressure_hpa": null
+    }
+   ]
+  }
+ ]
+}
