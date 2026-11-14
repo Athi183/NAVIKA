@@ -94,7 +94,18 @@ export async function loadBuilding() {
     .catch(() => null)
   // Storey outlines for the 3D campus view (scripts/build_campus_massing.py); optional.
   const massing = await fetchJson('campus_massing.json', '/data').catch(() => null)
-  return { ...prepareBuilding(building, floors, site, ramanujan ? [ramanujan] : []), massing }
+  // OpenStreetMap layer and GPS conversion (scripts/build_campus_osm.py); optional.
+  const osm = await fetchJson('campus_osm.json', '/data').catch(() => null)
+  return { ...prepareBuilding(building, floors, site, ramanujan ? [ramanujan] : []), massing, osm }
+}
+
+/** A GPS position (degrees) in map metres, using the OpenStreetMap fit; null without it. */
+export function latLonToMap(osm, lat, lon) {
+  if (!osm?.geo) return null
+  const { lat0, lon0, matrix: [[a, b], [c, d]], shift: [sx, sy] } = osm.geo
+  const east = (lon - lon0) * 111320 * Math.cos((lat0 * Math.PI) / 180)
+  const north = (lat - lat0) * 110574
+  return [a * east + b * north + sx, c * east + d * north + sy]
 }
 
 /**

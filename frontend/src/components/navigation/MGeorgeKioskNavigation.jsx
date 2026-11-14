@@ -242,6 +242,7 @@ function KioskHome({ model, lastPlace, onRoute, onThanks }) {
           <button type="button" onClick={backToMe} className="flex h-14 items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 text-base font-bold text-ink-900 shadow-[3px_3px_0_0_#160f0f]"><LocateFixed className="h-6 w-6" />Back to me</button>
         </div>
         <p className="pointer-events-none absolute right-3 top-3 rounded-full bg-black/55 px-3 py-1.5 text-sm font-medium text-white">Drag to turn · pinch to zoom</p>
+        {scene.massing && model.osm && <p className="pointer-events-none absolute bottom-3 right-3 rounded bg-white/85 px-2 py-0.5 text-xs text-slate-700">{model.osm.attribution}</p>}
       </section>
 
       <aside className="flex min-h-0 flex-col gap-3 overflow-y-auto">

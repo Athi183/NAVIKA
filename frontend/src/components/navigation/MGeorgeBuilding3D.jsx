@@ -6,6 +6,7 @@ import { NAV_BLUE, NAV_BLUE_EDGE, NAV_WALKED, cumulativeLengths, routeProgress }
 import { levelOf as levelOfFloor } from '../../services/mgeorgeRoute'
 import VerticalCores from './VerticalCores'
 import CampusBlocks from './CampusBlocks'
+import CampusOsmLayer from './CampusOsmLayer'
 
 // Same look as the Ramanujan viewer (ramanujan-viewer/src/App.tsx): dark scene,
 // extruded brick walls, room floors coloured by type, floating labels.
@@ -298,7 +299,8 @@ function SiteGround({ site, onPick, onPickPoint, labelSize = 2.4, labelLift = 0,
   const depth = mask.rows * mask.cell_m
   const centre = [mask.origin_xy[0] + width / 2, mask.origin_xy[1] + depth / 2]
   return <group>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(centre, -0.08)}>
+    {/* Well below the paths: from far away, closer layers would flicker into each other. */}
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(centre, -0.6)}>
       <planeGeometry args={[width + 40, depth + 40]} />
       <meshStandardMaterial color="#2f4a36" roughness={1} />
     </mesh>
@@ -458,6 +460,8 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
         highlightId={destination?.floor === number ? destination.id : null} onPick={onPick} onPickPoint={onPickPoint} labelScale={route ? 1 : 1.6} />
     </group>)}
     {massing && model.massing && <CampusBlocks massing={model.massing} siteLevel={siteLevel} bridges={model.bridges} onPickBuilding={onPickBuilding} />}
+    {massing && model.osm && <CampusOsmLayer osm={model.osm}
+      onPickPlace={onPick ? (id) => { const place = model.destinations.find((item) => item.id === id); if (place) onPick(place) } : null} />}
 
     {shown.length > 1 && <VerticalCores model={model} floors={shown} levelY={levelY} highlight={usedShafts} />}
 

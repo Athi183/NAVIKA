@@ -23,7 +23,7 @@ function shapeOf({ outer, holes }) {
 }
 
 /** One storey: a wall-coloured block with a darker floor band under it. */
-function Storey({ parts, base, height, look }) {
+export function Storey({ parts, base, height, look }) {
   const [body, band] = useMemo(() => {
     const shapes = parts.map(shapeOf)
     return [
