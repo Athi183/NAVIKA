@@ -185,9 +185,12 @@ names and positions, room outlines), aligned by her `stackedFloorConfig.ts`.
 - **Places:** 59 on floors 4-6, named as in Mehrin's data with the room number
   added, e.g. *S5/S6 CSE-A Class Room (601)*, so searching "601" works.
   Rooms are coloured from her room outlines.
-- **Position:** Ramanujan is placed by the bridge alone (its door 15 m west of
-  M. George's, turned to face it). **The bridge length is a guess (15 m);
-  measure it on site** and set `BRIDGE_LENGTH_M`.
+- **Position:** Ramanujan is placed by the bridge alone (its door
+  `BRIDGE_LENGTH_M` west of M. George's, turned to face it). The bridge is not
+  measured: it was 15 m until OpenStreetMap's outlines put the two buildings
+  8.5 m apart, so it is now 10 m (our map: 8.4 m apart). **Measure it on site**
+  and set `BRIDGE_LENGTH_M`, then rebuild Ramanujan, the IFC pilot, the storey
+  outlines and the OSM layer (see Commands).
 - Room numbers run one ahead of the floor (5xx on the Fourth Floor, 6xx on
   the Fifth), as in the drawings. Floor names follow the drawings.
 
@@ -231,8 +234,10 @@ at a time.
   building opens it. Outlines come from `scripts/build_campus_massing.py`
   (`frontend/public/data/campus_massing.json`). Ramanujan's Ground, First and
   Third Floors are not drawn, so they borrow the outline of the floor above.
-  Other campus buildings are only labels on the campus plan, so they appear as
-  labels, not blocks.
+  Around them, from OpenStreetMap (next section): the hostels, labs, canteen,
+  cafe and the open-air auditorium roof, grass, sports pitches, parking,
+  ponds, trees and the campus boundary. Tapping a building that is also a
+  campus place (the canteen, Ladies Hostel...) chooses that place.
 - **Stacked floors** (the **All** button, and routes that change floor) show
   the lifts and stairs in use the way Mehrin's Ramanujan viewer draws them:
   see-through shafts with doors at each floor, and switchback stairs with
@@ -280,6 +285,50 @@ the visitor's phone:
 - The expiry is checked on the phone from the link, so it stops casual reuse
   but is not a security control: someone could edit the time in the URL.
 
+## OpenStreetMap layer and GPS
+
+`scripts/build_campus_osm.py` reads OpenStreetMap data for the campus, cached
+in `data/original_sources/campus/osm_mits_campus.osm` (`--download` refreshes
+it), and writes `frontend/public/data/campus_osm.json`.
+
+- **Licence:** OSM data is ODbL. Wherever the layer is drawn the map shows
+  "© OpenStreetMap contributors" (the kiosk map does, bottom right).
+- **Fit:** OSM's M. George outline is fitted onto ours (rotation, scale,
+  shift): median 1.1 m apart, 90% within 5.4 m. The same fit turns GPS into
+  map metres: `latLonToMap(model.osm, lat, lon)` in `mgeorgeRoute.js`, for a
+  future outdoor blue dot. Check it once on site at the main entrance.
+- **Buildings:** M. George and Ramanujan stay from the CAD drawings. The rest
+  come from OSM; only M. George and Ramanujan have floor counts there, so the
+  others are estimates (hostels 4, labs, canteen and cafe 1).
+- **Place links** pair a building with a campus place by shared name words
+  (girls = ladies, workshop = lab) within 60 m. **To confirm on site:** New
+  Hostel is linked to the plan's "Hostel Block" and Men's Hostel to nothing.
+- **Trees:** 27 mapped in OSM, plus about 150 decorative ones spaced over
+  the grass (marked `decorative`), not surveyed.
+
+## Deploying for feedback (Vercel)
+
+Navigation runs entirely in the browser (static files, routes worked out on
+the device), so the website alone can be hosted free on Vercel:
+
+1. Sign in at vercel.com with the GitHub account that owns the repo, **Add
+   New → Project**, import `NAVIKA`.
+2. **Root Directory:** `frontend`. Vercel detects Vite (build `npm run build`,
+   output `dist`). Leave the other settings as they are.
+3. Deploy. Every push to `main` redeploys; other branches get preview links.
+
+`frontend/vercel.json` sends paths such as `/navigation` and `/route?...` to the
+app, so links opened directly (QR codes, refreshes) work.
+`VITE_NAVIKA_BASE_URL` is not needed there: QR links use the site's own
+address, and over https they open on any phone (mobile data too) and can keep
+the screen on. The local `.env.local` is git-ignored and never uploaded.
+
+Ask NAVIKA needs its Python backend (torch, sentence-transformers, FAISS,
+Groq; about 2-3 GB of memory), which Vercel cannot run. Until it is hosted
+(e.g. a Hugging Face Docker Space, with `GROQ_API_KEY` as a secret, and
+`VITE_API_BASE_URL` set on Vercel to its address), the Ask NAVIKA page cannot
+answer on the deployed site.
+
 ## Commands
 
 ```bash
@@ -294,6 +343,9 @@ PYTHONPATH=scripts .venv/bin/python scripts/build_ramanujan_nav_graph.py --previ
 
 # storey outlines for the 3D campus view (run after both buildings)
 PYTHONPATH=scripts .venv/bin/python scripts/build_campus_massing.py
+
+# OpenStreetMap layer and GPS fit (after the storey outlines)
+PYTHONPATH=scripts .venv/bin/python scripts/build_campus_osm.py
 
 # one floor only (no building.json)
 .venv/bin/python scripts/build_mgeorge_nav_graph.py --floor 1 --preview inspection_navigation/mgeorge_floor01_walkable_preview.png
@@ -316,8 +368,8 @@ at `/navigation?view=indoor|mgeorge|campus`.
 - **On-site checks:** the exact kiosk position; the First Floor Gents Toilet
   entrance, Admission Cell and Students Activity Center; PDF room positions
   (expected within about 2 m); the real storey height (3.3 m assumed).
-- **Ramanujan Block:** measure the bridge (15 m assumed) and confirm both
-  bridge doors on site.
+- **Ramanujan Block:** measure the bridge (10 m from OpenStreetMap, not
+  measured) and confirm both bridge doors on site.
 - **Campus:** the Auditorium is only a label on the campus plan, so its route
   ends on the nearest path. Gates and the security cabin
   are not labelled. Outdoor routes only leave through the main entrance.
