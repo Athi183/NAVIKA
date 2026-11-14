@@ -96,7 +96,24 @@ export async function loadBuilding() {
   const massing = await fetchJson('campus_massing.json', '/data').catch(() => null)
   // OpenStreetMap layer and GPS conversion (scripts/build_campus_osm.py); optional.
   const osm = await fetchJson('campus_osm.json', '/data').catch(() => null)
-  return { ...prepareBuilding(building, floors, site, ramanujan ? [ramanujan] : []), massing, osm }
+  // Ground heights (scripts/build_campus_terrain.py), once enough spots are measured;
+  // `?terrain=preview` shows them before that.
+  const terrainFile = await fetchJson('campus_terrain.json', '/data').catch(() => null)
+  const terrain = terrainFile && (terrainFile.ready || new URLSearchParams(window.location.search).get('terrain') === 'preview') ? terrainFile : null
+  return { ...prepareBuilding(building, floors, site, ramanujan ? [ramanujan] : []), massing, osm, terrain }
+}
+
+/** Ground height in metres above the main entrance at a map point outside; 0 without terrain. */
+export function terrainHeight(terrain, [x, y]) {
+  if (!terrain) return 0
+  const { origin_xy: [x0, y0], cell_m: cell, cols, rows, heights_cm: heights } = terrain
+  const c = Math.min(cols - 1, Math.max(0, (x - x0) / cell))
+  const r = Math.min(rows - 1, Math.max(0, (y - y0) / cell))
+  const [c0, r0] = [Math.floor(c), Math.floor(r)]
+  const [c1, r1] = [Math.min(c0 + 1, cols - 1), Math.min(r0 + 1, rows - 1)]
+  const at = (row, col) => heights[row * cols + col] / 100
+  const [fc, fr] = [c - c0, r - r0]
+  return (at(r0, c0) * (1 - fc) + at(r0, c1) * fc) * (1 - fr) + (at(r1, c0) * (1 - fc) + at(r1, c1) * fc) * fr
 }
 
 /** A GPS position (degrees) in map metres, using the OpenStreetMap fit; null without it. */

@@ -3,10 +3,11 @@ import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Billboard, Html, Line, OrbitControls, Text, useGLTF, useTexture } from '@react-three/drei'
 import { NAV_BLUE, NAV_BLUE_EDGE, NAV_WALKED, cumulativeLengths, routeProgress } from './navigationStyle'
-import { levelOf as levelOfFloor } from '../../services/mgeorgeRoute'
+import { levelOf as levelOfFloor, terrainHeight } from '../../services/mgeorgeRoute'
 import VerticalCores from './VerticalCores'
 import CampusBlocks from './CampusBlocks'
 import CampusOsmLayer from './CampusOsmLayer'
+import CampusGround from './CampusGround'
 
 // Same look as the Ramanujan viewer (ramanujan-viewer/src/App.tsx): dark scene,
 // extruded brick walls, room floors coloured by type, floating labels.
@@ -281,47 +282,20 @@ function FollowCamera({ points }) {
 }
 
 /** Campus paths as a texture: walkable cells light grey on a green ground. */
-function SiteGround({ site, onPick, onPickPoint, labelSize = 2.4, labelLift = 0, hidden = new Set() }) {
-  const mask = site.mask
-  const texture = useMemo(() => {
-    const data = new Uint8Array(mask.rows * mask.cols * 4)
-    for (let i = 0; i < mask.rows * mask.cols; i += 1) {
-      const on = (mask.bytes[i >> 3] >> (7 - (i & 7))) & 1
-      data.set(on ? [205, 211, 220, 255] : [0, 0, 0, 0], i * 4)
-    }
-    const tex = new THREE.DataTexture(data, mask.cols, mask.rows, THREE.RGBAFormat)
-    tex.colorSpace = THREE.SRGBColorSpace
-    tex.magFilter = THREE.LinearFilter
-    tex.needsUpdate = true
-    return tex
-  }, [mask])
-  const width = mask.cols * mask.cell_m
-  const depth = mask.rows * mask.cell_m
-  const centre = [mask.origin_xy[0] + width / 2, mask.origin_xy[1] + depth / 2]
-  return <group>
-    {/* Well below the paths: from far away, closer layers would flicker into each other. */}
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(centre, -0.6)}>
-      <planeGeometry args={[width + 40, depth + 40]} />
-      <meshStandardMaterial color="#2f4a36" roughness={1} />
-    </mesh>
-    {/* DataTexture rows run south to north, matching the plane's +Y = north. */}
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(centre, -0.04)} onClick={pointPicker(onPickPoint, 'site')}>
-      <planeGeometry args={[width, depth]} />
-      <meshStandardMaterial map={texture} transparent alphaTest={0.5} roughness={1} />
-    </mesh>
-    <Suspense fallback={null}>
-      {site.graph.destinations.filter((place) => !hidden.has(place.name)).map((place) => <group key={place.id}>
-        <mesh position={xz(place.xy, 1.5)}><cylinderGeometry args={[0.8, 0.8, 3, 16]} /><meshStandardMaterial color="#F6D878" /></mesh>
-        <Billboard position={xz(place.xy, 4 + labelSize * 1.5 + labelLift)}>
-          <Text font={LABEL_FONT} fontSize={labelSize} color="#ffffff" outlineWidth={labelSize * 0.06} outlineColor={BACKGROUND} maxWidth={labelSize * 12} textAlign="center" anchorX="center" anchorY="middle"
-            onClick={onPick ? (event) => { event.stopPropagation(); onPick({ ...place, floor: 'site', floorName: 'Outside (campus)' }) } : undefined}>
-            {/* Short form on the map: "Basketball Court", not the full arena name. */}
-            {place.name.replace(/\s*\(.*\)$/, '')}
-          </Text>
-        </Billboard>
-      </group>)}
-    </Suspense>
-  </group>
+/** Campus places outside: a marker post and a name, standing on the ground (`ground(xy)` = its height). */
+function SiteGround({ site, onPick, ground, labelSize = 2.4, labelLift = 0, hidden = new Set() }) {
+  return <Suspense fallback={null}>
+    {site.graph.destinations.filter((place) => !hidden.has(place.name)).map((place) => <group key={place.id} position={[0, ground(place.xy), 0]}>
+      <mesh position={xz(place.xy, 1.5)}><cylinderGeometry args={[0.8, 0.8, 3, 16]} /><meshStandardMaterial color="#F6D878" /></mesh>
+      <Billboard position={xz(place.xy, 4 + labelSize * 1.5 + labelLift)}>
+        <Text font={LABEL_FONT} fontSize={labelSize} color="#ffffff" outlineWidth={labelSize * 0.06} outlineColor={BACKGROUND} maxWidth={labelSize * 12} textAlign="center" anchorX="center" anchorY="middle"
+          onClick={onPick ? (event) => { event.stopPropagation(); onPick({ ...place, floor: 'site', floorName: 'Outside (campus)' }) } : undefined}>
+          {/* Short form on the map: "Basketball Court", not the full arena name. */}
+          {place.name.replace(/\s*\(.*\)$/, '')}
+        </Text>
+      </Billboard>
+    </group>)}
+  </Suspense>
 }
 
 function LocationDot({ position }) {
@@ -419,7 +393,9 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
   const centre = [(area.minX + area.maxX) / 2, height / 2, -(area.minY + area.maxY) / 2]
   const span = Math.max(area.maxX - area.minX, (area.maxY - area.minY) * 1.6) + height * 0.8
   const wallHeight = route ? ROUTE_WALL_HEIGHT : WALL_HEIGHT
-  const lift = useCallback((floor, [x, y]) => [x, Math.max(0, levels.indexOf(storey(floor))) * FLOOR_GAP + 0.2, -y], [levels, storey])
+  // Height of the campus ground outside (0 = the main entrance) once the terrain is measured.
+  const ground = useCallback((xy) => terrainHeight(model.terrain, xy), [model.terrain])
+  const lift = useCallback((floor, [x, y]) => [x, Math.max(0, levels.indexOf(storey(floor))) * FLOOR_GAP + 0.2 + (floor === 'site' ? ground([x, y]) : 0), -y], [levels, storey, ground])
   const routePoints = useMemo(() => route && !follow
     ? route.legs.flatMap((leg) => leg.points.map((point) => lift(leg.floor, point)))
     : null, [route, follow, lift])
@@ -450,19 +426,24 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
           ? [centre[0] + span * 0.42, centre[1] + span * 0.42, centre[2]]
           : [centre[0], centre[1] + span * 0.42, centre[2] + span * 0.55]
 
-  return <Canvas camera={{ position: camera, fov: 50 }} gl={{ antialias: true }}>
+  // Credits for the outdoor data, wherever the campus ground is drawn.
+  const credits = showSite ? [model.osm?.attribution, model.terrain?.attribution].filter(Boolean).join(' · ') : ''
+  return <div className="relative h-full w-full"><Canvas camera={{ position: camera, fov: 50 }} gl={{ antialias: true }}>
     <color attach="background" args={[BACKGROUND]} />
     <ambientLight intensity={0.9} />
     <directionalLight position={[centre[0] + 20, 80, centre[2] + 30]} intensity={1.25} />
     {!showSite && <gridHelper args={[180, 90, '#3b3b44', '#2c2c33']} position={[centre[0], -0.3, centre[2]]} />}
-    {showSite && model.site && <group position={[0, levelY(siteLevel), 0]}><SiteGround site={model.site} onPick={onPick} onPickPoint={onPickPoint} labelSize={route ? 2.4 : massing ? 3.4 : 6} labelLift={massing ? 8 : 0} hidden={hiddenSiteLabels} /></group>}
+    {showSite && model.site && <group position={[0, levelY(siteLevel), 0]}>
+      <CampusGround site={model.site} osm={model.osm} terrain={model.terrain} onClick={pointPicker(onPickPoint, 'site')} />
+      <SiteGround site={model.site} onPick={onPick} ground={ground} labelSize={route ? 2.4 : massing ? 3.4 : 6} labelLift={massing ? 8 : 0} hidden={hiddenSiteLabels} />
+    </group>}
 
     {shown.map((number) => <group key={number} position={[0, levelY(number), 0]}>
       <FloorModel floor={model.byFloor.get(number)} wallHeight={wallHeight} showLabels={labelFloors.includes(number)}
         highlightId={destination?.floor === number ? destination.id : null} onPick={onPick} onPickPoint={onPickPoint} labelScale={route ? 1 : 1.6} />
     </group>)}
     {massing && model.massing && <CampusBlocks massing={model.massing} siteLevel={siteLevel} bridges={model.bridges} onPickBuilding={onPickBuilding} />}
-    {massing && model.osm && <CampusOsmLayer osm={model.osm}
+    {massing && model.osm && <CampusOsmLayer osm={model.osm} ground={ground}
       onPickPlace={onPick ? (id) => { const place = model.destinations.find((item) => item.id === id); if (place) onPick(place) } : null} />}
 
     {shown.length > 1 && <VerticalCores model={model} floors={shown} levelY={levelY} highlight={usedShafts} />}
@@ -478,17 +459,17 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
     </>}
 
     {live && (live.floor === 'site' ? showSite : shown.includes(live.floor)) && <>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(live.xy, levelY(live.floor === 'site' ? siteLevel : live.floor) + 0.3)} renderOrder={16}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(live.xy, levelY(live.floor === 'site' ? siteLevel : live.floor) + 0.3 + (live.floor === 'site' ? ground(live.xy) : 0))} renderOrder={16}>
         <circleGeometry args={[Math.max(2, live.accuracy), 48]} />
         <meshBasicMaterial color={NAV_BLUE} {...onTop} opacity={0.14} />
       </mesh>
-      <LocationDot position={xz(live.xy, levelY(live.floor === 'site' ? siteLevel : live.floor) + 0.5)} />
+      <LocationDot position={xz(live.xy, levelY(live.floor === 'site' ? siteLevel : live.floor) + 0.5 + (live.floor === 'site' ? ground(live.xy) : 0))} />
     </>}
     {routePoints && routePoints.length > 1 && <WalkingRoute points={routePoints} />}
     {outline && <RouteOutline legs={outline} />}
     {stretch && <WalkingRoute points={stretch} personScale={FOLLOW_PERSON_SCALE} />}
     {stretch && <FollowCamera points={stretch} />}
-    {pin && (shown.includes(destination.floor) || destination.floor === 'site') && <Html position={xz(pin, levelY(destination.floor) + 0.3)} center zIndexRange={[30, 0]}>
+    {pin && (shown.includes(destination.floor) || destination.floor === 'site') && <Html position={xz(pin, levelY(destination.floor) + 0.3 + (destination.floor === 'site' ? ground(pin) : 0))} center zIndexRange={[30, 0]}>
       {/* Lift the pin so its tip, not its middle, sits on the destination. */}
       <div style={{ transform: 'translateY(-50%)' }}><MapPinIcon /></div>
     </Html>}
@@ -497,4 +478,6 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
     <FitToScreen centre={centre} width={area.maxX - area.minX + height * 0.8} depth={area.maxY - area.minY} />
     <OrbitControls makeDefault target={centre} enableDamping maxPolarAngle={Math.PI / 2.1} minDistance={8} maxDistance={showSite ? 700 : 260} />
   </Canvas>
+  {credits && <p className="pointer-events-none absolute bottom-1 right-1 rounded bg-white/85 px-2 py-0.5 text-[11px] text-slate-700">{credits}</p>}
+  </div>
 }
