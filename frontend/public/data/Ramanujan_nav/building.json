@@ -4,6 +4,26 @@
  "review_status": "auto_generated_requires_review",
  "floors": [
   {
+   "floor_number": "R0",
+   "level": 0,
+   "label": "Ground Floor",
+   "elevation_m": 3.3,
+   "stack_level": 1,
+   "graph": "floor_R0_walkable_graph.json",
+   "walls": "floor_R0_walls.json",
+   "rooms": "floor_R0_rooms.json"
+  },
+  {
+   "floor_number": "R1",
+   "level": 1,
+   "label": "First Floor",
+   "elevation_m": 6.6,
+   "stack_level": 2,
+   "graph": "floor_R1_walkable_graph.json",
+   "walls": "floor_R1_walls.json",
+   "rooms": "floor_R1_rooms.json"
+  },
+  {
    "floor_number": "R2",
    "level": 2,
    "label": "Second Floor",
@@ -11,8 +31,17 @@
    "stack_level": 3,
    "graph": "floor_R2_walkable_graph.json",
    "walls": "floor_R2_walls.json",
-   "rooms": "floor_R2_rooms.json",
-   "transit_only": true
+   "rooms": "floor_R2_rooms.json"
+  },
+  {
+   "floor_number": "R3",
+   "level": 3,
+   "label": "Third Floor",
+   "elevation_m": 13.2,
+   "stack_level": 4,
+   "graph": "floor_R3_walkable_graph.json",
+   "walls": "floor_R3_walls.json",
+   "rooms": "floor_R3_rooms.json"
   },
   {
    "floor_number": "R4",
@@ -22,8 +51,7 @@
    "stack_level": 5,
    "graph": "floor_R4_walkable_graph.json",
    "walls": "floor_R4_walls.json",
-   "rooms": "floor_R4_rooms.json",
-   "transit_only": false
+   "rooms": "floor_R4_rooms.json"
   },
   {
    "floor_number": "R5",
@@ -34,7 +62,6 @@
    "graph": "floor_R5_walkable_graph.json",
    "walls": "floor_R5_walls.json",
    "rooms": "floor_R5_rooms.json",
-   "transit_only": false,
    "ifc_model": "floor_R5_ifc.glb"
   },
   {
@@ -45,8 +72,7 @@
    "stack_level": 7,
    "graph": "floor_R6_walkable_graph.json",
    "walls": "floor_R6_walls.json",
-   "rooms": "floor_R6_rooms.json",
-   "transit_only": false
+   "rooms": "floor_R6_rooms.json"
   }
  ],
  "shafts": [
@@ -57,13 +83,19 @@
    "routable": true,
    "in_normal_use": true,
    "floors": [
+    "R0",
+    "R1",
     "R2",
+    "R3",
     "R4",
     "R5",
     "R6"
    ],
    "connectors": {
+    "R0": "RB00_C01",
+    "R1": "RB01_C01",
     "R2": "RB02_C01",
+    "R3": "RB03_C01",
     "R4": "RB04_C00",
     "R5": "RB05_C00",
     "R6": "RB06_C00"
@@ -76,13 +108,19 @@
    "routable": true,
    "in_normal_use": true,
    "floors": [
+    "R0",
+    "R1",
     "R2",
+    "R3",
     "R4",
     "R5",
     "R6"
    ],
    "connectors": {
+    "R0": "RB00_C00",
+    "R1": "RB01_C00",
     "R2": "RB02_C00",
+    "R3": "RB03_C00",
     "R4": "RB04_C01",
     "R5": "RB05_C01",
     "R6": "RB06_C01"
@@ -95,13 +133,19 @@
    "routable": true,
    "in_normal_use": true,
    "floors": [
+    "R0",
+    "R1",
     "R2",
+    "R3",
     "R4",
     "R5",
     "R6"
    ],
    "connectors": {
+    "R0": "RB00_C03",
+    "R1": "RB01_C03",
     "R2": "RB02_C03",
+    "R3": "RB03_C03",
     "R4": "RB04_C02",
     "R5": "RB05_C03",
     "R6": "RB06_C03"
@@ -114,13 +158,19 @@
    "routable": true,
    "in_normal_use": true,
    "floors": [
+    "R0",
+    "R1",
     "R2",
+    "R3",
     "R4",
     "R5",
     "R6"
    ],
    "connectors": {
+    "R0": "RB00_C04",
+    "R1": "RB01_C04",
     "R2": "RB02_C04",
+    "R3": "RB03_C04",
     "R4": "RB04_C03",
     "R5": "RB05_C04",
     "R6": "RB06_C04"
@@ -133,13 +183,19 @@
    "routable": true,
    "in_normal_use": true,
    "floors": [
+    "R0",
+    "R1",
     "R2",
+    "R3",
     "R4",
     "R5",
     "R6"
    ],
    "connectors": {
+    "R0": "RB00_C02",
+    "R1": "RB01_C02",
     "R2": "RB02_C02",
+    "R3": "RB03_C02",
     "R4": "RB04_C04",
     "R5": "RB05_C02",
     "R6": "RB06_C02"
@@ -148,10 +204,31 @@
  ],
  "vertical_nodes": [
   {
+   "id": "rb_shaft_lift_b_R0",
+   "floor": "R0",
+   "x": -87.116,
+   "y": 30.561,
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "id": "rb_shaft_lift_b_R1",
+   "floor": "R1",
+   "x": -87.038,
+   "y": 30.478,
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
    "id": "rb_shaft_lift_b_R2",
    "floor": "R2",
-   "x": -86.427,
-   "y": 31.493,
+   "x": -86.909,
+   "y": 30.67,
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "id": "rb_shaft_lift_b_R3",
+   "floor": "R3",
+   "x": -87.089,
+   "y": 30.665,
    "shaft": "rb_shaft_lift_b"
   },
   {
@@ -176,10 +253,31 @@
    "shaft": "rb_shaft_lift_b"
   },
   {
+   "id": "rb_shaft_lift_a_R0",
+   "floor": "R0",
+   "x": -83.528,
+   "y": -22.499,
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "id": "rb_shaft_lift_a_R1",
+   "floor": "R1",
+   "x": -83.372,
+   "y": -22.365,
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
    "id": "rb_shaft_lift_a_R2",
    "floor": "R2",
-   "x": -82.871,
-   "y": -21.685,
+   "x": -83.353,
+   "y": -22.508,
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "id": "rb_shaft_lift_a_R3",
+   "floor": "R3",
+   "x": -83.447,
+   "y": -22.482,
    "shaft": "rb_shaft_lift_a"
   },
   {
@@ -206,10 +304,52 @@
  ],
  "vertical_edges": [
   {
-   "from": "RB02_N0007",
+   "from": "RB00_N0074",
+   "to": "rb_shaft_lift_b_R0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "RB01_N0038",
+   "to": "rb_shaft_lift_b_R1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "rb_shaft_lift_b_R0",
+   "to": "rb_shaft_lift_b_R1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "RB02_N0027",
    "to": "rb_shaft_lift_b_R2",
    "weight_m": 18.0,
    "kind": "lift_board",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "rb_shaft_lift_b_R1",
+   "to": "rb_shaft_lift_b_R2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "RB03_N0033",
+   "to": "rb_shaft_lift_b_R3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_b"
+  },
+  {
+   "from": "rb_shaft_lift_b_R2",
+   "to": "rb_shaft_lift_b_R3",
+   "weight_m": 4.0,
+   "kind": "lift",
    "shaft": "rb_shaft_lift_b"
   },
   {
@@ -220,9 +360,9 @@
    "shaft": "rb_shaft_lift_b"
   },
   {
-   "from": "rb_shaft_lift_b_R2",
+   "from": "rb_shaft_lift_b_R3",
    "to": "rb_shaft_lift_b_R4",
-   "weight_m": 8.0,
+   "weight_m": 4.0,
    "kind": "lift",
    "shaft": "rb_shaft_lift_b"
   },
@@ -255,10 +395,52 @@
    "shaft": "rb_shaft_lift_b"
   },
   {
-   "from": "RB02_N0002",
+   "from": "RB00_N0036",
+   "to": "rb_shaft_lift_a_R0",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "RB01_N0062",
+   "to": "rb_shaft_lift_a_R1",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "rb_shaft_lift_a_R0",
+   "to": "rb_shaft_lift_a_R1",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "RB02_N0020",
    "to": "rb_shaft_lift_a_R2",
    "weight_m": 18.0,
    "kind": "lift_board",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "rb_shaft_lift_a_R1",
+   "to": "rb_shaft_lift_a_R2",
+   "weight_m": 4.0,
+   "kind": "lift",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "RB03_N0037",
+   "to": "rb_shaft_lift_a_R3",
+   "weight_m": 18.0,
+   "kind": "lift_board",
+   "shaft": "rb_shaft_lift_a"
+  },
+  {
+   "from": "rb_shaft_lift_a_R2",
+   "to": "rb_shaft_lift_a_R3",
+   "weight_m": 4.0,
+   "kind": "lift",
    "shaft": "rb_shaft_lift_a"
   },
   {
@@ -269,9 +451,9 @@
    "shaft": "rb_shaft_lift_a"
   },
   {
-   "from": "rb_shaft_lift_a_R2",
+   "from": "rb_shaft_lift_a_R3",
    "to": "rb_shaft_lift_a_R4",
-   "weight_m": 8.0,
+   "weight_m": 4.0,
    "kind": "lift",
    "shaft": "rb_shaft_lift_a"
   },
@@ -304,9 +486,30 @@
    "shaft": "rb_shaft_lift_a"
   },
   {
-   "from": "RB02_N0001",
+   "from": "RB00_N0036",
+   "to": "RB01_N0062",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_b"
+  },
+  {
+   "from": "RB01_N0062",
+   "to": "RB02_N0019",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_b"
+  },
+  {
+   "from": "RB02_N0019",
+   "to": "RB03_N0036",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_b"
+  },
+  {
+   "from": "RB03_N0036",
    "to": "RB04_N0059",
-   "weight_m": 36.0,
+   "weight_m": 18.0,
    "kind": "stairs",
    "shaft": "rb_shaft_staircase_b"
   },
@@ -325,9 +528,30 @@
    "shaft": "rb_shaft_staircase_b"
   },
   {
-   "from": "RB02_N0017",
+   "from": "RB00_N0077",
+   "to": "RB01_N0078",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_c"
+  },
+  {
+   "from": "RB01_N0078",
+   "to": "RB02_N0059",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_c"
+  },
+  {
+   "from": "RB02_N0059",
+   "to": "RB03_N0051",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_c"
+  },
+  {
+   "from": "RB03_N0051",
    "to": "RB04_N0076",
-   "weight_m": 36.0,
+   "weight_m": 18.0,
    "kind": "stairs",
    "shaft": "rb_shaft_staircase_c"
   },
@@ -346,9 +570,30 @@
    "shaft": "rb_shaft_staircase_c"
   },
   {
-   "from": "RB02_N0026",
+   "from": "RB00_N0018",
+   "to": "RB01_N0031",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_a"
+  },
+  {
+   "from": "RB01_N0031",
+   "to": "RB02_N0008",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_a"
+  },
+  {
+   "from": "RB02_N0008",
+   "to": "RB03_N0028",
+   "weight_m": 18.0,
+   "kind": "stairs",
+   "shaft": "rb_shaft_staircase_a"
+  },
+  {
+   "from": "RB03_N0028",
    "to": "RB04_N0051",
-   "weight_m": 36.0,
+   "weight_m": 18.0,
    "kind": "stairs",
    "shaft": "rb_shaft_staircase_a"
   },
@@ -374,7 +619,7 @@
    "from_floor": 3,
    "from_node": "MG03_N0281",
    "to_floor": "R2",
-   "to_node": "RB02_N0015",
+   "to_node": "RB02_N0044",
    "points": [
     [
      -60.037,
@@ -385,16 +630,16 @@
      9.1
     ],
     [
-     -73.394,
-     9.133
+     -73.376,
+     9.01
     ],
     [
-     -73.294,
-     9.333
+     -73.776,
+     8.51
     ]
    ],
    "length_m": 10.0,
-   "weight_m": 12.09,
+   "weight_m": 12.5,
    "step_free": true,
    "note": "Bridge length not measured; Ramanujan's position follows from it."
   }
@@ -416,6 +661,6 @@
   "stairs_weight_m_per_floor": 18.0,
   "lift_board_weight_m": 18.0,
   "lift_weight_m_per_floor": 4.0,
-  "note": "All Ramanujan stairs and lifts are in normal use (project team, 2026-11-02). The Third Floor is not drawn; stairs and lifts pass through it."
+  "note": "All Ramanujan stairs and lifts are in normal use (project team, 2026-11-02). Ground to Sixth Floor all from Mehrin's data; the bridge door from the multi-floor DXF."
  }
 }
