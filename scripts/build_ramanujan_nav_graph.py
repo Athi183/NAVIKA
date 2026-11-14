@@ -58,7 +58,9 @@ BRIDGE_RAMANUJAN_FLOOR = 2
 # Ramanujan stands lower: its floor N is level with M. George's floor N + 1.
 STOREY_OFFSET = BRIDGE_MG_FLOOR - BRIDGE_RAMANUJAN_FLOOR
 BRIDGE_RAMANUJAN_DOOR_DXF = (93.1, 27.4)
-BRIDGE_LENGTH_M = 15.0
+# Not measured yet. OpenStreetMap's outlines (scripts/build_campus_osm.py) put
+# the two buildings 8.5 m apart, 4.9 m closer than a 15 m bridge did, so 10 m.
+BRIDGE_LENGTH_M = 10.0
 
 MIN_AREA_M2 = 30          # walkable pockets smaller than this (lift cars, stair wells) are ignored
 SHEET_FRAME_M = 50        # longer single lines are the drawing sheet frame, not walls

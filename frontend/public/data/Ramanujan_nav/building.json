@@ -150,56 +150,56 @@
   {
    "id": "rb_shaft_lift_b_R2",
    "floor": "R2",
-   "x": -91.427,
+   "x": -86.427,
    "y": 31.493,
    "shaft": "rb_shaft_lift_b"
   },
   {
    "id": "rb_shaft_lift_b_R4",
    "floor": "R4",
-   "x": -91.721,
+   "x": -86.721,
    "y": 29.047,
    "shaft": "rb_shaft_lift_b"
   },
   {
    "id": "rb_shaft_lift_b_R5",
    "floor": "R5",
-   "x": -91.338,
+   "x": -86.338,
    "y": 29.633,
    "shaft": "rb_shaft_lift_b"
   },
   {
    "id": "rb_shaft_lift_b_R6",
    "floor": "R6",
-   "x": -91.533,
+   "x": -86.533,
    "y": 29.188,
    "shaft": "rb_shaft_lift_b"
   },
   {
    "id": "rb_shaft_lift_a_R2",
    "floor": "R2",
-   "x": -87.871,
+   "x": -82.871,
    "y": -21.685,
    "shaft": "rb_shaft_lift_a"
   },
   {
    "id": "rb_shaft_lift_a_R4",
    "floor": "R4",
-   "x": -88.771,
+   "x": -83.771,
    "y": -20.453,
    "shaft": "rb_shaft_lift_a"
   },
   {
    "id": "rb_shaft_lift_a_R5",
    "floor": "R5",
-   "x": -88.151,
+   "x": -83.151,
    "y": -20.696,
    "shaft": "rb_shaft_lift_a"
   },
   {
    "id": "rb_shaft_lift_a_R6",
    "floor": "R6",
-   "x": -88.408,
+   "x": -83.408,
    "y": -21.24,
    "shaft": "rb_shaft_lift_a"
   }
@@ -385,16 +385,16 @@
      9.1
     ],
     [
-     -78.394,
+     -73.394,
      9.133
     ],
     [
-     -78.294,
+     -73.294,
      9.333
     ]
    ],
-   "length_m": 15.0,
-   "weight_m": 17.09,
+   "length_m": 10.0,
+   "weight_m": 12.09,
    "step_free": true,
    "note": "Bridge length not measured; Ramanujan's position follows from it."
   }
@@ -405,7 +405,7 @@
    -61.9,
    9.1
   ],
-  "bridge_length_m": 15.0,
+  "bridge_length_m": 10.0,
   "multifloor_dxf_shift_m": [
    -30.583,
    -26.438
