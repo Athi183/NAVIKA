@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CircleCheck, Clock, DoorOpen, Footprints, LocateFixed, LocateOff, MapPin, Navigation, Route, TimerOff } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CircleCheck, Clock, DoorOpen, Download, Flag, Footprints, LocateFixed, LocateOff, MapPin, Navigation, Route, TimerOff } from 'lucide-react'
 import MGeorgeBuilding3D from '../components/navigation/MGeorgeBuilding3D'
-import { SITE, floorName, formatDuration, goesUp, latLonToMap, loadBuilding, locateOnRoute, readPhoneLink, routeBounds, routeFrom, routeFromKiosk, routeScene, routeSummary, siteStart, stepStretch } from '../services/mgeorgeRoute'
+import { useIndoorTracking } from '../hooks/useIndoorTracking'
+import { SITE, floorName, formatDuration, goesUp, latLonToMap, loadBuilding, locateOnRoute, readPhoneLink, routeBounds, routeFrom, routeFromKiosk, routeScene, routeSummary, siteStart, stepStretch, storeyName } from '../services/mgeorgeRoute'
 
 // Phone view of one route handed off from the kiosk by QR code. There is no
 // place picker and no other source: only the scanned route, until it expires
@@ -63,7 +64,7 @@ function useLiveLocation(active, osm) {
   useEffect(() => {
     if (!active || !window.isSecureContext || !navigator.geolocation || !osm) return undefined
     const watch = navigator.geolocation.watchPosition(
-      ({ coords }) => setFix({ status: 'ok', xy: latLonToMap(osm, coords.latitude, coords.longitude), accuracy: coords.accuracy }),
+      ({ coords }) => setFix({ status: 'ok', lat: coords.latitude, lon: coords.longitude, xy: latLonToMap(osm, coords.latitude, coords.longitude), accuracy: coords.accuracy }),
       // A timeout only means no fix yet; the watch keeps trying.
       (error) => setFix((current) => (error.code === error.TIMEOUT ? current : { status: error.code === error.PERMISSION_DENIED ? 'denied' : 'unavailable' })),
       { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 })
@@ -88,6 +89,45 @@ function LocationStatus({ fix }) {
   return <p className={`flex items-center gap-2 text-sm font-semibold ${live ? 'text-blue-700' : 'text-slate-500'}`}>
     {live ? <LocateFixed className="h-4 w-4" /> : <LocateOff className="h-4 w-4" />}{text}
   </p>
+}
+
+function MotionStatus({ status, stats }) {
+  const text = {
+    on: `Tracking your steps (stride ${stats.stride.toFixed(2)} m${stats.learned ? ', learned outside' : ''}). Steps move on as you walk.`,
+    nodata: 'This phone has no motion sensors. Tap Next step as you walk.',
+    unavailable: 'Motion sensors are not available. Tap Next step as you walk.',
+    denied: 'Motion sensors are off. Tap Next step as you walk.',
+    insecure: 'Step tracking needs the https link. Tap Next step as you walk.',
+  }[status]
+  if (!text) return null
+  return <p className={`flex items-center gap-2 text-sm font-semibold ${status === 'on' ? 'text-blue-700' : 'text-slate-500'}`}>
+    <Footprints className="h-4 w-4" />{text}
+  </p>
+}
+
+/** On stairs, lifts, the bridge and the entrance, the visitor confirms they are through. */
+function nextLabel(step) {
+  const transition = step.transition
+  if (!transition) return 'Next step'
+  if (transition.kind === 'entrance') return transition.toFloor === SITE ? "I'm outside" : "I'm inside"
+  if (transition.kind === 'bridge') return "I've crossed the bridge"
+  return `I'm on the ${storeyName(transition.toFloor)}`
+}
+
+/** Research mode: what is being recorded, numbered spot marks, and saving the walk. */
+function ResearchPanel({ tracking }) {
+  const { stats } = tracking
+  return <div className="space-y-2 rounded-xl border-[3px] border-dashed border-violet-700 bg-violet-50 p-3">
+    <p className="text-sm font-bold text-violet-900">Research mode · recording · {stats.steps} steps · {stats.turns} turns · {stats.marks} spots marked</p>
+    <div className="flex gap-2">
+      <button type="button" onClick={tracking.mark} className="flex flex-1 items-center justify-center gap-2 rounded-lg border-[2px] border-ink-900 bg-white px-3 py-2 font-bold">
+        <Flag className="h-4 w-4" />Mark spot {stats.marks + 1}
+      </button>
+      <button type="button" onClick={tracking.save} className="flex flex-1 items-center justify-center gap-2 rounded-lg border-[2px] border-ink-900 bg-white px-3 py-2 font-bold">
+        <Download className="h-4 w-4" />Save log
+      </button>
+    </div>
+  </div>
 }
 
 function Notice({ icon: Icon, title, children }) {
@@ -117,6 +157,8 @@ function stepScene(model, route, index) {
 
 export default function PhoneRoute() {
   const link = useMemo(() => readPhoneLink(window.location.search), [])
+  // `&research=1` on the link records the walk for the indoor tracking study.
+  const research = useMemo(() => new URLSearchParams(window.location.search).get('research') === '1', [])
   const now = useNow()
   const [model, setModel] = useState(null)
   const [error, setError] = useState('')
@@ -153,8 +195,16 @@ export default function PhoneRoute() {
     if (reachedStep !== null && stepIndex !== null && reachedStep > stepIndex) setStepIndex(reachedStep)
   }
   const offRoute = Boolean(here && walking && route.steps[stepIndex]?.floor === SITE && here.offM > Math.max(OFF_ROUTE_M, fix.accuracy * 1.5))
-  // The dot sits on the path while the visitor follows it, and where GPS puts them once they leave it.
-  const live = fix.status === 'ok' ? { xy: here && !offRoute ? here.xy : fix.xy, accuracy: fix.accuracy } : null
+  // Outside, the dot sits on the path while the visitor follows it, and where GPS puts them once they leave it.
+  const gpsDot = fix.status === 'ok' ? { floor: SITE, xy: here && !offRoute ? here.xy : fix.xy, accuracy: fix.accuracy } : null
+  // Inside, the phone's steps and turns move the visitor along the route; outside, GPS teaches the stride.
+  const tracking = useIndoorTracking({ active: walking, route, stepIndex, onReachStep: setStepIndex, research, destination, geo: model?.osm?.geo })
+  const { observeOutdoor, logGps } = tracking
+  const onOutdoorPath = Boolean(here && !offRoute && route?.steps[stepIndex]?.floor === SITE)
+  useEffect(() => { observeOutdoor(onOutdoorPath ? here.xy : null) }, [observeOutdoor, onOutdoorPath, here])
+  useEffect(() => {
+    if (fix.status === 'ok') logGps({ t: performance.now(), lat: fix.lat, lon: fix.lon, accuracy: fix.accuracy })
+  }, [logGps, fix.status, fix.lat, fix.lon, fix.accuracy])
   const rerouteFromHere = () => {
     const from = siteStart(model, fix.xy)
     if (!from) return
@@ -172,7 +222,7 @@ export default function PhoneRoute() {
   // Overview: the whole route. Walking: only the floors of the current step, the camera following it.
   const stepView = walking ? stepScene(model, route, stepIndex) : routeScene(model, route, destination)
   // Off the path: stop following and frame both the step and the visitor, so they can see the way back.
-  const scene = offRoute ? { ...stepView, follow: null, focus: routeBounds([...stepView.follow.map((point) => point.xy), live.xy], 20, 8) } : stepView
+  const scene = offRoute ? { ...stepView, follow: null, focus: routeBounds([...stepView.follow.map((point) => point.xy), gpsDot.xy], 20, 8) } : stepView
   const minutesLeft = Math.max(1, Math.ceil((link.expiresAt - now) / 60_000))
   const step = walking ? route.steps[stepIndex] : null
   const lastStep = walking && stepIndex === route.steps.length - 1
@@ -194,7 +244,7 @@ export default function PhoneRoute() {
 
     <section className="h-[46vh] min-h-[300px] border-b-[3px] border-ink-900">
       <MGeorgeBuilding3D key={offRoute ? 'off-route' : 'on-route'} model={model} floors={scene.floors} labelFloors={walking ? scene.floors : destination.floor === SITE ? [] : [destination.floor]} route={route}
-        destination={destination} showSite={scene.outside} focus={scene.focus} follow={scene.follow} live={live} />
+        destination={destination} showSite={scene.outside} focus={scene.focus} follow={scene.follow} live={tracking.position ?? gpsDot} />
     </section>
 
     <main className="flex flex-1 flex-col gap-4 px-4 py-4">
@@ -207,7 +257,7 @@ export default function PhoneRoute() {
               <span className={item.transition ? 'font-semibold text-violet-800' : ''}>{item.text}</span>
             </li>)}
           </ol>
-          <button type="button" onClick={() => setStepIndex(0)} className="mt-auto flex items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
+          <button type="button" onClick={async () => { await tracking.requestAccess(); setStepIndex(0) }} className="mt-auto flex items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
             <Navigation className="h-6 w-6" />Start
           </button>
         </>
@@ -219,7 +269,8 @@ export default function PhoneRoute() {
             </span>
             <p className="text-xl font-semibold leading-8">{step.text}</p>
           </div>
-          {outdoors && <LocationStatus fix={fix} />}
+          {step.floor === SITE ? outdoors && <LocationStatus fix={fix} /> : !step.transition && <MotionStatus status={tracking.status} stats={tracking.stats} />}
+          {research && <ResearchPanel tracking={tracking} />}
           {offRoute && <div role="alert" className="space-y-3 rounded-xl border-[3px] border-ink-900 bg-amber-50 p-4">
             <p className="text-lg font-bold text-amber-900">You seem to be off the path (about {Math.round(here.offM)} m away).</p>
             <button type="button" onClick={rerouteFromHere} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 py-3 text-lg font-bold text-ink-900">
@@ -232,7 +283,7 @@ export default function PhoneRoute() {
                 <CircleCheck className="h-6 w-6" />I have arrived · Stop
               </button>
               : <button type="button" onClick={() => setStepIndex(stepIndex + 1)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-ink-900 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
-                Next step<ArrowRight className="h-6 w-6" />
+                {nextLabel(step)}<ArrowRight className="h-6 w-6" />
               </button>}
             <button type="button" onClick={() => setStepIndex(stepIndex === 0 ? null : stepIndex - 1)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold text-ink-900">
               <ArrowLeft className="h-5 w-5" />{stepIndex === 0 ? 'Back to overview' : 'Previous step'}

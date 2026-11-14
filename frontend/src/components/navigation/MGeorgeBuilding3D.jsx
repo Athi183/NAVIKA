@@ -393,7 +393,8 @@ function FitToScreen({ centre, width, depth }) {
  * `zoom` ({ kind: 'in' | 'out' }, a new object per press) zooms the camera.
  * `massing` draws the campus overview: every building as solid storeys at
  * real height (pass no `floors`); `onPickBuilding(name)` reports a tap on one.
- * `live` ({ xy, accuracy } in metres) draws the visitor's GPS position outside.
+ * `live` ({ floor, xy, accuracy } in metres) draws the visitor's tracked position
+ * on that floor or, with floor 'site', outside.
  */
 export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, onPickPoint = null, focus = null, showSite = false, follow = null, zoom = null, massing = false, onPickBuilding = null, live = null }) {
   // Floors of both buildings, stacked by height: Ramanujan stands lower, so its
@@ -476,12 +477,12 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
       </Html>
     </>}
 
-    {live && showSite && <>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(live.xy, levelY(siteLevel) + 0.3)} renderOrder={16}>
+    {live && (live.floor === 'site' ? showSite : shown.includes(live.floor)) && <>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={xz(live.xy, levelY(live.floor === 'site' ? siteLevel : live.floor) + 0.3)} renderOrder={16}>
         <circleGeometry args={[Math.max(2, live.accuracy), 48]} />
         <meshBasicMaterial color={NAV_BLUE} {...onTop} opacity={0.14} />
       </mesh>
-      <LocationDot position={xz(live.xy, levelY(siteLevel) + 0.5)} />
+      <LocationDot position={xz(live.xy, levelY(live.floor === 'site' ? siteLevel : live.floor) + 0.5)} />
     </>}
     {routePoints && routePoints.length > 1 && <WalkingRoute points={routePoints} />}
     {outline && <RouteOutline legs={outline} />}
