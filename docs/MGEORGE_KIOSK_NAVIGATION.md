@@ -264,17 +264,30 @@ large QR code. Scanning it opens
 `/route?to=<id>&until=<unix time>` (plus `lifts=1` for a lifts-only route) on
 the visitor's phone:
 
-- **Only that route**, always from the kiosk. There is no place picker and no
-  other source on the phone.
+- **Only that route**, from the kiosk (or from where the visitor re-routes
+  outside, below). There is no place picker on the phone.
 - The visitor sees the overview first (3D, summary, steps), taps **Start**,
   then goes through the steps with **Next step**. While walking, the 3D view
   follows the current step like a phone map: only that step's floors, the
   camera behind the walker looking along the step, the person walking just
   that stretch, the rest of the route faint (`follow` in `MGeorgeBuilding3D`,
-  `stepStretch` in `mgeorgeRoute.js`). There is no indoor positioning, so the
+  `stepStretch` in `mgeorgeRoute.js`). Indoors there is no positioning, so the
   visitor moves on with **Next step**. On the last step the button
   becomes **I have arrived · Stop**. After stopping, the link shows "You have
   arrived" even if reopened on that phone.
+- **Live location outside.** On routes that go outside, the phone watches GPS
+  after **Start** (it asks permission once):
+  - a blue dot with its accuracy circle, snapped onto the path while the
+    visitor follows it (`locateOnRoute`), converted with the OpenStreetMap fit
+    (`latLonToMap`);
+  - reaching a later step's path moves the steps on by themselves (only with a
+    fix better than 25 m, so indoor GPS never does);
+  - more than 25 m (or 1.5x the fix's error) off the path shows "You seem to
+    be off the path" and **Re-route from here**, which plans a new route from
+    the nearest campus path in sight (`siteStart`, `routeFrom`);
+  - without permission, without GPS or on plain `http://` it says so and the
+    visitor uses **Next step** as before. Browsers only give GPS to `https://`
+    pages (and `localhost`), so it needs the deployed site.
 - **The link expires 45 minutes** after the QR code was opened on the kiosk
   (`PHONE_LINK_MINUTES` in `mgeorgeRoute.js`). The screen stays awake while
   walking.
