@@ -374,6 +374,44 @@ it), and writes `frontend/public/data/campus_osm.json`.
 - **Trees:** 27 mapped in OSM, plus about 150 decorative ones spaced over
   the grass (marked `decorative`), not surveyed.
 
+## Terrain (measured spot heights)
+
+The campus is on a slope, but the 3D view draws the ground flat until real
+heights are measured. `scripts/build_campus_terrain.py` writes
+`frontend/public/data/campus_terrain.json`; the view uses it once at least 8
+spots are measured (`ready`), and `?terrain=preview` shows it before that.
+
+- **Why not satellite data alone:** free terrain (SRTM via AWS Terrain Tiles,
+  cached in `data/original_sources/campus/terrain/`) dates from 2000, before the
+  campus, and includes trees. It puts Ramanujan's ground about 12 m above the
+  entrance, which contradicts the Third-Floor bridge. It only gives the hill
+  shape between measured spots.
+- **Measuring:** `--template` wrote `data/campus_levels/spot_heights.json` and a
+  printable `spot_sheet.md` with 17 spots (campus places, OSM buildings and
+  grounds, and the lowest outside doors of M. George and Ramanujan). With any
+  phone app that shows air pressure in hPa, read at the entrance first and
+  last and at each spot (phone at waist height, wait 10 s, note time and hPa),
+  within about an hour, then type the readings into the JSON. Heights come
+  from 29.27 m/K x (T + 273.15) x ln(P_entrance / P_spot), with the entrance
+  pressure drifting linearly between its two readings (weather; without this a
+  normal drift adds up to about 5 m of error).
+- **Fit:** the satellite heights are corrected to the spots by inverse-distance
+  weighting, so the ground passes through every spot. The script reports each
+  spot's satellite error and the overall RMSE (a result for the research), and
+  checks Ramanujan's measured lowest door against the model (about 3.3 m off
+  means `STOREY_OFFSET` is wrong by a floor).
+- **Drawing:** `CampusGround.jsx` paints the campus paths, grass, pitches with
+  their lines, parking, ponds and the boundary onto one canvas laid over the
+  heights; outdoor buildings, trees, labels, routes, the GPS dot and pins
+  stand on it (`terrainHeight` in `mgeorgeRoute.js`). M. George and Ramanujan
+  keep their storey levels (entrance = 0), so on a slope they dig into the
+  higher side as in reality.
+
+```bash
+PYTHONPATH=scripts .venv/bin/python scripts/build_campus_terrain.py --template   # once: the spot list
+PYTHONPATH=scripts .venv/bin/python scripts/build_campus_terrain.py              # after the walk
+```
+
 ## Deploying for feedback (Vercel)
 
 Navigation runs entirely in the browser (static files, routes worked out on
