@@ -3,9 +3,9 @@
 
 Each drawn floor's outline = its coloured room plan (the rooms texture, which
 leaves courtyards empty) plus its walls, closed over small gaps. The view
-stacks one block per storey at real height. Ramanujan floors that are not
-drawn (Ground, First and Third) borrow the outline of the floor above them,
-and are flagged as estimated.
+stacks one block per storey at real height. A Ramanujan floor without its
+own plan would borrow the outline of a nearby floor and be flagged as
+estimated; since all seven of Mehrin's floors are in, none does.
 
 Run after the M. George and Ramanujan builds:
 
@@ -34,7 +34,7 @@ MIN_PART_M2 = 20.0
 SIMPLIFY_M = 0.35
 STOREY_HEIGHT_M = 3.3
 
-# Ramanujan storeys not drawn yet -> the drawn floor whose outline they borrow.
+# A Ramanujan storey without a plan -> the floor whose outline it would borrow (unused while all are drawn).
 RAMANUJAN_UNDRAWN = {"R0": "R2", "R1": "R2", "R3": "R4"}
 
 
@@ -99,6 +99,8 @@ def building(base: Path) -> dict:
     if data["building"] == "Ramanujan Block":
         offset = storeys[0]["stack_level"] - int(str(storeys[0]["floor"])[1:])
         for key, source in RAMANUJAN_UNDRAWN.items():
+            if key in outlines or source not in outlines:
+                continue  # drawn now, or nothing to borrow from
             storeys.append({"floor": key, "label": None, "stack_level": int(key[1:]) + offset, "estimated": True,
                             "parts": [as_json(part) for part in outlines[source]]})
     storeys.sort(key=lambda item: item["stack_level"])
