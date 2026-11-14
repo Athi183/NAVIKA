@@ -163,9 +163,12 @@ stacked (`/navigation?explore=1&floor=all`).
 
 ## Ramanujan Block (over the bridge)
 
-Floors 4, 5 and 6 of Ramanujan Block are routed too, using Fathima Mehrin's
-floor data in `ramanujan-viewer/public/data/Ramanujan_F4..F6` (walls, room
-names and positions, room outlines), aligned by her `stackedFloorConfig.ts`.
+All seven floors of Ramanujan Block (Ground to Sixth) are routed too, using
+Fathima Mehrin's floor data in `ramanujan-viewer/public/data/Ramanujan_FG` and
+`Ramanujan_F1..F6` (walls, room names and positions, room outlines), aligned
+by her `stackedFloorConfig.ts` offsets. Checked against each floor's stairs
+and lifts, no extra shift improves on them (the remaining 1.5-3.5 m is where
+each label sits inside a stair or lift core).
 `scripts/build_ramanujan_nav_graph.py` only reads that folder.
 
 - **How visitors get there:** the bridge from the M. George **Third Floor**
@@ -176,15 +179,22 @@ names and positions, room outlines), aligned by her `stackedFloorConfig.ts`.
   (`STOREY_OFFSET`; `stack_level` in its building.json keeps the bridge flat
   in 3D). A route reads, for example: *"Take Staircase 2 (west wing) up to the
   Third Floor, then cross the bridge into Ramanujan Block (its Second Floor),
-  then take Lift A up to the Fifth Floor."*
-- **Ramanujan's Second Floor** comes from the multi-floor DXF and is only
-  walked through, from the bridge to the stairs and lifts. Its rooms are not
-  offered. The Third Floor is not drawn; stairs and lifts pass through it.
+  then take Lift A up to the Fifth Floor."* Lower floors are reached over the
+  bridge and down: *"...then take Lift B down to the Ground Floor."* Where
+  Ramanujan's Ground Floor opens to the campus is not known yet; with it, a
+  second way in from the campus paths can be added.
+- **The bridge door** comes from the multi-floor DXF, which also places
+  Ramanujan; the Second Floor itself is Mehrin's, with all its rooms.
 - **Stairs and lifts:** Lift A, Lift B and Staircases A, B and C, all in
   normal use (project team).
-- **Places:** 59 on floors 4-6, named as in Mehrin's data with the room number
-  added, e.g. *S5/S6 CSE-A Class Room (601)*, so searching "601" works.
-  Rooms are coloured from her room outlines.
+- **Places:** 153 on all seven floors (stairs and lifts included), all
+  reachable from the kiosk by any route and lifts-only. Named as in Mehrin's
+  data with the room number added where she gives one, e.g. *S5/S6 CSE-A
+  Class Room (601)*, so searching "601" works. Rooms sharing a name with no
+  number are told apart by their nearest stair or lift (*Class Room (near
+  Staircase B)*), since the map is turned and compass words would mislead.
+  Vacant rooms, the Passage and the Ramp are not offered. Rooms are coloured
+  from her room outlines.
 - **Position:** Ramanujan is placed by the bridge alone (its door
   `BRIDGE_LENGTH_M` west of M. George's, turned to face it). The bridge is not
   measured: it was 15 m until OpenStreetMap's outlines put the two buildings
@@ -444,7 +454,7 @@ answer on the deployed site.
 # outdoor campus paths (run after the floors; needs floor 1's walls and rooms)
 PYTHONPATH=scripts .venv/bin/python scripts/build_campus_nav_graph.py --preview inspection_navigation/campus_walkable_preview.png
 
-# Ramanujan Block floors 4-6 and the bridge (run after the M. George floors)
+# Ramanujan Block, all seven floors, and the bridge (run after the M. George floors)
 PYTHONPATH=scripts .venv/bin/python scripts/build_ramanujan_nav_graph.py --preview-dir inspection_navigation
 
 # storey outlines for the 3D campus view (run after both buildings)
