@@ -481,9 +481,28 @@ function transitionSeconds(transition) {
  * `stepFree` uses lifts only. Returns per-floor legs (points in metres),
  * the stair/lift transitions between them, steps, distance and time.
  */
-export function routeFromKiosk(model, destination, { stepFree = false } = {}) {
+export function routeFromKiosk(model, destination, options) {
   const { kiosk } = model
-  const result = dijkstra(stepFree ? model.stepFreeAdjacency : model.adjacency, kiosk.node, destination.node)
+  return routeFrom(model, { node: kiosk.node, xy: kiosk.xy, approach_xy: kiosk.approach_xy, opening: 'From the kiosk' }, destination, options)
+}
+
+/**
+ * Where a route starts from a position outside (a GPS fix in map metres): the
+ * nearest campus-path node in plain sight, else the nearest one. Null without campus paths.
+ */
+export function siteStart(model, xy) {
+  if (!model.site) return null
+  const byDistance = model.site.graph.nodes.map((node) => ({ node, d: dist([node.x, node.y], xy) })).sort((a, b) => a.d - b.d)
+  const { node } = byDistance.slice(0, 12).find(({ node: n }) => visible(model.site.mask, xy, [n.x, n.y])) ?? byDistance[0]
+  return { node: node.id, xy, approach_xy: [node.x, node.y], opening: 'From where you are' }
+}
+
+/**
+ * Route from `start` ({ node, xy, approach_xy, opening }: the kiosk, or a
+ * position from siteStart) to `destination`, as legs, transitions and steps.
+ */
+export function routeFrom(model, start, destination, { stepFree = false } = {}) {
+  const result = dijkstra(stepFree ? model.stepFreeAdjacency : model.adjacency, start.node, destination.node)
   if (!result) return null
   const { legs: nodeLegs, transitions } = splitByFloor(model, result.path)
 
@@ -492,7 +511,7 @@ export function routeFromKiosk(model, destination, { stepFree = false } = {}) {
     let points = leg.nodes.map((id) => model.nodes.get(id).xy)
     const first = index === 0
     const last = index === nodeLegs.length - 1
-    if (first) points = [kiosk.xy, kiosk.approach_xy, ...trimTail([...points].reverse(), kiosk.approach_xy).reverse()]
+    if (first) points = [start.xy, start.approach_xy, ...trimTail([...points].reverse(), start.approach_xy).reverse()]
     if (last) {
       points = [...trimTail(points, destination.approach_xy), destination.approach_xy]
       // Only draw into the room when the label itself is reachable in a straight line.
@@ -508,7 +527,7 @@ export function routeFromKiosk(model, destination, { stepFree = false } = {}) {
     const floor = model.byFloor.get(leg.floor)
     const arriving = transitions[index - 1]
     const opening = index === 0
-      ? (m) => `From the kiosk, follow the line for about ${m} m`
+      ? (m) => `${start.opening}, follow the ${leg.floor === SITE ? 'path' : 'line'} for about ${m} m`
       : arriving.kind === 'entrance'
         ? (m) => (leg.floor === SITE ? `Outside, follow the path for about ${m} m` : `Inside, follow the line for about ${m} m`)
         : arriving.kind === 'bridge'
@@ -548,6 +567,25 @@ function nearestIndex(points, point) {
  * step's point to the next step's, or for stairs/lifts/doors the hop from the
  * end of one floor's leg to the start of the next.
  */
+/**
+ * Where a position outside (map metres) lies on the route's outdoor stretches:
+ * { stepIndex, xy (nearest point on the route), offM (distance from it) }, or
+ * null when the route never goes outside. Of nearly equal matches the later step wins.
+ */
+export function locateOnRoute(route, xy) {
+  let best = null
+  route.steps.forEach((_, stepIndex) => {
+    const stretch = stepStretch(route, stepIndex).filter((point) => point.floor === SITE).map((point) => point.xy)
+    const segments = stretch.length > 1 ? stretch.slice(1).map((b, i) => [stretch[i], b]) : stretch.map((a) => [a, a])
+    for (const [a, b] of segments) {
+      const near = project(xy, a, b)
+      const offM = dist(near, xy)
+      if (!best || offM < best.offM + 1) best = { stepIndex, xy: near, offM }
+    }
+  })
+  return best
+}
+
 export function stepStretch(route, index) {
   const step = route.steps[index]
   const points = route.legs[step.leg].points
