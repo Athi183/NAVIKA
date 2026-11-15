@@ -23,10 +23,12 @@ from faculty_directory import build_faculty_directory  # noqa: E402
 from placement_directory import build_placement_directory  # noqa: E402
 from department_directory import build_department_directory  # noqa: E402
 from place_lookup import find_places  # noqa: E402
+from closures import closures_bp  # noqa: E402  (closed corridors, emergency switch)
 
 
 app = Flask(__name__)
 CORS(app)
+app.register_blueprint(closures_bp)
 
 MAX_HISTORY = 5
 

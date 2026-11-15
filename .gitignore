@@ -46,3 +46,6 @@ backend/venv/
 data/original_sources/m_george/Title_Blocks_A1_Metric*
 data/original_sources/m_george/A1 metric.rfa
 data/original_sources/m_george/*.jpg
+
+# Closures set by staff at run time (backend/closures.py)
+backend/closures_state.json
