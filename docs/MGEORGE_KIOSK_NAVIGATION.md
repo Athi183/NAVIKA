@@ -242,8 +242,7 @@ at a time.
   height (one block per storey, with a darker band at each floor level), the
   bridge between them, the campus paths and the outdoor places. Tapping a
   building opens it. Outlines come from `scripts/build_campus_massing.py`
-  (`frontend/public/data/campus_massing.json`). Ramanujan's Ground, First and
-  Third Floors are not drawn, so they borrow the outline of the floor above.
+  (`frontend/public/data/campus_massing.json`), all from the floor plans.
   Around them, from OpenStreetMap (next section): the hostels, labs, canteen,
   cafe and the open-air auditorium roof, grass, sports pitches, parking,
   ponds, trees and the campus boundary. Tapping a building that is also a
@@ -262,6 +261,12 @@ at a time.
 - **The route screen:** one plain sentence (e.g. *"Take the main lift
   (corridor) up to the Second Floor. Principal is about 2 min away."*), the
   distance and time, the steps, the 3D walker, and **Send to my phone**.
+- **Walk me through it** (on the route map) flies the camera along the whole
+  route, just behind and above the walker: the turns, the stairs or lift, the
+  bridge. It takes about 18 seconds (5-12 m/s), pauses at the destination and
+  returns to the overview. **Stop** ends it early.
+- **Emergency? Nearest exit** (under the room card) shows the way out from
+  reception: see *Closures and emergency* below.
 - **Thank you** (top right on every screen) ends the visitor's turn: a short
   thank-you message, then everything resets for the next person. The kiosk
   also resets after 90 seconds without a touch. A presence sensor can later
@@ -422,6 +427,50 @@ PYTHONPATH=scripts .venv/bin/python scripts/build_campus_terrain.py --template  
 PYTHONPATH=scripts .venv/bin/python scripts/build_campus_terrain.py              # after the walk
 ```
 
+## Closures and emergency
+
+Staff can close parts of the buildings and switch on an emergency mode; every
+kiosk and phone picks the change up within 30 seconds and routes around it.
+
+- **What can be closed:** a stretch of corridor (a point on a floor plus a
+  width, 4-24 m), a staircase or lift (on every floor it serves), or the
+  bridge to Ramanujan Block. Each closure has an optional reason shown to
+  visitors ("Cleaning", "Repairs").
+- **On the map:** closed places get a pulsing red fence with "Closed" above
+  it. The kiosk lists what is closed, and a route that had to go another way
+  says so (*"This route goes around Staircase 2 (west wing) (Cleaning)"*). A
+  place inside a closed stretch, or one that can no longer be reached, says
+  that instead of showing a route.
+- **The way out** (`routeToNearestExit` in `mgeorgeRoute.js`): one Dijkstra
+  search from the visitor to every exit at once (the main entrance and the
+  fire exits on M. George's Ground and First Floors), over a graph with
+  **stairs only** (fire escape stairs included, lifts never) and without the
+  closed parts. Drawn green. Exits on upper floors lead onto escape stairs
+  that are not mapped, so they are not counted. A way out that would first
+  climb is refused: that happens on Ramanujan's Ground and First Floors,
+  whose own doors are not mapped yet, and the visitor is told to go down the
+  nearest stairs and out by the main door instead.
+- **Emergency mode** (switched on by staff): every kiosk drops what it is
+  showing and shows the way out with a red banner and the staff's message.
+  Phones show the message with **Show me the way out**, which re-routes from
+  the step the visitor is on. `/navigation?drill=1` runs a drill on one
+  screen only, without the backend.
+- **While walking with the phone,** the route keeps the closures it started
+  with; when they change, the phone offers **Update my route** (from the
+  current step) rather than changing the steps underfoot.
+- **Staff page:** `/staff/closures`. Pick a staircase or lift from the list,
+  close the bridge, or pick a floor and tap the corridor on the map; then
+  **Save for all kiosks** with the staff key. Anyone can see what is closed,
+  as visitors can.
+- **Backend:** `backend/closures.py` (`GET` / `POST /api/closures`). Saving
+  needs `NAVIKA_STAFF_KEY` set on the server and the same key on the staff
+  page; without it set, nobody can change closures. The state is one small
+  JSON file (`backend/closures_state.json`, not committed; another path with
+  `NAVIKA_CLOSURES_FILE`). Without a backend the site reads the static
+  `frontend/public/data/closures.json` (empty), so closures need the backend
+  hosted. Tests: `.venv/bin/python -m unittest backend/test_closures.py` and
+  `npm test` (routing around closures and the way out, on the real data).
+
 ## Deploying for feedback (Vercel)
 
 Navigation runs entirely in the browser (static files, routes worked out on
@@ -492,5 +541,8 @@ at `/navigation?view=indoor|mgeorge|campus`.
   The 3D campus view has blocks for M. George and Ramanujan only; it places
   the campus ground at the main entrance (First Floor) level, so M. George's
   Ground Floor sits below it.
+- **Ways out:** the doors of Ramanujan Block's Ground Floor, and where the
+  upper-floor fire exits of M. George lead, so evacuation routes can use
+  them. The fire exit list should be checked against the college's fire plan.
 - **Ask NAVIKA hand-off:** a "Show me the way" button in the assistant that
   opens `/navigation?to=<id>`.
