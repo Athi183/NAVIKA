@@ -377,6 +377,48 @@ function Flythrough({ points, travelledRef, onEnd }) {
   return null
 }
 
+// Whole-campus view: a hazy tropical sky, and the same haze over the distance,
+// so the campus sits in a landscape instead of floating on a board.
+const HAZE = '#C9D9E3'
+const SKY_TOP = '#5B8FC7'
+// Late-afternoon sun from the west-south-west: the light's offset from the
+// campus centre (x east, y up, z south). Shadows on the ground follow it.
+const CAMPUS_SUN = [-60, 50, 25]
+
+/** A sky dome fading from haze at the horizon to blue overhead; not fogged. */
+function SkyDome() {
+  const geometry = useMemo(() => {
+    const sphere = new THREE.SphereGeometry(9000, 32, 16)
+    const haze = new THREE.Color(HAZE)
+    const top = new THREE.Color(SKY_TOP)
+    const colours = []
+    const position = sphere.attributes.position
+    for (let i = 0; i < position.count; i += 1) {
+      const up = Math.max(0, position.getY(i) / 9000)
+      const colour = haze.clone().lerp(top, Math.pow(up, 0.6))
+      colours.push(colour.r, colour.g, colour.b)
+    }
+    sphere.setAttribute('color', new THREE.Float32BufferAttribute(colours, 3))
+    return sphere
+  }, [])
+  return <mesh geometry={geometry} renderOrder={-1}>
+    <meshBasicMaterial vertexColors side={THREE.BackSide} fog={false} depthWrite={false} />
+  </mesh>
+}
+
+/** The haze, kept just beyond the campus however far the visitor zooms out. */
+function CampusHaze({ span }) {
+  const fog = useRef()
+  const controls = useThree((state) => state.controls)
+  useFrame(({ camera }) => {
+    if (!fog.current || !controls) return
+    const distance = camera.position.distanceTo(controls.target)
+    fog.current.near = distance + span * 0.45
+    fog.current.far = distance + span * 2.2
+  })
+  return <fog ref={fog} attach="fog" args={[HAZE, span * 1.5, span * 3]} />
+}
+
 /** Campus paths as a texture: walkable cells light grey on a green ground. */
 /** Campus places outside: a marker post and a name, standing on the ground (`ground(xy)` = its height). */
 function SiteGround({ site, onPick, ground, labelSize = 2.4, labelLift = 0, hidden = new Set() }) {
@@ -509,6 +551,8 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
     return points.length > 1 ? points : [points[0], points[0]]
   }, [follow, lift])
   const pin = destination ? destination.entrance_xy || destination.xy : null
+  // Whole-campus view: what CampusGround needs for shadows (kept stable so the ground is painted once).
+  const campusSurroundings = useMemo(() => (massing ? { massing: model.massing, siteLevel, sun: CAMPUS_SUN } : null), [massing, model.massing, siteLevel])
   // How far along the route the flythrough is (null when not flying).
   const flown = useRef(null)
   // Campus labels for buildings that are drawn in full (Ramanujan) would only duplicate them.
@@ -529,13 +573,20 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
 
   // Credits for the outdoor data, wherever the campus ground is drawn.
   const credits = showSite ? [model.osm?.attribution, model.terrain?.attribution].filter(Boolean).join(' · ') : ''
-  return <div className="relative h-full w-full"><Canvas camera={{ position: camera, fov: 50 }} gl={{ antialias: true }}>
-    <color attach="background" args={[BACKGROUND]} />
+  return <div className="relative h-full w-full"><Canvas camera={{ position: camera, fov: 50, ...(massing ? { near: 1, far: 20000 } : {}) }} gl={{ antialias: true }}>
+    <color attach="background" args={[massing ? HAZE : BACKGROUND]} />
+    {massing && <>
+      <CampusHaze span={span} />
+      <SkyDome />
+    </>}
     <ambientLight intensity={0.9} />
-    <directionalLight position={[centre[0] + 20, 80, centre[2] + 30]} intensity={1.25} />
+    {massing
+      ? <directionalLight position={[centre[0] + CAMPUS_SUN[0], CAMPUS_SUN[1], centre[2] + CAMPUS_SUN[2]]} intensity={1.35} />
+      : <directionalLight position={[centre[0] + 20, 80, centre[2] + 30]} intensity={1.25} />}
     {!showSite && <gridHelper args={[180, 90, '#3b3b44', '#2c2c33']} position={[centre[0], -0.3, centre[2]]} />}
     {showSite && model.site && <group position={[0, levelY(siteLevel), 0]}>
-      <CampusGround site={model.site} osm={model.osm} terrain={model.terrain} onClick={pointPicker(onPickPoint, 'site')} />
+      <CampusGround site={model.site} osm={model.osm} terrain={model.terrain} onClick={pointPicker(onPickPoint, 'site')}
+        surroundings={massing ? campusSurroundings : null} />
       <SiteGround site={model.site} onPick={onPick} ground={ground} labelSize={route ? 2.4 : massing ? 3.4 : 6} labelLift={massing ? 8 : 0} hidden={hiddenSiteLabels} />
     </group>}
 

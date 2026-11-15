@@ -5,7 +5,9 @@ import { terrainHeight } from '../../services/mgeorgeRoute'
 // The campus ground as one surface: the campus paths and, with the OpenStreetMap
 // layer, grass, sports pitches with their lines, parking, ponds and the campus
 // boundary, painted onto one canvas and laid over the ground heights
-// (campus_terrain.json; flat without them).
+// (campus_terrain.json; flat without them). For the whole-campus view
+// (`surroundings`), soft shadows of the buildings and trees are painted in too,
+// and the ground carries on past the campus so it can fade into the haze.
 
 const MARGIN_M = 40
 const MAX_TEXTURE_PX = 4096
@@ -16,6 +18,12 @@ const COLOURS = {
   pitch: '#6F9B55', // a playing field, unless OSM names a court sport
   line: '#F4F1EA', boundary: '#F1E4C8',
 }
+const STOREY_M = 3.3
+const TREE_HEIGHT_M = 5
+const TREE_CROWN_M = 2.6
+const APRON_M = 6000 // the ground beyond the campus, lost in the haze long before its edge
+// In the whole-campus view the open ground is a lighter, sunlit green, so shadows read on it.
+const SUNLIT_GROUND = '#6A8C52'
 const PITCH_COLOURS = { basketball: '#B5563B', volleyball: '#CF9A5A', tennis: '#4F86A6', cricket: '#7FA75A', football: '#5E9A4E' }
 const AREA_ORDER = ['grass', 'parking', 'water', 'pitch']
 
@@ -31,7 +39,86 @@ function extentOf(site, osm) {
   return { x0: Math.min(...xs) - MARGIN_M, x1: Math.max(...xs) + MARGIN_M, y0: Math.min(...ys) - MARGIN_M, y1: Math.max(...ys) + MARGIN_M }
 }
 
-function paint(site, osm, { x0, x1, y0, y1 }) {
+
+/**
+ * What casts a shadow in the whole-campus view: every building (OSM blocks, and
+ * M. George and Ramanujan from their storey outlines) with its height above the
+ * campus ground, and the trees.
+ */
+function shadowCasters(osm, massing, siteLevel) {
+  const buildings = (osm?.buildings ?? []).map((building) => ({ outline: building.outline, height: building.roof_only ? 6 : building.levels * STOREY_M }))
+  for (const building of massing?.buildings ?? []) {
+    const above = building.storeys.filter((storey) => storey.stack_level >= siteLevel)
+    if (!above.length) continue
+    const height = (Math.max(...above.map((storey) => storey.stack_level)) - siteLevel + 1) * massing.storey_height_m
+    // The footprint at ground level, outer rings only (a courtyard still lies in shadow).
+    for (const part of above[0].parts) buildings.push({ outline: part.outer, height })
+  }
+  return { buildings, trees: osm?.trees ?? [] }
+}
+
+/**
+ * Soft shadows on the ground: each building's footprint swept along the sun's
+ * offset for its height, then blurred, plus a darker rim right at its foot.
+ * Drawn on a separate mask first so overlapping shadows do not darken each other.
+ */
+function paintShadows(ctx, toPx, ppm, { buildings, trees }, sun) {
+  // The map offset of a shadow per metre of height, away from the sun
+  // (`sun` = the light's [x, y, z] offset in the scene, z pointing south).
+  const SHADOW_PER_M = [-sun[0] / sun[1], sun[2] / sun[1]]
+  const { width, height } = ctx.canvas
+  const mask = document.createElement('canvas')
+  mask.width = width
+  mask.height = height
+  const m = mask.getContext('2d')
+  // Blur by shrinking the mask and stretching it back with smoothing: works in
+  // every browser (ctx.filter does not everywhere) and costs one paint.
+  const blurred = (alpha, blurM) => {
+    const factor = Math.max(1, Math.round((blurM * ppm) / 2))
+    const small = document.createElement('canvas')
+    small.width = Math.max(1, Math.ceil(width / factor))
+    small.height = Math.max(1, Math.ceil(height / factor))
+    const s = small.getContext('2d')
+    s.imageSmoothingEnabled = true
+    s.drawImage(mask, 0, 0, small.width, small.height)
+    ctx.save()
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = 'high'
+    ctx.globalAlpha = alpha
+    ctx.drawImage(small, 0, 0, width, height)
+    ctx.restore()
+    m.clearRect(0, 0, width, height)
+  }
+  const outlinePath = (outline, [dx, dy]) => {
+    m.beginPath()
+    outline.forEach(([x, y], index) => {
+      const [px, py] = toPx([x + dx, y + dy])
+      if (index) m.lineTo(px, py)
+      else m.moveTo(px, py)
+    })
+    m.closePath()
+    m.fill()
+  }
+  m.fillStyle = 'rgb(6, 18, 10)'
+  // Cast shadows: the footprint at several points along the offset fills the swept shape.
+  for (const { outline, height: h } of buildings) {
+    const steps = Math.max(2, Math.ceil(h / 2))
+    for (let i = 0; i <= steps; i += 1) outlinePath(outline, SHADOW_PER_M.map((value) => value * h * (i / steps)))
+  }
+  for (const { xy: [x, y] } of trees) {
+    const [px, py] = toPx([x + SHADOW_PER_M[0] * TREE_HEIGHT_M, y + SHADOW_PER_M[1] * TREE_HEIGHT_M])
+    m.beginPath()
+    m.ellipse(px, py, TREE_CROWN_M * ppm, TREE_CROWN_M * 0.8 * ppm, 0, 0, Math.PI * 2)
+    m.fill()
+  }
+  blurred(0.5, 2.5)
+  // Contact shadow: a tight, darker rim where each building meets the ground.
+  for (const { outline } of buildings) outlinePath(outline, [0, 0])
+  blurred(0.35, 0.9)
+}
+
+function paint(site, osm, { x0, x1, y0, y1 }, casters = null, sun = null) {
+  const groundColour = casters ? SUNLIT_GROUND : COLOURS.ground
   const ppm = Math.min(MAX_PX_PER_M, MAX_TEXTURE_PX / (x1 - x0), MAX_TEXTURE_PX / (y1 - y0))
   const canvas = document.createElement('canvas')
   canvas.width = Math.ceil((x1 - x0) * ppm)
@@ -44,7 +131,7 @@ function paint(site, osm, { x0, x1, y0, y1 }) {
     outline.forEach((point, index) => (index ? ctx.lineTo(...toPx(point)) : ctx.moveTo(...toPx(point))))
     ctx.closePath()
   }
-  ctx.fillStyle = COLOURS.ground
+  ctx.fillStyle = groundColour
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   for (const kind of AREA_ORDER) {
@@ -79,6 +166,8 @@ function paint(site, osm, { x0, x1, y0, y1 }) {
   ctx.imageSmoothingEnabled = true
   ctx.drawImage(paths, left, top, mask.cols * mask.cell_m * ppm, mask.rows * mask.cell_m * ppm)
 
+  if (casters) paintShadows(ctx, toPx, ppm, casters, sun)
+
   if (osm) {
     trace(osm.boundary)
     ctx.setLineDash([3 * ppm, 2 * ppm])
@@ -97,10 +186,13 @@ function paint(site, osm, { x0, x1, y0, y1 }) {
 /**
  * `site` (campus paths), `osm` (optional OpenStreetMap layer) and `terrain`
  * (optional ground heights) as in the model; `onClick` for taps on the ground.
+ * `surroundings` ({ massing, siteLevel, sun }, whole-campus view only) adds the
+ * building and tree shadows (away from `sun`, the light's offset) and the ground beyond the campus.
  */
-export default function CampusGround({ site, osm = null, terrain = null, onClick }) {
+export default function CampusGround({ site, osm = null, terrain = null, onClick, surroundings = null }) {
   const extent = useMemo(() => extentOf(site, osm), [site, osm])
-  const texture = useMemo(() => paint(site, osm, extent), [site, osm, extent])
+  const casters = useMemo(() => surroundings && shadowCasters(osm, surroundings.massing, surroundings.siteLevel), [osm, surroundings])
+  const texture = useMemo(() => paint(site, osm, extent, casters, surroundings?.sun), [site, osm, extent, casters, surroundings])
   const { centre, geometry } = useMemo(() => {
     const w = extent.x1 - extent.x0
     const d = extent.y1 - extent.y0
@@ -118,7 +210,20 @@ export default function CampusGround({ site, osm = null, terrain = null, onClick
     }
     return { centre: middle, geometry: plane }
   }, [extent, terrain])
-  return <mesh geometry={geometry} rotation={[-Math.PI / 2, 0, 0]} position={[centre[0], -0.05, -centre[1]]} onClick={onClick}>
-    <meshStandardMaterial map={texture} roughness={1} metalness={0} />
-  </mesh>
+  // The ground beyond the campus sits just under its lowest edge, so it never shows through.
+  const apronY = useMemo(() => {
+    if (!surroundings || !terrain) return -0.6
+    const { x0, x1, y0, y1 } = extent
+    const edge = [[x0, y0], [x1, y0], [x0, y1], [x1, y1], [(x0 + x1) / 2, y0], [(x0 + x1) / 2, y1], [x0, (y0 + y1) / 2], [x1, (y0 + y1) / 2]]
+    return Math.min(...edge.map((point) => terrainHeight(terrain, point))) - 0.6
+  }, [surroundings, terrain, extent])
+  return <>
+    <mesh geometry={geometry} rotation={[-Math.PI / 2, 0, 0]} position={[centre[0], -0.05, -centre[1]]} onClick={onClick}>
+      <meshStandardMaterial map={texture} roughness={1} metalness={0} />
+    </mesh>
+    {surroundings && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[centre[0], apronY, -centre[1]]}>
+      <circleGeometry args={[APRON_M, 64]} />
+      <meshStandardMaterial color={SUNLIT_GROUND} roughness={1} metalness={0} />
+    </mesh>}
+  </>
 }
