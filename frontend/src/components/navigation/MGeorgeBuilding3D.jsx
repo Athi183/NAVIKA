@@ -4,6 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Billboard, Html, Line, OrbitControls, Text, useGLTF, useTexture } from '@react-three/drei'
 import { CLOSED_RED, EXIT_GREEN, EXIT_GREEN_EDGE, NAV_BLUE, NAV_BLUE_EDGE, NAV_SPEED_MPS, NAV_WALKED, cumulativeLengths, pointAlong, routeProgress } from './navigationStyle'
 import { levelOf as levelOfFloor, terrainHeight } from '../../services/mgeorgeRoute'
+import { sceneSun, sunMoment } from '../../services/campusSun'
 import VerticalCores from './VerticalCores'
 import CampusBlocks from './CampusBlocks'
 import CampusOsmLayer from './CampusOsmLayer'
@@ -381,9 +382,6 @@ function Flythrough({ points, travelledRef, onEnd }) {
 // so the campus sits in a landscape instead of floating on a board.
 const HAZE = '#C9D9E3'
 const SKY_TOP = '#5B8FC7'
-// Late-afternoon sun from the west-south-west: the light's offset from the
-// campus centre (x east, y up, z south). Shadows on the ground follow it.
-const CAMPUS_SUN = [-60, 50, 25]
 
 /** A sky dome fading from haze at the horizon to blue overhead; not fogged. */
 function SkyDome() {
@@ -552,7 +550,9 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
   }, [follow, lift])
   const pin = destination ? destination.entrance_xy || destination.xy : null
   // Whole-campus view: what CampusGround needs for shadows (kept stable so the ground is painted once).
-  const campusSurroundings = useMemo(() => (massing ? { massing: model.massing, siteLevel, sun: CAMPUS_SUN } : null), [massing, model.massing, siteLevel])
+  // The real sun over MITS right now (or `?sun=HH:MM`), set once when the view opens.
+  const campusSun = useMemo(() => sceneSun(model.osm?.geo, sunMoment()).offset, [model.osm])
+  const campusSurroundings = useMemo(() => (massing ? { massing: model.massing, siteLevel, sun: campusSun } : null), [massing, model.massing, siteLevel, campusSun])
   // How far along the route the flythrough is (null when not flying).
   const flown = useRef(null)
   // Campus labels for buildings that are drawn in full (Ramanujan) would only duplicate them.
@@ -581,7 +581,7 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
     </>}
     <ambientLight intensity={0.9} />
     {massing
-      ? <directionalLight position={[centre[0] + CAMPUS_SUN[0], CAMPUS_SUN[1], centre[2] + CAMPUS_SUN[2]]} intensity={1.35} />
+      ? <directionalLight position={[centre[0] + campusSun[0], campusSun[1], centre[2] + campusSun[2]]} intensity={1.35} />
       : <directionalLight position={[centre[0] + 20, 80, centre[2] + 30]} intensity={1.25} />}
     {!showSite && <gridHelper args={[180, 90, '#3b3b44', '#2c2c33']} position={[centre[0], -0.3, centre[2]]} />}
     {showSite && model.site && <group position={[0, levelY(siteLevel), 0]}>

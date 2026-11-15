@@ -10,7 +10,7 @@
     "prebuild": "npm run sync:ramanujan",
     "build": "vite build",
     "lint": "oxlint",
-    "test": "node --test tests/indoorTracker.test.mjs tests/closures.test.mjs",
+    "test": "node --test tests/indoorTracker.test.mjs tests/closures.test.mjs tests/campusSun.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
