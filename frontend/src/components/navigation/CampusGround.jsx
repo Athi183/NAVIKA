@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import * as THREE from 'three'
 import { terrainHeight } from '../../services/mgeorgeRoute'
+import { TREE_KINDS, treeKind, treeSize } from './campusTrees'
 
 // The campus ground as one surface: the campus paths and, with the OpenStreetMap
 // layer, grass, sports pitches with their lines, parking, ponds and the campus
@@ -19,8 +20,6 @@ const COLOURS = {
   line: '#F4F1EA', boundary: '#F1E4C8',
 }
 const STOREY_M = 3.3
-const TREE_HEIGHT_M = 5
-const TREE_CROWN_M = 2.6
 const APRON_M = 6000 // the ground beyond the campus, lost in the haze long before its edge
 // In the whole-campus view the open ground is a lighter, sunlit green, so shadows read on it.
 const SUNLIT_GROUND = '#6A8C52'
@@ -105,10 +104,14 @@ function paintShadows(ctx, toPx, ppm, { buildings, trees }, sun) {
     const steps = Math.max(2, Math.ceil(h / 2))
     for (let i = 0; i <= steps; i += 1) outlinePath(outline, SHADOW_PER_M.map((value) => value * h * (i / steps)))
   }
-  for (const { xy: [x, y] } of trees) {
-    const [px, py] = toPx([x + SHADOW_PER_M[0] * TREE_HEIGHT_M, y + SHADOW_PER_M[1] * TREE_HEIGHT_M])
+  // Each tree's crown, cast from its height (palms high and small, rain trees wide).
+  for (const { xy } of trees) {
+    const kind = TREE_KINDS[treeKind(xy)]
+    const size = treeSize(xy)
+    const lift = (kind.height - kind.crown * 0.3) * size
+    const [px, py] = toPx([xy[0] + SHADOW_PER_M[0] * lift, xy[1] + SHADOW_PER_M[1] * lift])
     m.beginPath()
-    m.ellipse(px, py, TREE_CROWN_M * ppm, TREE_CROWN_M * 0.8 * ppm, 0, 0, Math.PI * 2)
+    m.ellipse(px, py, kind.crown * size * ppm, kind.crown * size * 0.75 * ppm, 0, 0, Math.PI * 2)
     m.fill()
   }
   blurred(0.5, 2.5)

@@ -2,6 +2,7 @@ import { Suspense, useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { Billboard, Text } from '@react-three/drei'
 import { Storey } from './CampusBlocks'
+import { TREE_KINDS, jitter, treeGeometries, treeKind, treeSize } from './campusTrees'
 
 // The rest of the campus around M. George and Ramanujan, from OpenStreetMap
 // (scripts/build_campus_osm.py): hostels, labs, the canteen, trees and their
@@ -22,47 +23,56 @@ const LOOKS = {
   other: { wall: '#D3CCC2', band: '#7d746a', roof: '#EEEAE4', edge: '#58514a' },
   neighbour: { wall: '#8E959C', band: '#666d74', roof: '#A9B0B6', edge: '#4d5359' },
 }
-const TREE_GREENS = ['#3F7A3A', '#4C8C3F', '#356B34', '#5A9446']
-
 const toWorld = ([x, y], height) => [x, height, -y]
 const centreOf = (outline) => [0, 1].map((axis) => outline.reduce((sum, point) => sum + point[axis], 0) / outline.length)
-// Fixed per-position "random" number in [0, 1), so trees keep their look between visits.
-const jitter = (x, y) => ((Math.sin(x * 12.9898 + y * 78.233) * 43758.5453) % 1 + 1) % 1
 
-/** Every tree as two instanced meshes (trunks, crowns), varied in size and shade. */
-function Trees({ trees, ground }) {
+/** One kind of tree (campusTrees.js), every one of them as two instanced meshes: trunks and crowns. */
+function TreeKind({ kind, trees, ground, geometry }) {
   const trunkRef = useRef()
   const crownRef = useRef()
   useEffect(() => {
+    const look = TREE_KINDS[kind]
     const matrix = new THREE.Matrix4()
     const turn = new THREE.Quaternion()
+    const lean = new THREE.Quaternion()
     const colour = new THREE.Color()
-    trees.forEach(({ xy: [x, y] }, index) => {
-      const size = 0.75 + jitter(x, y) * 0.65
-      const base = ground([x, y])
-      turn.setFromAxisAngle(new THREE.Vector3(0, 1, 0), jitter(y, x) * Math.PI)
-      matrix.compose(new THREE.Vector3(x, base + 1.2 * size, -y), turn, new THREE.Vector3(size, size, size))
+    trees.forEach(({ xy }, index) => {
+      const [x, y] = xy
+      const size = treeSize(xy)
+      turn.setFromAxisAngle(new THREE.Vector3(0, 1, 0), jitter(y, x) * Math.PI * 2)
+      // Palms lean a little, each its own way.
+      if (kind === 'palm') turn.multiply(lean.setFromAxisAngle(new THREE.Vector3(1, 0, 0), (jitter(x + 3, y) - 0.5) * 0.25))
+      matrix.compose(new THREE.Vector3(x, ground(xy), -y), turn, new THREE.Vector3(size, size, size))
       trunkRef.current.setMatrixAt(index, matrix)
-      matrix.compose(new THREE.Vector3(x, base + 3.5 * size, -y), turn, new THREE.Vector3(size, size * (0.9 + jitter(x + 1, y) * 0.35), size))
       crownRef.current.setMatrixAt(index, matrix)
-      crownRef.current.setColorAt(index, colour.set(TREE_GREENS[Math.floor(jitter(x, y + 1) * TREE_GREENS.length)]))
+      crownRef.current.setColorAt(index, colour.set(look.greens[Math.floor(jitter(x, y + 1) * look.greens.length)]))
     })
     for (const mesh of [trunkRef.current, crownRef.current]) {
       mesh.instanceMatrix.needsUpdate = true
       mesh.computeBoundingSphere()
     }
     crownRef.current.instanceColor.needsUpdate = true
-  }, [trees, ground])
+  }, [kind, trees, ground])
   return <group>
-    <instancedMesh ref={trunkRef} args={[undefined, undefined, trees.length]}>
-      <cylinderGeometry args={[0.2, 0.3, 2.4, 6]} />
-      <meshStandardMaterial color="#6B4A2F" roughness={1} />
+    <instancedMesh ref={trunkRef} args={[geometry.trunk, undefined, trees.length]}>
+      <meshStandardMaterial color={TREE_KINDS[kind].trunk} roughness={1} flatShading />
     </instancedMesh>
-    <instancedMesh ref={crownRef} args={[undefined, undefined, trees.length]}>
-      <icosahedronGeometry args={[2.3, 1]} />
-      <meshStandardMaterial flatShading roughness={0.9} />
+    <instancedMesh ref={crownRef} args={[geometry.crown, undefined, trees.length]}>
+      <meshStandardMaterial flatShading roughness={0.9} side={kind === 'palm' ? THREE.DoubleSide : THREE.FrontSide} />
     </instancedMesh>
   </group>
+}
+
+/** The campus trees as coconut palms, rain trees and mango trees, varied in size, turn and shade. */
+function Trees({ trees, ground }) {
+  const geometries = useMemo(() => treeGeometries(), [])
+  const byKind = useMemo(() => {
+    const groups = Object.fromEntries(Object.keys(TREE_KINDS).map((kind) => [kind, []]))
+    for (const tree of trees) groups[treeKind(tree.xy)].push(tree)
+    return groups
+  }, [trees])
+  return Object.entries(byKind).filter(([, list]) => list.length).map(([kind, list]) =>
+    <TreeKind key={kind} kind={kind} trees={list} ground={ground} geometry={geometries[kind]} />)
 }
 
 /** An open-air roof on posts (OSM building=roof), such as the open auditorium. */
