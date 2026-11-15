@@ -169,15 +169,25 @@ export function prepareBuilding(building, floors, site = null, annexes = []) {
     adjacency.get(from).push({ to, weight })
     adjacency.get(to).push({ to: from, weight })
   }
-  const makeAdjacency = (stepFree) => {
+  // mode: 'any' (stairs or lifts in use), 'stepFree' (lifts only) or 'evacuate'
+  // (stairs only, fire escapes included, never a lift). `blocked` (see
+  // applyClosures) leaves out closed corridors, stairs, lifts and walkways.
+  const makeAdjacency = (mode = 'any', blocked = null) => {
     const adjacency = new Map([...nodes.keys()].map((id) => [id, []]))
-    for (const floor of outside ? [...prepared, outside] : prepared) for (const edge of floor.graph.edges) link(adjacency, edge.from, edge.to, edge.weight_m)
-    for (const item of links) link(adjacency, item.from, item.to, item.weight)
+    for (const floor of outside ? [...prepared, outside] : prepared) {
+      for (const edge of floor.graph.edges) {
+        if (!blocked?.edge(floor.floor_number, edge.from, edge.to)) link(adjacency, edge.from, edge.to, edge.weight_m)
+      }
+    }
+    for (const item of links) if (!blocked?.link(item)) link(adjacency, item.from, item.to, item.weight)
     for (const edge of verticalEdges) {
       const shaft = shafts.get(edge.shaft)
-      // Fire escape stairs are never used; stairs are skipped for step-free routes.
-      if (!shaft?.routable || (stepFree && shaft.kind !== 'lift')) continue
-      link(adjacency, edge.from, edge.to, edge.weight_m)
+      if (!shaft || blocked?.shaft(edge.shaft)) continue
+      const usable = mode === 'evacuate'
+        ? shaft.kind !== 'lift'
+        // Fire escape stairs are not for everyday routes; stairs are skipped for step-free routes.
+        : shaft.routable && (mode !== 'stepFree' || shaft.kind === 'lift')
+      if (usable) link(adjacency, edge.from, edge.to, edge.weight_m)
     }
     return adjacency
   }
@@ -207,8 +217,12 @@ export function prepareBuilding(building, floors, site = null, annexes = []) {
     site: outside,
     destinations,
     kiosk: { ...kioskFloor.graph.kiosk, floor: building.kiosk_floor },
-    adjacency: makeAdjacency(false),
-    stepFreeAdjacency: makeAdjacency(true),
+    links,
+    buildAdjacency: makeAdjacency,
+    adjacency: makeAdjacency('any'),
+    stepFreeAdjacency: makeAdjacency('stepFree'),
+    evacuationAdjacency: makeAdjacency('evacuate'),
+    closures: [],
   }
 }
 
@@ -303,16 +317,21 @@ class MinHeap {
   }
 }
 
-/** Dijkstra shortest path over the walkable graph; returns node ids or null. */
+/**
+ * Dijkstra shortest path over the walkable graph: `{ path, cost, goal }` or
+ * null. `goal` is one node id, or a Set of them (then the nearest one is reached).
+ */
 export function dijkstra(adjacency, start, goal) {
+  const isGoal = goal instanceof Set ? (id) => goal.has(id) : (id) => id === goal
   const costs = new Map([[start, 0]])
   const previous = new Map()
   const heap = new MinHeap()
+  let reached = null
   heap.push({ id: start, cost: 0 })
   while (heap.size) {
     const { id, cost } = heap.pop()
     if (cost > costs.get(id)) continue
-    if (id === goal) break
+    if (isGoal(id)) { reached = id; break }
     for (const { to, weight } of adjacency.get(id) || []) {
       const next = cost + weight
       if (next < (costs.get(to) ?? Infinity)) {
@@ -322,10 +341,10 @@ export function dijkstra(adjacency, start, goal) {
       }
     }
   }
-  if (!costs.has(goal)) return null
-  const path = [goal]
+  if (reached === null) return null
+  const path = [reached]
   while (path[0] !== start) path.unshift(previous.get(path[0]))
-  return { path, cost: costs.get(goal) }
+  return { path, cost: costs.get(reached), goal: reached }
 }
 
 const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1])
@@ -499,27 +518,35 @@ function transitionSeconds(transition) {
  * the stair/lift transitions between them, steps, distance and time.
  */
 export function routeFromKiosk(model, destination, options) {
-  const { kiosk } = model
-  return routeFrom(model, { node: kiosk.node, xy: kiosk.xy, approach_xy: kiosk.approach_xy, opening: 'From the kiosk' }, destination, options)
+  return routeFrom(model, kioskStart(model), destination, options)
 }
 
 /**
- * Where a route starts from a position outside (a GPS fix in map metres): the
- * nearest campus-path node in plain sight, else the nearest one. Null without campus paths.
+ * Where a route starts from a position on `floor` (a GPS fix outside, or a
+ * point on a floor plan): the nearest walkable-graph node in plain sight,
+ * else the nearest one. Null for an unknown floor.
  */
+export function startAt(model, floor, xy, opening = 'From where you are') {
+  const plan = model.byFloor.get(floor)
+  if (!plan) return null
+  const byDistance = plan.graph.nodes.map((node) => ({ node, d: dist([node.x, node.y], xy) })).sort((a, b) => a.d - b.d)
+  if (!byDistance.length) return null
+  const { node } = byDistance.slice(0, 12).find(({ node: n }) => visible(plan.mask, xy, [n.x, n.y])) ?? byDistance[0]
+  return { node: node.id, xy, approach_xy: [node.x, node.y], opening }
+}
+
+/** Where a route starts from a position outside (a GPS fix in map metres). Null without campus paths. */
 export function siteStart(model, xy) {
-  if (!model.site) return null
-  const byDistance = model.site.graph.nodes.map((node) => ({ node, d: dist([node.x, node.y], xy) })).sort((a, b) => a.d - b.d)
-  const { node } = byDistance.slice(0, 12).find(({ node: n }) => visible(model.site.mask, xy, [n.x, n.y])) ?? byDistance[0]
-  return { node: node.id, xy, approach_xy: [node.x, node.y], opening: 'From where you are' }
+  return model.site ? startAt(model, SITE, xy) : null
 }
 
 /**
  * Route from `start` ({ node, xy, approach_xy, opening }: the kiosk, or a
  * position from siteStart) to `destination`, as legs, transitions and steps.
  */
-export function routeFrom(model, start, destination, { stepFree = false } = {}) {
-  const result = dijkstra(stepFree ? model.stepFreeAdjacency : model.adjacency, start.node, destination.node)
+export function routeFrom(model, start, destination, { stepFree = false, evacuate = false } = {}) {
+  const adjacency = evacuate ? model.evacuationAdjacency : stepFree ? model.stepFreeAdjacency : model.adjacency
+  const result = dijkstra(adjacency, start.node, destination.node)
   if (!result) return null
   const { legs: nodeLegs, transitions } = splitByFloor(model, result.path)
 
@@ -564,6 +591,7 @@ export function routeFrom(model, start, destination, { stepFree = false } = {}) 
   return {
     algorithm: 'dijkstra',
     stepFree,
+    evacuate,
     legs,
     transitions,
     floors: legs.map((leg) => leg.floor),
@@ -571,6 +599,139 @@ export function routeFrom(model, start, destination, { stepFree = false } = {}) 
     durationS: distanceM / WALK_SPEED_MPS + transitions.reduce((sum, t) => sum + transitionSeconds(t), 0),
     steps,
   }
+}
+
+// ---- Closures and the way out --------------------------------------------
+
+/** Shortest distance from `p` to the segment a–b (metres). */
+function segmentDistance(p, a, b) {
+  const [dx, dy] = [b[0] - a[0], b[1] - a[1]]
+  const t = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / ((dx * dx + dy * dy) || 1)))
+  return dist(p, [a[0] + dx * t, a[1] + dy * t])
+}
+
+const CLOSURE_TYPES = new Set(['area', 'shaft', 'link'])
+const AREA_RADIUS_M = { min: 1, max: 25 }
+
+/**
+ * A copy of `model` whose routes avoid `closures`, set by staff:
+ *   { id, type: 'area', floor, xy: [x, y], radius_m, reason }  a stretch of corridor closed off
+ *   { id, type: 'shaft', shaft, reason }                        a staircase or lift out of use
+ *   { id, type: 'link', name, reason }                          the bridge or the main entrance
+ * Unknown or malformed closures are dropped. Each kept one gains `label` (what
+ * is closed, in words) and `marks` ([{ floor, xy, radius }]: where to draw it);
+ * `closedPlaces` maps places inside a closed area to their closure.
+ */
+export function applyClosures(model, closures = []) {
+  const base = model.base ?? model
+  const kept = []
+  for (const closure of Array.isArray(closures) ? closures : []) {
+    if (!closure || !CLOSURE_TYPES.has(closure.type)) continue
+    if (closure.type === 'area') {
+      const floor = base.byFloor.get(closure.floor)
+      const [x, y] = closure.xy ?? []
+      if (!floor || !Number.isFinite(x) || !Number.isFinite(y)) continue
+      const radius = Math.min(AREA_RADIUS_M.max, Math.max(AREA_RADIUS_M.min, Number(closure.radius_m) || 4))
+      const near = floor.graph.destinations
+        .map((place) => ({ place, d: dist([x, y], place.approach_xy ?? place.xy) }))
+        .filter((item) => item.d < 15).sort((a, b) => a.d - b.d)[0]?.place
+      kept.push({ ...closure, radius_m: radius, label: closure.label || (near ? `Corridor near ${near.name}` : `Part of the ${floor.name}`), marks: [{ floor: closure.floor, xy: [x, y], radius }] })
+    } else if (closure.type === 'shaft') {
+      const shaft = base.shafts.get(closure.shaft)
+      if (!shaft) continue
+      // One mark per floor, where the stairs or lift meet that floor's corridor.
+      const perFloor = new Map()
+      for (const edge of base.verticalEdge.values()) {
+        if (edge.shaft !== closure.shaft) continue
+        for (const id of [edge.from, edge.to]) {
+          const node = base.nodes.get(id)
+          if (node && !node.shaft && !perFloor.has(node.floor)) perFloor.set(node.floor, { floor: node.floor, xy: node.xy, radius: 1.8 })
+        }
+      }
+      const marks = [...perFloor.values()]
+      kept.push({ ...closure, label: closure.label || shaft.name, marks })
+    } else {
+      const item = base.links.find((link) => link.name === closure.name)
+      if (!item) continue
+      const from = base.nodes.get(item.from)
+      const xy = item.points?.length ? item.points[Math.floor(item.points.length / 2)] : from.xy
+      kept.push({ ...closure, label: closure.label || item.name.charAt(0).toUpperCase() + item.name.slice(1), marks: [{ floor: from.floor, xy, radius: 2 }] })
+    }
+  }
+  if (!kept.length) return base
+
+  const areas = kept.filter((item) => item.type === 'area')
+  const shafts = new Set(kept.filter((item) => item.type === 'shaft').map((item) => item.shaft))
+  const linkNames = new Set(kept.filter((item) => item.type === 'link').map((item) => item.name))
+  const blocked = {
+    edge: (floor, from, to) => areas.some((area) => area.floor === floor
+      && segmentDistance(area.xy, base.nodes.get(from).xy, base.nodes.get(to).xy) < area.radius_m),
+    shaft: (id) => shafts.has(id),
+    link: (item) => linkNames.has(item.name),
+  }
+  const closedPlaces = new Map()
+  for (const place of base.destinations) {
+    const area = areas.find((item) => item.floor === place.floor && dist(item.xy, place.approach_xy ?? place.xy) < item.radius_m)
+    if (area) closedPlaces.set(place.id, area)
+  }
+  return {
+    ...base,
+    base,
+    closures: kept,
+    closedPlaces,
+    adjacency: base.buildAdjacency('any', blocked),
+    stepFreeAdjacency: base.buildAdjacency('stepFree', blocked),
+    evacuationAdjacency: base.buildAdjacency('evacuate', blocked),
+  }
+}
+
+/** Closures the usual route (ignoring them) would have run into: why a route took another way. */
+export function closuresAvoided(model, start, destination, options) {
+  if (!model.closures.length) return []
+  const usual = routeFrom(model.base, start, destination, options)
+  if (!usual) return []
+  const shafts = new Set(usual.transitions.map((item) => item.shaft).filter(Boolean))
+  const links = new Set(usual.transitions.filter((item) => !item.shaft).map((item) => item.name))
+  return model.closures.filter((closure) => closure.type === 'shaft' ? shafts.has(closure.shaft)
+    : closure.type === 'link' ? links.has(closure.name)
+      : usual.legs.some((leg) => leg.floor === closure.floor && leg.points.some((point, i) => i > 0 && segmentDistance(closure.xy, leg.points[i - 1], point) < closure.radius_m)))
+}
+
+// Doors to the outside at ground level: the main entrance and the fire exits
+// on M. George's Ground and First Floors (the campus paths are level with the
+// First Floor). Fire exits on upper floors open onto escape stairs that are not
+// mapped yet, so they are not counted as a way out.
+const EXIT_FLOORS = new Set([0, 1])
+
+/** Places that lead out of the building. */
+export function exitsOf(model) {
+  return model.destinations.filter((place) => (place.category === 'exit' || place.category === 'entrance')
+    && EXIT_FLOORS.has(place.floor) && !model.closedPlaces?.has(place.id))
+}
+
+/** The kiosk as a route start. */
+export function kioskStart(model) {
+  const { kiosk } = model
+  return { node: kiosk.node, xy: kiosk.xy, approach_xy: kiosk.approach_xy, opening: 'From the kiosk' }
+}
+
+/**
+ * Evacuation: the route from `start` to the nearest way out, by stairs only
+ * (fire escapes included, never a lift) and around closures: `{ route, exit }`,
+ * or null when there is none. A way out that means climbing first is no way
+ * out: that happens only where a building's own doors are not mapped yet
+ * (Ramanujan Block's lower floors), so `{ route: null, unmapped: true }` then.
+ */
+export function routeToNearestExit(model, start = kioskStart(model)) {
+  const byNode = new Map(exitsOf(model).map((place) => [place.node, place]))
+  if (!byNode.size) return null
+  const found = dijkstra(model.evacuationAdjacency, start.node, new Set(byNode.keys()))
+  if (!found) return null
+  const exit = byNode.get(found.goal)
+  const route = routeFrom(model, start, exit, { evacuate: true })
+  if (!route) return null
+  if (route.transitions.some((transition) => transition.shaft && goesUp(transition))) return { route: null, exit: null, unmapped: true }
+  return { route, exit }
 }
 
 function nearestIndex(points, point) {
@@ -657,10 +818,12 @@ export function routeSummary(route, destination) {
     if (t.kind === 'bridge') return `cross the bridge into ${isRamanujan(t.toFloor) ? 'Ramanujan Block' : 'the M. George Block'} (its ${storeyName(t.toFloor)})`
     return `take ${shaftPhrase(t)} ${goesUp(t) ? 'up' : 'down'} to the ${storeyName(t.toFloor)}`
   })
-  const time = formatDuration(route.durationS)
-  if (!parts.length) return `${destination.name} is on this floor, about ${time} away. Follow the walking person.`
+  // "about 3 min", but "under 1 min" on its own.
+  const duration = formatDuration(route.durationS)
+  const time = duration.startsWith('under') ? duration : `about ${duration}`
+  if (!parts.length) return `${destination.name} is on this floor, ${time} away. Follow the walking person.`
   const first = parts[0].charAt(0).toUpperCase() + parts[0].slice(1)
-  return `${[first, ...parts.slice(1)].join(', then ')}. ${destination.name} is about ${time} away.`
+  return `${[first, ...parts.slice(1)].join(', then ')}. ${destination.name} is ${time} away.`
 }
 
 /** Which building a floor key belongs to, for grouping floors in the 3D view. */
@@ -693,22 +856,23 @@ export function routeScene(model, route, destination) {
 export const PHONE_LINK_MINUTES = 45
 export const PHONE_ROUTE_PATH = '/route'
 
-export function phoneRouteUrl(destination, { stepFree = false, now = Date.now() } = {}) {
+export function phoneRouteUrl(destination, { stepFree = false, evacuate = false, now = Date.now() } = {}) {
   const base = import.meta.env.VITE_NAVIKA_BASE_URL?.trim() || window.location.origin
   const url = new URL(PHONE_ROUTE_PATH, base)
   url.search = new URLSearchParams({
     to: destination.id,
     ...(stepFree ? { lifts: '1' } : {}),
+    ...(evacuate ? { exit: '1' } : {}),
     until: String(Math.floor(now / 1000) + PHONE_LINK_MINUTES * 60),
   }).toString()
   return url.toString()
 }
 
-/** `{ to, stepFree, expiresAt }` from a phone link, or null when it is malformed. */
+/** `{ to, stepFree, evacuate, expiresAt }` from a phone link, or null when it is malformed. */
 export function readPhoneLink(search) {
   const params = new URLSearchParams(search)
   const to = params.get('to')
   const until = Number(params.get('until'))
   if (!to || !Number.isFinite(until) || until <= 0) return null
-  return { to, stepFree: params.get('lifts') === '1', expiresAt: until * 1000 }
+  return { to, stepFree: params.get('lifts') === '1', evacuate: params.get('exit') === '1', expiresAt: until * 1000 }
 }
