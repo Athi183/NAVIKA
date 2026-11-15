@@ -120,6 +120,72 @@ function paintShadows(ctx, toPx, ppm, { buildings, trees }, sun) {
   blurred(0.35, 0.9)
 }
 
+// Fixed "random" number in [0, 1) for a number, so the ground looks the same on every visit.
+const hash = (n) => ((Math.sin(n * 127.1 + 311.7) * 43758.5453) % 1 + 1) % 1
+
+/** Soft patches of lighter and darker green over the open ground, so it is not one flat colour. */
+function paintGrassPatches(ctx, ppm) {
+  const { width, height } = ctx.canvas
+  const count = Math.round((width * height) / (ppm * ppm * 350))
+  for (let i = 0; i < count; i += 1) {
+    const radius = (4 + hash(i * 3 + 2) * 10) * ppm
+    const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, radius)
+    const tone = hash(i * 3 + 1) < 0.5 ? '20, 45, 18' : '170, 190, 120'
+    gradient.addColorStop(0, `rgba(${tone}, 0.10)`)
+    gradient.addColorStop(1, `rgba(${tone}, 0)`)
+    ctx.save()
+    ctx.translate(hash(i * 3) * width, hash(i * 3 + 7) * height)
+    ctx.fillStyle = gradient
+    ctx.fillRect(-radius, -radius, radius * 2, radius * 2)
+    ctx.restore()
+  }
+}
+
+const BAY_M = 2.5
+const ROW_M = 5
+const AISLE_M = 6
+
+/**
+ * White bay lines in a parking area: rows of 2.5 m bays, 5 m deep, along its
+ * longest side, back to back in pairs with a 6 m aisle between pairs.
+ * Typical layout, not surveyed.
+ */
+function paintParkingBays(ctx, toPx, ppm, outline) {
+  let longest = null
+  outline.forEach((a, i) => {
+    const b = outline[(i + 1) % outline.length]
+    const length = Math.hypot(b[0] - a[0], b[1] - a[1])
+    if (!longest || length > longest.length) longest = { a, b, length }
+  })
+  if (!longest || longest.length < BAY_M * 2) return
+  const u = [(longest.b[0] - longest.a[0]) / longest.length, (longest.b[1] - longest.a[1]) / longest.length]
+  const v = [-u[1], u[0]]
+  const along = outline.map(([x, y]) => (x - longest.a[0]) * u[0] + (y - longest.a[1]) * u[1])
+  const across = outline.map(([x, y]) => (x - longest.a[0]) * v[0] + (y - longest.a[1]) * v[1])
+  const [u0, u1, v0, v1] = [Math.min(...along), Math.max(...along), Math.min(...across), Math.max(...across)]
+  const at = (s, t) => toPx([longest.a[0] + u[0] * s + v[0] * t, longest.a[1] + u[1] * s + v[1] * t])
+  const line = (from, to) => {
+    ctx.moveTo(...from)
+    ctx.lineTo(...to)
+  }
+  ctx.save()
+  ctx.beginPath()
+  outline.forEach((point, index) => (index ? ctx.lineTo(...toPx(point)) : ctx.moveTo(...toPx(point))))
+  ctx.closePath()
+  ctx.clip()
+  ctx.beginPath()
+  let t = v0 + 0.5
+  for (let row = 0; t + ROW_M <= v1 + 0.01; row += 1) {
+    for (let s = u0 + 0.5; s <= u1 - 0.5; s += BAY_M) line(at(s, t), at(s, t + ROW_M))
+    line(at(u0, row % 2 ? t : t + ROW_M), at(u1, row % 2 ? t : t + ROW_M)) // the line the bays back onto
+    t += ROW_M + (row % 2 ? AISLE_M : 0)
+  }
+  ctx.strokeStyle = 'rgba(244, 241, 234, 0.85)'
+  ctx.lineWidth = Math.max(1, 0.12 * ppm)
+  ctx.stroke()
+  ctx.restore()
+}
+
 function paint(site, osm, { x0, x1, y0, y1 }, casters = null, sun = null) {
   const groundColour = casters ? SUNLIT_GROUND : COLOURS.ground
   const ppm = Math.min(MAX_PX_PER_M, MAX_TEXTURE_PX / (x1 - x0), MAX_TEXTURE_PX / (y1 - y0))
@@ -136,12 +202,16 @@ function paint(site, osm, { x0, x1, y0, y1 }, casters = null, sun = null) {
   }
   ctx.fillStyle = groundColour
   ctx.fillRect(0, 0, canvas.width, canvas.height)
+  // The whole-campus view (with shadows) gets the finer ground detail.
+  const detailed = Boolean(casters)
+  if (detailed) paintGrassPatches(ctx, ppm)
 
   for (const kind of AREA_ORDER) {
     for (const area of osm?.areas.filter((item) => item.kind === kind) ?? []) {
       trace(area.outline)
       ctx.fillStyle = kind === 'pitch' ? PITCH_COLOURS[area.sport] ?? COLOURS.pitch : COLOURS[kind]
       ctx.fill()
+      if (kind === 'parking' && detailed) paintParkingBays(ctx, toPx, ppm, area.outline)
       if (kind === 'pitch') {
         ctx.strokeStyle = COLOURS.line
         ctx.lineWidth = Math.max(1.5, 0.25 * ppm)
@@ -158,7 +228,9 @@ function paint(site, osm, { x0, x1, y0, y1 }, casters = null, sun = null) {
       const bit = row * mask.cols + col
       if (!((mask.bytes[bit >> 3] >> (7 - (bit & 7))) & 1)) continue
       const at = ((mask.rows - 1 - row) * mask.cols + col) * 4
-      image.data.set([...COLOURS.path, 255], at)
+      // A slight grain, like paving, in the detailed view.
+      const grain = detailed ? Math.round((hash(bit) - 0.5) * 14) : 0
+      image.data.set([COLOURS.path[0] + grain, COLOURS.path[1] + grain, COLOURS.path[2] + grain, 255], at)
     }
   }
   const paths = document.createElement('canvas')
@@ -167,6 +239,14 @@ function paint(site, osm, { x0, x1, y0, y1 }, casters = null, sun = null) {
   paths.getContext('2d').putImageData(image, 0, 0)
   const [left, top] = toPx([mask.origin_xy[0], mask.origin_xy[1] + mask.rows * mask.cell_m])
   ctx.imageSmoothingEnabled = true
+  if (detailed) {
+    // A kerb: the paths' own outline in a darker grey, just showing round their edges.
+    ctx.save()
+    ctx.shadowColor = 'rgba(95, 98, 104, 0.95)'
+    ctx.shadowBlur = Math.max(1.5, 0.35 * ppm)
+    ctx.drawImage(paths, left, top, mask.cols * mask.cell_m * ppm, mask.rows * mask.cell_m * ppm)
+    ctx.restore()
+  }
   ctx.drawImage(paths, left, top, mask.cols * mask.cell_m * ppm, mask.rows * mask.cell_m * ppm)
 
   if (casters) paintShadows(ctx, toPx, ppm, casters, sun)
