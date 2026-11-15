@@ -247,6 +247,12 @@ at a time.
   cafe and the open-air auditorium roof, grass, sports pitches, parking,
   ponds, trees and the campus boundary. Tapping a building that is also a
   campus place (the canteen, Ladies Hostel...) chooses that place.
+  The campus sits under a hazy sky: the ground carries on past the campus
+  and fades into the haze at any zoom, and a late-afternoon sun from the
+  west-south-west throws soft shadows of every building and tree onto the
+  ground. The shadows are painted once into the ground image (no live shadow
+  effects, so phones and the kiosk PC stay smooth). Only this view; the
+  building and floor views keep their plain dark background.
 - **Stacked floors** (the **All** button, and routes that change floor) show
   the lifts and stairs in use the way Mehrin's Ramanujan viewer draws them:
   see-through shafts with doors at each floor, and switchback stairs with
