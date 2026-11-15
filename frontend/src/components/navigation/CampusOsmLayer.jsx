@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { Billboard, Text } from '@react-three/drei'
-import { Storey } from './CampusBlocks'
+import { RoofDetails, Storey } from './CampusBlocks'
 import { TREE_KINDS, jitter, treeGeometries, treeKind, treeSize } from './campusTrees'
 
 // The rest of the campus around M. George and Ramanujan, from OpenStreetMap
@@ -105,7 +105,11 @@ function OsmBuilding({ building, onPickPlace, ground }) {
   return <group position={[0, base, 0]} {...events}>
     {building.roof_only
       ? <Canopy outline={building.outline} look={look} />
-      : Array.from({ length: building.levels }, (_, level) => <Storey key={level} parts={parts} base={level * STOREY_M} height={STOREY_M} look={look} />)}
+      : <>
+        {Array.from({ length: building.levels }, (_, level) => <Storey key={level} parts={parts} base={level * STOREY_M} height={STOREY_M} look={look}
+          windows={building.kind !== 'neighbour'} />)}
+        {building.kind !== 'neighbour' && <RoofDetails parts={parts} top={building.levels * STOREY_M} look={look} />}
+      </>}
   </group>
 }
 
