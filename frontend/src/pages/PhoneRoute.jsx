@@ -1,8 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CircleCheck, Clock, DoorOpen, Download, Flag, Footprints, LocateFixed, LocateOff, MapPin, Navigation, Route, TimerOff } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, CircleCheck, Clock, DoorOpen, Download, Flag, Footprints, LocateFixed, LocateOff, MapPin, Navigation, Route, Siren, TimerOff, TriangleAlert } from 'lucide-react'
 import MGeorgeBuilding3D from '../components/navigation/MGeorgeBuilding3D'
 import { useIndoorTracking } from '../hooks/useIndoorTracking'
-import { SITE, floorName, formatDuration, goesUp, latLonToMap, loadBuilding, locateOnRoute, readPhoneLink, routeBounds, routeFrom, routeFromKiosk, routeScene, routeSummary, siteStart, stepStretch, storeyName } from '../services/mgeorgeRoute'
+import useClosures from '../hooks/useClosures'
+import {
+  SITE, applyClosures, closuresAvoided, floorName, formatDuration, goesUp, kioskStart, latLonToMap, loadBuilding, locateOnRoute, readPhoneLink, routeBounds,
+  routeFrom, routeScene, routeSummary, routeToNearestExit, siteStart, startAt, stepStretch, storeyName,
+} from '../services/mgeorgeRoute'
 
 // Phone view of one route handed off from the kiosk by QR code. There is no
 // place picker and no other source: only the scanned route, until it expires
@@ -160,8 +164,14 @@ export default function PhoneRoute() {
   // `&research=1` on the link records the walk for the indoor tracking study.
   const research = useMemo(() => new URLSearchParams(window.location.search).get('research') === '1', [])
   const now = useNow()
-  const [model, setModel] = useState(null)
+  const [baseModel, setModel] = useState(null)
   const [error, setError] = useState('')
+  // Closures set by staff. While walking, the route keeps the ones it started
+  // with; a change is offered as "Update my route" rather than swapping the steps underfoot.
+  const latest = useClosures()
+  const [frozen, setFrozen] = useState(null)
+  // The way out instead of the scanned place: from an exit QR code, or chosen in an emergency.
+  const [evacuating, setEvacuating] = useState(() => Boolean(link?.evacuate))
   const [stepIndex, setStepIndex] = useState(null) // null until the visitor taps Start
   const [ended, setEnded] = useState(() => (link ? readEnded(link) : false))
   const expired = link ? now >= link.expiresAt : false
@@ -173,13 +183,24 @@ export default function PhoneRoute() {
     loadBuilding().then(setModel).catch((reason) => setError(reason.message))
   }, [link, ended, expired])
 
-  const destination = model?.destinations.find((place) => place.id === link?.to)
-  // null: from the kiosk; else where the visitor asked to re-route from (siteStart).
+  const closures = walking && frozen ? frozen : latest.closures
+  const model = useMemo(() => baseModel && applyClosures(baseModel, closures), [baseModel, closures])
+  const chosen = model?.destinations.find((place) => place.id === link?.to)
+  // null: from the kiosk; else where the visitor asked to re-route from (startAt).
   const [start, setStart] = useState(null)
-  const route = useMemo(() => {
-    if (!model || !destination) return null
-    return start ? routeFrom(model, start, destination, { stepFree: link.stepFree }) : routeFromKiosk(model, destination, { stepFree: link.stepFree })
-  }, [model, destination, link, start])
+  const plan = useMemo(() => {
+    if (!model) return null
+    const from = start ?? kioskStart(model)
+    if (evacuating) {
+      const out = routeToNearestExit(model, from)
+      return { route: out?.route ?? null, destination: out?.exit ?? null, unmapped: Boolean(out?.unmapped), avoided: [] }
+    }
+    if (!chosen) return null
+    const found = routeFrom(model, from, chosen, { stepFree: link.stepFree })
+    return { route: found, destination: chosen, avoided: found ? closuresAvoided(model, from, chosen, { stepFree: link.stepFree }) : [] }
+  }, [model, chosen, link, start, evacuating])
+  const route = plan?.route ?? null
+  const destination = plan?.destination ?? chosen
 
   // Live location on the route's outdoor parts: moves the steps on, and notices a wrong turn.
   const outdoors = Boolean(route?.legs.some((leg) => leg.floor === SITE))
@@ -211,13 +232,37 @@ export default function PhoneRoute() {
     setStart(from)
     setStepIndex(0)
   }
+  // Re-plan from the step the visitor is on, with the latest closures (and, for `toExit`, to the way out).
+  const replan = (toExit) => {
+    const step = walking ? route?.steps[stepIndex] : null
+    if (step) {
+      setStart(startAt(model, step.floor, step.point))
+      setStepIndex(0)
+    }
+    setFrozen(latest.closures)
+    if (toExit) setEvacuating(true)
+  }
+  const closuresChanged = walking && frozen !== null && JSON.stringify(frozen) !== JSON.stringify(latest.closures)
+  const emergencyBanner = latest.emergency && !evacuating && <div role="alert" className="space-y-3 border-b-[3px] border-ink-900 bg-red-600 px-4 py-3 text-white">
+    <p className="flex items-center gap-2 text-lg font-black leading-6"><Siren className="h-6 w-6 shrink-0" />{latest.emergency.message}</p>
+    <button type="button" onClick={() => replan(true)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 py-3 text-lg font-bold text-red-700">
+      <DoorOpen className="h-5 w-5" />Show me the way out
+    </button>
+  </div>
 
   if (!link) return <Notice icon={TimerOff} title="This link is not complete">Please scan the QR code on the NAVIKA kiosk again.</Notice>
   if (ended) return <Notice icon={CircleCheck} title="You have arrived">Navigation has ended. For another place, scan a new QR code at the NAVIKA kiosk.</Notice>
   if (expired) return <Notice icon={TimerOff} title="This route has expired">Routes stay open for a limited time. Please scan the QR code at the NAVIKA kiosk again.</Notice>
   if (error) return <Notice icon={TimerOff} title="Could not load the map">{error}</Notice>
   if (!model) return <Notice icon={Navigation} title="Loading your route…" />
-  if (!destination || !route) return <Notice icon={TimerOff} title="Route not found">This place is no longer on the map. Please ask at reception.</Notice>
+  if (evacuating && !route) return <Notice icon={Siren} title="Leave by the nearest stairs">
+    {plan?.unmapped
+      ? "This building's own exits are not on the map yet. Go down the nearest stairs to the Ground Floor and leave by the main door."
+      : 'No way out could be worked out from the map. Follow the exit signs and the staff.'} Do not use the lifts.
+  </Notice>
+  if (!destination || !route) return <>{emergencyBanner}<Notice icon={TimerOff} title="Route not found">
+    {model.closedPlaces?.has(chosen?.id) ? 'This place is closed off right now.' : model.closures.length ? 'The way there is closed right now.' : 'This place is no longer on the map.'} Please ask at reception.
+  </Notice></>
 
   // Overview: the whole route. Walking: only the floors of the current step, the camera following it.
   const stepView = walking ? stepScene(model, route, stepIndex) : routeScene(model, route, destination)
@@ -232,7 +277,9 @@ export default function PhoneRoute() {
   }
 
   return <div className="flex min-h-screen flex-col bg-cream-50 text-ink-900">
-    <header className="space-y-1 border-b-[3px] border-ink-900 bg-white px-4 pb-3 pt-4">
+    {emergencyBanner}
+    <header className={`space-y-1 border-b-[3px] border-ink-900 px-4 pb-3 pt-4 ${evacuating ? 'bg-green-50' : 'bg-white'}`}>
+      {evacuating && <p className="flex items-center gap-2 text-base font-black text-green-800"><DoorOpen className="h-5 w-5" />Nearest exit · stairs only, no lifts</p>}
       <p className="text-sm text-slate-500">From <span className="font-semibold text-slate-700">{start ? 'where you re-routed' : 'Reception kiosk, M. George Block'}</span></p>
       <h1 className="text-2xl font-black leading-tight">{destination.name}</h1>
       <p className="flex flex-wrap items-center gap-x-3 text-base text-slate-600">
@@ -250,14 +297,17 @@ export default function PhoneRoute() {
     <main className="flex flex-1 flex-col gap-4 px-4 py-4">
       {!walking
         ? <>
-          <p className="rounded-xl border-[3px] border-ink-900 bg-blue-50 p-4 text-lg font-semibold leading-7 text-blue-950">{routeSummary(route, destination)}</p>
+          <p className={`rounded-xl border-[3px] border-ink-900 p-4 text-lg font-semibold leading-7 ${evacuating ? 'bg-green-50 text-green-950' : 'bg-blue-50 text-blue-950'}`}>{routeSummary(route, destination)}</p>
+          {plan.avoided.length > 0 && <p className="flex items-start gap-2 rounded-xl border-[3px] border-ink-900 bg-amber-50 p-3 text-base font-semibold text-amber-950">
+            <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />Goes around {plan.avoided.map((item) => item.label).join(' and ')} (closed).
+          </p>}
           <ol className="space-y-2 text-base leading-6">
             {route.steps.map((item, index) => <li key={index} className="flex gap-3">
               <span className="w-6 shrink-0 text-right font-bold text-slate-400">{index + 1}</span>
               <span className={item.transition ? 'font-semibold text-violet-800' : ''}>{item.text}</span>
             </li>)}
           </ol>
-          <button type="button" onClick={async () => { await tracking.requestAccess(); setStepIndex(0) }} className="mt-auto flex items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
+          <button type="button" onClick={async () => { await tracking.requestAccess(); setFrozen(latest.closures); setStepIndex(0) }} className="mt-auto flex items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
             <Navigation className="h-6 w-6" />Start
           </button>
         </>
@@ -271,6 +321,12 @@ export default function PhoneRoute() {
           </div>
           {step.floor === SITE ? outdoors && <LocationStatus fix={fix} /> : !step.transition && <MotionStatus status={tracking.status} stats={tracking.stats} />}
           {research && <ResearchPanel tracking={tracking} />}
+          {closuresChanged && <div role="alert" className="space-y-3 rounded-xl border-[3px] border-ink-900 bg-amber-50 p-4">
+            <p className="text-lg font-bold text-amber-900">Something on the way has just been closed or opened again.</p>
+            <button type="button" onClick={() => replan(false)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 py-3 text-lg font-bold text-ink-900">
+              <Route className="h-5 w-5" />Update my route
+            </button>
+          </div>}
           {offRoute && <div role="alert" className="space-y-3 rounded-xl border-[3px] border-ink-900 bg-amber-50 p-4">
             <p className="text-lg font-bold text-amber-900">You seem to be off the path (about {Math.round(here.offM)} m away).</p>
             <button type="button" onClick={rerouteFromHere} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 py-3 text-lg font-bold text-ink-900">

@@ -9,6 +9,7 @@ import Placements from './pages/Placements'
 import Admissions from './pages/Admissions'
 import Departments from './pages/Departments'
 import PhoneRoute from './pages/PhoneRoute'
+import StaffClosures from './pages/StaffClosures'
 
 function AppShell() {
   const navigate = useNavigate()
@@ -32,6 +33,8 @@ function AppShell() {
   if (location.pathname === '/mobile-route') return <MobileRoute />
   // QR hand-off from the kiosk: phone-only page, no header or other tabs.
   if (location.pathname === '/route') return <PhoneRoute />
+  // Staff: closed corridors, stairs and lifts, and the emergency switch.
+  if (location.pathname === '/staff/closures') return <StaffClosures />
 
   return (
     <div className="min-h-screen bg-cream-50 text-ink-900">

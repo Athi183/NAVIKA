@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Accessibility, ArrowDown, ArrowLeft, ArrowUp, BookOpen, Building2, Car, ClipboardList, Clock, Coffee, DoorOpen, Footprints,
-  GraduationCap, Landmark, Layers, List, LocateFixed, MapPin, Minus, Navigation, Plus, Pointer, QrCode, Search, Smile, Toilet,
-  UserRound, X,
+  GraduationCap, Landmark, Layers, List, LocateFixed, MapPin, Minus, Navigation, Play, Plus, Pointer, QrCode, Search, Siren, Smile, Square,
+  Toilet, TriangleAlert, UserRound, X,
 } from 'lucide-react'
 import MGeorgeBuilding3D from './MGeorgeBuilding3D'
 import { QRCodeSVG } from 'qrcode.react'
 import {
-  CATEGORY_LABELS, PHONE_LINK_MINUTES, SITE, floorName, formatDuration, goesUp, levelOf, loadBuilding, phoneRouteUrl, placeAt, routeFromKiosk,
-  routeScene, routeSummary, searchDestinations,
+  CATEGORY_LABELS, PHONE_LINK_MINUTES, SITE, applyClosures, closuresAvoided, floorName, formatDuration, goesUp, kioskStart, levelOf, loadBuilding,
+  phoneRouteUrl, placeAt, routeFromKiosk, routeScene, routeSummary, routeToNearestExit, searchDestinations,
 } from '../../services/mgeorgeRoute'
+import useClosures from '../../hooks/useClosures'
 
 const IDLE_RESET_MS = 90_000
 // Individual stairs, lifts and exits are listed under their own categories
@@ -145,6 +146,7 @@ function mapScene(model, { building, floor }) {
 
 function PlaceCard({ model, place, onRoute, onClose }) {
   const route = useMemo(() => routeFromKiosk(model, place), [model, place])
+  const closed = model.closedPlaces?.get(place.id)
   return <div className="space-y-3 rounded-xl border-[3px] border-ink-900 bg-white p-4 shadow-[4px_4px_0_0_#d8151c]">
     <div className="flex items-start justify-between gap-2">
       <div>
@@ -158,10 +160,28 @@ function PlaceCard({ model, place, onRoute, onClose }) {
       <span className="flex items-center gap-1"><Footprints className="h-5 w-5 text-brand-500" />{Math.round(route.distanceM)} m</span>
       {place.floor === model.kiosk.floor && <span className="text-blue-700">Same floor as you</span>}
     </p>}
+    {closed && <p className="rounded-lg bg-amber-50 px-3 py-2 text-base font-semibold text-amber-900">Closed off right now{closed.reason ? `: ${closed.reason}` : ''}.</p>}
     <button type="button" onClick={() => onRoute(place)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#160f0f] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
       <Navigation className="h-6 w-6" />Show me the way
     </button>
   </div>
+}
+
+/** "Closed now" list, so visitors know why a route goes the long way round. */
+function ClosuresNotice({ closures }) {
+  if (!closures.length) return null
+  return <div role="status" className="flex items-start gap-2 rounded-xl border-[3px] border-ink-900 bg-amber-50 px-4 py-3 text-amber-950">
+    <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+    <p className="text-base leading-6"><span className="font-bold">Closed now: </span>
+      {closures.map((item) => item.reason ? `${item.label} (${item.reason})` : item.label).join(' · ')}. Routes go around {closures.length > 1 ? 'them' : 'it'}.</p>
+  </div>
+}
+
+function NearestExitButton({ onClick }) {
+  return <button type="button" onClick={onClick}
+    className="flex items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 py-3 text-base font-bold text-red-700 hover:bg-red-50">
+    <Siren className="h-5 w-5" />Emergency? Nearest exit
+  </button>
 }
 
 /**
@@ -169,7 +189,7 @@ function PlaceCard({ model, place, onRoute, onClose }) {
  * "You are here"; they look around by building and floor (a lift-style
  * panel), tap a room on the map or search, then get the route.
  */
-function KioskHome({ model, lastPlace, onRoute, onThanks }) {
+function KioskHome({ model, lastPlace, onRoute, onExit, onThanks }) {
   const [view, setView] = useState(() => (lastPlace ? viewOf(lastPlace) : initialView(model)))
   const [selected, setSelected] = useState(lastPlace)
   const [query, setQuery] = useState('')
@@ -249,6 +269,7 @@ function KioskHome({ model, lastPlace, onRoute, onThanks }) {
           <MapPin className="h-6 w-6 shrink-0 text-blue-700" />
           <p className="text-base leading-5"><span className="font-bold">You are here:</span> Reception, M. George Block, {floorName(model.kiosk.floor)}</p>
         </div>
+        <ClosuresNotice closures={model.closures} />
         <div className="grid grid-cols-3 gap-2" role="group" aria-label="Building">
           {BUILDINGS.filter((item) => item.id !== 'campus' || model.site).filter((item) => item.id === 'campus' || liftPanelFloors(model, item.id).length).map((item) =>
             <button key={item.id} type="button" onClick={() => showBuilding(item.id)} aria-pressed={view.building === item.id}
@@ -279,6 +300,7 @@ function KioskHome({ model, lastPlace, onRoute, onThanks }) {
             <p className="text-lg font-bold text-slate-800">Tap any room on the map</p>
             <p className="text-base text-slate-600">or search above, to see how to get there.</p>
           </div>}
+        <NearestExitButton onClick={onExit} />
       </aside>
     </div>
 
@@ -295,8 +317,8 @@ function KioskHome({ model, lastPlace, onRoute, onThanks }) {
 }
 
 /** Full-screen QR code that opens this one route on a visitor's phone, valid for a limited time. */
-function PhoneQrDialog({ destination, stepFree, openedAt, onClose }) {
-  const url = phoneRouteUrl(destination, { stepFree, now: openedAt })
+function PhoneQrDialog({ destination, stepFree, evacuate, openedAt, onClose }) {
+  const url = phoneRouteUrl(destination, { stepFree, evacuate, now: openedAt })
   useEffect(() => {
     const close = (event) => event.key === 'Escape' && onClose()
     window.addEventListener('keydown', close)
@@ -314,37 +336,81 @@ function PhoneQrDialog({ destination, stepFree, openedAt, onClose }) {
   </div>
 }
 
-function RouteView({ model, destination, onBack, onThanks }) {
+/** Closures this route goes around, in words. */
+function AvoidedNotice({ avoided }) {
+  if (!avoided.length) return null
+  return <p className="flex items-start gap-2 rounded-xl border-[3px] border-ink-900 bg-amber-50 p-3 text-base font-semibold leading-6 text-amber-950">
+    <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+    This route goes around {avoided.map((item) => `${item.label}${item.reason ? ` (${item.reason})` : ''}`).join(' and ')}, which {avoided.length > 1 ? 'are' : 'is'} closed.
+  </p>
+}
+
+/**
+ * The route to `destination`, or with `evacuate` the way out: to the nearest
+ * exit by stairs only (never a lift), around closures, drawn green.
+ */
+function RouteView({ model, destination: chosen = null, evacuate = false, emergency = null, onBack, onThanks }) {
   const [stepFree, setStepFree] = useState(false)
   // When the QR dialog was opened; the phone link's time limit starts then.
   const [qrOpenedAt, setQrOpenedAt] = useState(null)
-  const route = useMemo(() => routeFromKiosk(model, destination, { stepFree }), [model, destination, stepFree])
+  // A new object per press of "Walk me through it"; null when not flying.
+  const [flythrough, setFlythrough] = useState(null)
+  const plan = useMemo(() => {
+    if (evacuate) {
+      const out = routeToNearestExit(model)
+      return { route: out?.route ?? null, destination: out?.exit ?? null, avoided: [] }
+    }
+    const route = routeFromKiosk(model, chosen, { stepFree })
+    return { route, destination: chosen, avoided: route ? closuresAvoided(model, kioskStart(model), chosen, { stepFree }) : [] }
+  }, [model, chosen, stepFree, evacuate])
+  const { route, destination, avoided } = plan
+  const back = <button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold"><ArrowLeft className="h-5 w-5" />Choose another place</button>
+  if (evacuate && !route) return <div className="space-y-4 rounded-2xl border-[3px] border-ink-900 bg-red-50 p-6">
+    <p className="text-2xl font-black text-red-800">Leave by the main entrance, down the stairs.</p>
+    <p className="text-lg text-red-900">No way out could be worked out from the map right now. Do not use the lifts; follow the staff and the exit signs.</p>
+    {!emergency && back}
+  </div>
   if (!route && stepFree) return <div className="space-y-4 rounded-2xl border-[3px] border-ink-900 bg-amber-50 p-6">
-    <p className="text-xl font-bold text-amber-900">No lift goes to {destination.name}.</p>
+    <p className="text-xl font-bold text-amber-900">No lift goes to {destination.name}{model.closures.length ? ' right now' : ''}.</p>
     <p className="text-lg text-amber-900">It can only be reached by stairs. Please ask at reception for help.</p>
     <div className="flex flex-wrap gap-2">
       <button type="button" onClick={() => setStepFree(false)} className="rounded-xl border-[3px] border-ink-900 bg-ink-900 px-5 py-3 text-lg font-bold text-white">Show the route with stairs</button>
-      <button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold"><ArrowLeft className="h-5 w-5" />Choose another place</button>
+      {back}
     </div>
   </div>
-  if (!route) return <div className="space-y-4"><button type="button" onClick={onBack} className="flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold"><ArrowLeft className="h-5 w-5" />Choose another place</button><p className="text-lg">Sorry, no walking route to {destination.name} was found.</p></div>
+  if (!route) {
+    const closed = model.closedPlaces?.get(destination.id)
+    return <div className="space-y-4">{back}
+      <p className="text-lg">{closed
+        ? `${destination.name} is closed off right now${closed.reason ? ` (${closed.reason})` : ''}. Please ask at reception.`
+        : model.closures.length
+          ? `The way to ${destination.name} is closed right now. Please ask at reception.`
+          : `Sorry, no walking route to ${destination.name} was found.`}</p>
+      <ClosuresNotice closures={model.closures} />
+    </div>
+  }
 
   const scene = routeScene(model, route, destination)
+  const flying = flythrough !== null
 
   // Sized to the screen so the kiosk never needs scrolling: only the step list scrolls.
   return <div className="flex h-[calc(100dvh-10rem)] min-h-[520px] flex-col gap-3">
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <button type="button" onClick={onBack} className="mr-auto flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold text-ink-900 hover:bg-brand-100"><ArrowLeft className="h-5 w-5" />Choose another place</button>
-      <button type="button" onClick={() => setStepFree((value) => !value)} aria-pressed={stepFree}
+    {emergency && <div role="alert" className="flex items-center gap-3 rounded-xl border-[3px] border-ink-900 bg-red-600 px-5 py-3 text-white">
+      <Siren className="h-8 w-8 shrink-0" />
+      <p className="text-xl font-black leading-7">{emergency.message} Follow the green line. Use the stairs, not the lifts.</p>
+    </div>}
+    {!emergency && <div className="flex flex-wrap items-center justify-between gap-3">
+      <button type="button" onClick={onBack} className="mr-auto flex items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 text-lg font-bold text-ink-900 hover:bg-brand-100"><ArrowLeft className="h-5 w-5" />{evacuate ? 'Back' : 'Choose another place'}</button>
+      {!evacuate && <button type="button" onClick={() => setStepFree((value) => !value)} aria-pressed={stepFree}
         className={`flex items-center gap-2 rounded-xl border-[3px] border-ink-900 px-5 py-3 text-base font-bold ${stepFree ? 'bg-blue-600 text-white' : 'bg-white text-ink-900 hover:bg-brand-100'}`}>
         <Accessibility className="h-5 w-5" />Lifts only
-      </button>
+      </button>}
       <ThankYouButton onClick={onThanks} />
-    </div>
+    </div>}
     <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[minmax(320px,1fr)_2fr]">
-      <section className="flex min-h-0 flex-col gap-3 rounded-2xl border-[3px] border-ink-900 bg-white p-5 shadow-[5px_5px_0_0_#160f0f]">
+      <section className={`flex min-h-0 flex-col gap-3 rounded-2xl border-[3px] border-ink-900 bg-white p-5 ${evacuate ? 'shadow-[5px_5px_0_0_#16a34a]' : 'shadow-[5px_5px_0_0_#160f0f]'}`}>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-slate-500">From reception to</p>
+          <p className={`text-sm font-semibold uppercase tracking-widest ${evacuate ? 'text-green-700' : 'text-slate-500'}`}>{evacuate ? 'Nearest exit from reception' : 'From reception to'}</p>
           <h2 className="text-3xl font-black leading-tight text-ink-900">{destination.name}</h2>
           <p className="mt-1 flex flex-wrap items-center gap-x-4 text-lg font-semibold text-slate-600">
             <span>{destination.floorName}</span>
@@ -352,7 +418,10 @@ function RouteView({ model, destination, onBack, onThanks }) {
             <span className="flex items-center gap-1 whitespace-nowrap"><Clock className="h-5 w-5 text-brand-500" />{formatDuration(route.durationS)}</span>
           </p>
         </div>
-        <p className="rounded-xl border-[3px] border-ink-900 bg-blue-50 p-4 text-lg font-semibold leading-7 text-blue-950">{routeSummary(route, destination)}</p>
+        <p className={`rounded-xl border-[3px] border-ink-900 p-4 text-lg font-semibold leading-7 ${evacuate ? 'bg-green-50 text-green-950' : 'bg-blue-50 text-blue-950'}`}>
+          {evacuate ? `${routeSummary(route, destination)} Use the stairs; do not use the lifts.` : routeSummary(route, destination)}
+        </p>
+        <AvoidedNotice avoided={avoided} />
         <ol className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-1" aria-label="Step-by-step directions">
           {route.steps.map((step, index) => {
             const newFloor = index === 0 || step.floor !== route.steps[index - 1].floor
@@ -360,7 +429,7 @@ function RouteView({ model, destination, onBack, onThanks }) {
             return <li key={index}>
               {newFloor && route.legs.length > 1 && <p className="mb-2 mt-1 text-sm font-bold uppercase tracking-widest text-slate-500">{floorName(step.floor)}</p>}
               <div className="flex gap-3 text-lg leading-7">
-                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base font-bold text-white ${last ? 'bg-brand-500' : step.transition ? 'bg-violet-600' : 'bg-ink-900'}`}>
+                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-base font-bold text-white ${last ? (evacuate ? 'bg-green-600' : 'bg-brand-500') : step.transition ? 'bg-violet-600' : 'bg-ink-900'}`}>
                   {step.transition?.kind === 'entrance' || step.transition?.kind === 'bridge' ? <DoorOpen className="h-5 w-5" /> : step.transition ? (goesUp(step.transition) ? <ArrowUp className="h-5 w-5" /> : <ArrowDown className="h-5 w-5" />) : index + 1}
                 </span>
                 <span className={step.transition ? 'font-semibold text-violet-800' : ''}>{step.text}</span>
@@ -373,12 +442,17 @@ function RouteView({ model, destination, onBack, onThanks }) {
           <QrCode className="h-7 w-7" />Send to my phone
         </button>
       </section>
-      <section className="min-h-[360px] overflow-hidden rounded-2xl border-[3px] border-ink-900 shadow-[5px_5px_0_0_#160f0f]">
+      <section className="relative min-h-[360px] overflow-hidden rounded-2xl border-[3px] border-ink-900 shadow-[5px_5px_0_0_#160f0f]">
         <MGeorgeBuilding3D model={model} floors={scene.floors} labelFloors={destination.floor === SITE ? [] : [destination.floor]} route={route} destination={destination}
-          showSite={scene.outside} focus={scene.focus} />
+          showSite={scene.outside} focus={scene.focus} flythrough={flythrough} onFlythroughEnd={() => setFlythrough(null)} />
+        {/* Fly along the route at eye level, to remember the turns before leaving the kiosk. */}
+        <button type="button" onClick={() => setFlythrough(flying ? null : { id: Date.now() })} aria-pressed={flying}
+          className="absolute bottom-3 left-3 flex h-14 items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-5 text-lg font-bold text-ink-900 shadow-[3px_3px_0_0_#160f0f]">
+          {flying ? <><Square className="h-5 w-5" />Stop</> : <><Play className="h-5 w-5" />Walk me through it</>}
+        </button>
       </section>
     </div>
-    {qrOpenedAt !== null && <PhoneQrDialog destination={destination} stepFree={stepFree} openedAt={qrOpenedAt} onClose={() => setQrOpenedAt(null)} />}
+    {qrOpenedAt !== null && <PhoneQrDialog destination={destination} stepFree={stepFree} evacuate={evacuate} openedAt={qrOpenedAt} onClose={() => setQrOpenedAt(null)} />}
   </div>
 }
 
@@ -419,7 +493,12 @@ function ThankYouButton({ onClick }) {
 }
 
 export default function MGeorgeKioskNavigation() {
-  const [model, setModel] = useState(null)
+  const [baseModel, setModel] = useState(null)
+  // Closures and the emergency switch (set by staff), refreshed every half minute.
+  const { closures, emergency } = useClosures()
+  const model = useMemo(() => baseModel && applyClosures(baseModel, closures), [baseModel, closures])
+  // "Emergency? Nearest exit" pressed by a visitor (an emergency switched on by staff shows it anyway).
+  const [exitView, setExitView] = useState(false)
   const [error, setError] = useState('')
   const [destination, setDestination] = useState(null)
   // The place last looked at, so "Choose another place" returns to it on the map.
@@ -430,6 +509,7 @@ export default function MGeorgeKioskNavigation() {
   const reset = () => {
     setDestination(null)
     setLastPlace(null)
+    setExitView(false)
     setSession((value) => value + 1)
   }
   useIdleReset(reset)
@@ -462,9 +542,13 @@ export default function MGeorgeKioskNavigation() {
     setDestination(place)
   }
   return <div className="relative space-y-3">
-    {destination
-      ? <RouteView key={destination.id} model={model} destination={destination} onBack={() => setDestination(null)} onThanks={() => setThanks(true)} />
-      : <KioskHome key={session} model={model} lastPlace={lastPlace} onRoute={route} onThanks={() => setThanks(true)} />}
+    {emergency
+      ? <RouteView key="emergency" model={model} evacuate emergency={emergency} onBack={() => {}} onThanks={() => setThanks(true)} />
+      : exitView
+        ? <RouteView key="exit" model={model} evacuate onBack={() => setExitView(false)} onThanks={() => setThanks(true)} />
+        : destination
+          ? <RouteView key={destination.id} model={model} destination={destination} onBack={() => setDestination(null)} onThanks={() => setThanks(true)} />
+          : <KioskHome key={session} model={model} lastPlace={lastPlace} onRoute={route} onExit={() => setExitView(true)} onThanks={() => setThanks(true)} />}
     {thanks && <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-white/95 text-center">
       <Smile className="h-20 w-20 text-emerald-600" />
       <p className="text-5xl font-black text-ink-900">Thank you for visiting MITS!</p>
