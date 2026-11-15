@@ -3,6 +3,10 @@
 export const NAV_BLUE = '#4285F4'
 export const NAV_BLUE_EDGE = '#1A57B8'
 export const NAV_WALKED = '#7A7F85'
+// The way out in an emergency, and closed-off places.
+export const EXIT_GREEN = '#16A34A'
+export const EXIT_GREEN_EDGE = '#0B5D2A'
+export const CLOSED_RED = '#EF4444'
 export const NAV_SPEED_MPS = 5 // preview speed, faster than walking so a loop stays short
 export const NAV_PAUSE_S = 1.5 // rest at the destination before the preview repeats
 
@@ -29,4 +33,14 @@ export function routeProgress(points, cumulative, seconds) {
   const a = points[i - 1]
   const b = points[i]
   return { travelled, total, point: a.map((value, k) => value + (b[k] - value) * t), delta: a.map((value, k) => b[k] - value) }
+}
+
+/** The point `d` metres along a polyline, with `cumulative` from cumulativeLengths. */
+export function pointAlong(points, cumulative, d) {
+  const total = cumulative.at(-1)
+  const at = Math.max(0, Math.min(total, d))
+  let i = 1
+  while (i < cumulative.length - 1 && cumulative[i] < at) i += 1
+  const t = (at - cumulative[i - 1]) / ((cumulative[i] - cumulative[i - 1]) || 1)
+  return points[i - 1].map((value, k) => value + (points[i][k] - value) * t)
 }

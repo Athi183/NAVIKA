@@ -2,7 +2,7 @@ import { Suspense, useCallback, useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Billboard, Html, Line, OrbitControls, Text, useGLTF, useTexture } from '@react-three/drei'
-import { NAV_BLUE, NAV_BLUE_EDGE, NAV_WALKED, cumulativeLengths, routeProgress } from './navigationStyle'
+import { CLOSED_RED, EXIT_GREEN, EXIT_GREEN_EDGE, NAV_BLUE, NAV_BLUE_EDGE, NAV_SPEED_MPS, NAV_WALKED, cumulativeLengths, pointAlong, routeProgress } from './navigationStyle'
 import { levelOf as levelOfFloor, terrainHeight } from '../../services/mgeorgeRoute'
 import VerticalCores from './VerticalCores'
 import CampusBlocks from './CampusBlocks'
@@ -194,7 +194,7 @@ function WalkingPerson({ personRef, limbRef, scale = PERSON_SCALE }) {
 }
 
 /** Route through the stacked floors with a person walking it; `points` are 3D scene points. */
-function WalkingRoute({ points, personScale }) {
+function WalkingRoute({ points, personScale, colour = NAV_BLUE, edgeColour = NAV_BLUE_EDGE, travelledRef = null }) {
   const walkedRef = useRef()
   const personRef = useRef()
   const limbs = useRef({})
@@ -207,7 +207,9 @@ function WalkingRoute({ points, personScale }) {
     return { edge: raised(0), main: raised(0.02), walked: raised(0.04) }
   }, [points])
   useFrame(({ clock }) => {
-    const progress = routeProgress(points, cumulative, clock.getElapsedTime())
+    // During a flythrough the walker keeps pace with the camera instead of the looping preview.
+    const flown = travelledRef?.current
+    const progress = routeProgress(points, cumulative, flown == null ? clock.getElapsedTime() : flown / NAV_SPEED_MPS)
     // The grey line is one dash as long as the distance walked, then a gap.
     const material = walkedRef.current?.material
     if (material) {
@@ -234,16 +236,16 @@ function WalkingRoute({ points, personScale }) {
   })
   return <>
     {/* Drawn over everything so floors above never hide the way. */}
-    <Line points={edge} color={NAV_BLUE_EDGE} lineWidth={14} depthTest={false} transparent renderOrder={10} />
-    <Line points={main} color={NAV_BLUE} lineWidth={8} depthTest={false} transparent renderOrder={11} />
+    <Line points={edge} color={edgeColour} lineWidth={14} depthTest={false} transparent renderOrder={10} />
+    <Line points={main} color={colour} lineWidth={8} depthTest={false} transparent renderOrder={11} />
     <Line ref={walkedRef} points={walked} color={NAV_WALKED} lineWidth={8} dashed dashSize={0.001} gapSize={1e6} depthTest={false} transparent renderOrder={12} />
     <WalkingPerson personRef={personRef} limbRef={limbRef} scale={personScale} />
   </>
 }
 
 /** The whole route, faint, under the step being walked (follow mode). */
-function RouteOutline({ legs }) {
-  return legs.map((points, index) => <Line key={index} points={points} color={NAV_BLUE} lineWidth={5} opacity={0.4} depthTest={false} transparent renderOrder={9} />)
+function RouteOutline({ legs, colour = NAV_BLUE }) {
+  return legs.map((points, index) => <Line key={index} points={points} color={colour} lineWidth={5} opacity={0.4} depthTest={false} transparent renderOrder={9} />)
 }
 
 /**
@@ -277,6 +279,100 @@ function FollowCamera({ points }) {
     camera.position.lerp(goal.position, k)
     controls.target.lerp(goal.target, k)
     controls.update()
+  })
+  return null
+}
+
+/**
+ * Closed places (applyClosures): a pulsing red fence around each, with "Closed"
+ * above it, on the floors in view. `visible(floor)` says whether a floor is drawn.
+ */
+function ClosureMarks({ closures, visible, levelY, ground }) {
+  const fences = useRef([])
+  const marks = closures.flatMap((closure) => closure.marks.filter((mark) => visible(mark.floor)).map((mark) => ({ ...mark, id: `${closure.id}-${mark.floor}` })))
+  useFrame(({ clock }) => {
+    const pulse = 0.5 + 0.5 * Math.sin(clock.getElapsedTime() * 4)
+    for (const mesh of fences.current) if (mesh) mesh.material.opacity = 0.3 + 0.4 * pulse
+  })
+  return marks.map((mark, index) => <group key={mark.id} position={xz(mark.xy, levelY(mark.floor) + (mark.floor === 'site' ? ground(mark.xy) : 0))}>
+    <mesh ref={(node) => { fences.current[index] = node }} position={[0, 1.3, 0]} renderOrder={13}>
+      <cylinderGeometry args={[mark.radius, mark.radius, 2.6, 40, 1, true]} />
+      <meshBasicMaterial color={CLOSED_RED} transparent opacity={0.5} side={THREE.DoubleSide} depthWrite={false} />
+    </mesh>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.3, 0]} renderOrder={13}>
+      <circleGeometry args={[mark.radius, 40]} />
+      <meshBasicMaterial color={CLOSED_RED} transparent opacity={0.3} depthWrite={false} />
+    </mesh>
+    <Billboard position={[0, 4, 0]}>
+      <Text font={LABEL_FONT} fontSize={1.4} color="#ffffff" outlineWidth={0.1} outlineColor="#7F1D1D" anchorX="center" anchorY="middle">Closed</Text>
+    </Billboard>
+  </group>)
+}
+
+const FLY_SECONDS = 18 // the whole route takes about this long...
+const FLY_SPEED_MPS = { min: 5, max: 12 } // ...within these speeds
+const CHASE_BACK_M = 11
+const CHASE_UP_M = 7
+const LOOK_AHEAD_M = 8
+const FLY_PERSON_SCALE = 1.3 // near life size, so the walker does not fill the view up close
+
+/**
+ * Route flythrough: the camera follows just behind and above the walker along
+ * the whole route (turns, stairs and lifts, the bridge), then returns to where
+ * it was and calls `onEnd`. The orbit controls are switched off meanwhile (see `enabled` below).
+ */
+function Flythrough({ points, travelledRef, onEnd }) {
+  const camera = useThree((state) => state.camera)
+  const controls = useThree((state) => state.controls)
+  const cumulative = useMemo(() => cumulativeLengths(points), [points])
+  const run = useRef(null)
+  const ended = useRef(onEnd)
+  useEffect(() => {
+    ended.current = onEnd
+  })
+  useEffect(() => {
+    if (!controls) return undefined
+    run.current = { travelled: 0, phase: 'fly', clock: 0, direction: new THREE.Vector3(0, 0, -1), saved: { position: camera.position.clone(), target: controls.target.clone() } }
+    return () => {
+      travelledRef.current = null
+    }
+  }, [camera, controls, travelledRef])
+  useFrame((_, delta) => {
+    const state = run.current
+    if (!state || !controls) return
+    const total = cumulative.at(-1)
+    const k = 1 - Math.exp(-delta * 4)
+    if (state.phase === 'fly') {
+      const speed = Math.min(FLY_SPEED_MPS.max, Math.max(FLY_SPEED_MPS.min, total / FLY_SECONDS))
+      state.travelled = Math.min(total, state.travelled + speed * delta)
+      travelledRef.current = state.travelled
+      const here = new THREE.Vector3(...pointAlong(points, cumulative, state.travelled))
+      const ahead = new THREE.Vector3(...pointAlong(points, cumulative, state.travelled + LOOK_AHEAD_M))
+      // Facing the way the route goes; kept while riding a lift or on the stairs (straight up or down).
+      const flat = new THREE.Vector3(ahead.x - here.x, 0, ahead.z - here.z)
+      if (flat.length() > 0.5) state.direction.lerp(flat.normalize(), k * 1.5).normalize()
+      const position = here.clone().addScaledVector(state.direction, -CHASE_BACK_M).add(new THREE.Vector3(0, CHASE_UP_M, 0))
+      const target = here.clone().addScaledVector(state.direction, LOOK_AHEAD_M).add(new THREE.Vector3(0, 0.5, 0))
+      camera.position.lerp(position, k)
+      controls.target.lerp(target, k)
+      camera.lookAt(controls.target)
+      if (state.travelled >= total) state.phase = 'arrived'
+    } else {
+      state.clock += delta
+      // A moment at the destination, then back to the overview.
+      if (state.phase === 'arrived' && state.clock > 1.5) { state.phase = 'return'; state.clock = 0 }
+      if (state.phase === 'return') {
+        camera.position.lerp(state.saved.position, k)
+        controls.target.lerp(state.saved.target, k)
+        camera.lookAt(controls.target)
+        if (state.clock > 1.4) {
+          run.current = null
+          travelledRef.current = null
+          controls.update()
+          ended.current?.()
+        }
+      }
+    }
   })
   return null
 }
@@ -369,8 +465,11 @@ function FitToScreen({ centre, width, depth }) {
  * real height (pass no `floors`); `onPickBuilding(name)` reports a tap on one.
  * `live` ({ floor, xy, accuracy } in metres) draws the visitor's tracked position
  * on that floor or, with floor 'site', outside.
+ * `flythrough` (a new object per press) flies the camera along the whole route,
+ * calling `onFlythroughEnd` when back. An evacuation route (route.evacuate) is
+ * drawn green; closures in the model (applyClosures) are drawn as red fences.
  */
-export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, onPickPoint = null, focus = null, showSite = false, follow = null, zoom = null, massing = false, onPickBuilding = null, live = null }) {
+export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, onPickPoint = null, focus = null, showSite = false, follow = null, zoom = null, massing = false, onPickBuilding = null, live = null, flythrough = null, onFlythroughEnd = null }) {
   // Floors of both buildings, stacked by height: Ramanujan stands lower, so its
   // Second Floor ('R2', stack_level 3) is level with M. George's Third Floor
   // and the bridge between them is flat.
@@ -410,6 +509,8 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
     return points.length > 1 ? points : [points[0], points[0]]
   }, [follow, lift])
   const pin = destination ? destination.entrance_xy || destination.xy : null
+  // How far along the route the flythrough is (null when not flying).
+  const flown = useRef(null)
   // Campus labels for buildings that are drawn in full (Ramanujan) would only duplicate them.
   const hiddenSiteLabels = useMemo(() => new Set(model.floors.filter((floor) => floor.graph.building !== 'M. George Block').map((floor) => floor.graph.building)), [model])
   // Whole building: an angled overview like the Ramanujan viewer. Route: straight on, centred.
@@ -465,9 +566,14 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
       </mesh>
       <LocationDot position={xz(live.xy, levelY(live.floor === 'site' ? siteLevel : live.floor) + 0.5 + (live.floor === 'site' ? ground(live.xy) : 0))} />
     </>}
-    {routePoints && routePoints.length > 1 && <WalkingRoute points={routePoints} />}
-    {outline && <RouteOutline legs={outline} />}
-    {stretch && <WalkingRoute points={stretch} personScale={FOLLOW_PERSON_SCALE} />}
+    {model.closures?.length > 0 && <ClosureMarks closures={model.closures} levelY={levelY} ground={ground}
+      visible={(floor) => (floor === 'site' ? showSite : shown.includes(floor))} />}
+    {routePoints && routePoints.length > 1 && <WalkingRoute points={routePoints} travelledRef={flown} personScale={flythrough ? FLY_PERSON_SCALE : undefined}
+      {...(route.evacuate ? { colour: EXIT_GREEN, edgeColour: EXIT_GREEN_EDGE } : {})} />}
+    {routePoints && routePoints.length > 1 && flythrough && <Flythrough key={flythrough.id} points={routePoints} travelledRef={flown} onEnd={onFlythroughEnd} />}
+    {outline && <RouteOutline legs={outline} colour={route.evacuate ? EXIT_GREEN : NAV_BLUE} />}
+    {stretch && <WalkingRoute points={stretch} personScale={FOLLOW_PERSON_SCALE}
+      {...(route?.evacuate ? { colour: EXIT_GREEN, edgeColour: EXIT_GREEN_EDGE } : {})} />}
     {stretch && <FollowCamera points={stretch} />}
     {pin && (shown.includes(destination.floor) || destination.floor === 'site') && <Html position={xz(pin, levelY(destination.floor) + 0.3 + (destination.floor === 'site' ? ground(pin) : 0))} center zIndexRange={[30, 0]}>
       {/* Lift the pin so its tip, not its middle, sits on the destination. */}
@@ -476,7 +582,7 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
 
     <ZoomCommands command={zoom} />
     <FitToScreen centre={centre} width={area.maxX - area.minX + height * 0.8} depth={area.maxY - area.minY} />
-    <OrbitControls makeDefault target={centre} enableDamping maxPolarAngle={Math.PI / 2.1} minDistance={8} maxDistance={showSite ? 700 : 260} />
+    <OrbitControls makeDefault enabled={!flythrough} target={centre} enableDamping maxPolarAngle={Math.PI / 2.1} minDistance={8} maxDistance={showSite ? 700 : 260} />
   </Canvas>
   {credits && <p className="pointer-events-none absolute bottom-1 right-1 rounded bg-white/85 px-2 py-0.5 text-[11px] text-slate-700">{credits}</p>}
   </div>
