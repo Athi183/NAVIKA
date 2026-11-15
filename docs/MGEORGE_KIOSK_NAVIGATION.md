@@ -253,6 +253,12 @@ at a time.
   ground. The shadows are painted once into the ground image (no live shadow
   effects, so phones and the kiosk PC stay smooth). Only this view; the
   building and floor views keep their plain dark background.
+  Trees are drawn as three kinds found on Kerala campuses: tall, leaning
+  coconut palms, wide rain trees and dense, dark mango trees, each varied in
+  size, turn and shade (`frontend/src/components/navigation/campusTrees.js`).
+  OpenStreetMap only says where a tree stands, not its species, so the kind
+  is picked from its position: the same tree always looks the same, but it
+  is not a survey of the real trees.
 - **Stacked floors** (the **All** button, and routes that change floor) show
   the lifts and stairs in use the way Mehrin's Ramanujan viewer draws them:
   see-through shafts with doors at each floor, and switchback stairs with
