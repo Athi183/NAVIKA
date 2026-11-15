@@ -248,9 +248,14 @@ at a time.
   ponds, trees and the campus boundary. Tapping a building that is also a
   campus place (the canteen, Ladies Hostel...) chooses that place.
   The campus sits under a hazy sky: the ground carries on past the campus
-  and fades into the haze at any zoom, and a late-afternoon sun from the
-  west-south-west throws soft shadows of every building and tree onto the
-  ground. The shadows are painted once into the ground image (no live shadow
+  and fades into the haze at any zoom, and the sun stands where it really
+  is over MITS at that moment (`frontend/src/services/campusSun.js`, about
+  1 degree accurate; the map is turned about 180 degrees from north, which
+  the OpenStreetMap fit accounts for). It throws soft shadows of every
+  building and tree onto the ground; they are set when the view opens.
+  Early in the morning, in the evening and at night the sun is too low to light the
+  map well, so a fixed mid-afternoon sun is used. `?sun=16:00` shows another
+  (Indian) time of day, e.g. for a demo. The shadows are painted once into the ground image (no live shadow
   effects, so phones and the kiosk PC stay smooth). Only this view; the
   building and floor views keep their plain dark background.
   Trees are drawn as three kinds found on Kerala campuses: tall, leaning
@@ -265,6 +270,11 @@ at a time.
   bridge to Ramanujan Block is a glass-sided walkway on steel posts. These
   are typical details, not surveyed: window positions, tanks and stair rooms
   are not where the real ones are.
+  The ground has patches of lighter and darker grass, paving grain and a
+  kerb along the paths, and white bay lines in the parking areas (a typical
+  2.5 m bay layout along each lot's longest side, not surveyed). Road
+  centre lines are not drawn: the paths come from the walkable grid, not
+  from road lines.
 - **Stacked floors** (the **All** button, and routes that change floor) show
   the lifts and stairs in use the way Mehrin's Ramanujan viewer draws them:
   see-through shafts with doors at each floor, and switchback stairs with
