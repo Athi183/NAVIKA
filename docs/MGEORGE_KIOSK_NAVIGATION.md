@@ -259,6 +259,12 @@ at a time.
   OpenStreetMap only says where a tree stands, not its species, so the kind
   is picked from its position: the same tree always looks the same, but it
   is not a survey of the real trees.
+  Buildings have a band of glass on every storey (it reflects a painted sky,
+  no downloaded images), a low wall around each roof, and on larger roofs a
+  stair room and pairs of black water tanks, spread across the roof. The
+  bridge to Ramanujan Block is a glass-sided walkway on steel posts. These
+  are typical details, not surveyed: window positions, tanks and stair rooms
+  are not where the real ones are.
 - **Stacked floors** (the **All** button, and routes that change floor) show
   the lifts and stairs in use the way Mehrin's Ramanujan viewer draws them:
   see-through shafts with doors at each floor, and switchback stairs with
