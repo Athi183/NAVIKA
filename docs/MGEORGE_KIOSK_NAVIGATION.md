@@ -476,35 +476,6 @@ PYTHONPATH=scripts .venv/bin/python scripts/build_campus_terrain.py --template  
 PYTHONPATH=scripts .venv/bin/python scripts/build_campus_terrain.py              # after the walk
 ```
 
-## Splash screen
-
-When NAVIKA opens, an opening animation fills the whole screen (it fits any
-kiosk width or phone): **Navi**, a red cartoon baby elephant (after
-Kerala's temple elephants: a big round head, a tuft of hair, huge shiny
-eyes, a golden forehead ornament and a cream kasavu cloth with a gold
-border), walks in from the edge of the screen along a long strip of campus
-(coconut palms, a block in the college colours, a bouncing map pin). Above
-it a red silk ribbon with a gold border sweeps in and ripples, marigold and
-jasmine petals drift down, and **NAVIKA** pops in letter by letter with
-"Your smart campus guide" and the college name. Cartoon look: flat "toon"
-shading and black outlines (a slightly bigger black copy of each part, seen
-from inside), matching the app's bold borders.
-
-It answers the visitor: Navi wanders along the path, stops to face the
-visitor and wave, and walks over to a moving finger; it lifts its trunk
-when the finger is high and flaps its ears faster while it moves; the
-petals blow the way the finger moves and the ribbon sways towards it. A tap
-on Navi gets a hop, a happy squint, a trunk wave and a burst of petals.
-
-**Let's go** (or Enter) opens the app; on its own the splash moves on once
-nobody has touched it for 6 seconds (at least 5.5 s, at most 30 s). It plays
-once per browser session (not on every page change) and never on the phone
-route page (QR hand-off) or the staff page. Built from simple shapes in
-code (`frontend/src/components/splash/`), no downloaded models or generated
-images; the 3D part loads separately, Navi walks at the same speed on a slow
-PC, and with "reduce motion" set on the device everything moves less. The
-name "Navi" is a placeholder.
-
 ## Closures and emergency
 
 Staff can close parts of the buildings and switch on an emergency mode; every
