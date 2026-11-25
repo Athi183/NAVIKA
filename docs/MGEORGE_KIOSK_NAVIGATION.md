@@ -275,11 +275,26 @@ at a time.
   2.5 m bay layout along each lot's longest side, not surveyed). Road
   centre lines are not drawn: the paths come from the walkable grid, not
   from road lines.
+  After sunset the view turns to night: a dark sky and haze, moonlight,
+  warm light in about two in three storeys' windows, and street lamps every
+  ~24 m along the campus paths with pools of light under them
+  (`campusLamps.js`; typical spacing, the real lamp posts are not mapped).
+  A **Now / Day / Night** switch on the campus map picks the real time, a
+  4 pm afternoon or 9 pm; it goes back to Now when the kiosk resets.
+  `?sun=20:30` in the address does the same for any time.
 - **Stacked floors** (the **All** button, and routes that change floor) show
   the lifts and stairs in use the way Mehrin's Ramanujan viewer draws them:
   see-through shafts with doors at each floor, and switchback stairs with
   handrails. The ones on the route turn blue. Sizes are typical, not measured
   (`frontend/src/components/navigation/VerticalCores.jsx`).
+- **Teachers in the search:** typing a teacher's name (3+ letters, titles
+  ignored) lists them from the Ask NAVIKA faculty directory (`/api/faculty`)
+  with their department. Choosing one shows their **department office** on
+  the map, "For <teacher>: … staff there can show you to their cabin", and
+  the route leads there (`frontend/src/services/teacherPlaces.js` links each
+  of the nine departments to its office). The directory has no cabin
+  numbers, so routes end at the office; without the backend the search
+  shows places only.
 - **Tap any room** on the map (the room itself, not only its name), or pick a
   place from search or the popular list: the map switches to its building and
   floor, drops a pin, and a card shows the time, distance and **Show me the
@@ -337,10 +352,16 @@ the visitor's phone:
 - **The link expires 45 minutes** after the QR code was opened on the kiosk
   (`PHONE_LINK_MINUTES` in `mgeorgeRoute.js`). The screen stays awake while
   walking.
-- The phone must be able to reach the kiosk's web address. If the kiosk opens
-  the app as `localhost`, set `VITE_NAVIKA_BASE_URL` in `frontend/.env.local`
-  to the kiosk's network address (for example `http://192.168.1.20:5173`) or
-  the deployed site; the kiosk shows a setup warning until then.
+- The phone must be able to reach the kiosk's web address. QR links use the
+  address the kiosk page was opened on (`phoneBaseUrl`), so **open the kiosk
+  at the computer's network address** (for example `http://10.61.168.187:5173`;
+  `npm run dev` prints it as "Network") or the deployed site, and the links
+  keep working when that address changes. Only when the kiosk runs as
+  `localhost`, which phones cannot reach, `VITE_NAVIKA_BASE_URL` in
+  `frontend/.env.local` is used instead; the kiosk shows a setup warning if it
+  is missing. The phone and the kiosk must be on the same network, and some
+  college Wi-Fi blocks devices from reaching each other (then use the
+  deployed site or a phone hotspot).
 - The expiry is checked on the phone from the link, so it stops casual reuse
   but is not a security control: someone could edit the time in the URL.
 
@@ -454,6 +475,35 @@ spots are measured (`ready`), and `?terrain=preview` shows it before that.
 PYTHONPATH=scripts .venv/bin/python scripts/build_campus_terrain.py --template   # once: the spot list
 PYTHONPATH=scripts .venv/bin/python scripts/build_campus_terrain.py              # after the walk
 ```
+
+## Splash screen
+
+When NAVIKA opens, an opening animation fills the whole screen (it fits any
+kiosk width or phone): **Navi**, a red cartoon baby elephant (after
+Kerala's temple elephants: a big round head, a tuft of hair, huge shiny
+eyes, a golden forehead ornament and a cream kasavu cloth with a gold
+border), walks in from the edge of the screen along a long strip of campus
+(coconut palms, a block in the college colours, a bouncing map pin). Above
+it a red silk ribbon with a gold border sweeps in and ripples, marigold and
+jasmine petals drift down, and **NAVIKA** pops in letter by letter with
+"Your smart campus guide" and the college name. Cartoon look: flat "toon"
+shading and black outlines (a slightly bigger black copy of each part, seen
+from inside), matching the app's bold borders.
+
+It answers the visitor: Navi wanders along the path, stops to face the
+visitor and wave, and walks over to a moving finger; it lifts its trunk
+when the finger is high and flaps its ears faster while it moves; the
+petals blow the way the finger moves and the ribbon sways towards it. A tap
+on Navi gets a hop, a happy squint, a trunk wave and a burst of petals.
+
+**Let's go** (or Enter) opens the app; on its own the splash moves on once
+nobody has touched it for 6 seconds (at least 5.5 s, at most 30 s). It plays
+once per browser session (not on every page change) and never on the phone
+route page (QR hand-off) or the staff page. Built from simple shapes in
+code (`frontend/src/components/splash/`), no downloaded models or generated
+images; the 3D part loads separately, Navi walks at the same speed on a slow
+PC, and with "reduce motion" set on the device everything moves less. The
+name "Navi" is a placeholder.
 
 ## Closures and emergency
 
