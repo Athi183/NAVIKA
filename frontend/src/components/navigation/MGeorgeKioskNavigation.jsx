@@ -11,6 +11,8 @@ import {
   phoneRouteUrl, placeAt, routeFromKiosk, routeScene, routeSummary, routeToNearestExit, searchDestinations,
 } from '../../services/mgeorgeRoute'
 import useClosures from '../../hooks/useClosures'
+import { getFacultyDirectory } from '../../services/chatApi'
+import { searchTeachers, teacherOffice } from '../../services/teacherPlaces'
 
 const IDLE_RESET_MS = 90_000
 // Individual stairs, lifts and exits are listed under their own categories
@@ -76,6 +78,19 @@ function PlaceButton({ place, onPick }) {
       <span className="text-sm text-slate-500">{place.floorName} · {CATEGORY_LABELS[place.category] || place.category}</span>
     </span>
     <MapPin className="h-6 w-6 shrink-0 text-brand-500" />
+  </button>
+}
+
+/** A teacher in the search results: tapping shows their department office on the map. */
+function TeacherButton({ person, office, onPick }) {
+  return <button type="button" disabled={!office} onClick={() => onPick(person, office)}
+    className="flex min-h-[76px] items-center justify-between gap-3 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-4 text-left shadow-[3px_3px_0_0_#160f0f] transition-all enabled:hover:-translate-x-0.5 enabled:hover:-translate-y-0.5 enabled:hover:shadow-[5px_5px_0_0_#160f0f] disabled:opacity-70">
+    <span>
+      <span className="block text-lg font-bold leading-6 text-slate-900">{person.name}</span>
+      <span className="text-sm text-slate-500">{person.designation} · {person.department}</span>
+      <span className="block text-sm font-semibold text-blue-800">{office ? `${office.name}, ${office.floorName}` : 'Office not on the map yet · ask at reception'}</span>
+    </span>
+    <UserRound className="h-6 w-6 shrink-0 text-brand-500" />
   </button>
 }
 
@@ -160,6 +175,9 @@ function PlaceCard({ model, place, onRoute, onClose }) {
       <span className="flex items-center gap-1"><Footprints className="h-5 w-5 text-brand-500" />{Math.round(route.distanceM)} m</span>
       {place.floor === model.kiosk.floor && <span className="text-blue-700">Same floor as you</span>}
     </p>}
+    {place.forTeacher && <p className="rounded-lg bg-blue-50 px-3 py-2 text-base font-semibold text-blue-900">
+      For {place.forTeacher.name}: this is the {place.forTeacher.department} office. Staff there can show you to their cabin.
+    </p>}
     {closed && <p className="rounded-lg bg-amber-50 px-3 py-2 text-base font-semibold text-amber-900">Closed off right now{closed.reason ? `: ${closed.reason}` : ''}.</p>}
     <button type="button" onClick={() => onRoute(place)} className="flex w-full items-center justify-center gap-2 rounded-xl border-[3px] border-ink-900 bg-brand-500 px-5 py-4 text-xl font-bold text-white shadow-[4px_4px_0_0_#160f0f] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_0_#160f0f] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none">
       <Navigation className="h-6 w-6" />Show me the way
@@ -189,7 +207,7 @@ function NearestExitButton({ onClick }) {
  * "You are here"; they look around by building and floor (a lift-style
  * panel), tap a room on the map or search, then get the route.
  */
-function KioskHome({ model, lastPlace, onRoute, onExit, onThanks }) {
+function KioskHome({ model, faculty, lastPlace, onRoute, onExit, onThanks }) {
   const [view, setView] = useState(() => (lastPlace ? viewOf(lastPlace) : initialView(model)))
   const [selected, setSelected] = useState(lastPlace)
   const [query, setQuery] = useState('')
@@ -203,6 +221,7 @@ function KioskHome({ model, lastPlace, onRoute, onExit, onThanks }) {
   }).filter(Boolean), [model])
   const results = query ? searchDestinations(model.destinations, query)
     .sort((a, b) => floorSortKey(a.floor, model.kiosk.floor) - floorSortKey(b.floor, model.kiosk.floor) || a.name.localeCompare(b.name)).slice(0, 12) : []
+  const teachers = query ? searchTeachers(faculty, query) : []
 
   // Choosing a place shows it on the map (its building and floor) with its card.
   const choose = (place) => {
@@ -210,6 +229,13 @@ function KioskHome({ model, lastPlace, onRoute, onExit, onThanks }) {
     if (!chosen) return
     setSelected(chosen)
     setView(viewOf(chosen))
+    setQuery('')
+    setBrowsing(false)
+  }
+  // A teacher: their department office, marked as being for them.
+  const chooseTeacher = (person, office) => {
+    setSelected({ ...office, forTeacher: person })
+    setView(viewOf(office))
     setQuery('')
     setBrowsing(false)
   }
@@ -229,15 +255,22 @@ function KioskHome({ model, lastPlace, onRoute, onExit, onThanks }) {
     <div className="relative flex gap-3">
       <label className="flex flex-1 items-center gap-3 rounded-xl border-[3px] border-ink-900 bg-white px-5 py-3 shadow-[3px_3px_0_0_#160f0f] focus-within:shadow-[5px_5px_0_0_#160f0f]">
         <Search className="h-7 w-7 text-slate-400" />
-        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Where do you want to go? e.g. library, principal, canteen…" className="w-full bg-transparent text-xl outline-none" aria-label="Search places" />
+        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Where do you want to go? A place or a teacher, e.g. library, canteen…" className="w-full bg-transparent text-xl outline-none" aria-label="Search places" />
         {query && <button type="button" onClick={() => setQuery('')} className="rounded-full p-2 text-slate-500 hover:bg-slate-100" aria-label="Clear search"><X className="h-6 w-6" /></button>}
       </label>
       <ThankYouButton onClick={onThanks} />
       {query && <div className="absolute inset-x-0 top-full z-20 mt-2 max-h-[55vh] overflow-y-auto rounded-xl border-[3px] border-ink-900 bg-white p-3 shadow-[5px_5px_0_0_#160f0f]">
+        {teachers.length > 0 && <>
+          <p className="mb-2 text-sm font-bold uppercase tracking-widest text-slate-500">Teachers</p>
+          <div className="mb-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {teachers.map((person) => <TeacherButton key={`${person.name}-${person.department}`} person={person} office={teacherOffice(model, person)} onPick={chooseTeacher} />)}
+          </div>
+          {results.length > 0 && <p className="mb-2 text-sm font-bold uppercase tracking-widest text-slate-500">Places</p>}
+        </>}
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((place) => <PlaceButton key={place.id} place={place} onPick={choose} />)}
         </div>
-        {!results.length && <p className="p-4 text-lg text-slate-600">No place matches “{query}”. Try another word, or ask at reception.</p>}
+        {!results.length && !teachers.length && <p className="p-4 text-lg text-slate-600">No place matches “{query}”. Try another word, or ask at reception.</p>}
       </div>}
     </div>
     <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Popular places">
@@ -412,6 +445,7 @@ function RouteView({ model, destination: chosen = null, evacuate = false, emerge
         <div>
           <p className={`text-sm font-semibold uppercase tracking-widest ${evacuate ? 'text-green-700' : 'text-slate-500'}`}>{evacuate ? 'Nearest exit from reception' : 'From reception to'}</p>
           <h2 className="text-3xl font-black leading-tight text-ink-900">{destination.name}</h2>
+          {destination.forTeacher && <p className="text-lg font-semibold text-blue-800">To meet {destination.forTeacher.name}</p>}
           <p className="mt-1 flex flex-wrap items-center gap-x-4 text-lg font-semibold text-slate-600">
             <span>{destination.floorName}</span>
             <span className="flex items-center gap-1 whitespace-nowrap"><Footprints className="h-5 w-5 text-brand-500" />{Math.round(route.distanceM)} m</span>
@@ -499,6 +533,11 @@ export default function MGeorgeKioskNavigation() {
   const model = useMemo(() => baseModel && applyClosures(baseModel, closures), [baseModel, closures])
   // "Emergency? Nearest exit" pressed by a visitor (an emergency switched on by staff shows it anyway).
   const [exitView, setExitView] = useState(false)
+  // Teachers for the search (the Ask NAVIKA directory); empty without the backend.
+  const [faculty, setFaculty] = useState([])
+  useEffect(() => {
+    getFacultyDirectory().then(setFaculty).catch(() => {})
+  }, [])
   const [error, setError] = useState('')
   const [destination, setDestination] = useState(null)
   // The place last looked at, so "Choose another place" returns to it on the map.
@@ -548,7 +587,7 @@ export default function MGeorgeKioskNavigation() {
         ? <RouteView key="exit" model={model} evacuate onBack={() => setExitView(false)} onThanks={() => setThanks(true)} />
         : destination
           ? <RouteView key={destination.id} model={model} destination={destination} onBack={() => setDestination(null)} onThanks={() => setThanks(true)} />
-          : <KioskHome key={session} model={model} lastPlace={lastPlace} onRoute={route} onExit={() => setExitView(true)} onThanks={() => setThanks(true)} />}
+          : <KioskHome key={session} model={model} faculty={faculty} lastPlace={lastPlace} onRoute={route} onExit={() => setExitView(true)} onThanks={() => setThanks(true)} />}
     {thanks && <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-white/95 text-center">
       <Smile className="h-20 w-20 text-emerald-600" />
       <p className="text-5xl font-black text-ink-900">Thank you for visiting MITS!</p>
