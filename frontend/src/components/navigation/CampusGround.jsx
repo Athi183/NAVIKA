@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import * as THREE from 'three'
 import { terrainHeight } from '../../services/mgeorgeRoute'
 import { TREE_KINDS, treeKind, treeSize } from './campusTrees'
+import { lampSpots } from './campusLamps'
 
 // The campus ground as one surface: the campus paths and, with the OpenStreetMap
 // layer, grass, sports pitches with their lines, parking, ponds and the campus
@@ -186,6 +187,35 @@ function paintParkingBays(ctx, toPx, ppm, outline) {
   ctx.restore()
 }
 
+const GLOW_M = 7
+const GLOW_SCALE = 0.35 // the glow is soft, so a smaller image does
+
+/**
+ * Night: warm pools of light under the street lamps, as an emissive map (it
+ * glows whatever the lighting), the same extent as the ground image.
+ */
+function paintLampGlow(site, { x0, x1, y0, y1 }) {
+  const ppm = Math.min(MAX_PX_PER_M, MAX_TEXTURE_PX / (x1 - x0), MAX_TEXTURE_PX / (y1 - y0)) * GLOW_SCALE
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.ceil((x1 - x0) * ppm)
+  canvas.height = Math.ceil((y1 - y0) * ppm)
+  const ctx = canvas.getContext('2d')
+  ctx.fillStyle = '#000'
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  for (const [x, y] of lampSpots(site.graph)) {
+    const [px, py] = [(x - x0) * ppm, (y1 - y) * ppm]
+    const gradient = ctx.createRadialGradient(px, py, 0, px, py, GLOW_M * ppm)
+    gradient.addColorStop(0, 'rgba(255, 196, 120, 0.85)')
+    gradient.addColorStop(0.45, 'rgba(255, 170, 90, 0.35)')
+    gradient.addColorStop(1, 'rgba(255, 160, 80, 0)')
+    ctx.fillStyle = gradient
+    ctx.fillRect(px - GLOW_M * ppm, py - GLOW_M * ppm, GLOW_M * 2 * ppm, GLOW_M * 2 * ppm)
+  }
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  return texture
+}
+
 function paint(site, osm, { x0, x1, y0, y1 }, casters = null, sun = null) {
   const groundColour = casters ? SUNLIT_GROUND : COLOURS.ground
   const ppm = Math.min(MAX_PX_PER_M, MAX_TEXTURE_PX / (x1 - x0), MAX_TEXTURE_PX / (y1 - y0))
@@ -249,7 +279,8 @@ function paint(site, osm, { x0, x1, y0, y1 }, casters = null, sun = null) {
   }
   ctx.drawImage(paths, left, top, mask.cols * mask.cell_m * ppm, mask.rows * mask.cell_m * ppm)
 
-  if (casters) paintShadows(ctx, toPx, ppm, casters, sun)
+  // No sun shadows at night (the sun is down).
+  if (casters && sun) paintShadows(ctx, toPx, ppm, casters, sun)
 
   if (osm) {
     trace(osm.boundary)
@@ -269,13 +300,16 @@ function paint(site, osm, { x0, x1, y0, y1 }, casters = null, sun = null) {
 /**
  * `site` (campus paths), `osm` (optional OpenStreetMap layer) and `terrain`
  * (optional ground heights) as in the model; `onClick` for taps on the ground.
- * `surroundings` ({ massing, siteLevel, sun }, whole-campus view only) adds the
- * building and tree shadows (away from `sun`, the light's offset) and the ground beyond the campus.
+ * `surroundings` ({ massing, siteLevel, sun, night }, whole-campus view only) adds the
+ * building and tree shadows (away from `sun`, the light's offset) and the ground beyond the campus;
+ * with `night`, pools of lamp light instead of shadows.
  */
 export default function CampusGround({ site, osm = null, terrain = null, onClick, surroundings = null }) {
   const extent = useMemo(() => extentOf(site, osm), [site, osm])
   const casters = useMemo(() => surroundings && shadowCasters(osm, surroundings.massing, surroundings.siteLevel), [osm, surroundings])
-  const texture = useMemo(() => paint(site, osm, extent, casters, surroundings?.sun), [site, osm, extent, casters, surroundings])
+  const night = Boolean(surroundings?.night)
+  const texture = useMemo(() => paint(site, osm, extent, casters, night ? null : surroundings?.sun), [site, osm, extent, casters, surroundings, night])
+  const glow = useMemo(() => (night ? paintLampGlow(site, extent) : null), [night, site, extent])
   const { centre, geometry } = useMemo(() => {
     const w = extent.x1 - extent.x0
     const d = extent.y1 - extent.y0
@@ -302,7 +336,8 @@ export default function CampusGround({ site, osm = null, terrain = null, onClick
   }, [surroundings, terrain, extent])
   return <>
     <mesh geometry={geometry} rotation={[-Math.PI / 2, 0, 0]} position={[centre[0], -0.05, -centre[1]]} onClick={onClick}>
-      <meshStandardMaterial map={texture} roughness={1} metalness={0} />
+      <meshStandardMaterial map={texture} roughness={1} metalness={0}
+        {...(glow ? { emissiveMap: glow, emissive: '#ffffff', emissiveIntensity: 1 } : {})} />
     </mesh>
     {surroundings && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[centre[0], apronY, -centre[1]]}>
       <circleGeometry args={[APRON_M, 64]} />

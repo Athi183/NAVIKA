@@ -9,6 +9,7 @@ import VerticalCores from './VerticalCores'
 import CampusBlocks from './CampusBlocks'
 import CampusOsmLayer from './CampusOsmLayer'
 import CampusGround from './CampusGround'
+import { lampSpots } from './campusLamps'
 
 // Same look as the Ramanujan viewer (ramanujan-viewer/src/App.tsx): dark scene,
 // extruded brick walls, room floors coloured by type, floating labels.
@@ -382,13 +383,15 @@ function Flythrough({ points, travelledRef, onEnd }) {
 // so the campus sits in a landscape instead of floating on a board.
 const HAZE = '#C9D9E3'
 const SKY_TOP = '#5B8FC7'
+const NIGHT_HAZE = '#1A2230'
+const NIGHT_SKY_TOP = '#060B16'
 
-/** A sky dome fading from haze at the horizon to blue overhead; not fogged. */
-function SkyDome() {
+/** A sky dome fading from haze at the horizon to blue (or, at night, near black) overhead; not fogged. */
+function SkyDome({ night = false }) {
   const geometry = useMemo(() => {
     const sphere = new THREE.SphereGeometry(9000, 32, 16)
-    const haze = new THREE.Color(HAZE)
-    const top = new THREE.Color(SKY_TOP)
+    const haze = new THREE.Color(night ? NIGHT_HAZE : HAZE)
+    const top = new THREE.Color(night ? NIGHT_SKY_TOP : SKY_TOP)
     const colours = []
     const position = sphere.attributes.position
     for (let i = 0; i < position.count; i += 1) {
@@ -398,14 +401,14 @@ function SkyDome() {
     }
     sphere.setAttribute('color', new THREE.Float32BufferAttribute(colours, 3))
     return sphere
-  }, [])
+  }, [night])
   return <mesh geometry={geometry} renderOrder={-1}>
     <meshBasicMaterial vertexColors side={THREE.BackSide} fog={false} depthWrite={false} />
   </mesh>
 }
 
 /** The haze, kept just beyond the campus however far the visitor zooms out. */
-function CampusHaze({ span }) {
+function CampusHaze({ span, colour = HAZE }) {
   const fog = useRef()
   const controls = useThree((state) => state.controls)
   useFrame(({ camera }) => {
@@ -414,7 +417,39 @@ function CampusHaze({ span }) {
     fog.current.near = distance + span * 0.45
     fog.current.far = distance + span * 2.2
   })
-  return <fog ref={fog} attach="fog" args={[HAZE, span * 1.5, span * 3]} />
+  return <fog ref={fog} attach="fog" args={[colour, span * 1.5, span * 3]} />
+}
+
+/**
+ * Street lamps along the campus paths (campusLamps.js): posts by day, glowing
+ * heads at night. Two instanced meshes for all of them.
+ */
+function StreetLamps({ graph, ground, night }) {
+  const spots = useMemo(() => lampSpots(graph), [graph])
+  const poles = useRef()
+  const heads = useRef()
+  useEffect(() => {
+    const matrix = new THREE.Matrix4()
+    spots.forEach(([x, y], index) => {
+      const base = ground([x, y])
+      poles.current.setMatrixAt(index, matrix.makeTranslation(x, base + 2.6, -y))
+      heads.current.setMatrixAt(index, matrix.makeTranslation(x, base + 5.25, -y))
+    })
+    for (const mesh of [poles.current, heads.current]) {
+      mesh.instanceMatrix.needsUpdate = true
+      mesh.computeBoundingSphere()
+    }
+  }, [spots, ground])
+  return <group>
+    <instancedMesh ref={poles} args={[undefined, undefined, spots.length]}>
+      <cylinderGeometry args={[0.07, 0.1, 5.2, 6]} />
+      <meshStandardMaterial color="#4A4F57" metalness={0.5} roughness={0.5} />
+    </instancedMesh>
+    <instancedMesh ref={heads} args={[undefined, undefined, spots.length]}>
+      <boxGeometry args={[0.55, 0.18, 0.32]} />
+      <meshStandardMaterial color={night ? '#FFE2B0' : '#C9CDD2'} emissive={night ? '#FFC277' : '#000000'} emissiveIntensity={night ? 1.6 : 0} />
+    </instancedMesh>
+  </group>
 }
 
 /** Campus paths as a texture: walkable cells light grey on a green ground. */
@@ -506,10 +541,10 @@ function FitToScreen({ centre, width, depth }) {
  * `live` ({ floor, xy, accuracy } in metres) draws the visitor's tracked position
  * on that floor or, with floor 'site', outside.
  * `flythrough` (a new object per press) flies the camera along the whole route,
- * calling `onFlythroughEnd` when back. An evacuation route (route.evacuate) is
+ * calling `onFlythroughEnd` when back. `sunAt` ('HH:MM') lights the campus view for that time of day. An evacuation route (route.evacuate) is
  * drawn green; closures in the model (applyClosures) are drawn as red fences.
  */
-export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, onPickPoint = null, focus = null, showSite = false, follow = null, zoom = null, massing = false, onPickBuilding = null, live = null, flythrough = null, onFlythroughEnd = null }) {
+export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors, route = null, destination = null, onPick = null, onPickPoint = null, focus = null, showSite = false, follow = null, zoom = null, massing = false, onPickBuilding = null, live = null, flythrough = null, onFlythroughEnd = null, sunAt = null }) {
   // Floors of both buildings, stacked by height: Ramanujan stands lower, so its
   // Second Floor ('R2', stack_level 3) is level with M. George's Third Floor
   // and the bridge between them is flat.
@@ -551,8 +586,12 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
   const pin = destination ? destination.entrance_xy || destination.xy : null
   // Whole-campus view: what CampusGround needs for shadows (kept stable so the ground is painted once).
   // The real sun over MITS right now (or `?sun=HH:MM`), set once when the view opens.
-  const campusSun = useMemo(() => sceneSun(model.osm?.geo, sunMoment()).offset, [model.osm])
-  const campusSurroundings = useMemo(() => (massing ? { massing: model.massing, siteLevel, sun: campusSun } : null), [massing, model.massing, siteLevel, campusSun])
+  // `sunAt` ('HH:MM', Indian time) picks the time of day; else now, or ?sun= in the address.
+  const sun = useMemo(() => sceneSun(model.osm?.geo, sunAt ? sunMoment(`?sun=${sunAt}`) : sunMoment()), [model.osm, sunAt])
+  const campusSun = sun.offset
+  // After sunset: a night sky, moonlight, lit windows and street lamps (campus view only).
+  const night = massing && sun.night
+  const campusSurroundings = useMemo(() => (massing ? { massing: model.massing, siteLevel, sun: campusSun, night } : null), [massing, model.massing, siteLevel, campusSun, night])
   // How far along the route the flythrough is (null when not flying).
   const flown = useRef(null)
   // Campus labels for buildings that are drawn in full (Ramanujan) would only duplicate them.
@@ -574,13 +613,15 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
   // Credits for the outdoor data, wherever the campus ground is drawn.
   const credits = showSite ? [model.osm?.attribution, model.terrain?.attribution].filter(Boolean).join(' · ') : ''
   return <div className="relative h-full w-full"><Canvas camera={{ position: camera, fov: 50, ...(massing ? { near: 1, far: 20000 } : {}) }} gl={{ antialias: true }}>
-    <color attach="background" args={[massing ? HAZE : BACKGROUND]} />
+    <color attach="background" args={[massing ? (night ? NIGHT_HAZE : HAZE) : BACKGROUND]} />
     {massing && <>
-      <CampusHaze span={span} />
-      <SkyDome />
+      <CampusHaze span={span} colour={night ? NIGHT_HAZE : HAZE} />
+      <SkyDome night={night} />
     </>}
-    <ambientLight intensity={0.9} />
-    {massing
+    <ambientLight intensity={night ? 0.32 : 0.9} color={night ? '#8EA2C8' : '#ffffff'} />
+    {night
+      ? <directionalLight position={[centre[0] - 40, 90, centre[2] - 30]} intensity={0.35} color="#AFC3EE" />
+      : massing
       ? <directionalLight position={[centre[0] + campusSun[0], campusSun[1], centre[2] + campusSun[2]]} intensity={1.35} />
       : <directionalLight position={[centre[0] + 20, 80, centre[2] + 30]} intensity={1.25} />}
     {!showSite && <gridHelper args={[180, 90, '#3b3b44', '#2c2c33']} position={[centre[0], -0.3, centre[2]]} />}
@@ -594,8 +635,9 @@ export default function MGeorgeBuilding3D({ model, floors, labelFloors = floors,
       <FloorModel floor={model.byFloor.get(number)} wallHeight={wallHeight} showLabels={labelFloors.includes(number)}
         highlightId={destination?.floor === number ? destination.id : null} onPick={onPick} onPickPoint={onPickPoint} labelScale={route ? 1 : 1.6} />
     </group>)}
-    {massing && model.massing && <CampusBlocks massing={model.massing} siteLevel={siteLevel} bridges={model.bridges} onPickBuilding={onPickBuilding} />}
-    {massing && model.osm && <CampusOsmLayer osm={model.osm} ground={ground}
+    {massing && model.massing && <CampusBlocks massing={model.massing} siteLevel={siteLevel} bridges={model.bridges} onPickBuilding={onPickBuilding} night={night} />}
+    {massing && model.site && <group position={[0, levelY(siteLevel), 0]}><StreetLamps graph={model.site.graph} ground={ground} night={night} /></group>}
+    {massing && model.osm && <CampusOsmLayer osm={model.osm} ground={ground} night={night}
       onPickPlace={onPick ? (id) => { const place = model.destinations.find((item) => item.id === id); if (place) onPick(place) } : null} />}
 
     {shown.length > 1 && <VerticalCores model={model} floors={shown} levelY={levelY} highlight={usedShafts} />}

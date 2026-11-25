@@ -2,6 +2,7 @@ import { Suspense, useMemo } from 'react'
 import * as THREE from 'three'
 import { Billboard, Edges, Text } from '@react-three/drei'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
+import { litAtNight } from './campusLamps'
 
 // The whole campus at a glance: each building as solid storeys at real height
 // (scripts/build_campus_massing.py), like the 3D buildings on a street map.
@@ -47,11 +48,19 @@ function skyReflection() {
   return reflection
 }
 
-function GlassMaterial(props) {
+/**
+ * Window glass. `light`: undefined by day; at night true (a lit room, warm
+ * glow) or false (a dark room).
+ */
+function GlassMaterial({ light, ...props }) {
+  const night = light !== undefined
   // Drawn over the wall it shares a face with (polygon offset), never fighting it.
-  return <meshStandardMaterial color="#8FB2CC" metalness={0.35} roughness={0.15} envMap={skyReflection()} envMapIntensity={1.2}
+  return <meshStandardMaterial color={night ? '#26303D' : '#8FB2CC'} metalness={night ? 0.2 : 0.35} roughness={0.15}
+    envMap={night ? null : skyReflection()} envMapIntensity={1.2}
+    emissive={light ? '#FFC873' : '#000000'} emissiveIntensity={light ? 0.95 : 0}
     polygonOffset polygonOffsetFactor={-2} polygonOffsetUnits={-2} {...props} />
 }
+
 
 function shapeOf({ outer, holes }) {
   const shape = new THREE.Shape(outer.map(([x, y]) => new THREE.Vector2(x, y)))
@@ -60,7 +69,7 @@ function shapeOf({ outer, holes }) {
 }
 
 /** One storey: a wall-coloured block with a darker floor band under it and, with `windows`, a band of glass. */
-export function Storey({ parts, base, height, look, windows = false }) {
+export function Storey({ parts, base, height, look, windows = false, windowLight }) {
   const [body, band, glass] = useMemo(() => {
     const shapes = parts.map(shapeOf)
     return [
@@ -83,7 +92,7 @@ export function Storey({ parts, base, height, look, windows = false }) {
     {glass && <mesh geometry={glass} position={[0, 0, SLAB_M + SILL_M]}>
       {/* Only the sides show: the caps lie inside the storey. */}
       <meshBasicMaterial attach="material-0" visible={false} />
-      <GlassMaterial attach="material-1" />
+      <GlassMaterial attach="material-1" light={windowLight} />
     </mesh>}
   </group>
 }
@@ -202,7 +211,7 @@ function Bridge({ link, base, height }) {
  * `massing` as loaded from campus_massing.json; storeys stand on the campus
  * ground (y = 0) from `siteLevel` up. `onPickBuilding(name)` on a tap.
  */
-export default function CampusBlocks({ massing, siteLevel, bridges = [], onPickBuilding = null }) {
+export default function CampusBlocks({ massing, siteLevel, bridges = [], onPickBuilding = null, night = false }) {
   const storeyHeight = massing.storey_height_m
   const y = (level) => (level - siteLevel) * storeyHeight
   const pick = onPickBuilding ? (name) => (event) => {
@@ -223,9 +232,10 @@ export default function CampusBlocks({ massing, siteLevel, bridges = [], onPickB
   }), [massing])
 
   return <group>
-    {massing.buildings.map((building) => <group key={building.name} onClick={pick(building.name)} {...hover}>
+    {massing.buildings.map((building, index) => <group key={building.name} onClick={pick(building.name)} {...hover}>
       {building.storeys.map((storey) => <Storey key={storey.floor} parts={storey.parts} base={y(storey.stack_level)}
-        height={storeyHeight} look={LOOK[building.name] ?? DEFAULT_LOOK} windows />)}
+        height={storeyHeight} look={LOOK[building.name] ?? DEFAULT_LOOK} windows
+        windowLight={night ? litAtNight(index * 17 + storey.stack_level) : undefined} />)}
       <RoofDetails parts={building.storeys.at(-1).parts} top={y(building.storeys.at(-1).stack_level + 1)} look={LOOK[building.name] ?? DEFAULT_LOOK} />
     </group>)}
     {bridges.map((link) => <Bridge key={link.from} link={link} base={y(link.from_floor)} height={storeyHeight * 0.9} />)}

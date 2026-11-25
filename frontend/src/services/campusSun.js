@@ -39,7 +39,8 @@ export function sceneSun(geo, date = new Date(), distance = 80) {
   const [[a, b], [c, d]] = geo?.matrix ?? [[1, 0], [0, 1]]
   const scale = Math.hypot(a, c) || 1
   const [mapX, mapY] = [(a * east + b * north) / scale, (c * east + d * north) / scale]
-  return { offset: [mapX * distance, Math.sin(el) * distance, -mapY * distance], azimuth, elevation, daylight }
+  // After sunset the campus view shows night (moonlight, lit windows, street lamps).
+  return { offset: [mapX * distance, Math.sin(el) * distance, -mapY * distance], azimuth, elevation, daylight, night: elevation < 0 }
 }
 
 /**

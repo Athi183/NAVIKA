@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Accessibility, ArrowDown, ArrowLeft, ArrowUp, BookOpen, Building2, Car, ClipboardList, Clock, Coffee, DoorOpen, Footprints,
-  GraduationCap, Landmark, Layers, List, LocateFixed, MapPin, Minus, Navigation, Play, Plus, Pointer, QrCode, Search, Siren, Smile, Square,
-  Toilet, TriangleAlert, UserRound, X,
+  Clock3, GraduationCap, Landmark, Layers, List, LocateFixed, MapPin, Minus, Moon, Navigation, Play, Plus, Pointer, QrCode, Search, Siren, Smile, Square,
+  Sun, Toilet, TriangleAlert, UserRound, X,
 } from 'lucide-react'
 import MGeorgeBuilding3D from './MGeorgeBuilding3D'
 import { QRCodeSVG } from 'qrcode.react'
@@ -122,6 +122,13 @@ function BrowseAll({ model, onPick }) {
   </div>
 }
 
+// Time of day for the whole-campus view: as it is now, or a fixed afternoon or evening.
+const LIGHTING = [
+  { id: 'now', label: 'Now', icon: Clock3, sunAt: null },
+  { id: 'day', label: 'Day', icon: Sun, sunAt: '16:00' },
+  { id: 'night', label: 'Night', icon: Moon, sunAt: '21:00' },
+]
+
 const BUILDINGS = [
   { id: 'campus', label: 'Whole campus' },
   { id: 'mgeorge', label: 'M. George Block' },
@@ -214,6 +221,7 @@ function KioskHome({ model, faculty, lastPlace, onRoute, onExit, onThanks }) {
   const [browsing, setBrowsing] = useState(false)
   const [zoom, setZoom] = useState(null)
   const [mapKey, setMapKey] = useState(0)
+  const [lighting, setLighting] = useState('now')
   const popular = useMemo(() => POPULAR.map((item) => {
     if (item.id === NEAREST_TOILET) return model.destinations.some((place) => place.category === 'toilet') ? { ...item, place: { id: NEAREST_TOILET } } : null
     const place = item.names.map((name) => model.destinations.find((d) => d.name === name)).find(Boolean)
@@ -285,7 +293,8 @@ function KioskHome({ model, faculty, lastPlace, onRoute, onExit, onThanks }) {
 
     <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[1fr_340px]">
       <section className="relative min-h-[360px] overflow-hidden rounded-2xl border-[3px] border-ink-900 shadow-[5px_5px_0_0_#160f0f]">
-        <MGeorgeBuilding3D key={`${view.building}-${view.floor}-${mapKey}`} model={model} floors={scene.floors} labelFloors={scene.labelFloors}
+        <MGeorgeBuilding3D key={`${view.building}-${view.floor}-${mapKey}-${lighting}`} model={model}
+          sunAt={LIGHTING.find((item) => item.id === lighting).sunAt} floors={scene.floors} labelFloors={scene.labelFloors}
           showSite={scene.showSite} focus={scene.focus} massing={scene.massing} destination={selected && scene.floors.concat(scene.showSite ? [SITE] : []).includes(selected.floor) ? selected : null}
           onPick={choose} onPickPoint={(floor, xy) => { const place = placeAt(model, floor, xy); if (place) choose(place) }} zoom={zoom}
           onPickBuilding={(name) => showBuilding(name === 'Ramanujan Block' ? 'ramanujan' : 'mgeorge')} />
@@ -295,6 +304,12 @@ function KioskHome({ model, faculty, lastPlace, onRoute, onExit, onThanks }) {
           <button type="button" onClick={backToMe} className="flex h-14 items-center gap-2 rounded-xl border-[3px] border-ink-900 bg-white px-4 text-base font-bold text-ink-900 shadow-[3px_3px_0_0_#160f0f]"><LocateFixed className="h-6 w-6" />Back to me</button>
         </div>
         <p className="pointer-events-none absolute right-3 top-3 rounded-full bg-black/55 px-3 py-1.5 text-sm font-medium text-white">Drag to turn · pinch to zoom</p>
+        {view.building === 'campus' && <div className="absolute left-3 top-3 flex overflow-hidden rounded-xl border-[3px] border-ink-900 bg-white shadow-[3px_3px_0_0_#160f0f]" role="group" aria-label="Time of day">
+          {LIGHTING.map(({ id, label, icon: Icon }) => <button key={id} type="button" onClick={() => setLighting(id)} aria-pressed={lighting === id}
+            className={`flex h-12 items-center gap-1.5 px-4 text-base font-bold ${lighting === id ? 'bg-ink-900 text-white' : 'bg-white text-ink-900 hover:bg-brand-100'}`}>
+            <Icon className="h-5 w-5" />{label}
+          </button>)}
+        </div>}
       </section>
 
       <aside className="flex min-h-0 flex-col gap-3 overflow-y-auto">

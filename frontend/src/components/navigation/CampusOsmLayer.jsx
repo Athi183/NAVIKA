@@ -2,6 +2,7 @@ import { Suspense, useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { Billboard, Text } from '@react-three/drei'
 import { RoofDetails, Storey } from './CampusBlocks'
+import { litAtNight } from './campusLamps'
 import { TREE_KINDS, jitter, treeGeometries, treeKind, treeSize } from './campusTrees'
 
 // The rest of the campus around M. George and Ramanujan, from OpenStreetMap
@@ -87,7 +88,7 @@ function Canopy({ outline, look }) {
   </group>
 }
 
-function OsmBuilding({ building, onPickPlace, ground }) {
+function OsmBuilding({ building, onPickPlace, ground, night }) {
   const look = LOOKS[building.kind] ?? LOOKS.other
   const parts = useMemo(() => [{ outer: building.outline, holes: [] }], [building])
   // On a slope, the lowest corner: the building is dug into the higher side, never floating.
@@ -107,7 +108,7 @@ function OsmBuilding({ building, onPickPlace, ground }) {
       ? <Canopy outline={building.outline} look={look} />
       : <>
         {Array.from({ length: building.levels }, (_, level) => <Storey key={level} parts={parts} base={level * STOREY_M} height={STOREY_M} look={look}
-          windows={building.kind !== 'neighbour'} />)}
+          windows={building.kind !== 'neighbour'} windowLight={night ? litAtNight(building.outline[0][0] * 7.3 + level) : undefined} />)}
         {building.kind !== 'neighbour' && <RoofDetails parts={parts} top={building.levels * STOREY_M} look={look} />}
       </>}
   </group>
@@ -117,7 +118,7 @@ function OsmBuilding({ building, onPickPlace, ground }) {
  * `osm` as loaded from campus_osm.json, standing on the campus ground
  * (`ground(xy)` = its height). `onPickPlace(id)` when a building that is also a campus place is tapped.
  */
-export default function CampusOsmLayer({ osm, ground, onPickPlace = null }) {
+export default function CampusOsmLayer({ osm, ground, onPickPlace = null, night = false }) {
   // Buildings that are also campus places already carry that place's label.
   const labels = useMemo(() => [
     ...osm.buildings.filter((building) => building.name && !building.place_id).map((building) => ({
@@ -128,7 +129,7 @@ export default function CampusOsmLayer({ osm, ground, onPickPlace = null }) {
     ...osm.areas.filter((area) => area.show_label).map((area) => ({ name: area.name, xy: centreOf(area.outline), height: ground(centreOf(area.outline)) })),
   ], [osm, ground])
   return <group>
-    {osm.buildings.map((building) => <OsmBuilding key={building.id} building={building} onPickPlace={onPickPlace} ground={ground} />)}
+    {osm.buildings.map((building) => <OsmBuilding key={building.id} building={building} onPickPlace={onPickPlace} ground={ground} night={night} />)}
     {osm.trees.length > 0 && <Trees trees={osm.trees} ground={ground} />}
     <Suspense fallback={null}>
       {labels.map((label) => <Billboard key={label.name} position={toWorld(label.xy, label.height + 5)}>
