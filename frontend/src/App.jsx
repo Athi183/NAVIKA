@@ -10,6 +10,7 @@ import Admissions from './pages/Admissions'
 import Departments from './pages/Departments'
 import PhoneRoute from './pages/PhoneRoute'
 import StaffClosures from './pages/StaffClosures'
+import SplashScreen from './components/splash/SplashScreen'
 
 function AppShell() {
   const navigate = useNavigate()
@@ -70,6 +71,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <AppShell />
+      {/* Opening animation, once per session, over whichever page opened. */}
+      <SplashScreen />
     </BrowserRouter>
   )
 }
