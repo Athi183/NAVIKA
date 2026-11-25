@@ -856,8 +856,19 @@ export function routeScene(model, route, destination) {
 export const PHONE_LINK_MINUTES = 45
 export const PHONE_ROUTE_PATH = '/route'
 
+/**
+ * The address phones open QR links on: the address this page was opened on,
+ * so opening the kiosk at the computer's network address (or the deployed
+ * site) always works, even after the network address changes. Only when the
+ * kiosk runs on localhost, which phones cannot reach, VITE_NAVIKA_BASE_URL is used.
+ */
+export function phoneBaseUrl(origin = window.location.origin, configured = import.meta.env?.VITE_NAVIKA_BASE_URL?.trim()) {
+  const local = /^https?:\/\/(localhost|127\.|\[::1\])/.test(origin)
+  return local && configured ? configured : origin
+}
+
 export function phoneRouteUrl(destination, { stepFree = false, evacuate = false, now = Date.now() } = {}) {
-  const base = import.meta.env.VITE_NAVIKA_BASE_URL?.trim() || window.location.origin
+  const base = phoneBaseUrl()
   const url = new URL(PHONE_ROUTE_PATH, base)
   url.search = new URLSearchParams({
     to: destination.id,

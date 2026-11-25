@@ -378,7 +378,7 @@ function PhoneQrDialog({ destination, stepFree, evacuate, openedAt, onClose }) {
       <p className="text-2xl font-black text-ink-900">Scan with your phone camera</p>
       <div className="rounded-xl border-[3px] border-ink-900 bg-white p-3"><QRCodeSVG value={url} size={280} marginSize={1} title={`Route to ${destination.name}`} /></div>
       <p className="text-lg leading-7 text-slate-600">Your phone will show the route from here to <span className="font-bold text-ink-900">{destination.name}</span>. It works for {PHONE_LINK_MINUTES} minutes.</p>
-      {/^(localhost|127\.)/.test(new URL(url).hostname) && <p className="text-sm font-semibold text-amber-700">Setup: phones cannot open “localhost”. Set VITE_NAVIKA_BASE_URL to this computer's network address.</p>}
+      {/^(localhost|127\.)/.test(new URL(url).hostname) && <p className="text-sm font-semibold text-amber-700">Setup: phones cannot open “localhost”. Open the kiosk at this computer's network address (e.g. http://10.x.x.x:5173), or set VITE_NAVIKA_BASE_URL to it.</p>}
       <button type="button" onClick={onClose} className="w-full rounded-xl border-[3px] border-ink-900 bg-ink-900 px-5 py-4 text-xl font-bold text-white">Done</button>
     </div>
   </div>

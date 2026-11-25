@@ -62,3 +62,9 @@ test('no way out that climbs first (Ramanujan Ground Floor has no mapped door ye
   assert.equal(out.route, null)
   assert.equal(out.unmapped, true)
 })
+
+test('QR links use the page address, and the configured one only on localhost', () => {
+  assert.equal(nav.phoneBaseUrl('http://localhost:5173', 'http://10.61.168.187:5173'), 'http://10.61.168.187:5173')
+  assert.equal(nav.phoneBaseUrl('http://10.61.168.187:5173', 'http://10.85.254.187:5173'), 'http://10.61.168.187:5173')
+  assert.equal(nav.phoneBaseUrl('https://navika.example.app', undefined), 'https://navika.example.app')
+})
